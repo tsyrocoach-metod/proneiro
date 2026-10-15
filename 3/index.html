@@ -1,0 +1,102 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="robots" content="noindex, nofollow"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Круглое окно</title><link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&display=swap&subset=cyrillic" rel="stylesheet"><style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#d9d6cf;font-family:'Onest',system-ui,sans-serif;color:#161A22;-webkit-font-smoothing:antialiased}
+.phone{width:390px;margin:0 auto;background:#F5F2EB;min-height:100vh}
+a{color:inherit;text-decoration:none}
+.hdr{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:rgba(245,242,235,.96);border-bottom:1px solid rgba(22,26,34,.08)}
+.logo{display:flex;align-items:center;gap:8px}
+.burger{width:44px;height:44px;border-radius:50%;background:#fff;border:1px solid rgba(22,26,34,.12);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.burger i{display:block;width:18px;height:2px;background:#161A22;border-radius:2px}
+.sec{padding:36px 16px}
+.white{background:#fff}
+.kicker{font-size:13px;font-weight:600;color:#0066FF;margin-bottom:8px}
+h1{font-size:30px;line-height:1.05;letter-spacing:-.04em;font-weight:600}
+h1 span{color:#0066FF}
+h2{font-size:28px;line-height:1.05;letter-spacing:-.035em;font-weight:600;margin-bottom:16px}
+h3{font-size:20px;line-height:1.15;letter-spacing:-.02em;font-weight:600}
+p{font-size:16px;line-height:1.5;color:#3E4452}
+.lead{font-size:17px;margin-top:14px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 24px;border-radius:999px;background:#0066FF;color:#fff;font-weight:600;font-size:16px}
+.btn.full{width:100%}
+.btn.ghost{background:transparent;color:#161A22;border:1px solid rgba(22,26,34,.22)}
+.btn.sm{min-height:44px;padding:0 18px;font-size:15px}
+.link{color:#0052CC;font-weight:600;font-size:15px}
+.photo{border-radius:22px;overflow:hidden;aspect-ratio:4/3;margin-top:22px}
+.photo img,.dimg img{width:100%;height:100%;object-fit:cover;display:block}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.fact{background:#fff;border-radius:999px;padding:8px 14px;font-size:14px;font-weight:600}
+.white .fact{background:#F5F2EB}
+.white .cbox{background:#F5F2EB}
+.dcard{background:#fff;border-radius:24px;overflow:hidden;margin-bottom:14px}
+.dimg{aspect-ratio:16/9}
+.dbody{padding:18px 18px 20px;display:flex;flex-direction:column;gap:10px}
+.dmeta{font-size:13px;color:#5A6070}
+.drow{display:flex;gap:14px;align-items:center;background:#fff;border-radius:20px;padding:12px;margin-bottom:10px}
+.drow .th{width:76px;height:76px;border-radius:14px;overflow:hidden;flex-shrink:0}
+.drow .th img{width:100%;height:100%;object-fit:cover}
+.drow .tx{flex:1;display:flex;flex-direction:column;gap:4px}
+.drow .tx b{font-size:17px;letter-spacing:-.01em}
+.drow .tx span{font-size:14px;color:#3E4452;line-height:1.35}
+.chev{color:#0066FF;font-size:22px;font-weight:600}
+.chips{display:flex;gap:8px;overflow:hidden;margin-bottom:14px}
+.chip{flex-shrink:0;padding:9px 14px;border-radius:999px;border:1px solid rgba(22,26,34,.16);font-size:14px;font-weight:600;background:#fff}
+.chip.on{background:#161A22;color:#fff;border-color:#161A22}
+.ev{display:flex;gap:14px;align-items:center;background:#fff;border-radius:18px;padding:14px;margin-bottom:8px}
+.white .ev{background:#F5F2EB}
+.date{width:54px;flex-shrink:0;text-align:center;border-radius:12px;background:#E6EEFB;padding:7px 0;color:#0052CC}
+.date b{display:block;font-size:22px;line-height:1}
+.date small{font-size:12px;font-weight:600}
+.date.pre{background:#FFF1D6;color:#8A6100}
+.date.pre b{font-size:13px;line-height:1.15;padding:3px 0}
+.evt{flex:1;display:flex;flex-direction:column;gap:5px;min-width:0}
+.evt b{font-size:16px;line-height:1.25}
+.evm{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:13px;color:#5A6070}
+.pill{font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px}
+.p-a{background:#E6EEFB;color:#0052CC}.p-k{background:#FFF1D6;color:#8A6100}.p-b{background:#E8E9EC;color:#161A22}
+.team{display:flex;gap:12px;overflow:hidden}
+.tm{width:150px;flex-shrink:0;text-align:center}
+.av{width:150px;height:150px;border-radius:50%;background:linear-gradient(180deg,#7DB4FF,#CFE5FF);margin-bottom:10px}
+.tm b{display:block;font-size:16px}.tm span{font-size:13px;color:#0066FF;font-weight:600}
+.cbox{background:#fff;border-radius:18px;padding:16px 18px;margin-bottom:10px;display:flex;flex-direction:column;gap:4px}
+.cbox small{font-size:13px;color:#5A6070}.cbox b{font-size:17px}
+.soc{display:flex;gap:8px;margin-top:6px}
+.soc span{padding:10px 16px;border-radius:999px;background:#161A22;color:#fff;font-size:14px;font-weight:600}
+.foot{background:#161A22;color:#C9CED8;padding:28px 16px;font-size:13px;line-height:1.6}
+.label{position:fixed;top:10px;left:10px;background:#161A22;color:#fff;padding:8px 14px;border-radius:10px;font-size:14px;font-weight:600;z-index:10}
+.hero-tiles{display:flex;flex-direction:column;gap:10px;margin-top:22px}
+.tile{position:relative;border-radius:20px;overflow:hidden;height:150px}
+.tile img{width:100%;height:100%;object-fit:cover}
+.tile .cap{position:absolute;left:10px;right:10px;bottom:10px;background:rgba(255,255,255,.95);border-radius:14px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center}
+.tile .cap b{font-size:17px}.tile .cap span{display:block;font-size:13px;color:#3E4452;margin-top:2px}
+.modal-bg{background:rgba(22,26,34,.55);padding:40px 0 0;min-height:100vh}
+.sheet{background:#fff;border-radius:24px 24px 0 0;padding:22px 18px 0;min-height:calc(100vh - 40px);display:flex;flex-direction:column}
+.x{width:40px;height:40px;border-radius:50%;border:1px solid rgba(22,26,34,.14);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.kv{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:16px 0}
+.kv div{background:#F5F2EB;border-radius:12px;padding:10px 12px}.kv small{display:block;font-size:12px;color:#5A6070}.kv b{font-size:15px}
+.mod{border-top:1px solid rgba(22,26,34,.12);padding:14px 0;display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.mod small{display:block;font-size:12px;color:#0066FF;font-weight:600;margin-bottom:3px}.mod b{font-size:16px}
+.mod span.r{font-size:13px;color:#3E4452;display:block;margin-top:4px}
+.mod.open{background:#F5F2EB;border-radius:14px;padding:14px;border:0;margin:6px 0}
+.mod ul{margin:8px 0 0 18px;font-size:14px;line-height:1.5;color:#3E4452}
+.sticky{position:sticky;bottom:0;background:#fff;border-top:1px solid rgba(22,26,34,.1);padding:12px 0 18px;display:flex;gap:8px;margin-top:auto}
+.sticky .btn{flex:1}
+.tabs{display:flex;gap:6px;background:#fff;border-radius:999px;padding:4px;margin-bottom:16px}
+.tabs span{flex:1;text-align:center;padding:10px 4px;border-radius:999px;font-size:14px;font-weight:600}
+.tabs span.on{background:#161A22;color:#fff}
+.pcard{background:#fff;border-radius:22px;padding:18px;margin-bottom:12px;display:flex;flex-direction:column;gap:8px}
+.pcard .row{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:6px}
+.price{font-size:20px;font-weight:700}
+.crumb{font-size:14px;color:#5A6070;padding:14px 16px 0}
+</style></head><body><div class="phone"><div class="hdr"><div class="logo"><img src="../img/emblem.png" width="45" height="30"><img src="../img/wordmark-light.svg" width="112" height="20"></div><div class="burger"><i></i><i></i><i></i></div></div><div class="sec" style="position:relative">
+<div style="position:absolute;right:-40px;top:18px;width:190px;height:190px;border-radius:50%;overflow:hidden;box-shadow:0 0 0 8px #fff,0 20px 40px -20px rgba(22,26,34,.45)"><img src="../img/zal-1200.jpg" style="width:100%;height:100%;object-fit:cover;object-position:35% 50%"></div>
+<div style="padding-top:150px"><h1>Первый в&nbsp;Твери<br><span>клуб практического ИИ</span></h1></div><p class="lead">Для людей, которые хотят уверенно жить и&nbsp;работать в&nbsp;эпоху искусственного интеллекта, не&nbsp;догонять будущее, а&nbsp;участвовать в&nbsp;его создании.</p><p style="margin-top:14px">Мы создали не&nbsp;курсы по&nbsp;нейросетям, а&nbsp;сообщество, где ИИ становится понятным, полезным и&nbsp;применимым в&nbsp;жизни.</p><div class="facts"><span class="fact">Центр Твери</span><span class="fact">9 рабочих мест</span><span class="fact">Новые компьютеры</span><span class="fact">Демо-экран и звук</span></div></div>
+<div class="sec white"><h2>Выберите направление</h2><div class="hero-tiles"><div class="tile"><img src="../img/adults.jpg"><div class="cap"><div><b>Для взрослых</b><span>Освоить ИИ для работы и своего дела</span></div><span class="chev">›</span></div></div><div class="tile"><img src="../img/kids.jpg"><div class="cap"><div><b>Для детей 7–14 лет</b><span>Нейросети осознанно, на реальных задачах</span></div><span class="chev">›</span></div></div><div class="tile"><img src="../img/business.jpg"><div class="cap"><div><b>Для бизнеса</b><span>ИИ в процессах и продуктах компании</span></div><span class="chev">›</span></div></div></div></div>
+<div class="sec"><h2>Ближайшие события</h2><div class="chips"><span class="chip on">Все</span><span class="chip">Взрослым</span><span class="chip">Детям</span><span class="chip">Бизнесу</span></div><div class="ev"><div class="date"><b>25</b><small>окт</small></div><div class="evt"><b>Нейро-воскресенье</b><div class="evm"><span class="pill p-k">Детям</span>вс, 14:00 · бесплатно</div></div><span class="chev">›</span></div><div class="ev"><div class="date"><b>31</b><small>окт</small></div><div class="evt"><b>Нейро-суббота</b><div class="evm"><span class="pill p-a">Взрослым</span>сб, 15:00 · бесплатно</div></div><span class="chev">›</span></div><div class="ev"><div class="date"><b>5</b><small>ноя</small></div><div class="evt"><b>Интенсив «Свой сайт с нейросетями»</b><div class="evm"><span class="pill p-a">Взрослым</span>чт, 19:00 · 2 800 руб.</div></div><span class="chev">›</span></div><div class="ev"><div class="date"><b>7</b><small>ноя</small></div><div class="evt"><b>Старт курса «Знакомство с нейросетями: пробуем сами»</b><div class="evm"><span class="pill p-k">Детям</span>3 месяца · 6 600 руб./мес.</div></div><span class="chev">›</span></div><div class="ev"><div class="date"><b>9</b><small>ноя</small></div><div class="evt"><b>Старт курса «Нейросети. С нуля к практике»</b><div class="evm"><span class="pill p-a">Взрослым</span>2 месяца · 19 200 руб./мес.</div></div><span class="chev">›</span></div><div class="ev"><div class="date pre"><b>пред-<br>запись</b></div><div class="evt"><b>Продвинутый курс</b><div class="evm"><span class="pill p-a">Взрослым</span>идёт предзапись</div></div><span class="chev">›</span></div><div style="margin-top:12px"><a class="link">Все события и интенсивы →</a></div></div>
+<div class="sec white"><h2>Наши спикеры</h2><p style="margin-bottom:18px">Профессионалы с&nbsp;опытом в&nbsp;IT и&nbsp;педагогике.</p>
+<div class="team"><div class="tm"><div class="av"></div><b>Имя спикера</b><span>Направление</span></div><div class="tm"><div class="av"></div><b>Имя спикера</b><span>Направление</span></div><div class="tm"><div class="av"></div><b>Имя спикера</b><span>Направление</span></div></div></div>
+<div class="sec"><h2>Контакты</h2>
+<div class="cbox"><small>Адрес</small><b>Тверь, ул. Новоторжская, 18, корп. 1, пом. 48</b><span style="font-size:14px;color:#3E4452">БЦ «Аврора», отдельный вход по правому фасаду</span></div>
+<div class="cbox"><small>Телефон</small><b>8-904-000-12-13</b></div>
+<div style="display:flex;gap:8px;margin:6px 0 18px"><a class="btn sm">Как добраться</a><a class="btn sm ghost">Позвонить</a></div>
+<p style="font-size:14px">Анонсы встреч – в&nbsp;наших соцсетях:</p><div class="soc"><span>Telegram</span><span>ВКонтакте</span><span>Max</span></div></div><div class="foot">proнейро – клуб практического ИИ<br>ИП Федорова Наталья Петровна · ИНН 691601798260<br>Политика конфиденциальности · Договор-оферта</div></div></body></html>
