@@ -139,13 +139,13 @@ button,input,textarea{font-family:inherit}
         <p style="font-size:14px;font-weight:600;color:#0066FF">Интенсивы для взрослых</p>
         <h3 style="font-size:clamp(24px,2.6vw,34px);line-height:1.1;letter-spacing:-0.03em;font-weight:600">Одна тема за&nbsp;2&nbsp;часа</h3>
         <p style="font-size:16px;line-height:1.55;color:#3E4452;text-wrap:pretty">Тематическая встреча в&nbsp;кругу единомышленников: актуальные темы, живое общение, практические задания и&nbsp;инструменты, которые можно использовать сразу после встречи. Минимум теории – максимум практики.</p>
-        <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 16px"><span style="font-size:clamp(22px,2.2vw,28px);font-weight:700">2&nbsp;800&nbsp;₽</span><span style="font-size:14px;color:#5A6070">за встречу · следите за&nbsp;анонсами</span></div>
+        <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 16px"><span style="font-size:clamp(22px,2.2vw,28px);font-weight:700">2&nbsp;800&nbsp;₽</span><span style="font-size:14px;color:#5A6070">за встречу · 19:00–21:00</span></div>
       </div>
       <ul style="list-style:none;margin:0;padding:0;border-top:1px solid rgba(22,26,34,0.12)">
         <sc-for list="{{ intensives }}" as="it" hint-placeholder-count="7">
           <li style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px 20px;padding:14px 0;border-bottom:1px solid rgba(22,26,34,0.12)">
-            <span style="flex:1 1 240px;font-size:clamp(17px,1.5vw,19px);font-weight:600;line-height:1.3">{{ it.title }}</span>
-            <button onClick="{{ it.onSignup }}" style="background:transparent;color:#0052CC;border:1px solid rgba(0,102,255,0.35);border-radius:999px;min-height:44px;padding:0 18px;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap" style-hover="border-color:#0066FF;background:#F0F5FF">Записаться</button>
+            <span style="flex:1 1 240px;display:flex;flex-direction:column;gap:4px"><span style="font-size:14px;font-weight:600;color:{{ it.whenColor }}">{{ it.when }}</span><span style="font-size:clamp(17px,1.5vw,19px);font-weight:600;line-height:1.3">{{ it.title }}</span></span>
+            <button onClick="{{ it.onSignup }}" style="background:transparent;color:#0052CC;border:1px solid rgba(0,102,255,0.35);border-radius:999px;min-height:44px;padding:0 18px;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap" style-hover="border-color:#0066FF;background:#F0F5FF">{{ it.btn }}</button>
           </li>
         </sc-for>
       </ul>
@@ -246,7 +246,7 @@ button,input,textarea{font-family:inherit}
 <sc-if value="{{ isAdults }}" hint-placeholder-val="{{ false }}">
   <section data-screen-label="Для взрослых" style="max-width:1320px;margin:0 auto;padding:clamp(32px,5vw,64px) clamp(16px,4vw,40px) clamp(48px,6vw,80px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:clamp(32px,5vw,72px);align-items:center">
     <div style="display:flex;flex-direction:column;gap:24px;min-width:0">
-      <p style="font-size:14px;font-weight:600;color:#0066FF">Для взрослых · курс · базовый уровень</p>
+      <p style="font-size:14px;font-weight:600;color:#0066FF">Для взрослых · базовый уровень · {{ startAdults }}</p>
       <h1 style="font-size:clamp(34px,4.6vw,68px);line-height:1;letter-spacing:-0.045em;font-weight:600;text-wrap:balance">Нейросети. С&nbsp;нуля к&nbsp;практике</h1>
       <p style="font-size:clamp(18px,1.6vw,21px);line-height:1.5;color:#3E4452;max-width:560px;text-wrap:pretty">Не нужно разбираться в&nbsp;сложных терминах, иметь техническое образование и&nbsp;долго слушать лекции. Шаг за&nbsp;шагом на&nbsp;практике покажем, как нейросети помогают в&nbsp;работе и&nbsp;жизни.</p>
       <div style="display:flex;flex-wrap:wrap;gap:12px">
@@ -263,6 +263,32 @@ button,input,textarea{font-family:inherit}
       </sc-for>
     </dl>
   </section>
+  <section aria-labelledby="why-title" style="max-width:1320px;margin:0 auto;padding:0 clamp(16px,4vw,40px) clamp(56px,7vw,96px);display:flex;flex-direction:column;gap:clamp(24px,3vw,40px)">
+    <div style="display:flex;flex-direction:column;gap:16px;max-width:860px">
+      <h2 id="why-title" style="font-size:clamp(30px,3.8vw,52px);line-height:1.02;letter-spacing:-0.04em;font-weight:600;text-wrap:balance">Почему это важно сейчас</h2>
+      <p style="font-size:clamp(18px,1.6vw,21px);line-height:1.45;color:#3E4452;text-wrap:pretty">Когда-то мы учились работать с&nbsp;компьютером: печатать, искать информацию, отправлять письма. Сегодня таким же базовым навыком становится умение работать с&nbsp;нейросетями.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:16px">
+      <div style="background:#fff;border-radius:28px;padding:clamp(24px,3.4vw,40px);display:flex;flex-direction:column;gap:16px">
+        <span style="font-size:14px;font-weight:600;color:#5A6070">Тогда</span>
+        <h3 style="font-size:clamp(22px,2.2vw,28px);line-height:1.1;letter-spacing:-0.03em;font-weight:600">Компьютерная грамотность</h3>
+        <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;font-size:16px;line-height:1.45;color:#3E4452">
+          <li style="display:flex;gap:12px"><span aria-hidden="true" style="color:#8E95A3;font-weight:600">/</span>Набрать и оформить документ</li>
+          <li style="display:flex;gap:12px"><span aria-hidden="true" style="color:#8E95A3;font-weight:600">/</span>Найти нужное в интернете</li>
+          <li style="display:flex;gap:12px"><span aria-hidden="true" style="color:#8E95A3;font-weight:600">/</span>Общаться по электронной почте</li>
+        </ul>
+      </div>
+      <div style="background:#0066FF;color:#fff;border-radius:28px;padding:clamp(24px,3.4vw,40px);display:flex;flex-direction:column;gap:16px">
+        <span style="font-size:14px;font-weight:600;color:#D6E6FF">Сейчас</span>
+        <h3 style="font-size:clamp(22px,2.2vw,28px);line-height:1.1;letter-spacing:-0.03em;font-weight:600">Грамотность в&nbsp;ИИ</h3>
+        <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;font-size:16px;line-height:1.45">
+          <li style="display:flex;gap:12px"><span aria-hidden="true" style="font-weight:600">/</span>Ставить нейросети понятную задачу</li>
+          <li style="display:flex;gap:12px"><span aria-hidden="true" style="font-weight:600">/</span>Проверять ответы и думать самостоятельно</li>
+          <li style="display:flex;gap:12px"><span aria-hidden="true" style="font-weight:600">/</span>Бережно обращаться с личными данными</li>
+        </ul>
+      </div>
+    </div>
+  </section>
   <section style="max-width:1320px;margin:0 auto;padding:0 clamp(16px,4vw,40px) clamp(56px,7vw,96px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:clamp(24px,5vw,80px)">
     <h2 style="font-size:clamp(30px,3.8vw,52px);line-height:1.02;letter-spacing:-0.04em;font-weight:600;text-wrap:balance">Чему научитесь</h2>
     <div style="display:flex;flex-direction:column;gap:20px">
@@ -272,13 +298,17 @@ button,input,textarea{font-family:inherit}
       <p style="font-size:16px;line-height:1.55;color:#3E4452;text-wrap:pretty">В&nbsp;спокойной дружелюбной атмосфере вы освоите навык, который останется полезным независимо от&nbsp;того, какая нейросеть станет популярной завтра.</p>
     </div>
   </section>
-  <section style="background:#fff;border-top:1px solid rgba(22,26,34,0.08)">
-    <div style="max-width:1320px;margin:0 auto;padding:clamp(56px,7vw,104px) clamp(16px,4vw,40px);display:flex;flex-direction:column;gap:36px">
-      <div style="display:flex;flex-direction:column;gap:14px;max-width:720px">
-        <h2 style="font-size:clamp(30px,3.8vw,52px);line-height:1.02;letter-spacing:-0.04em;font-weight:600">Программа курса</h2>
-        <p style="font-size:16px;line-height:1.5;color:#5A6070">4 модуля, 16 занятий. У&nbsp;каждого модуля – свой результат.</p>
+  <section id="program" style="background:#fff;border-top:1px solid rgba(22,26,34,0.08)">
+    <div style="max-width:1320px;margin:0 auto;padding:clamp(56px,7vw,104px) clamp(16px,4vw,40px);display:flex;flex-direction:column;gap:28px">
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:20px">
+        <div style="display:flex;flex-direction:column;gap:14px;max-width:720px">
+          <h2 style="font-size:clamp(30px,3.8vw,52px);line-height:1.02;letter-spacing:-0.04em;font-weight:600">Программа курса</h2>
+          <p style="font-size:16px;line-height:1.5;color:#5A6070">4 модуля, 16 занятий: основа работы с&nbsp;ИИ, рабочие задачи, бизнес и&nbsp;контент, ИИ как система. У&nbsp;каждого модуля – свой результат.</p>
+        </div>
+        <button onClick="{{ toggleProgram }}" aria-expanded="{{ progOpen }}" aria-controls="program-body" style="display:inline-flex;align-items:center;gap:10px;background:{{ progBtnBg }};color:{{ progBtnColor }};border:1px solid #0066FF;border-radius:999px;min-height:52px;padding:0 24px;font-size:16px;font-weight:600;cursor:pointer;transition:transform .2s ease" style-hover="transform:translateY(-2px)" style-active="transform:scale(0.96)">{{ progBtnLabel }}<span aria-hidden="true" style="display:inline-block;transform:rotate({{ progArrow }});transition:transform .25s ease">↓</span></button>
       </div>
-      <div style="display:grid;grid-template-columns:{{ moduleCols }};gap:16px">
+      <sc-if value="{{ progOpen }}">
+      <div id="program-body" style="display:grid;grid-template-columns:{{ moduleCols }};gap:16px;animation:pn-rise .5s cubic-bezier(.2,.7,.2,1) both">
         <sc-for list="{{ adultsModules }}" as="m" hint-placeholder-count="4">
           <article style="background:#F5F2EB;border-radius:24px;padding:clamp(22px,3vw,32px);display:flex;flex-direction:column;gap:18px">
             <div style="display:flex;flex-direction:column;gap:6px">
@@ -294,26 +324,27 @@ button,input,textarea{font-family:inherit}
           </article>
         </sc-for>
       </div>
+      </sc-if>
     </div>
   </section>
   <section style="max-width:1320px;margin:0 auto;padding:clamp(56px,7vw,96px) clamp(16px,4vw,40px)">
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:16px">
       <div style="background:#0066FF;color:#fff;border-radius:28px;padding:clamp(28px,4vw,48px);display:flex;flex-direction:column;gap:14px;align-items:flex-start">
-        <span style="font-size:14px;font-weight:600;color:#D6E6FF">Стоимость курса</span>
+        <span style="font-size:14px;font-weight:600;color:#D6E6FF">{{ startAdultsCap }} · стоимость курса</span>
         <span style="font-size:clamp(30px,3.8vw,44px);font-weight:700;letter-spacing:-0.03em;line-height:1">19&nbsp;200&nbsp;₽ <span style="font-size:clamp(18px,1.6vw,21px);font-weight:600">в&nbsp;месяц</span></span>
         <p style="font-size:16px;line-height:1.5">2&nbsp;400&nbsp;₽ за&nbsp;занятие · 2&nbsp;месяца, 16&nbsp;занятий</p>
         <button onClick="{{ openAdultsForm }}" style="margin-top:auto;background:#fff;color:#0052CC;border:0;border-radius:999px;min-height:52px;padding:0 24px;font-size:16px;font-weight:600;cursor:pointer" style-hover="background:#E6EEFB;transform:translateY(-2px)" style-active="transform:scale(0.96)">Записаться на курс</button>
       </div>
       <div style="background:#fff;border-radius:28px;padding:clamp(28px,4vw,48px);display:flex;flex-direction:column;gap:14px;align-items:flex-start">
-        <span style="font-size:14px;font-weight:600;color:#5A6070">Продвинутый уровень · скоро</span>
+        <span style="font-size:14px;font-weight:600;color:#0066FF">Продвинутый уровень · идёт предзапись</span>
         <h2 style="font-size:clamp(22px,2.2vw,28px);line-height:1.08;letter-spacing:-0.03em;font-weight:600">Продвинутый курс</h2>
         <p style="font-size:16px;line-height:1.5;color:#3E4452">Для тех, кто уже уверенно работает с&nbsp;нейросетями. Программу и&nbsp;условия опубликуем скоро.</p>
-        <button onClick="{{ openAdvancedForm }}" style="margin-top:auto;background:transparent;color:#161A22;border:1px solid rgba(22,26,34,0.22);border-radius:999px;min-height:52px;padding:0 24px;font-size:16px;font-weight:600;cursor:pointer" style-hover="border-color:#161A22;transform:translateY(-2px)" style-active="transform:scale(0.96)">Узнать о старте</button>
+        <button onClick="{{ openAdvancedForm }}" style="margin-top:auto;background:transparent;color:#161A22;border:1px solid rgba(22,26,34,0.22);border-radius:999px;min-height:52px;padding:0 24px;font-size:16px;font-weight:600;cursor:pointer" style-hover="border-color:#161A22;transform:translateY(-2px)" style-active="transform:scale(0.96)">Предзапись</button>
       </div>
       <div style="background:#fff;border-radius:28px;padding:clamp(28px,4vw,48px);display:flex;flex-direction:column;gap:14px;align-items:flex-start">
-        <span style="font-size:14px;font-weight:600;color:#5A6070">Интенсив · 2&nbsp;часа · 2&nbsp;800&nbsp;₽</span>
+        <span style="font-size:14px;font-weight:600;color:#0066FF">Ближайший интенсив – {{ nextIntensive }}</span>
         <h2 style="font-size:clamp(22px,2.2vw,28px);line-height:1.08;letter-spacing:-0.03em;font-weight:600">Хотите начать с&nbsp;одной темы?</h2>
-        <p style="font-size:16px;line-height:1.5;color:#3E4452">Свой сайт, личный помощник, контент для бизнеса и&nbsp;другие темы – за&nbsp;одну встречу.</p>
+        <p style="font-size:16px;line-height:1.5;color:#3E4452">Свой сайт, личный помощник, контент для бизнеса и&nbsp;другие темы – за&nbsp;одну встречу на&nbsp;2&nbsp;часа, 2&nbsp;800&nbsp;₽.</p>
         <button onClick="{{ goIntensives }}" style="margin-top:auto;background:transparent;color:#161A22;border:1px solid rgba(22,26,34,0.22);border-radius:999px;min-height:52px;padding:0 24px;font-size:16px;font-weight:600;cursor:pointer" style-hover="border-color:#161A22;transform:translateY(-2px)" style-active="transform:scale(0.96)">Смотреть интенсивы</button>
       </div>
     </div>
@@ -323,7 +354,7 @@ button,input,textarea{font-family:inherit}
 <sc-if value="{{ isKids }}" hint-placeholder-val="{{ false }}">
   <section data-screen-label="Для детей" style="max-width:1320px;margin:0 auto;padding:clamp(32px,5vw,64px) clamp(16px,4vw,40px) clamp(48px,6vw,80px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:clamp(32px,5vw,72px);align-items:center">
     <div style="display:flex;flex-direction:column;gap:24px;min-width:0">
-      <p style="font-size:14px;font-weight:600;color:#0066FF">Для детей 7–14 лет · для родителей</p>
+      <p style="font-size:14px;font-weight:600;color:#0066FF">Для детей 7–14 лет · старт групп 7 и&nbsp;8 ноября</p>
       <h1 style="font-size:clamp(34px,4.6vw,68px);line-height:1;letter-spacing:-0.045em;font-weight:600;text-wrap:balance">Создавать, а&nbsp;не только смотреть</h1>
       <p style="font-size:clamp(18px,1.6vw,21px);line-height:1.5;color:#3E4452;max-width:560px;text-wrap:pretty">На наших занятиях искусственный интеллект – не&nbsp;замена мышлению ребёнка, а&nbsp;помощник для его идей. Ребёнок развивает критическое и&nbsp;алгоритмическое мышление, учится быть креативным и&nbsp;доводить идею до&nbsp;готового проекта.</p>
       <div style="display:flex;flex-wrap:wrap;gap:12px">
@@ -347,7 +378,7 @@ button,input,textarea{font-family:inherit}
         <sc-for list="{{ kidsCourses }}" as="c" hint-placeholder-count="2">
           <article style="background:#F5F2EB;border-radius:28px;padding:clamp(24px,3vw,36px);display:flex;flex-direction:column;gap:18px">
             <div style="display:flex;flex-direction:column;gap:8px">
-              <span style="font-size:14px;font-weight:600;color:#0066FF">3&nbsp;месяца · 12&nbsp;занятий по&nbsp;1,5&nbsp;часа</span>
+              <span style="font-size:14px;font-weight:600;color:#0066FF">{{ c.start }} · 3&nbsp;месяца, 12&nbsp;занятий по&nbsp;1,5&nbsp;часа</span>
               <h3 style="font-size:clamp(22px,2.2vw,28px);line-height:1.1;letter-spacing:-0.03em;font-weight:600;text-wrap:balance">{{ c.title }}</h3>
             </div>
             <div style="display:flex;flex-direction:column;gap:10px">
@@ -575,33 +606,35 @@ const EVENTS = [
     result: 'Ребёнок попробует нейросети сам. Без подарков никто не уходит.' },
 ].map(ev => { const d = nextLastWeekday(ev.weekday); return { ...ev, d, day: String(d.getDate()), month: MONTHS[d.getMonth()], mon: MONTHS_SHORT[d.getMonth()], dateText: dayMonth(d) }; });
 
+// Макетные даты – заменить на реальные перед запуском. Без даты – идёт предзапись.
 const INTENSIVES = [
-  'Свой сайт с нейросетями: от идеи до публикации',
-  'Личный помощник на базе нейросети',
-  'Нейросети для педагога: интересные уроки и экономия времени',
-  'Контент за 2 часа: AI-редакция для вашего бизнеса',
-  'Нейроассистент для ассистента руководителя',
-  'Соцсети beauty-мастера без SMM-специалиста',
-  'Нейросети для риелтора',
+  { t: 'Свой сайт с нейросетями: от идеи до публикации', date: '5 ноября, чт' },
+  { t: 'Личный помощник на базе нейросети', date: '12 ноября, чт' },
+  { t: 'Нейросети для педагога: интересные уроки и экономия времени', date: '19 ноября, чт' },
+  { t: 'Контент за 2 часа: AI-редакция для вашего бизнеса', date: '26 ноября, чт' },
+  { t: 'Нейроассистент для ассистента руководителя' },
+  { t: 'Соцсети beauty-мастера без SMM-специалиста' },
+  { t: 'Нейросети для риелтора' },
 ];
+const STARTS = { adults: 'Старт 9 ноября', advanced: 'Идёт предзапись', kids1: 'Старт 7 ноября', kids2: 'Старт 8 ноября' };
 
 const fmt = n => n === 0 ? 'Бесплатно' : n.toLocaleString('ru-RU').replace(/\s/g, ' ') + ' ₽';
 
 const COURSES = {
   adults: { kicker: 'Курс для взрослых', title: 'Нейросети. С нуля к практике', submit: 'Записаться на курс',
-    summary: [{ k: 'Формат', v: '2 месяца, 16 занятий' }, { k: 'Ритм', v: '1 онлайн + 1 очное занятие в неделю' }, { k: 'Стоимость', v: '19 200 ₽ в месяц' }] },
-  advanced: { kicker: 'Продвинутый курс для взрослых', title: 'Продвинутый курс', submit: 'Узнать о старте',
+    summary: [{ k: 'Старт', v: '9 ноября' }, { k: 'Формат', v: '2 месяца, 16 занятий, 1 онлайн + 1 очно в неделю' }, { k: 'Стоимость', v: '19 200 ₽ в месяц' }] },
+  advanced: { kicker: 'Предзапись · продвинутый курс', title: 'Продвинутый курс', submit: 'Оставить предзапись',
     summary: [{ k: 'Старт и стоимость', v: 'Сообщим первыми' }] },
   kids1: { kids: true, kicker: 'Курс для детей', title: 'Знакомство с нейросетями: пробуем сами', submit: 'Записаться',
-    summary: [{ k: 'Возраст', v: '7–14 лет' }, { k: 'Формат', v: '3 месяца, 12 занятий по 1,5 часа' }, { k: 'Стоимость', v: '6 600 ₽ в месяц' }] },
+    summary: [{ k: 'Старт', v: '7 ноября' }, { k: 'Возраст', v: '7–14 лет' }, { k: 'Формат', v: '3 месяца, 12 занятий по 1,5 часа' }, { k: 'Стоимость', v: '6 600 ₽ в месяц' }] },
   kids2: { kids: true, kicker: 'Курс для детей', title: 'Мастерская идей: от фантазии до дизайна', submit: 'Записаться',
-    summary: [{ k: 'Возраст', v: '7–14 лет' }, { k: 'Формат', v: '3 месяца, 12 занятий по 1,5 часа' }, { k: 'Стоимость', v: '6 600 ₽ в месяц' }] },
+    summary: [{ k: 'Старт', v: '8 ноября' }, { k: 'Возраст', v: '7–14 лет' }, { k: 'Формат', v: '3 месяца, 12 занятий по 1,5 часа' }, { k: 'Стоимость', v: '6 600 ₽ в месяц' }] },
 };
 
 const ROUTES = { '': 'home', adults: 'adults', kids: 'kids', business: 'business' };
 
 class Component extends DCLogic {
-  state = { view: 'home', w: typeof window !== 'undefined' ? window.innerWidth : 1440, faqOpen: 0, modal: null, form: {}, errors: {}, consent: false };
+  state = { view: 'home', w: typeof window !== 'undefined' ? window.innerWidth : 1440, faqOpen: 0, progOpen: false, modal: null, form: {}, errors: {}, consent: false };
 
   componentDidMount() {
     this.onResize = () => this.setState({ w: window.innerWidth });
@@ -642,6 +675,7 @@ class Component extends DCLogic {
     let view = ROUTES[h] || 'home', anchor = null;
     if (h === 'events' || h === 'programs' || h === 'intensives') { view = 'home'; anchor = h; }
     if (h === 'kids-courses') { view = 'kids'; anchor = h; }
+    if (h === 'adults-program') { view = 'adults'; anchor = 'program'; this.setState({ progOpen: true }); }
     if (h === 'contacts') { view = this.state.view; anchor = 'contacts'; }
     this.setState({ view }, () => setTimeout(() => { this.scrollTo(anchor, initial); this.setupReveal(); }, 40));
   }
@@ -742,8 +776,8 @@ class Component extends DCLogic {
           m = { kicker: 'Запись на бесплатную встречу', title: ev.title, submitLabel: 'Записаться бесплатно',
             summary: [{ k: 'Дата и время', v: ev.dateText + ', ' + ev.time }, { k: 'Стоимость', v: 'Бесплатно' }] };
         } else if (md.form === 'intensive') {
-          m = { kicker: 'Интенсив для взрослых · 2 часа', title: md.topic, submitLabel: 'Записаться',
-            summary: [{ k: 'Дата', v: 'Сообщим ближайшую' }, { k: 'Стоимость', v: '2 800 ₽' }] };
+          m = { kicker: md.date ? 'Интенсив для взрослых · 2 часа' : 'Предзапись на интенсив', title: md.topic, submitLabel: md.date ? 'Записаться' : 'Оставить предзапись',
+            summary: [{ k: 'Дата', v: md.date ? md.date + ', 19:00–21:00' : 'Идёт предзапись, сообщим дату' }, { k: 'Стоимость', v: '2 800 ₽' }] };
         } else if (md.form === 'corp') {
           m = { kicker: 'Для компаний', title: 'Обсудить обучение команды', submitLabel: 'Отправить запрос',
             summary: [{ k: 'Первый шаг', v: 'Встреча-знакомство' }, { k: 'Стоимость и формат', v: 'После обсуждения' }] };
@@ -789,12 +823,12 @@ class Component extends DCLogic {
       kidsImgOrder: narrow ? -1 : 0,
       adultOffers: [
         { bg: '#0066FF', color: '#fff', labelColor: '#D6E6FF', textColor: '#E3EDFF', btnBg: '#fff', btnColor: '#0052CC', label: 'Бесплатно · ' + sat.dateText + ', 15:00–16:30', title: 'Нейро-суббота', text: 'Мастер-класс раз в месяц: знакомимся с возможностями нейросетей и работой клуба. К концу встречи – готовый инструмент и понимание следующего шага.', price: '0 ₽', priceNote: 'каждую последнюю субботу месяца', btn: 'Записаться', onClick: e => openSignup(sat, e) },
-        { bg: '#fff', color: '#161A22', labelColor: '#5A6070', textColor: '#3E4452', btnBg: '#0066FF', btnColor: '#fff', label: 'Курс · базовый уровень', title: 'Нейросети. С нуля к практике', text: '2 месяца, 16 занятий: одно онлайн и одно очно в неделю. От первого запроса до своей системы работы с ИИ.', price: '19 200 ₽ в месяц', priceNote: '2 400 ₽ за занятие', btn: 'Программа', onClick: () => this.go('adults') },
-        { bg: '#fff', color: '#161A22', labelColor: '#5A6070', textColor: '#3E4452', btnBg: '#0066FF', btnColor: '#fff', label: 'Курс · продвинутый уровень', title: 'Продвинутый курс', text: 'Для тех, кто уже уверенно работает с нейросетями. Программу и условия опубликуем скоро.', price: 'Скоро', priceNote: 'сообщим о старте первыми', btn: 'Узнать о старте', onClick: e => openCourse('advanced', e) }],
+        { bg: '#fff', color: '#161A22', labelColor: '#0066FF', textColor: '#3E4452', btnBg: '#0066FF', btnColor: '#fff', label: STARTS.adults + ' · курс, базовый уровень', title: 'Нейросети. С нуля к практике', text: '2 месяца, 16 занятий: одно онлайн и одно очно в неделю. От первого запроса до своей системы работы с ИИ.', price: '19 200 ₽ в месяц', priceNote: '2 400 ₽ за занятие', btn: 'Программа', onClick: () => this.go('adults-program') },
+        { bg: '#fff', color: '#161A22', labelColor: '#8A6100', textColor: '#3E4452', btnBg: '#0066FF', btnColor: '#fff', label: STARTS.advanced + ' · курс, продвинутый уровень', title: 'Продвинутый курс', text: 'Для тех, кто уже уверенно работает с нейросетями. Программу и условия опубликуем скоро.', price: 'Предзапись', priceNote: 'сообщим о старте первыми', btn: 'Предзапись', onClick: e => openCourse('advanced', e) }],
       kidOffers: [
         { bg: '#0066FF', color: '#fff', labelColor: '#D6E6FF', textColor: '#E3EDFF', btnBg: '#fff', btnColor: '#0052CC', label: 'Бесплатно · ' + sun.dateText + ', 14:00–15:30', title: 'Нейро-воскресенье', text: 'Живой и весёлый мастер-класс для детей и родителей: в игровой форме знакомим с нейросетями и клубом. Без подарков никто не уходит.', price: '0 ₽', priceNote: 'каждое последнее воскресенье месяца', btn: 'Записать ребёнка', onClick: e => openSignup(sun, e) },
-        { bg: '#fff', color: '#161A22', labelColor: '#5A6070', textColor: '#3E4452', btnBg: '#0066FF', btnColor: '#fff', label: 'Курс · 3 месяца, 12 занятий', title: 'Знакомство с нейросетями: пробуем сами', text: 'Промпты, стикерпаки, комиксы и анимации, первое исследование и социальный проект.', price: '6 600 ₽ в месяц', priceNote: '1 650 ₽ за занятие', btn: 'Подробнее', onClick: () => this.go('kids-courses') },
-        { bg: '#fff', color: '#161A22', labelColor: '#5A6070', textColor: '#3E4452', btnBg: '#0066FF', btnColor: '#fff', label: 'Курс · 3 месяца, 12 занятий', title: 'Мастерская идей: от фантазии до дизайна', text: 'От мудборда до своего логотипа, брендбука и карточек для соцсетей в Figma.', price: '6 600 ₽ в месяц', priceNote: '1 650 ₽ за занятие', btn: 'Подробнее', onClick: () => this.go('kids-courses') }],
+        { bg: '#fff', color: '#161A22', labelColor: '#0066FF', textColor: '#3E4452', btnBg: '#0066FF', btnColor: '#fff', label: STARTS.kids1 + ' · курс, 3 месяца', title: 'Знакомство с нейросетями: пробуем сами', text: 'Промпты, стикерпаки, комиксы и анимации, первое исследование и социальный проект.', price: '6 600 ₽ в месяц', priceNote: '1 650 ₽ за занятие', btn: 'Подробнее', onClick: () => this.go('kids-courses') },
+        { bg: '#fff', color: '#161A22', labelColor: '#0066FF', textColor: '#3E4452', btnBg: '#0066FF', btnColor: '#fff', label: STARTS.kids2 + ' · курс, 3 месяца', title: 'Мастерская идей: от фантазии до дизайна', text: 'От мудборда до своего логотипа, брендбука и карточек для соцсетей в Figma.', price: '6 600 ₽ в месяц', priceNote: '1 650 ₽ за занятие', btn: 'Подробнее', onClick: () => this.go('kids-courses') }],
       heroEvent: heroEv, heroEventDetails: e => openDetail(heroEv, e),
       satDate: sat.dateText, sunDate: sun.dateText,
       signupSaturday: e => openSignup(sat, e), signupSunday: e => openSignup(sun, e),
@@ -806,7 +840,11 @@ class Component extends DCLogic {
       progCols: narrow ? 'minmax(0,1fr)' : 'repeat(2,minmax(0,1fr))',
       moduleCols: narrow ? 'minmax(0,1fr)' : 'repeat(2,minmax(0,1fr))',
       eventCards,
-      intensives: INTENSIVES.map(t => ({ title: t, onSignup: e => this.openModal({ kind: 'form', form: 'intensive', topic: t }, e) })),
+      intensives: INTENSIVES.map(it => ({ title: it.t, when: it.date ? it.date + ', 19:00' : 'Идёт предзапись', whenColor: it.date ? '#0066FF' : '#8A6100', btn: it.date ? 'Записаться' : 'Предзапись', onSignup: e => this.openModal({ kind: 'form', form: 'intensive', topic: it.t, date: it.date }, e) })),
+      startAdults: STARTS.adults.toLowerCase(), startAdultsCap: STARTS.adults, nextIntensive: INTENSIVES[0].date.replace(', чт', ''),
+      progOpen: !!s.progOpen, progBtnLabel: s.progOpen ? 'Скрыть программу' : 'Посмотреть программу', progArrow: s.progOpen ? '180deg' : '0deg',
+      progBtnBg: s.progOpen ? '#fff' : '#0066FF', progBtnColor: s.progOpen ? '#0052CC' : '#fff',
+      toggleProgram: () => this.setState({ progOpen: !s.progOpen }),
       aboutFacts: [
         { t: 'В центре Твери', d: 'Новоторжская, 18, БЦ «Аврора». Отдельный вход по правому фасаду.' },
         { t: '9 рабочих мест', d: 'Уютная студия и камерная атмосфера для творчества и общения.' },
@@ -834,7 +872,7 @@ class Component extends DCLogic {
         { q: 'Нужно ли устанавливать программы?', a: 'Подготовку и доступ к сервисам сообщим перед выбранной встречей.' },
         { q: 'Чем курс отличается от интенсива?', a: 'Интенсив – одна встреча на 2 часа по одной теме. Курс последовательно знакомит с основами и закрепляет их практикой.' },
       ].map((f, i) => { const open = s.faqOpen === i; return { ...f, open, sign: open ? '−' : '+', iconBg: open ? '#0066FF' : '#fff', iconColor: open ? '#fff' : '#161A22', onToggle: () => this.setState({ faqOpen: open ? -1 : i }) }; }),
-      adultsFacts: [{ k: 'Формат', v: '2 месяца, 16 занятий' }, { k: 'Ритм', v: '1 онлайн + 1 очное занятие в неделю' }, { k: 'Уровень', v: 'Базовый, с нуля' }, { k: 'Где заниматься', v: 'Компьютеры клуба или свой ноутбук' }, { k: 'Стоимость', v: '19 200 ₽ в месяц' }],
+      adultsFacts: [{ k: 'Старт', v: '9 ноября' }, { k: 'Формат', v: '2 месяца, 16 занятий' }, { k: 'Ритм', v: '1 онлайн + 1 очное занятие в неделю' }, { k: 'Уровень', v: 'Базовый, с нуля' }, { k: 'Стоимость', v: '19 200 ₽ в месяц' }],
       adultsGains: ['Решать свои реальные рабочие задачи', 'Экономить время и упрощать привычные процессы', 'Находить новые идеи для бизнеса и развития', 'Открывать новые возможности для заработка', 'Общаться с людьми, которым тоже интересно осваивать новое'],
       adultsModules: [
         { n: '1', range: '01–04', t: 'Основа работы с ИИ', result: 'Вы начинаете уверенно использовать ChatGPT как рабочего помощника.', lessons: [
@@ -857,12 +895,12 @@ class Component extends DCLogic {
           { t: 'Мой личный AI-помощник', d: 'Создаём собственного помощника под вашу профессию и реальные задачи.' },
           { t: 'Что можно перестать делать руками', d: 'Проводим AI-аудит рабочего дня и находим процессы, которые можно ускорить, упростить или частично передать ИИ.' },
           { t: 'Моя система работы с ИИ', d: 'Собираем свои промпты, шаблоны, AI-помощников и рабочие сценарии в единую систему.' }] }],
-      kidsFacts: [{ k: 'Возраст', v: '7–14 лет' }, { k: 'Подготовка', v: 'С нуля, программировать уметь не нужно' }, { k: 'Формат', v: '3 месяца, 12 занятий по 1,5 часа' }, { k: 'Ритм', v: '1 очное занятие в неделю' }, { k: 'Стоимость', v: '6 600 ₽ в месяц' }],
+      kidsFacts: [{ k: 'Старт', v: '7 и 8 ноября' }, { k: 'Возраст', v: '7–14 лет' }, { k: 'Подготовка', v: 'С нуля, программировать уметь не нужно' }, { k: 'Формат', v: '3 месяца, 12 занятий по 1,5 часа, раз в неделю' }, { k: 'Стоимость', v: '6 600 ₽ в месяц' }],
       kidsCourses: [
-        { title: 'Знакомство с нейросетями: пробуем сами', onSignup: e => openCourse('kids1', e),
+        { title: 'Знакомство с нейросетями: пробуем сами', start: STARTS.kids1, onSignup: e => openCourse('kids1', e),
           points: ['Узнает, что такое промпты, поймёт, как учится и работает нейросеть, и сам попробует её обучить', 'Создаст собственные стикерпаки, комиксы и анимации', 'Научится проводить настоящие исследования с помощью ИИ и создаст социальный проект, который сможет опубликовать в интернете'],
           final: 'Каждый зафиксирует свой прогресс в портфолио и проведёт презентацию работ для родителей.' },
-        { title: 'Мастерская идей: от фантазии до дизайна', onSignup: e => openCourse('kids2', e),
+        { title: 'Мастерская идей: от фантазии до дизайна', start: STARTS.kids2, onSignup: e => openCourse('kids2', e),
           points: ['Научится превращать выбранную социальную тему в полноценный дизайн-проект', 'Пройдёт путь от первых идей и мудборда до собственного логотипа, брендбука и карточек для соцсетей', 'Освоит Figma и приёмы промпт-инжиниринга', 'Поймёт, как структурировать визуальные решения и уверенно презентовать результат'],
           final: 'Каждый соберёт мини-брендбук, защитит проект в Figma перед родителями и получит готовый кейс и опыт самостоятельного творческого пути.' }],
       corpSteps: [
@@ -872,7 +910,7 @@ class Component extends DCLogic {
       marquee: [...Array(2)].flatMap(() => ['Тексты', 'Документы', 'Изображения', 'Презентации', 'Помощники', 'Контент', 'Сайты', 'Проверка ответов']),
       corpTopics: ['Документы и переписка', 'Контент и маркетинг', 'Помощники для повторяющихся задач', 'ИИ для руководителя и команды'],
       docs: ['Политика конфиденциальности', 'Согласие на обработку данных', 'Договор-оферта'].map(t => ({ label: t, onClick: e => this.openModal({ kind: 'doc', title: t }, e) })),
-      replaceList: ['Ссылки на Telegram, ВКонтакте и Max', 'Фото и описания спикеров', 'Программа продвинутого курса', 'Даты интенсивов', 'Фото с занятий', 'Отзывы участников', 'Договор-оферта и согласия', 'Способ получения заявок и оплаты'],
+      replaceList: ['Даты стартов курсов и интенсивов (сейчас макетные)', 'Ссылки на Telegram, ВКонтакте и Max', 'Фото и описания спикеров', 'Программа продвинутого курса', 'Даты интенсивов', 'Фото с занятий', 'Отзывы участников', 'Договор-оферта и согласия', 'Способ получения заявок и оплаты'],
       modalOpen: !!md, m, fields,
       closeModal: () => this.closeModal(),
       onBackdrop: e => { if (e.target === e.currentTarget) this.closeModal(); },
