@@ -139,7 +139,7 @@ button,input,textarea{font-family:inherit}
         <p style="font-size:14px;font-weight:600;color:#0066FF">Интенсивы для взрослых</p>
         <h3 style="font-size:clamp(24px,2.6vw,34px);line-height:1.1;letter-spacing:-0.03em;font-weight:600">Одна тема за&nbsp;2&nbsp;часа</h3>
         <p style="font-size:16px;line-height:1.55;color:#3E4452;text-wrap:pretty">Тематическая встреча в&nbsp;кругу единомышленников: актуальные темы, живое общение, практические задания и&nbsp;инструменты, которые можно использовать сразу после встречи. Минимум теории – максимум практики.</p>
-        <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 16px"><span style="font-size:clamp(22px,2.2vw,28px);font-weight:700">2&nbsp;800&nbsp;₽</span><span style="font-size:14px;color:#5A6070">за встречу · 19:00–21:00</span></div>
+        <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 16px"><span style="font-size:clamp(22px,2.2vw,28px);font-weight:700">2&nbsp;800&nbsp;руб.</span><span style="font-size:14px;color:#5A6070">за мастер-класс</span></div>
       </div>
       <ul style="list-style:none;margin:0;padding:0;border-top:1px solid rgba(22,26,34,0.12)">
         <sc-for list="{{ intensives }}" as="it" hint-placeholder-count="7">
@@ -331,8 +331,8 @@ button,input,textarea{font-family:inherit}
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:16px">
       <div style="background:#0066FF;color:#fff;border-radius:28px;padding:clamp(28px,4vw,48px);display:flex;flex-direction:column;gap:14px;align-items:flex-start">
         <span style="font-size:14px;font-weight:600;color:#D6E6FF">{{ startAdultsCap }} · стоимость курса</span>
-        <span style="font-size:clamp(30px,3.8vw,44px);font-weight:700;letter-spacing:-0.03em;line-height:1">19&nbsp;200&nbsp;₽ <span style="font-size:clamp(18px,1.6vw,21px);font-weight:600">в&nbsp;месяц</span></span>
-        <p style="font-size:16px;line-height:1.5">2&nbsp;400&nbsp;₽ за&nbsp;занятие · 2&nbsp;месяца, 16&nbsp;занятий</p>
+        <span style="font-size:clamp(30px,3.8vw,44px);font-weight:700;letter-spacing:-0.03em;line-height:1">19&nbsp;200&nbsp;руб. <span style="font-size:clamp(18px,1.6vw,21px);font-weight:600">в&nbsp;месяц</span></span>
+        <p style="font-size:16px;line-height:1.5">2&nbsp;400&nbsp;руб. за&nbsp;занятие · 2&nbsp;месяца, 16&nbsp;занятий</p>
         <button onClick="{{ openAdultsForm }}" style="margin-top:auto;background:#fff;color:#0052CC;border:0;border-radius:999px;min-height:52px;padding:0 24px;font-size:16px;font-weight:600;cursor:pointer" style-hover="background:#E6EEFB;transform:translateY(-2px)" style-active="transform:scale(0.96)">Записаться на курс</button>
       </div>
       <div style="background:#fff;border-radius:28px;padding:clamp(28px,4vw,48px);display:flex;flex-direction:column;gap:14px;align-items:flex-start">
@@ -344,7 +344,7 @@ button,input,textarea{font-family:inherit}
       <div style="background:#fff;border-radius:28px;padding:clamp(28px,4vw,48px);display:flex;flex-direction:column;gap:14px;align-items:flex-start">
         <span style="font-size:14px;font-weight:600;color:#0066FF">Ближайший интенсив – {{ nextIntensive }}</span>
         <h2 style="font-size:clamp(22px,2.2vw,28px);line-height:1.08;letter-spacing:-0.03em;font-weight:600">Хотите начать с&nbsp;одной темы?</h2>
-        <p style="font-size:16px;line-height:1.5;color:#3E4452">Свой сайт, личный помощник, контент для бизнеса и&nbsp;другие темы – за&nbsp;одну встречу на&nbsp;2&nbsp;часа, 2&nbsp;800&nbsp;₽.</p>
+        <p style="font-size:16px;line-height:1.5;color:#3E4452">Свой сайт, личный помощник, контент для бизнеса и&nbsp;другие темы – за&nbsp;одну встречу на&nbsp;2&nbsp;часа, 2&nbsp;800&nbsp;руб..</p>
         <button onClick="{{ goIntensives }}" style="margin-top:auto;background:transparent;color:#161A22;border:1px solid rgba(22,26,34,0.22);border-radius:999px;min-height:52px;padding:0 24px;font-size:16px;font-weight:600;cursor:pointer" style-hover="border-color:#161A22;transform:translateY(-2px)" style-active="transform:scale(0.96)">Смотреть интенсивы</button>
       </div>
     </div>
@@ -389,7 +389,7 @@ button,input,textarea{font-family:inherit}
             </div>
             <p style="background:#fff;border-radius:14px;padding:14px 16px;font-size:16px;line-height:1.5"><span style="font-weight:600">Финальный штрих.</span> {{ c.final }}</p>
             <div style="margin-top:auto;padding-top:18px;border-top:1px solid rgba(22,26,34,0.1);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:14px">
-              <span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:clamp(20px,2vw,24px);font-weight:700;letter-spacing:-0.02em">6&nbsp;600&nbsp;₽ в&nbsp;месяц</span><span style="font-size:14px;color:#5A6070">1&nbsp;650&nbsp;₽ за&nbsp;занятие</span></span>
+              <span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:clamp(20px,2vw,24px);font-weight:700;letter-spacing:-0.02em">6&nbsp;600&nbsp;руб. в&nbsp;месяц</span><span style="font-size:14px;color:#5A6070">1&nbsp;650&nbsp;руб. за&nbsp;занятие</span></span>
               <button onClick="{{ c.onSignup }}" style="background:#0066FF;color:#fff;border:0;border-radius:999px;box-shadow:0 10px 24px -12px rgba(0,102,255,0.75);transition:transform .2s ease,background .2s ease;min-height:48px;padding:0 22px;font-size:16px;font-weight:600;cursor:pointer" style-hover="background:#0052CC;transform:translateY(-2px)" style-active="transform:scale(0.96)">Записаться</button>
             </div>
           </article>
@@ -618,17 +618,17 @@ const INTENSIVES = [
 ];
 const STARTS = { adults: 'Старт 9 ноября', advanced: 'Идёт предзапись', kids1: 'Старт 7 ноября', kids2: 'Старт 8 ноября' };
 
-const fmt = n => n === 0 ? 'Бесплатно' : n.toLocaleString('ru-RU').replace(/\s/g, ' ') + ' ₽';
+const fmt = n => n === 0 ? 'Бесплатно' : n.toLocaleString('ru-RU').replace(/\s/g, ' ') + ' руб.';
 
 const COURSES = {
   adults: { kicker: 'Курс для взрослых', title: 'Нейросети. С нуля к практике', submit: 'Записаться на курс',
-    summary: [{ k: 'Старт', v: '9 ноября' }, { k: 'Формат', v: '2 месяца, 16 занятий, 1 онлайн + 1 очно в неделю' }, { k: 'Стоимость', v: '19 200 ₽ в месяц' }] },
+    summary: [{ k: 'Старт', v: '9 ноября' }, { k: 'Формат', v: '2 месяца, 16 занятий, 1 онлайн + 1 очно в неделю' }, { k: 'Стоимость', v: '19 200 руб. в месяц' }] },
   advanced: { kicker: 'Предзапись · продвинутый курс', title: 'Продвинутый курс', submit: 'Оставить предзапись',
     summary: [{ k: 'Старт и стоимость', v: 'Сообщим первыми' }] },
   kids1: { kids: true, kicker: 'Курс для детей', title: 'Знакомство с нейросетями: пробуем сами', submit: 'Записаться',
-    summary: [{ k: 'Старт', v: '7 ноября' }, { k: 'Возраст', v: '7–14 лет' }, { k: 'Формат', v: '3 месяца, 12 занятий по 1,5 часа' }, { k: 'Стоимость', v: '6 600 ₽ в месяц' }] },
+    summary: [{ k: 'Старт', v: '7 ноября' }, { k: 'Возраст', v: '7–14 лет' }, { k: 'Формат', v: '3 месяца, 12 занятий по 1,5 часа' }, { k: 'Стоимость', v: '6 600 руб. в месяц' }] },
   kids2: { kids: true, kicker: 'Курс для детей', title: 'Мастерская идей: от фантазии до дизайна', submit: 'Записаться',
-    summary: [{ k: 'Старт', v: '8 ноября' }, { k: 'Возраст', v: '7–14 лет' }, { k: 'Формат', v: '3 месяца, 12 занятий по 1,5 часа' }, { k: 'Стоимость', v: '6 600 ₽ в месяц' }] },
+    summary: [{ k: 'Старт', v: '8 ноября' }, { k: 'Возраст', v: '7–14 лет' }, { k: 'Формат', v: '3 месяца, 12 занятий по 1,5 часа' }, { k: 'Стоимость', v: '6 600 руб. в месяц' }] },
 };
 
 const ROUTES = { '': 'home', adults: 'adults', kids: 'kids', business: 'business' };
@@ -777,7 +777,7 @@ class Component extends DCLogic {
             summary: [{ k: 'Дата и время', v: ev.dateText + ', ' + ev.time }, { k: 'Стоимость', v: 'Бесплатно' }] };
         } else if (md.form === 'intensive') {
           m = { kicker: md.date ? 'Интенсив для взрослых · 2 часа' : 'Предзапись на интенсив', title: md.topic, submitLabel: md.date ? 'Записаться' : 'Оставить предзапись',
-            summary: [{ k: 'Дата', v: md.date ? md.date + ', 19:00–21:00' : 'Идёт предзапись, сообщим дату' }, { k: 'Стоимость', v: '2 800 ₽' }] };
+            summary: [{ k: 'Дата', v: md.date ? md.date + ', 19:00–21:00' : 'Идёт предзапись, сообщим дату' }, { k: 'Стоимость', v: '2 800 руб.' }] };
         } else if (md.form === 'corp') {
           m = { kicker: 'Для компаний', title: 'Обсудить обучение команды', submitLabel: 'Отправить запрос',
             summary: [{ k: 'Первый шаг', v: 'Встреча-знакомство' }, { k: 'Стоимость и формат', v: 'После обсуждения' }] };
@@ -822,13 +822,13 @@ class Component extends DCLogic {
       heroAudiences: [{ label: 'Для взрослых', onClick: () => this.go('adults') }, { label: 'Для детей', onClick: () => this.go('kids') }, { label: 'Для бизнеса', onClick: () => this.go('business') }],
       kidsImgOrder: narrow ? -1 : 0,
       adultOffers: [
-        { bg: '#0066FF', color: '#fff', labelColor: '#D6E6FF', textColor: '#E3EDFF', btnBg: '#fff', btnColor: '#0052CC', label: 'Бесплатно · ' + sat.dateText + ', 15:00–16:30', title: 'Нейро-суббота', text: 'Мастер-класс раз в месяц: знакомимся с возможностями нейросетей и работой клуба. К концу встречи – готовый инструмент и понимание следующего шага.', price: '0 ₽', priceNote: 'каждую последнюю субботу месяца', btn: 'Записаться', onClick: e => openSignup(sat, e) },
-        { bg: '#fff', color: '#161A22', labelColor: '#0066FF', textColor: '#3E4452', btnBg: '#0066FF', btnColor: '#fff', label: STARTS.adults + ' · курс, базовый уровень', title: 'Нейросети. С нуля к практике', text: '2 месяца, 16 занятий: одно онлайн и одно очно в неделю. От первого запроса до своей системы работы с ИИ.', price: '19 200 ₽ в месяц', priceNote: '2 400 ₽ за занятие', btn: 'Программа', onClick: () => this.go('adults-program') },
+        { bg: '#0066FF', color: '#fff', labelColor: '#D6E6FF', textColor: '#E3EDFF', btnBg: '#fff', btnColor: '#0052CC', label: 'Бесплатно · ' + sat.dateText + ', 15:00–16:30', title: 'Нейро-суббота', text: 'Мастер-класс раз в месяц: знакомимся с возможностями нейросетей и работой клуба. К концу встречи – готовый инструмент и понимание следующего шага.', price: '0 руб.', priceNote: 'каждую последнюю субботу месяца', btn: 'Записаться', onClick: e => openSignup(sat, e) },
+        { bg: '#fff', color: '#161A22', labelColor: '#0066FF', textColor: '#3E4452', btnBg: '#0066FF', btnColor: '#fff', label: STARTS.adults + ' · курс, базовый уровень', title: 'Нейросети. С нуля к практике', text: '2 месяца, 16 занятий: одно онлайн и одно очно в неделю. От первого запроса до своей системы работы с ИИ.', price: '19 200 руб. в месяц', priceNote: '2 400 руб. за занятие', btn: 'Программа', onClick: () => this.go('adults-program') },
         { bg: '#fff', color: '#161A22', labelColor: '#8A6100', textColor: '#3E4452', btnBg: '#0066FF', btnColor: '#fff', label: STARTS.advanced + ' · курс, продвинутый уровень', title: 'Продвинутый курс', text: 'Для тех, кто уже уверенно работает с нейросетями. Программу и условия опубликуем скоро.', price: 'Предзапись', priceNote: 'сообщим о старте первыми', btn: 'Предзапись', onClick: e => openCourse('advanced', e) }],
       kidOffers: [
-        { bg: '#0066FF', color: '#fff', labelColor: '#D6E6FF', textColor: '#E3EDFF', btnBg: '#fff', btnColor: '#0052CC', label: 'Бесплатно · ' + sun.dateText + ', 14:00–15:30', title: 'Нейро-воскресенье', text: 'Живой и весёлый мастер-класс для детей и родителей: в игровой форме знакомим с нейросетями и клубом. Без подарков никто не уходит.', price: '0 ₽', priceNote: 'каждое последнее воскресенье месяца', btn: 'Записать ребёнка', onClick: e => openSignup(sun, e) },
-        { bg: '#fff', color: '#161A22', labelColor: '#0066FF', textColor: '#3E4452', btnBg: '#0066FF', btnColor: '#fff', label: STARTS.kids1 + ' · курс, 3 месяца', title: 'Знакомство с нейросетями: пробуем сами', text: 'Промпты, стикерпаки, комиксы и анимации, первое исследование и социальный проект.', price: '6 600 ₽ в месяц', priceNote: '1 650 ₽ за занятие', btn: 'Подробнее', onClick: () => this.go('kids-courses') },
-        { bg: '#fff', color: '#161A22', labelColor: '#0066FF', textColor: '#3E4452', btnBg: '#0066FF', btnColor: '#fff', label: STARTS.kids2 + ' · курс, 3 месяца', title: 'Мастерская идей: от фантазии до дизайна', text: 'От мудборда до своего логотипа, брендбука и карточек для соцсетей в Figma.', price: '6 600 ₽ в месяц', priceNote: '1 650 ₽ за занятие', btn: 'Подробнее', onClick: () => this.go('kids-courses') }],
+        { bg: '#0066FF', color: '#fff', labelColor: '#D6E6FF', textColor: '#E3EDFF', btnBg: '#fff', btnColor: '#0052CC', label: 'Бесплатно · ' + sun.dateText + ', 14:00–15:30', title: 'Нейро-воскресенье', text: 'Живой и весёлый мастер-класс для детей и родителей: в игровой форме знакомим с нейросетями и клубом. Без подарков никто не уходит.', price: '0 руб.', priceNote: 'каждое последнее воскресенье месяца', btn: 'Записать ребёнка', onClick: e => openSignup(sun, e) },
+        { bg: '#fff', color: '#161A22', labelColor: '#0066FF', textColor: '#3E4452', btnBg: '#0066FF', btnColor: '#fff', label: STARTS.kids1 + ' · курс, 3 месяца', title: 'Знакомство с нейросетями: пробуем сами', text: 'Промпты, стикерпаки, комиксы и анимации, первое исследование и социальный проект.', price: '6 600 руб. в месяц', priceNote: '1 650 руб. за занятие', btn: 'Подробнее', onClick: () => this.go('kids-courses') },
+        { bg: '#fff', color: '#161A22', labelColor: '#0066FF', textColor: '#3E4452', btnBg: '#0066FF', btnColor: '#fff', label: STARTS.kids2 + ' · курс, 3 месяца', title: 'Мастерская идей: от фантазии до дизайна', text: 'От мудборда до своего логотипа, брендбука и карточек для соцсетей в Figma.', price: '6 600 руб. в месяц', priceNote: '1 650 руб. за занятие', btn: 'Подробнее', onClick: () => this.go('kids-courses') }],
       heroEvent: heroEv, heroEventDetails: e => openDetail(heroEv, e),
       satDate: sat.dateText, sunDate: sun.dateText,
       signupSaturday: e => openSignup(sat, e), signupSunday: e => openSignup(sun, e),
@@ -851,10 +851,10 @@ class Component extends DCLogic {
         { t: 'Новые компьютеры', d: 'Специализированное ПО для работы с нейросетями. Можно прийти и со своим ноутбуком.' },
         { t: 'Демо-экран и звук', d: 'Показываем приёмы на большом экране с профессиональным звуком.' }],
       programs: [
-        { label: 'Для взрослых · базовый уровень', title: 'Нейросети. С нуля к практике', text: '2 месяца, 16 занятий: одно онлайн и одно очно в неделю. От первого запроса до своей системы работы с ИИ.', price: '19 200 ₽ в месяц', priceNote: '2 400 ₽ за занятие', btn: 'Смотреть программу', onClick: () => this.go('adults') },
+        { label: 'Для взрослых · базовый уровень', title: 'Нейросети. С нуля к практике', text: '2 месяца, 16 занятий: одно онлайн и одно очно в неделю. От первого запроса до своей системы работы с ИИ.', price: '19 200 руб. в месяц', priceNote: '2 400 руб. за занятие', btn: 'Смотреть программу', onClick: () => this.go('adults') },
         { label: 'Для взрослых · продвинутый уровень', title: 'Продвинутый курс', text: 'Для тех, кто уже уверенно работает с нейросетями. Программу и условия опубликуем скоро.', price: 'Скоро', priceNote: 'Сообщим о старте первыми', btn: 'Узнать о старте', onClick: e => openCourse('advanced', e) },
-        { label: 'Для детей 7–14 лет · 3 месяца', title: 'Знакомство с нейросетями: пробуем сами', text: 'Промпты, стикерпаки, комиксы и анимации, первое исследование и социальный проект.', price: '6 600 ₽ в месяц', priceNote: '1 650 ₽ за занятие', btn: 'Смотреть программу', onClick: () => this.go('kids-courses') },
-        { label: 'Для детей 7–14 лет · 3 месяца', title: 'Мастерская идей: от фантазии до дизайна', text: 'От мудборда до своего логотипа, брендбука и карточек для соцсетей в Figma.', price: '6 600 ₽ в месяц', priceNote: '1 650 ₽ за занятие', btn: 'Смотреть программу', onClick: () => this.go('kids-courses') }],
+        { label: 'Для детей 7–14 лет · 3 месяца', title: 'Знакомство с нейросетями: пробуем сами', text: 'Промпты, стикерпаки, комиксы и анимации, первое исследование и социальный проект.', price: '6 600 руб. в месяц', priceNote: '1 650 руб. за занятие', btn: 'Смотреть программу', onClick: () => this.go('kids-courses') },
+        { label: 'Для детей 7–14 лет · 3 месяца', title: 'Мастерская идей: от фантазии до дизайна', text: 'От мудборда до своего логотипа, брендбука и карточек для соцсетей в Figma.', price: '6 600 руб. в месяц', priceNote: '1 650 руб. за занятие', btn: 'Смотреть программу', onClick: () => this.go('kids-courses') }],
       howItems: [
         { t: 'Работаем руками', d: 'Каждый пробует инструменты сам, на компьютере клуба или своём ноутбуке.' },
         { t: 'Приносите свои задачи', d: 'Разбираем примеры из вашей работы, проекта или повседневной жизни.' },
@@ -872,7 +872,7 @@ class Component extends DCLogic {
         { q: 'Нужно ли устанавливать программы?', a: 'Подготовку и доступ к сервисам сообщим перед выбранной встречей.' },
         { q: 'Чем курс отличается от интенсива?', a: 'Интенсив – одна встреча на 2 часа по одной теме. Курс последовательно знакомит с основами и закрепляет их практикой.' },
       ].map((f, i) => { const open = s.faqOpen === i; return { ...f, open, sign: open ? '−' : '+', iconBg: open ? '#0066FF' : '#fff', iconColor: open ? '#fff' : '#161A22', onToggle: () => this.setState({ faqOpen: open ? -1 : i }) }; }),
-      adultsFacts: [{ k: 'Старт', v: '9 ноября' }, { k: 'Формат', v: '2 месяца, 16 занятий' }, { k: 'Ритм', v: '1 онлайн + 1 очное занятие в неделю' }, { k: 'Уровень', v: 'Базовый, с нуля' }, { k: 'Стоимость', v: '19 200 ₽ в месяц' }],
+      adultsFacts: [{ k: 'Старт', v: '9 ноября' }, { k: 'Формат', v: '2 месяца, 16 занятий' }, { k: 'Ритм', v: '1 онлайн + 1 очное занятие в неделю' }, { k: 'Уровень', v: 'Базовый, с нуля' }, { k: 'Стоимость', v: '19 200 руб. в месяц' }],
       adultsGains: ['Решать свои реальные рабочие задачи', 'Экономить время и упрощать привычные процессы', 'Находить новые идеи для бизнеса и развития', 'Открывать новые возможности для заработка', 'Общаться с людьми, которым тоже интересно осваивать новое'],
       adultsModules: [
         { n: '1', range: '01–04', t: 'Основа работы с ИИ', result: 'Вы начинаете уверенно использовать ChatGPT как рабочего помощника.', lessons: [
@@ -895,7 +895,7 @@ class Component extends DCLogic {
           { t: 'Мой личный AI-помощник', d: 'Создаём собственного помощника под вашу профессию и реальные задачи.' },
           { t: 'Что можно перестать делать руками', d: 'Проводим AI-аудит рабочего дня и находим процессы, которые можно ускорить, упростить или частично передать ИИ.' },
           { t: 'Моя система работы с ИИ', d: 'Собираем свои промпты, шаблоны, AI-помощников и рабочие сценарии в единую систему.' }] }],
-      kidsFacts: [{ k: 'Старт', v: '7 и 8 ноября' }, { k: 'Возраст', v: '7–14 лет' }, { k: 'Подготовка', v: 'С нуля, программировать уметь не нужно' }, { k: 'Формат', v: '3 месяца, 12 занятий по 1,5 часа, раз в неделю' }, { k: 'Стоимость', v: '6 600 ₽ в месяц' }],
+      kidsFacts: [{ k: 'Старт', v: '7 и 8 ноября' }, { k: 'Возраст', v: '7–14 лет' }, { k: 'Подготовка', v: 'С нуля, программировать уметь не нужно' }, { k: 'Формат', v: '3 месяца, 12 занятий по 1,5 часа, раз в неделю' }, { k: 'Стоимость', v: '6 600 руб. в месяц' }],
       kidsCourses: [
         { title: 'Знакомство с нейросетями: пробуем сами', start: STARTS.kids1, onSignup: e => openCourse('kids1', e),
           points: ['Узнает, что такое промпты, поймёт, как учится и работает нейросеть, и сам попробует её обучить', 'Создаст собственные стикерпаки, комиксы и анимации', 'Научится проводить настоящие исследования с помощью ИИ и создаст социальный проект, который сможет опубликовать в интернете'],
