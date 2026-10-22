@@ -36,7 +36,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
   background:radial-gradient(900px 600px at 92% -8%,rgba(120,197,255,.32),transparent 60%),
              radial-gradient(700px 520px at -10% 30%,rgba(0,102,255,.07),transparent 60%),
              radial-gradient(800px 600px at 80% 85%,rgba(120,197,255,.18),transparent 60%)}
-h1,h2,h3,p,ul,ol,figure{margin:0}
+h1,h2,h3,h4,p,ul,ol,figure{margin:0}
 ul,ol{padding:0;list-style:none}
 img{display:block;max-width:100%}
 a{color:var(--cobalt);text-underline-offset:3px}
@@ -67,6 +67,7 @@ b,strong{font-weight:600;color:var(--ink)}
 
 /* Кнопки */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 26px;border-radius:999px;border:0;background:var(--cobalt);color:#fff;font-weight:600;font-size:16px;text-decoration:none;white-space:nowrap;transition:background .2s,transform .2s,box-shadow .2s;box-shadow:0 8px 20px rgba(0,102,255,.22)}
+a.btn{cursor:pointer}
 .btn:hover{background:var(--cobalt-d);transform:translateY(-1px)}
 .btn .icon{width:18px;height:18px}
 .btn-ghost{background:#fff;color:var(--cobalt);box-shadow:inset 0 0 0 1.5px var(--cobalt)}
@@ -152,33 +153,39 @@ b,strong{font-weight:600;color:var(--ink)}
 .filters button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
 
 /* Карточки событий */
-.events{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-.ev{display:flex;flex-direction:column;gap:16px;padding:20px;border-radius:var(--r-md);background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);transition:transform .25s,box-shadow .25s,border-color .25s;cursor:pointer;text-align:left;min-height:236px}
-.ev:hover{transform:translateY(-3px);box-shadow:var(--shadow-up);border-color:rgba(0,102,255,.25)}
-.ev-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
-.date{display:grid;justify-items:center;align-content:center;width:68px;height:72px;border-radius:16px;background:var(--tint);color:var(--cobalt);line-height:1}
-.date .d{font-weight:700;font-size:28px;letter-spacing:-.03em}
-.date .m{font-weight:600;font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin-top:4px}
-.date .w{font-size:12px;margin-top:3px;color:var(--text)}
-.date.soon{background:var(--tint-2);border:1px dashed rgba(0,102,255,.35);width:auto;min-width:68px;padding:0 10px}
-.date.soon .icon{width:24px;height:24px}
-.date.soon .m{text-transform:none;letter-spacing:0;text-align:center;font-size:11px;line-height:1.15;padding:0 4px}
+/* Афиша списком: крупная дата слева */
+.events{display:grid;gap:12px}
+.ev{display:grid;grid-template-columns:110px minmax(0,1fr) auto;align-items:center;gap:22px;padding:14px 22px 14px 14px;border-radius:var(--r-md);background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);transition:box-shadow .25s,transform .25s,border-color .25s}
+.ev:hover{box-shadow:var(--shadow-up);transform:translateX(4px);border-color:rgba(0,102,255,.2)}
+.ev-date{height:104px;border-radius:16px;display:grid;place-items:center;align-content:center;gap:4px;background:linear-gradient(150deg,var(--cobalt),#1E56D8 60%,#123E9E);color:#fff;line-height:1;text-align:center}
+.ev-date b{font-size:38px;font-weight:700;letter-spacing:-.04em}
+.ev-date span{font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;opacity:.92}
+.ev-date.pre{background:var(--tint);color:var(--cobalt)}
+.ev-date.pre .icon{width:34px;height:34px}
+.ev-date.pre span{font-size:11px;padding:0 6px}
+.ev-mid{display:grid;gap:8px;justify-items:start}
+.ev-mid .pills{display:flex;flex-wrap:wrap;gap:6px}
+.ev-name{background:none;border:0;padding:0;text-align:left;cursor:pointer}
+.ev-name:hover{color:var(--cobalt)}
+.ev-right{display:grid;justify-items:end;gap:10px}
+.ev-right b{white-space:nowrap}
+@media (max-width:760px){
+  .ev{grid-template-columns:84px minmax(0,1fr);gap:14px;padding:12px 14px 14px 12px}
+  .ev:hover{transform:none}
+  .ev-date{height:84px}
+  .ev-date b{font-size:30px}
+  .ev-right{grid-column:1/-1;grid-template-columns:auto 1fr;align-items:center;justify-items:stretch;padding-top:12px;border-top:1px solid var(--line)}
+  .ev-right .btn{justify-self:end}
+}
 .pills{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:6px}
 .pill{display:inline-flex;align-items:center;min-height:28px;padding:0 12px;border-radius:999px;font-size:13px;font-weight:600;background:var(--tint);color:var(--cobalt-d);white-space:nowrap}
 .pill.k{background:#E9F6FF;color:#0A5E9E}
 .pill.b{background:#EEF0F3;color:var(--ink)}
 .pill.free{background:var(--cobalt);color:#fff}
-.ev-title{flex:1}
 .ev-meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;font-size:15px;line-height:1.35}
 .ev-meta span{display:inline-flex;align-items:center;gap:6px}
 .ev-meta .icon{width:17px;height:17px;color:var(--cobalt)}
-.ev-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:14px;border-top:1px solid var(--line)}
-.ev-foot .go{display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:15px;color:var(--cobalt)}
-.ev-foot .go .icon{width:18px;height:18px;transition:transform .2s}
-.ev:hover .go .icon{transform:translateX(3px)}
 .more{display:flex;justify-content:center;margin-top:24px}
-@media (max-width:1080px){.events{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:640px){.events{grid-template-columns:1fr}.ev{min-height:0}}
 
 /* Сетки карточек-особенностей */
 .grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
@@ -210,7 +217,7 @@ b,strong{font-weight:600;color:var(--ink)}
 .not-list .x{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.08);color:var(--ice)}
 .not-list .x .icon{width:16px;height:16px}
 .not-list li.yes .x{background:var(--cobalt);color:#fff}
-.pillars{display:grid;gap:14px}
+.pillars{display:grid;gap:14px;align-content:center}
 .pillar{display:flex;gap:16px;padding:20px;border-radius:var(--r-md);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1)}
 .pillar .ic{background:rgba(120,197,255,.14);color:var(--ice)}
 .pillar > div{display:grid;gap:6px}
@@ -1351,28 +1358,32 @@ const ic = (id, cls = 'icon') => `<svg class="${cls}"><use href="#${id}"/></svg>
 /* ===== Лента событий ===== */
 function allEvents(){
   const list = [];
-  Object.entries(FREE).forEach(([id, e]) => list.push({ id, aud:e.aud, d:e.d, title:e.title, time:e.time, price:'Бесплатно', free:true, open:() => eventModal(id) }));
-  INTENSIVES.forEach((it, i) => list.push({ id:'int'+i, aud:'a', d:it.d || null, kind:'int', title:it.t, label:'Предзапись', time:it.d ? '19:00–21:00' : '', price:'2 800 руб.', open:() => intensiveModal(i) }));
-  ADULT.forEach(c => list.push({ id:'c-'+c.id, aud:'a', d:c.d || null, kind:'course', title:'Курс «' + c.title + '»', label:c.d ? 'Старт курса' : 'Предзапись', time:c.format, price:c.price, open:() => programModal(c.id) }));
-  KIDS.forEach(c => list.push({ id:'c-'+c.id, aud:'k', d:null, kind:'course', title:'Курс «' + c.title + '»', label:'Предзапись', time:'Очно, 1 раз в неделю', price:c.price, open:() => programModal(c.id) }));
-  list.push({ id:'kids-mk', aud:'k', d:null, title:'Мастер-классы, конкурсы и хакатоны для детей', label:'Следите за анонсами', time:'', price:'2 000 руб.', open:() => leadModal('kidsevents') });
-  list.push({ id:'corp', aud:'b', d:null, title:'Обучение для вашей команды', label:'По запросу', time:'Формат и стоимость – после обсуждения', price:'Расчёт под задачу', open:() => leadModal('corp') });
+  Object.entries(FREE).forEach(([id, e]) => list.push({ id, aud:e.aud, d:e.d, title:e.title, time:e.time, place:'Новоторжская, 18', price:'0 руб.', free:true, lead:'event:' + id, cta:'Записаться', open:() => eventModal(id) }));
+  INTENSIVES.forEach((it, i) => list.push({ id:'int'+i, aud:'a', d:it.d || null, kind:'int', icon:'i-bulb', title:it.t, label:'Предзапись', time:'Интенсив · 2 часа', price:'2 800 руб.', lead:'int:' + i, cta:'Предзапись', open:() => intensiveModal(i) }));
+  ADULT.forEach(c => list.push({ id:'c-'+c.id, aud:'a', d:c.d || null, kind:'course', icon:'i-cap', title:'Курс «' + c.title + '»', label:'Предзапись', time:'2 месяца · ' + c.format, price:c.price, lead:'course:' + c.id, cta:'Предзапись', open:() => programModal(c.id) }));
+  KIDS.forEach(c => list.push({ id:'c-'+c.id, aud:'k', d:null, kind:'course', icon:'i-rocket', title:'Курс «' + c.title + '»', label:'Предзапись', time:'3 месяца · очно, 1 раз в неделю', price:c.price, lead:'course:' + c.id, cta:'Предзапись', open:() => programModal(c.id) }));
+  list.push({ id:'kids-mk', aud:'k', d:null, icon:'i-trophy', title:'Мастер-классы, конкурсы и хакатоны для детей', label:'Скоро', time:'Даты – в анонсах клуба', price:'2 000 руб.', lead:'kidsevents', cta:'Узнать', open:() => leadModal('kidsevents') });
+  list.push({ id:'corp', aud:'b', d:null, icon:'i-brief', title:'Обучение для вашей команды', label:'По запросу', time:'Формат и стоимость – после обсуждения', price:'Расчёт под задачу', lead:'corp', cta:'Обсудить', open:() => leadModal('corp') });
   const t = today();
   const dated = list.filter(x => x.d && x.d >= t).sort((a, b) => a.d - b.d);
   return [...dated, ...list.filter(x => !x.d)];
 }
 function evCard(e){
   const date = e.d
-    ? `<span class="date" aria-hidden="true"><span class="d">${e.d.getDate()}</span><span class="m">${MON[e.d.getMonth()]}</span><span class="w">${WD[e.d.getDay()]}</span></span>`
-    : `<span class="date soon" aria-hidden="true">${ic('i-cal')}<span class="m">${esc(e.label || 'Скоро')}</span></span>`;
-  const when = e.d ? `${WD[e.d.getDay()]}, ${dm(e.d)}` : (e.label || '');
-  const pills = `<span class="pill ${e.aud === 'a' ? '' : e.aud}">${AUD[e.aud]}</span>` ;
-  return `<button type="button" class="ev reveal" data-ev="${e.id}" aria-label="${esc(e.title + ', ' + when + ', ' + e.price)}">
-    <span class="ev-top">${date}<span class="pills">${pills}</span></span>
-    <span class="ev-title"><span class="r2">${nb(e.title)}</span></span>
-    <span class="ev-meta">${e.d ? `<span>${ic('i-cal')}${dm(e.d)}</span>` : ''}${e.time ? `<span>${ic('i-clock')}${esc(e.time)}</span>` : ''}</span>
-    <span class="ev-foot"><b>${esc(e.price)}</b><span class="go">${e.free ? 'Записаться' : 'Подробнее'}${ic('i-arrow')}</span></span>
-  </button>`;
+    ? `<div class="ev-date" aria-hidden="true"><b>${e.d.getDate()}</b><span>${MON[e.d.getMonth()]} · ${WD[e.d.getDay()]}</span></div>`
+    : `<div class="ev-date pre" aria-hidden="true">${ic(e.icon || 'i-cal')}<span>${esc(e.label || 'Скоро')}</span></div>`;
+  const aud = e.aud === 'k' ? 'Детям 7–14' : AUD[e.aud];
+  const pills = `<span class="pill ${e.aud === 'a' ? '' : e.aud}">${aud}</span>` + (e.free ? '<span class="pill">Бесплатно</span>' : '');
+  const when = e.d ? `<span class="sr-only">${dm(e.d)}, ${WD[e.d.getDay()]}. </span>` : '';
+  return `<article class="ev reveal">
+    ${date}
+    <div class="ev-mid">
+      <div class="pills">${pills}</div>
+      <h3><button type="button" class="ev-name r2" data-ev="${e.id}">${when}${nb(e.title)}</button></h3>
+      <div class="ev-meta">${e.time ? `<span>${ic('i-clock')}${esc(e.time)}</span>` : ''}${e.place ? `<span>${ic('i-pin')}${esc(e.place)}</span>` : ''}</div>
+    </div>
+    <div class="ev-right"><b>${esc(e.price)}</b><button type="button" class="btn btn-sm${e.free ? '' : ' btn-ghost'}" data-lead="${e.lead}">${esc(e.cta)}${e.free ? ' ' + ic('i-arrow') : ''}</button></div>
+  </article>`;
 }
 const HOME_FEED = ['sunday', 'c-basic', 'c-neurostart'];
 let EV_INDEX = {};
@@ -1485,14 +1496,14 @@ function leadInfo(kind){
   return { kicker:'Запись в клуб', title:'Записаться или подобрать программу', msg:'Здравствуйте! Хочу записаться в клуб ProНейро. Помогите подобрать программу.' };
 }
 function contactHtml(msg){
-  const btns = [];
-  if (CONTACTS.telegram) btns.push(`<a class="btn" href="https://t.me/${encodeURIComponent(CONTACTS.telegram)}?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">${ic('i-send')}Написать в&nbsp;Telegram</a>`);
-  if (CONTACTS.max) btns.push(`<a class="btn${btns.length ? ' btn-ghost' : ''}" href="${esc(CONTACTS.max)}" target="_blank" rel="noopener" data-copy="${esc(msg)}">${ic('i-chat')}Написать в&nbsp;MAX</a>`);
-  btns.push(`<a class="btn${btns.length ? ' btn-ghost' : ''}" href="tel:+79040001213">${ic('i-phone')}Позвонить ${PHONE}</a>`);
-  const lead = btns.length > 1
-    ? 'Напишите нам – ответим и запишем. ' + (CONTACTS.telegram ? 'В Telegram текст сообщения уже будет готов – его можно отправить как есть.' : '')
-    : 'Позвоните нам – ответим на вопросы и запишем.';
-  return `<div class="contact"><p>${nb(lead)}</p><div class="contact-btns">${btns.join('')}</div><p class="copy-note" hidden>Текст сообщения скопирован – вставьте его в чат.</p></div>`;
+  // Пока ник/ссылка не вписаны в CONTACTS, кнопка показывается, но никуда не ведёт.
+  const tg = CONTACTS.telegram ? ` href="https://t.me/${encodeURIComponent(CONTACTS.telegram)}?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener"` : ' role="link" aria-disabled="true"';
+  const mx = CONTACTS.max ? ` href="${esc(CONTACTS.max)}" target="_blank" rel="noopener" data-copy="${esc(msg)}"` : ' role="link" aria-disabled="true"';
+  return `<div class="contact"><p>Напишите нам – ответим на&nbsp;вопросы и&nbsp;запишем.</p><div class="contact-btns">
+    <a class="btn"${tg}>${ic('i-send')}Написать в&nbsp;Telegram</a>
+    <a class="btn btn-ghost"${mx}>${ic('i-chat')}Написать в&nbsp;MAX</a>
+    <a class="btn btn-ghost" href="tel:+79040001213">${ic('i-phone')}Позвонить ${PHONE}</a>
+  </div><p class="copy-note" hidden>Текст сообщения скопирован – вставьте его в&nbsp;чат.</p></div>`;
 }
 function leadModal(kind){
   const s = leadInfo(kind);
