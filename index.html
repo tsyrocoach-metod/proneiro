@@ -420,6 +420,48 @@ fieldset.field{border:0;padding:0;margin:0}
 .cookie{position:fixed;left:16px;right:16px;bottom:16px;z-index:90;max-width:560px;margin-left:auto;display:grid;gap:14px;padding:18px 20px;border-radius:20px;background:#fff;border:1px solid var(--line);box-shadow:0 20px 50px rgba(14,20,29,.18);animation:rise .35s ease-out}
 .cookie-actions{display:flex;flex-wrap:wrap;gap:8px}
 
+
+/* Фото, которое растворяется в фоне через размытие */
+.fade-hero{position:relative;overflow:hidden;min-height:clamp(540px,76vh,740px);display:flex;align-items:center}
+.fade-media{position:absolute;top:0;right:0;bottom:0;width:min(54vw,960px);pointer-events:none}
+.dir-media::after{content:"";position:absolute;inset:0}
+.dir-media::after{background:linear-gradient(90deg,#fff 0%,rgba(255,255,255,.6) 20%,rgba(255,255,255,0) 46%)}
+.fade-media img,.dir-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.fm-blur{filter:blur(24px) saturate(1.05);transform:scale(1.1);-webkit-mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.55) 18%,#000 36%,#000 46%,transparent 66%);mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.55) 18%,#000 36%,#000 46%,transparent 66%)}
+.fm-sharp{-webkit-mask-image:linear-gradient(90deg,transparent 22%,#000 55%);mask-image:linear-gradient(90deg,transparent 22%,#000 55%)}
+.fade-inner{position:relative;z-index:1;width:100%}
+.fade-hero .hero-text{max-width:min(600px,46vw);padding-top:clamp(32px,5vw,64px);padding-bottom:clamp(32px,5vw,64px)}
+.dirs{display:grid;gap:18px}
+.dir{position:relative;overflow:hidden;min-height:400px;display:flex;align-items:center;border-radius:var(--r-lg);background:#fff;border:1px solid var(--line);box-shadow:var(--shadow)}
+.dir-media{position:absolute;top:0;right:0;bottom:0;width:60%;pointer-events:none}
+.dir-text{position:relative;z-index:1;width:min(560px,52%);display:grid;gap:14px;padding:clamp(24px,3.4vw,44px)}
+.dir-meta{font-weight:600;color:var(--ink)}
+.dir .btn{justify-self:start;margin-top:4px}
+@media (max-width:900px){
+  .fade-hero{display:block;min-height:0}
+  .fade-media{position:relative;width:100%;height:clamp(260px,70vw,440px)}
+  .fm-blur,.dir-media .fm-blur{-webkit-mask-image:linear-gradient(180deg,transparent 40%,#000 70%,transparent 100%);mask-image:linear-gradient(180deg,transparent 40%,#000 70%,transparent 100%)}
+  .fm-sharp,.dir-media .fm-sharp{-webkit-mask-image:linear-gradient(180deg,#000 45%,transparent 92%);mask-image:linear-gradient(180deg,#000 45%,transparent 92%)}
+  .fade-hero .hero-text{max-width:none;padding-top:0;margin-top:-28px}
+  .dir-media::after{background:linear-gradient(180deg,rgba(255,255,255,0) 55%,#fff 100%)}
+  .dir{display:block;min-height:0}
+  .dir-media{position:relative;width:100%;height:240px}
+  .dir-text{width:100%;margin-top:-24px}
+}
+/* Узнаёте себя – компактно */
+.pain-panel{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.6fr);gap:20px clamp(24px,4vw,56px)}
+.pain-list{display:grid;gap:14px}
+.pain-list li{display:flex;gap:14px;align-items:flex-start}
+.pain-end{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:20px;border-top:1px solid var(--line)}
+@media (max-width:900px){.pain-panel{grid-template-columns:1fr}}
+.facts-dark{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+.facts-dark li{display:inline-flex;align-items:center;gap:8px;min-height:38px;padding:0 14px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:#fff;font-size:15px}
+.facts-dark .icon{width:17px;height:17px;color:var(--ice)}
+/* Связь вместо формы */
+.contact{display:grid;gap:16px}
+.contact-btns{display:grid;gap:10px}
+.copy-note{color:var(--cobalt-d);font-weight:500}
+
 @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
 .reveal.in{opacity:1;transform:none}
@@ -469,6 +511,7 @@ fieldset.field{border:0;padding:0;margin:0}
   <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 2.5-10 5 10 5 10-5-10-5Z"/><path d="m2 16.5 10 5 10-5M2 12l10 5 10-5"/></symbol>
   <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
   <symbol id="i-ext" viewBox="0 0 24 24"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7Z"/></symbol>
   <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M12 16v-4M12 8h.01"/></symbol>
 </svg>
 
@@ -507,51 +550,85 @@ fieldset.field{border:0;padding:0;margin:0}
 <main id="main">
 
 <!-- ============ ГЛАВНАЯ ============ -->
+<!-- Порядок: первый экран → узнаёте себя → направления → события → почему мы → как устроено → доверие → вопросы → запись -->
 <div data-page="home">
 
-  <section class="hero wrap" aria-labelledby="home-title">
-    <div class="hero-grid">
+  <section class="fade-hero" aria-labelledby="home-title">
+    <div class="fade-media"><img class="fm-blur" src="./img/club/zal.jpg" alt="" aria-hidden="true" fetchpriority="high"><img class="fm-sharp" src="./img/club/zal.jpg" alt="Студия клуба ProНейро: девять рабочих мест и демо-экран" fetchpriority="high"></div>
+    <div class="wrap fade-inner">
       <div class="hero-text">
         <p class="r4">Первый в&nbsp;Твери клуб практического ИИ</p>
         <h1 class="r1" id="home-title">Нейросети на&nbsp;практике для&nbsp;себя, работы и&nbsp;бизнеса</h1>
         <p class="hero-lead">Мы создали не&nbsp;курсы по&nbsp;нейросетям, а&nbsp;сообщество, где искусственный интеллект становится понятным, полезным и&nbsp;применимым в&nbsp;жизни. Без сложной теории: решаем ваши задачи, знакомимся с&nbsp;людьми, которым тоже интересно новое.</p>
         <div class="hero-actions">
-          <a class="btn" href="#/events">Выбрать встречу <svg class="icon"><use href="#i-arrow"/></svg></a>
-          <button class="btn btn-ghost" type="button" data-lead="pick">Подобрать программу</button>
+          <a class="btn" href="#/directions">Подобрать программу <svg class="icon"><use href="#i-arrow"/></svg></a>
+          <a class="btn btn-ghost" href="#/events">Ближайшие события</a>
         </div>
-        <ul class="chips" aria-label="Коротко о клубе">
-          <li class="chip"><svg class="icon"><use href="#i-pin"/></svg>Центр Твери</li>
-          <li class="chip"><svg class="icon"><use href="#i-monitor"/></svg>Студия на&nbsp;9 рабочих мест</li>
-          <li class="chip"><svg class="icon"><use href="#i-star"/></svg>Можно без опыта</li>
-        </ul>
       </div>
-      <figure class="hero-photo">
-        <img src="./img/club/zal.jpg" alt="Студия клуба ProНейро: девять рабочих мест с компьютерами и демо-экран" width="1600" height="1200" fetchpriority="high">
-        <figcaption class="hero-note"><span class="ic-sq"><svg class="icon"><use href="#i-gift"/></svg></span><span>Первая встреча – бесплатно: Нейро-суббота для взрослых и&nbsp;Нейро-воскресенье для детей</span></figcaption>
-      </figure>
     </div>
   </section>
 
-  <section class="section wrap" aria-labelledby="dir-title">
+  <section class="section wrap" aria-labelledby="pain-title">
+    <div class="panel pain-panel">
+      <div class="head-text">
+        <p class="r4">Для кого клуб</p>
+        <h2 class="r1" id="pain-title">Узнаёте себя?</h2>
+      </div>
+      <ul class="pain-list">
+        <li><span class="ic-sq"><svg class="icon"><use href="#i-compass"/></svg></span><span><b>Не&nbsp;знаете, как подойти к&nbsp;нейросетям?</b> Не получилось зарегистрироваться или результат разочаровал.</span></li>
+        <li><span class="ic-sq"><svg class="icon"><use href="#i-trend"/></svg></span><span><b>Уже пользуетесь ИИ, но&nbsp;хотите большего?</b> Чувствуете, что можно быстрее, качественнее и&nbsp;даже то, о&nbsp;чём вы не&nbsp;догадывались.</span></li>
+        <li><span class="ic-sq"><svg class="icon"><use href="#i-refresh"/></svg></span><span><b>Хотите первыми осваивать обновления?</b> Мир ИИ меняется молниеносно – хочется раньше других узнавать о&nbsp;новых функциях и&nbsp;нейросетях.</span></li>
+        <li><span class="ic-sq"><svg class="icon"><use href="#i-hourglass"/></svg></span><span><b>Хотите отдать рутину ИИ?</b> У каждого специалиста есть то, что можно автоматизировать и&nbsp;освободить время для&nbsp;важного.</span></li>
+        <li><span class="ic-sq"><svg class="icon"><use href="#i-brief"/></svg></span><span><b>Хотите преимущество на&nbsp;рынке труда?</b> Работодатели выбирают тех, кто умеет встроить ИИ в&nbsp;рабочие процессы.</span></li>
+      </ul>
+      <div class="pain-end"><p><b>Хотя бы один пункт про вас?</b> Тогда вам к&nbsp;нам – выберите, с&nbsp;чего начать.</p><a class="btn" href="#/directions">Выбрать направление <svg class="icon"><use href="#i-arrow"/></svg></a></div>
+    </div>
+  </section>
+
+  <section class="section wrap" id="directions" aria-labelledby="dir-title">
     <div class="head">
       <div class="head-text">
         <p class="r4">Направления</p>
-        <h2 class="r1" id="dir-title">Выберите, для кого ищете</h2>
+        <h2 class="r1" id="dir-title">Выберите, с&nbsp;чего начать</h2>
       </div>
     </div>
-    <div class="tiles">
-      <a class="tile reveal" href="#/adults">
-        <div class="tile-img"><img src="./img/adults.jpg?v=2" alt="" loading="lazy" width="1280" height="1024"></div>
-        <div class="tile-body"><div><h3 class="r2">Для взрослых</h3><p>Освоить ИИ для работы, повседневных задач и&nbsp;своего дела</p></div><span class="round"><svg class="icon"><use href="#i-arrow"/></svg></span></div>
-      </a>
-      <a class="tile reveal" href="#/kids">
-        <div class="tile-img"><img src="./img/kids.jpg?v=2" alt="" loading="lazy" width="1280" height="1024"></div>
-        <div class="tile-body"><div><h3 class="r2">Для детей 7–14 лет</h3><p>Свои игры, комиксы, сайты и&nbsp;программы – с&nbsp;нейросетями</p></div><span class="round"><svg class="icon"><use href="#i-arrow"/></svg></span></div>
-      </a>
-      <a class="tile reveal" href="#/business">
-        <div class="tile-img"><img src="./img/business.jpg?v=2" alt="" loading="lazy" width="1280" height="1024"></div>
-        <div class="tile-body"><div><h3 class="r2">Для бизнеса</h3><p>Обучение команды под ваши задачи, с&nbsp;расчётом под запрос</p></div><span class="round"><svg class="icon"><use href="#i-arrow"/></svg></span></div>
-      </a>
+    <div class="dirs">
+      <article class="dir reveal">
+        <div class="dir-media"><img class="fm-blur" src="./img/adults.jpg?v=2" alt="" aria-hidden="true" loading="lazy"><img class="fm-sharp" src="./img/adults.jpg?v=2" alt="Взрослые на занятии в клубе" loading="lazy"></div>
+        <div class="dir-text">
+          <p class="r4">Для взрослых</p>
+          <h3 class="r1">ИИ для&nbsp;работы и&nbsp;своего дела</h3>
+          <p>Без сложных терминов и&nbsp;долгих лекций: шаг за&nbsp;шагом на&nbsp;практике, на&nbsp;ваших задачах.</p>
+          <ul class="ticks"><li><span class="ic-sq"><svg class="icon"><use href="#i-check"/></svg></span>Базовый курс «Нейросети: с&nbsp;нуля к&nbsp;практике»</li><li><span class="ic-sq"><svg class="icon"><use href="#i-check"/></svg></span>Продвинутый курс «ИИ-система для вашего дела»</li><li><span class="ic-sq"><svg class="icon"><use href="#i-check"/></svg></span>Интенсивы на&nbsp;2&nbsp;часа – одна тема за&nbsp;вечер</li></ul>
+          <p class="dir-meta">Курсы – 19&nbsp;200 руб./мес. · интенсив – 2&nbsp;800 руб.</p>
+          <a class="btn" href="#/adults">Курсы и&nbsp;интенсивы <svg class="icon"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+
+      <article class="dir reveal">
+        <div class="dir-media"><img class="fm-blur" src="./img/club/kids-hero.webp" alt="" aria-hidden="true" loading="lazy"><img class="fm-sharp" src="./img/club/kids-hero.webp" alt="Дети на занятии в клубе" loading="lazy"></div>
+        <div class="dir-text">
+          <p class="r4">Для детей 7–14 лет</p>
+          <h3 class="r1">Свои игры, комиксы, сайты и&nbsp;программы</h3>
+          <p>Нейросети – помощник для идей ребёнка, а&nbsp;не&nbsp;замена мышлению. Опыт программирования не&nbsp;нужен.</p>
+          <ul class="ticks"><li><span class="ic-sq"><svg class="icon"><use href="#i-check"/></svg></span>4 курса: Нейростарт, Нейродизайнер, Roblox, Python&nbsp;+&nbsp;ИИ</li><li><span class="ic-sq"><svg class="icon"><use href="#i-check"/></svg></span>Бесплатное Нейро-воскресенье для знакомства</li><li><span class="ic-sq"><svg class="icon"><use href="#i-check"/></svg></span>Мастер-классы, конкурсы и&nbsp;хакатоны</li></ul>
+          <p class="dir-meta">Курсы – 6&nbsp;600 руб./мес., 12 занятий</p>
+          <a class="btn" href="#/kids">Курсы для детей <svg class="icon"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+
+      <article class="dir reveal">
+        <div class="dir-media"><img class="fm-blur" src="./img/business.jpg?v=2" alt="" aria-hidden="true" loading="lazy"><img class="fm-sharp" src="./img/business.jpg?v=2" alt="Команда на занятии" loading="lazy"></div>
+        <div class="dir-text">
+          <p class="r4">Для бизнеса</p>
+          <h3 class="r1">Обучение команды под&nbsp;ваши задачи</h3>
+          <p>Вы ставите задачу – мы предлагаем программу и&nbsp;формат и&nbsp;производим расчёт.</p>
+          <ul class="ticks"><li><span class="ic-sq"><svg class="icon"><use href="#i-check"/></svg></span>Документы и&nbsp;переписка</li><li><span class="ic-sq"><svg class="icon"><use href="#i-check"/></svg></span>Контент и&nbsp;маркетинг</li><li><span class="ic-sq"><svg class="icon"><use href="#i-check"/></svg></span>ИИ для руководителя и&nbsp;команды</li></ul>
+          <p class="dir-meta">Стоимость – расчёт под&nbsp;задачу</p>
+          <a class="btn" href="#/business">Обсудить обучение <svg class="icon"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+
     </div>
   </section>
 
@@ -567,22 +644,6 @@ fieldset.field{border:0;padding:0;margin:0}
     </div>
   </section>
 
-  <section class="section wrap" aria-labelledby="pain-title">
-    <div class="head">
-      <div class="head-text">
-        <p class="r4">Для кого клуб</p>
-        <h2 class="r1" id="pain-title">Узнаёте себя?</h2>
-      </div>
-    </div>
-    <div class="pains">
-      <div class="card pain reveal"><span class="ic"><svg class="icon"><use href="#i-compass"/></svg></span><h3 class="r2">Не&nbsp;знаете, как подойти к&nbsp;нейросетям?</h3><p>Может, вы, как и&nbsp;многие, не&nbsp;смогли зарегистрироваться в&nbsp;нейросетях, а&nbsp;может, работали с&nbsp;ними, но&nbsp;результат разочаровал.</p></div>
-      <div class="card pain reveal"><span class="ic"><svg class="icon"><use href="#i-trend"/></svg></span><h3 class="r2">Уже пользуетесь ИИ, но&nbsp;хотите большего?</h3><p>Умеете работать с&nbsp;ИИ, но&nbsp;понимаете, что можно делать быстрее, качественнее и&nbsp;даже то, о&nbsp;чём вы не&nbsp;догадывались.</p></div>
-      <div class="card pain reveal"><span class="ic"><svg class="icon"><use href="#i-refresh"/></svg></span><h3 class="r2">Стремитесь первыми осваивать обновления?</h3><p>Понимаете, что мир ИИ развивается молниеносно, и&nbsp;хотите раньше других узнавать о&nbsp;новых функциях и&nbsp;топовых «нейронках».</p></div>
-      <div class="card pain reveal"><span class="ic"><svg class="icon"><use href="#i-hourglass"/></svg></span><h3 class="r2">Хотите отдать рутину ИИ и&nbsp;освободить время для&nbsp;важного?</h3><p>Независимо от&nbsp;профессии и&nbsp;опыта – у&nbsp;каждого специалиста есть то, что можно автоматизировать.</p></div>
-      <div class="card pain reveal"><span class="ic"><svg class="icon"><use href="#i-brief"/></svg></span><h3 class="r2">Хотите преимущество на&nbsp;рынке труда?</h3><p>Работодатели отдают предпочтение тем, кто умело пользуется ИИ и&nbsp;знает, как встроить его в&nbsp;рабочие процессы.</p></div>
-    </div>
-  </section>
-
   <section class="section wrap" aria-labelledby="why-home-title">
     <div class="dark">
       <div class="dark-grid">
@@ -594,6 +655,13 @@ fieldset.field{border:0;padding:0;margin:0}
             <li><span class="x"><svg class="icon"><use href="#i-x"/></svg></span>Не&nbsp;компьютерные курсы</li>
             <li><span class="x"><svg class="icon"><use href="#i-x"/></svg></span>Не&nbsp;кружок программирования</li>
             <li class="yes"><span class="x"><svg class="icon"><use href="#i-check"/></svg></span>Место, где технологии становятся понятными и&nbsp;полезными</li>
+          </ul>
+          <ul class="facts-dark" aria-label="Студия клуба">
+            <li><svg class="icon"><use href="#i-pin"/></svg>Центр Твери</li>
+            <li><svg class="icon"><use href="#i-users"/></svg>Студия на&nbsp;9 рабочих мест</li>
+            <li><svg class="icon"><use href="#i-monitor"/></svg>Новые компьютеры и&nbsp;ПО для нейросетей</li>
+            <li><svg class="icon"><use href="#i-star"/></svg>Демо-экран с&nbsp;профессиональным звуком</li>
+            <li><svg class="icon"><use href="#i-check"/></svg>Можно без опыта</li>
           </ul>
         </div>
         <div class="pillars">
@@ -675,13 +743,9 @@ fieldset.field{border:0;padding:0;margin:0}
       <div class="lead-text">
         <p class="r4">Запись и подбор программы</p>
         <h2 class="r1" id="lead-title">Не&nbsp;знаете, с&nbsp;чего начать? Подскажем</h2>
-        <p>Оставьте контакты – свяжемся, расскажем о&nbsp;ближайших встречах и&nbsp;поможем выбрать программу под вашу задачу или интересы ребёнка.</p>
-        <div class="contact-lines">
-          <a href="tel:+79040001213"><svg class="icon"><use href="#i-phone"/></svg>8-904-000-12-13</a>
-          <a href="mailto:Grand.tver@mail.ru"><svg class="icon"><use href="#i-mail"/></svg>Grand.tver@mail.ru</a>
-        </div>
+        <p>Напишите нам – ответим на&nbsp;вопросы, расскажем о&nbsp;ближайших встречах и&nbsp;поможем выбрать программу под вашу задачу или интересы ребёнка.</p>
       </div>
-      <div class="form-card" data-inline-form="pick"></div>
+      <div class="form-card" data-contact="pick"></div>
     </div>
   </section>
 
@@ -695,9 +759,6 @@ fieldset.field{border:0;padding:0;margin:0}
           <div class="info-row"><span class="ic-sq"><svg class="icon"><use href="#i-pin"/></svg></span><div><b>170100, г.&nbsp;Тверь, ул.&nbsp;Новоторжская, д.&nbsp;18, корп.&nbsp;1, пом.&nbsp;48</b><p>БЦ «Аврора», отдельный вход по&nbsp;правому фасаду</p></div></div>
           <div class="info-row"><span class="ic-sq"><svg class="icon"><use href="#i-phone"/></svg></span><div><b><a href="tel:+79040001213">8-904-000-12-13</a></b><p>Телефон клуба</p></div></div>
           <div class="info-row"><span class="ic-sq"><svg class="icon"><use href="#i-mail"/></svg></span><div><b><a href="mailto:Grand.tver@mail.ru">Grand.tver@mail.ru</a></b><p>Электронная почта</p></div></div>
-          <ul class="club-facts">
-            <li class="chip">Центр Твери</li><li class="chip">9 рабочих мест</li><li class="chip">Новые компьютеры и&nbsp;ПО для нейросетей</li><li class="chip">Демо-экран с&nbsp;профессиональным звуком</li>
-          </ul>
           <div class="find-actions">
             <a class="btn" href="https://yandex.ru/maps/?text=%D0%A2%D0%B2%D0%B5%D1%80%D1%8C%2C%20%D1%83%D0%BB.%20%D0%9D%D0%BE%D0%B2%D0%BE%D1%82%D0%BE%D1%80%D0%B6%D1%81%D0%BA%D0%B0%D1%8F%2C%2018%D0%BA1" target="_blank" rel="noopener">Открыть в&nbsp;Яндекс Картах <svg class="icon"><use href="#i-ext"/></svg></a>
             <a class="btn btn-ghost" href="tel:+79040001213">Позвонить</a>
@@ -710,8 +771,9 @@ fieldset.field{border:0;padding:0;margin:0}
 
 <!-- ============ ДЕТЯМ ============ -->
 <div data-page="kids" hidden>
-  <section class="hero wrap" aria-labelledby="kids-title">
-    <div class="hero-grid">
+  <section class="fade-hero" aria-labelledby="kids-title">
+    <div class="fade-media"><img class="fm-blur" src="./img/club/kids-hero.webp" alt="" aria-hidden="true" fetchpriority="high"><img class="fm-sharp" src="./img/club/kids-hero.webp" alt="Дети на занятии в клубе ProНейро" fetchpriority="high"></div>
+    <div class="wrap fade-inner">
       <div class="hero-text">
         <nav class="crumbs" aria-label="Навигация по сайту"><a href="#/">Главная</a><span aria-hidden="true">/</span><span>Детям</span></nav>
         <p class="r4">Клуб технологий для детей 7–14 лет</p>
@@ -732,9 +794,6 @@ fieldset.field{border:0;padding:0;margin:0}
           <button class="btn btn-ghost" type="button" data-event="sunday">Бесплатное Нейро-воскресенье</button>
         </div>
       </div>
-      <figure class="hero-photo tall">
-        <img src="./img/club/kids-class.jpg" alt="Дети на занятии в клубе ProНейро" width="960" height="1280" fetchpriority="high">
-      </figure>
     </div>
   </section>
 
@@ -819,8 +878,9 @@ fieldset.field{border:0;padding:0;margin:0}
 
 <!-- ============ ВЗРОСЛЫМ ============ -->
 <div data-page="adults" hidden>
-  <section class="hero wrap" aria-labelledby="ad-title">
-    <div class="hero-grid">
+  <section class="fade-hero" aria-labelledby="ad-title">
+    <div class="fade-media"><img class="fm-blur" src="./img/adults.jpg?v=2" alt="" aria-hidden="true" fetchpriority="high"><img class="fm-sharp" src="./img/adults.jpg?v=2" alt="Взрослые на занятии в клубе" fetchpriority="high"></div>
+    <div class="wrap fade-inner">
       <div class="hero-text">
         <nav class="crumbs" aria-label="Навигация по сайту"><a href="#/">Главная</a><span aria-hidden="true">/</span><span>Взрослым</span></nav>
         <p class="r4">Для взрослых</p>
@@ -835,35 +895,22 @@ fieldset.field{border:0;padding:0;margin:0}
         </ul>
         <div class="hero-actions">
           <a class="btn" href="#/adult-courses">Смотреть курсы <svg class="icon"><use href="#i-arrow"/></svg></a>
-          <button class="btn btn-ghost" type="button" data-event="saturday">Бесплатная Нейро-суббота</button>
+          <a class="btn btn-ghost" href="#/intensives">Интенсивы</a>
         </div>
       </div>
-      <figure class="hero-photo tall"><img src="./img/adults.jpg?v=2" alt="Взрослые на занятии в клубе" width="1280" height="1024"></figure>
     </div>
   </section>
 
-  <section class="section wrap" aria-labelledby="sat-title">
-    <div class="kev">
-      <article class="kev-card">
-        <div class="kev-img"><img src="./img/zal-1200.jpg" alt="Студия клуба" loading="lazy"></div>
-        <div class="kev-body">
-          <div class="kev-row"><p class="r4">Бесплатный мастер-класс</p><span class="pill free">0 руб.</span></div>
-          <h2 class="r2" id="sat-title">Нейро-суббота</h2>
-          <p>Для тех, кто хочет чувствовать себя уверенно в&nbsp;новом мире, познакомиться с&nbsp;возможностями нейросетей и&nbsp;работой клуба. К&nbsp;концу встречи – готовый инструмент и&nbsp;понимание следующего шага.</p>
-          <div class="ev-meta"><span><svg class="icon"><use href="#i-cal"/></svg><span data-next-saturday>Последняя суббота месяца</span></span><span><svg class="icon"><use href="#i-clock"/></svg>15:00–16:30</span></div>
-          <button class="btn" type="button" data-lead="event:saturday">Записаться бесплатно <svg class="icon"><use href="#i-arrow"/></svg></button>
-        </div>
-      </article>
+  <section class="section wrap" aria-labelledby="can-title">
       <div class="card">
         <p class="r4">В ProНейро можно</p>
-        <h2 class="r2">Задавать любые вопросы, пробовать, ошибаться и&nbsp;получать поддержку</h2>
+        <h2 class="r2" id="can-title">Задавать любые вопросы, пробовать, ошибаться и&nbsp;получать поддержку</h2>
         <p>В спокойной дружелюбной атмосфере вы освоите навык, который останется полезным независимо от&nbsp;того, какая нейросеть станет популярной завтра.</p>
         <div class="then-now">
           <div class="card"><p class="r4">Тогда · компьютерная грамотность</p><p>Набрать документ, найти нужное в&nbsp;интернете, общаться по&nbsp;почте.</p></div>
           <div class="card now"><p class="r4">Сейчас · грамотность в&nbsp;ИИ</p><p>Ставить нейросети понятную задачу, проверять ответы и&nbsp;думать самостоятельно, бережно обращаться с&nbsp;данными.</p></div>
         </div>
       </div>
-    </div>
   </section>
 
   <section class="section wrap" id="intensives" aria-labelledby="int-title">
@@ -900,8 +947,9 @@ fieldset.field{border:0;padding:0;margin:0}
 
 <!-- ============ БИЗНЕСУ ============ -->
 <div data-page="business" hidden>
-  <section class="hero wrap" aria-labelledby="biz-title">
-    <div class="hero-grid">
+  <section class="fade-hero" aria-labelledby="biz-title">
+    <div class="fade-media"><img class="fm-blur" src="./img/business.jpg?v=2" alt="" aria-hidden="true" fetchpriority="high"><img class="fm-sharp" src="./img/business.jpg?v=2" alt="Команда на занятии" fetchpriority="high"></div>
+    <div class="wrap fade-inner">
       <div class="hero-text">
         <nav class="crumbs" aria-label="Навигация по сайту"><a href="#/">Главная</a><span aria-hidden="true">/</span><span>Бизнесу</span></nav>
         <p class="r4">Для компаний · обучение под запрос</p>
@@ -909,7 +957,6 @@ fieldset.field{border:0;padding:0;margin:0}
         <p class="hero-lead">Вы ставите перед нами задачу – мы предлагаем программу и&nbsp;формат и&nbsp;производим расчёт. Начинаем со&nbsp;встречи-знакомства.</p>
         <div class="hero-actions"><button class="btn" type="button" data-lead="corp">Обсудить обучение <svg class="icon"><use href="#i-arrow"/></svg></button></div>
       </div>
-      <figure class="hero-photo"><img src="./img/business.jpg?v=2" alt="Команда на занятии" width="1280" height="1024"></figure>
     </div>
   </section>
   <section class="section wrap" aria-labelledby="corp-steps">
@@ -1171,9 +1218,10 @@ fieldset.field{border:0;padding:0;margin:0}
 
 <script>
 /* ===== Настройки ===== */
-// Куда отправлять заявки. Пока пусто – формы работают в демонстрационном режиме
-// и ничего не отправляют. Когда будет готов Telegram-бот, сюда вписывается адрес приёмника.
-const LEAD_ENDPOINT = '';
+// Куда пишут желающие записаться. Сайт сам заявки не собирает – кнопки открывают чат с клубом.
+// telegram – ник без @ (например, proneiro_club); max – ссылка на профиль или канал в MAX.
+// Пока поле пустое, кнопка не показывается и остаётся «Позвонить».
+const CONTACTS = { telegram:'', max:'' };
 const PHONE = '8\u2011904\u2011000\u201112\u201113'; // неразрывные дефисы, чтобы номер не рвался
 
 /* ===== Данные ===== */
@@ -1189,9 +1237,6 @@ const dm = d => d.getDate() + ' ' + MONTHS[d.getMonth()];
 const AUD = { a:'Взрослым', k:'Детям', b:'Бизнесу' };
 
 const FREE = {
-  saturday: { aud:'a', title:'Нейро-суббота', who:'для взрослых', time:'15:00–16:30', rule:'каждую последнюю субботу месяца', d: nextLastWeekday(6),
-    desc:'Бесплатный мастер-класс для людей, которые хотят чувствовать себя уверенно в новом мире, познакомиться с возможностями нейросетей и работой клуба.',
-    result:'К концу встречи – готовый инструмент и понимание следующего шага.' },
   sunday: { aud:'k', title:'Нейро-воскресенье', who:'для детей и родителей', time:'14:00–15:30', rule:'каждое последнее воскресенье месяца', d: nextLastWeekday(0),
     desc:'Интерактивный мастер-класс для детей и родителей. В игровой форме познакомим с возможностями нейросетей, покажем, как проходят занятия в клубе, и подготовим подарки для всех участников.',
     result:'Ребёнок попробует нейросети сам, а вы увидите, как устроены занятия.' },
@@ -1284,8 +1329,8 @@ const FAQ = {
     ['Подойдёт ли обучение новичкам?','Да. Базовый курс «Нейросети: с нуля к практике» начинается с основ: что умеет ИИ, где он ошибается и как поставить ему задачу. Если вы уже уверенно пользуетесь ИИ, посмотрите продвинутый курс «ИИ-система для вашего дела».'],
     ['Что нужно для занятий?','Очные занятия проходят в студии клуба: там есть компьютеры, демо-экран и программы для работы с нейросетями. Для онлайн-занятий курса понадобится свой компьютер и интернет.'],
     ['Как организована практика?','Минимум теории – максимум практики: на каждом занятии решаем реальные задачи – письма, документы, таблицы, контент. Вопросы можно задавать в любой момент.'],
-    ['Как выбрать программу?','Начните с бесплатной Нейро-субботы – последняя суббота месяца, 15:00–16:30. Познакомитесь с клубом и поймёте свой следующий шаг. Или оставьте заявку – поможем подобрать.'],
-    ['Как записаться?','Оставьте заявку на сайте или позвоните по телефону ' + PHONE + '.'] ],
+    ['Как выбрать программу?','Напишите нам или позвоните – расскажите, какие задачи хотите решать, и мы подскажем, с чего начать: с интенсива, базового или продвинутого курса.'],
+    ['Как записаться?','Нажмите «Записаться» у курса или события – откроется чат с клубом с уже готовым сообщением. Или позвоните по телефону ' + PHONE + '.'] ],
   k: [
     ['Нужен ли ребёнку опыт программирования?','Нет. Начинаем с нуля, опыт программирования не требуется.'],
     ['Для какого возраста курсы?','Для детей 7–14 лет.'],
@@ -1423,89 +1468,35 @@ function docModal(key){
   openModal(head(...titles[key]) + `<div class="doc">${html}</div>`, true);
 }
 
-/* ===== Формы ===== */
-const F = {
-  name:{ id:'name', label:'Ваше имя', auto:'name', req:true },
-  parent:{ id:'name', label:'Имя родителя или законного представителя', auto:'name', req:true },
-  contact:{ id:'contact', label:'Телефон или мессенджер', auto:'tel', req:true, contact:true, ph:'+7 900 000-00-00 или @ник в Telegram' },
-  age:{ id:'age', label:'Возраст ребёнка', req:true, age:true, ph:'Например, 9', mode:'numeric' },
-  note:{ id:'note', label:'Вопрос или пожелание', hint:' (необязательно)', multi:true },
-  company:{ id:'company', label:'Компания', auto:'organization', req:true },
-  request:{ id:'request', label:'Опишите задачу', multi:true, req:true, ph:'Что хотите решить, сколько человек, какой сейчас опыт с ИИ' },
-  who:{ id:'who', label:'Для кого подбираем', seg:['Для себя','Для ребёнка','Для команды'] },
-};
-function leadSpec(kind){
+/* ===== Запись: чат с клубом вместо формы ===== */
+function leadInfo(kind){
   const [type, arg] = kind.split(':');
-  if (type === 'event'){ const e = FREE[arg]; const kids = e.aud === 'k';
-    return { kicker:'Запись на бесплатную встречу', title:e.title, sum:[['Ближайшая', dm(e.d) + ', ' + e.time], ['Стоимость', 'Бесплатно']], fields:kids ? [F.parent, F.age, F.contact, F.note] : [F.name, F.contact, F.note], submit:'Записаться бесплатно' }; }
+  if (type === 'event'){ const e = FREE[arg];
+    return { kicker:'Запись на бесплатную встречу', title:e.title, sum:[['Ближайшая', dm(e.d) + ', ' + e.time], ['Стоимость', 'Бесплатно']], msg:`Здравствуйте! Хочу записать ребёнка на ${e.title} ${dm(e.d)}.` }; }
   if (type === 'int'){ const it = INTENSIVES[+arg];
-    return { kicker:it.d ? 'Запись на интенсив' : 'Предзапись на интенсив', title:it.t, sum:[['Дата', it.d ? dm(it.d) + ', 19:00' : 'Сообщим дату'], ['Стоимость', '2 800 руб.']], fields:[F.name, F.contact, F.note], submit:it.d ? 'Записаться' : 'Оставить предзапись' }; }
+    return { kicker:'Предзапись на интенсив', title:it.t, sum:[['Дата', 'Сообщим, когда назначим'], ['Стоимость', '2 800 руб.']], msg:`Здравствуйте! Хочу на интенсив «${it.t}». Сообщите, пожалуйста, дату.` }; }
   if (type === 'course'){ const c = COURSE[arg];
-    return { kicker:c.kicker, title:c.title, sum:[[c.kids ? 'Длительность' : 'Старт', c.kids ? '3 месяца, 12 занятий' : (c.d ? dm(c.d) : 'Идёт предзапись')], ['Стоимость', c.price]], fields:c.kids ? [F.parent, F.age, F.contact, F.note] : [F.name, F.contact, F.note], submit:'Записаться' }; }
-  if (type === 'corp') return { kicker:'Для бизнеса', title:'Обсудить обучение команды', sum:[['Первый шаг', 'Встреча-знакомство'], ['Стоимость и формат', 'После обсуждения']], fields:[F.name, F.contact, F.company, F.request], submit:'Отправить запрос' };
-  if (type === 'kidsevents') return { kicker:'Детям 7–14 лет', title:'Мастер-классы, конкурсы и хакатоны', sum:[['Стоимость', '2 000 руб.'], ['Даты', 'Сообщим о ближайших']], fields:[F.parent, F.age, F.contact], submit:'Сообщите мне' };
-  if (type === 'kidspick') return { kicker:'Детям 7–14 лет', title:'Подобрать курс для ребёнка', fields:[F.parent, F.age, F.contact, { ...F.note, label:'Чем увлекается ребёнок' }], submit:'Подобрать курс' };
-  if (type === 'adultpick') return { kicker:'Для взрослых', title:'Подобрать программу', fields:[F.name, F.contact, { ...F.note, label:'Какие задачи хотите решать с ИИ' }], submit:'Подобрать программу' };
-  return { kicker:'Запись в клуб', title:'Записаться или подобрать программу', fields:[F.name, F.contact, F.who, F.note], submit:'Отправить заявку' };
+    return { kicker:c.kicker, title:c.title, sum:[[c.kids ? 'Длительность' : 'Старт', c.kids ? '3 месяца, 12 занятий' : 'Идёт предзапись'], ['Стоимость', c.price]],
+      msg:`Здравствуйте! Хочу записа${c.kids ? 'ть ребёнка' : 'ться'} на курс «${c.title}».` }; }
+  if (type === 'corp') return { kicker:'Для бизнеса', title:'Обсудить обучение команды', sum:[['Первый шаг', 'Встреча-знакомство'], ['Стоимость и формат', 'После обсуждения']], msg:'Здравствуйте! Хотим обсудить обучение нейросетям для нашей команды.' };
+  if (type === 'kidsevents') return { kicker:'Детям 7–14 лет', title:'Мастер-классы, конкурсы и хакатоны', sum:[['Стоимость', '2 000 руб.'], ['Даты', 'Сообщим о ближайших']], msg:'Здравствуйте! Сообщите, пожалуйста, о ближайших мастер-классах для детей.' };
+  if (type === 'kidspick') return { kicker:'Детям 7–14 лет', title:'Подобрать курс для ребёнка', msg:'Здравствуйте! Помогите подобрать курс для ребёнка.' };
+  if (type === 'adultpick') return { kicker:'Для взрослых', title:'Подобрать программу', msg:'Здравствуйте! Помогите подобрать программу по нейросетям.' };
+  return { kicker:'Запись в клуб', title:'Записаться или подобрать программу', msg:'Здравствуйте! Хочу записаться в клуб ProНейро. Помогите подобрать программу.' };
 }
-function fieldHtml(f, uid){
-  const id = uid + '-' + f.id;
-  if (f.seg) return `<fieldset class="field"><legend>${esc(f.label)}</legend><div class="seg">${f.seg.map((s, i) => `<label><input type="radio" name="${f.id}" value="${esc(s)}"${i === 0 ? ' checked' : ''}><span>${esc(s)}</span></label>`).join('')}</div></fieldset>`;
-  const common = `id="${id}" name="${f.id}" ${f.req ? 'required aria-required="true"' : ''} ${f.ph ? `placeholder="${esc(f.ph)}"` : ''} autocomplete="${f.auto || 'off'}" aria-describedby="${id}-err"`;
-  const input = f.multi ? `<textarea ${common}></textarea>` : `<input type="text" ${f.mode ? `inputmode="${f.mode}"` : ''} ${common}>`;
-  return `<div class="field"><label for="${id}">${esc(f.label)}${f.hint ? `<span class="hint">${esc(f.hint)}</span>` : ''}</label>${input}<p class="err" id="${id}-err" hidden></p></div>`;
-}
-let formSeq = 0;
-function formHtml(kind){
-  const s = leadSpec(kind), uid = 'f' + (++formSeq);
-  return `<form class="form" novalidate data-form="${esc(kind)}" data-title="${esc(s.title)}">
-    ${s.fields.map(f => fieldHtml(f, uid)).join('')}
-    <label class="check"><input type="checkbox" name="consent"><span>Согласен(на) на обработку персональных данных в соответствии с <button class="linkish" type="button" data-doc="policy">Политикой</button> и ознакомлен(а) с <button class="linkish" type="button" data-doc="oferta">договором-офертой</button></span></label>
-    <p class="err" data-consent-err hidden>Нужно согласие на обработку данных</p>
-    ${LEAD_ENDPOINT ? '' : `<p class="demo-note">${ic('i-info')}<span>Форма пока работает в демонстрационном режиме: заявка никуда не отправляется. Записаться можно по телефону ${PHONE}.</span></p>`}
-    <button class="btn btn-block" type="submit">${esc(s.submit)} ${ic('i-arrow')}</button>
-  </form>`;
+function contactHtml(msg){
+  const btns = [];
+  if (CONTACTS.telegram) btns.push(`<a class="btn" href="https://t.me/${encodeURIComponent(CONTACTS.telegram)}?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">${ic('i-send')}Написать в&nbsp;Telegram</a>`);
+  if (CONTACTS.max) btns.push(`<a class="btn${btns.length ? ' btn-ghost' : ''}" href="${esc(CONTACTS.max)}" target="_blank" rel="noopener" data-copy="${esc(msg)}">${ic('i-chat')}Написать в&nbsp;MAX</a>`);
+  btns.push(`<a class="btn${btns.length ? ' btn-ghost' : ''}" href="tel:+79040001213">${ic('i-phone')}Позвонить ${PHONE}</a>`);
+  const lead = btns.length > 1
+    ? 'Напишите нам – ответим и запишем. ' + (CONTACTS.telegram ? 'В Telegram текст сообщения уже будет готов – его можно отправить как есть.' : '')
+    : 'Позвоните нам – ответим на вопросы и запишем.';
+  return `<div class="contact"><p>${nb(lead)}</p><div class="contact-btns">${btns.join('')}</div><p class="copy-note" hidden>Текст сообщения скопирован – вставьте его в чат.</p></div>`;
 }
 function leadModal(kind){
-  const s = leadSpec(kind);
-  openModal(head(s.kicker, s.title) + (s.sum ? facts(s.sum) : '') + formHtml(kind));
-}
-function validate(form){
-  let ok = true, first = null;
-  $$('input[type=text],textarea', form).forEach(el => {
-    const v = el.value.trim(), err = $('#' + el.id + '-err');
-    let msg = '';
-    if (el.required && !v) msg = 'Заполните это поле';
-    else if (el.name === 'contact' && v){
-      const digits = v.replace(/\D/g, '');
-      const phone = /^[\d\s()+\-]+$/.test(v) && digits.length >= 10 && digits.length <= 12;
-      const email = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
-      const tg = /^@?[A-Za-z0-9_]{5,32}$/.test(v);
-      if (!phone && !email && !tg) msg = 'Укажите телефон (от 10 цифр), email или ник в Telegram';
-    } else if (el.name === 'age' && v){ const n = Number(v); if (!Number.isInteger(n) || n < 5 || n > 18) msg = 'Укажите возраст числом'; }
-    el.setAttribute('aria-invalid', msg ? 'true' : 'false');
-    err.textContent = msg; err.hidden = !msg;
-    if (msg){ ok = false; first = first || el; }
-  });
-  const c = form.elements.consent, cerr = $('[data-consent-err]', form);
-  cerr.hidden = c.checked; if (!c.checked){ ok = false; first = first || c; }
-  if (first) first.focus();
-  return ok;
-}
-async function submitForm(form){
-  if (!validate(form)) return;
-  const data = Object.fromEntries(new FormData(form).entries());
-  data.form = form.dataset.form; data.title = form.dataset.title; data.page = location.hash || '#/'; data.sent = new Date().toISOString();
-  const btn = $('button[type=submit]', form); btn.disabled = true;
-  let sent = false;
-  if (LEAD_ENDPOINT){
-    try { const r = await fetch(LEAD_ENDPOINT, { method:'POST', headers:{ 'Content-Type':'application/json' }, body:JSON.stringify(data) }); sent = r.ok; } catch (e) { sent = false; }
-  }
-  const html = `<div class="success"><span class="ic">${ic(sent ? 'i-check' : 'i-info')}</span>
-    <h2 class="r1" id="modal-title">${sent ? 'Заявка принята' : 'Это демонстрация'}</h2>
-    <p>${sent ? 'Спасибо! Свяжемся с вами в ближайшее время, чтобы подтвердить запись.' : 'Сценарий записи пройден, но заявка пока никуда не отправлена. Записаться можно по телефону ' + PHONE + '.'}</p>
-    <button class="btn" type="button" data-close>Хорошо</button></div>`;
-  if (form.closest('#modal')) openModal(html); else { form.parentElement.innerHTML = html.replace('data-close', 'data-reset-inline'); }
+  const s = leadInfo(kind);
+  openModal(head(s.kicker, s.title) + (s.sum ? facts(s.sum) : '') + contactHtml(s.msg));
 }
 
 /* ===== Маршруты ===== */
@@ -1513,7 +1504,7 @@ const PAGES = ['home','kids','adults','business','svedeniya'];
 function route(){
   const h = (location.hash || '').replace(/^#\/?/, '');
   let page = PAGES.includes(h) ? h : 'home', anchor = null;
-  if (['events','contacts'].includes(h)){ page = 'home'; anchor = h; }
+  if (['events','contacts','directions'].includes(h)){ page = 'home'; anchor = h; }
   if (h === 'kids-courses'){ page = 'kids'; anchor = h; }
   if (['adult-courses','intensives'].includes(h)){ page = 'adults'; anchor = h; }
   $$('[data-page]').forEach(p => p.hidden = p.dataset.page !== page);
@@ -1549,6 +1540,7 @@ function observeReveal(){
 document.addEventListener('click', e => {
   const t = e.target.closest('button,a'); if (!t) return;
   const d = t.dataset;
+  if (d.copy !== undefined){ try { navigator.clipboard.writeText(d.copy); } catch (err) {} const n = t.closest('.contact') && $('.copy-note', t.closest('.contact')); if (n) n.hidden = false; return; }
   if (d.close !== undefined) return closeModal();
   if (d.lead) return leadModal(d.lead);
   if (d.event) return eventModal(d.event);
@@ -1559,11 +1551,9 @@ document.addEventListener('click', e => {
   if (d.mod !== undefined){ const box = t.parentElement, body = $('.mod-body', box), open = body.hidden; body.hidden = !open; box.classList.toggle('open', open); t.setAttribute('aria-expanded', open); return; }
   if (d.social) return openModal(head('Соцсети клуба', d.social) + `<p>Ссылку добавим перед запуском. А пока записаться и задать вопрос можно по телефону <a href="tel:+79040001213">${PHONE}</a>.</p>`);
   if (d.cookie){ try { localStorage.setItem(COOKIE_KEY, d.cookie); } catch (err) {} $('#cookie').hidden = true; return; }
-  if (d.resetInline !== undefined){ const box = t.closest('[data-inline-form]'); box.innerHTML = formHtml(box.dataset.inlineForm); return; }
   if (t.matches('a[href^="#/"]') && t.getAttribute('href') === location.hash) { route(); }
 });
 modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
-document.addEventListener('submit', e => { const f = e.target.closest('[data-form]'); if (f){ e.preventDefault(); submitForm(f); } });
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape'){ if (!modal.hidden) closeModal(); else if (!mnav.hidden) setMenu(false); }
   if (e.key === 'Tab' && !modal.hidden){
@@ -1577,8 +1567,7 @@ window.addEventListener('hashchange', route);
 
 /* ===== Старт ===== */
 $$('[data-next-sunday]').forEach(el => el.textContent = 'Ближайшее – ' + dm(FREE.sunday.d));
-$$('[data-next-saturday]').forEach(el => el.textContent = 'Ближайшая – ' + dm(FREE.saturday.d));
-$('[data-inline-form="pick"]').innerHTML = formHtml('pick');
+$('[data-contact="pick"]').innerHTML = contactHtml(leadInfo('pick').msg);
 renderFeeds(); renderCourses(); renderFaq(); route();
 </script>
 </body>
