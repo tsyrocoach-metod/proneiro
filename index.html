@@ -160,7 +160,7 @@ b,strong{font-weight:600;color:var(--ink)}
 .date .d{font-weight:700;font-size:28px;letter-spacing:-.03em}
 .date .m{font-weight:600;font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin-top:4px}
 .date .w{font-size:12px;margin-top:3px;color:var(--text)}
-.date.soon{background:var(--tint-2);border:1px dashed rgba(0,102,255,.35)}
+.date.soon{background:var(--tint-2);border:1px dashed rgba(0,102,255,.35);width:auto;min-width:68px;padding:0 10px}
 .date.soon .icon{width:24px;height:24px}
 .date.soon .m{text-transform:none;letter-spacing:0;text-align:center;font-size:11px;line-height:1.15;padding:0 4px}
 .pills{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:6px}
@@ -562,10 +562,8 @@ fieldset.field{border:0;padding:0;margin:0}
           <p class="r4">Афиша клуба</p>
           <h2 class="r1" id="ev-title">Ближайшие события</h2>
         </div>
-        <div class="filters" role="group" aria-label="Для кого событие" data-filters="home"></div>
       </div>
       <div class="events" data-feed="home"></div>
-      <div class="more" data-more="home"></div>
     </div>
   </section>
 
@@ -1199,12 +1197,12 @@ const FREE = {
     result:'Ребёнок попробует нейросети сам, а вы увидите, как устроены занятия.' },
 };
 
-// Даты интенсивов – макетные, из прошлой версии сайта. Заменить на реальные; без даты – предзапись.
+// Даты интенсивов пока не объявлены – везде предзапись. Когда дата появится, добавить d:new Date(ГГГГ, месяц-1, день).
 const INTENSIVES = [
-  { t:'Свой сайт с нейросетями: от идеи до публикации', d:new Date(2026,10,5) },
-  { t:'Личный помощник на базе нейросети', d:new Date(2026,10,12) },
-  { t:'Нейросети для педагога: интересные уроки и экономия времени', d:new Date(2026,10,19) },
-  { t:'Контент за 2 часа: AI-редакция для вашего бизнеса', d:new Date(2026,10,26) },
+  { t:'Свой сайт с нейросетями: от идеи до публикации' },
+  { t:'Личный помощник на базе нейросети' },
+  { t:'Нейросети для педагога: интересные уроки и экономия времени' },
+  { t:'Контент за 2 часа: AI-редакция для вашего бизнеса' },
   { t:'Нейроассистент для ассистента руководителя' },
   { t:'Соцсети beauty-мастера без SMM-специалиста' },
   { t:'Нейросети для риелтора' },
@@ -1261,7 +1259,7 @@ const KIDS = [
 KIDS.forEach(c => { c.price = '6 600 руб./мес.'; c.len = '12 занятий · 3 месяца'; c.kids = true; c.aud = 'k'; c.kicker = 'Курс для детей 7–14 лет'; });
 
 const ADULT = [
-  { id:'basic', tag:'Базовый уровень', title:'Нейросети: с нуля к практике', sub:'От первого запроса до своей системы работы с ИИ', img:'adults.jpg?v=2', d:new Date(2026,10,9),
+  { id:'basic', tag:'Базовый уровень', title:'Нейросети: с нуля к практике', sub:'От первого запроса до своей системы работы с ИИ', img:'adults.jpg?v=2',
     points:[['i-chat','ChatGPT как рабочий помощник: письма, документы, планы'],['i-bars','Таблицы, исследования рынка и презентации за час'],['i-layers','Свой AI-помощник и план внедрения ИИ на 30 дней']],
     modules:[
       { r:'01–04', t:'Основа работы с ИИ', res:'Вы начинаете уверенно использовать ChatGPT как рабочего помощника.', l:[['ИИ без страха: мой первый помощник','Разберёмся, что действительно умеет ИИ, где он ошибается и как начать использовать ChatGPT в своих задачах.'],['Как получать от ИИ то, что вам действительно нужно','Учимся правильно ставить задачи, давать контекст и получать качественный результат вместо случайных ответов.'],['GPT – мой секретарь','Письма, ответы клиентам, планы, списки задач, деловая переписка, голосовые заметки и организация рабочего дня.'],['Документы: 30 страниц за 5 минут','Учимся быстро анализировать большие документы, находить главное, риски, противоречия и превращать текст в конкретные действия.']] },
@@ -1309,9 +1307,9 @@ const ic = (id, cls = 'icon') => `<svg class="${cls}"><use href="#${id}"/></svg>
 function allEvents(){
   const list = [];
   Object.entries(FREE).forEach(([id, e]) => list.push({ id, aud:e.aud, d:e.d, title:e.title, time:e.time, price:'Бесплатно', free:true, open:() => eventModal(id) }));
-  INTENSIVES.forEach((it, i) => list.push({ id:'int'+i, aud:'a', d:it.d || null, kind:'int', title:it.t, label:'Интенсив · 2 часа', time:it.d ? '19:00–21:00' : '', price:'2 800 руб.', open:() => intensiveModal(i) }));
-  ADULT.forEach(c => list.push({ id:'c-'+c.id, aud:'a', d:c.d || null, kind:'course', title:'Курс «' + c.title + '»', label:c.d ? 'Старт курса' : 'Идёт набор', time:c.format, price:c.price, open:() => programModal(c.id) }));
-  KIDS.forEach(c => list.push({ id:'c-'+c.id, aud:'k', d:null, kind:'course', title:'Курс «' + c.title + '»', label:'Идёт набор', time:'1 раз в неделю', price:c.price, open:() => programModal(c.id) }));
+  INTENSIVES.forEach((it, i) => list.push({ id:'int'+i, aud:'a', d:it.d || null, kind:'int', title:it.t, label:'Предзапись', time:it.d ? '19:00–21:00' : '', price:'2 800 руб.', open:() => intensiveModal(i) }));
+  ADULT.forEach(c => list.push({ id:'c-'+c.id, aud:'a', d:c.d || null, kind:'course', title:'Курс «' + c.title + '»', label:c.d ? 'Старт курса' : 'Предзапись', time:c.format, price:c.price, open:() => programModal(c.id) }));
+  KIDS.forEach(c => list.push({ id:'c-'+c.id, aud:'k', d:null, kind:'course', title:'Курс «' + c.title + '»', label:'Предзапись', time:'Очно, 1 раз в неделю', price:c.price, open:() => programModal(c.id) }));
   list.push({ id:'kids-mk', aud:'k', d:null, title:'Мастер-классы, конкурсы и хакатоны для детей', label:'Следите за анонсами', time:'', price:'2 000 руб.', open:() => leadModal('kidsevents') });
   list.push({ id:'corp', aud:'b', d:null, title:'Обучение для вашей команды', label:'По запросу', time:'Формат и стоимость – после обсуждения', price:'Расчёт под задачу', open:() => leadModal('corp') });
   const t = today();
@@ -1331,16 +1329,12 @@ function evCard(e){
     <span class="ev-foot"><b>${esc(e.price)}</b><span class="go">${e.free ? 'Записаться' : 'Подробнее'}${ic('i-arrow')}</span></span>
   </button>`;
 }
-const feedState = { filter:'all', all:false };
+const HOME_FEED = ['sunday', 'c-basic', 'c-neurostart'];
 let EV_INDEX = {};
 function renderFeeds(){
   const all = allEvents(); EV_INDEX = Object.fromEntries(all.map(e => [e.id, e]));
-  const f = $('[data-filters="home"]');
-  f.innerHTML = [['all','Все'],['a','Взрослым'],['k','Детям'],['b','Бизнесу']].map(([k, l]) => `<button type="button" data-filter="${k}" aria-pressed="${feedState.filter === k}">${l}</button>`).join('');
-  const list = all.filter(e => feedState.filter === 'all' || e.aud === feedState.filter);
-  const shown = feedState.all ? list : list.slice(0, 6);
-  $('[data-feed="home"]').innerHTML = shown.map(evCard).join('');
-  $('[data-more="home"]').innerHTML = (!feedState.all && list.length > 6) ? `<button class="btn btn-ghost" type="button" data-more-btn>Показать все события · ${list.length}</button>` : '';
+  // Пока даты анонсов не известны, на главной – только эти карточки. Добавить событие = вписать его id сюда.
+  $('[data-feed="home"]').innerHTML = HOME_FEED.map(id => EV_INDEX[id]).filter(Boolean).map(evCard).join('');
   $('[data-feed="intensives"]').innerHTML = all.filter(e => e.kind === 'int').map(evCard).join('');
   observeReveal();
 }
@@ -1410,7 +1404,7 @@ function programModal(id){
   const c = COURSE[id];
   const sum = c.kids
     ? [['Для кого', 'Дети 7–14 лет'], ['Длительность', '3 месяца, 12 занятий'], ['Формат', 'Очно в студии клуба' + (c.lesson ? ', по ' + c.lesson : '')], ['Стоимость', c.price]]
-    : [['Старт', c.d ? dm(c.d) : 'Идёт набор'], ['Длительность', '2 месяца, 16 занятий'], ['Формат', c.format], ['Стоимость', c.price]];
+    : [['Старт', c.d ? dm(c.d) : 'Идёт предзапись'], ['Длительность', '2 месяца, 16 занятий'], ['Формат', c.format], ['Стоимость', c.price]];
   const mods = c.modules.map((m, i) => `<div class="mod${i === openMod ? ' open' : ''}">
       <button type="button" aria-expanded="${i === openMod}" data-mod="${i}"><span><span class="r4">Модуль ${i + 1} · занятия ${esc(m.r)}</span><span class="r2">${nb(m.t)}</span></span><span class="pm">${ic('i-plus','icon icon-sm')}</span></button>
       <div class="mod-body"${i === openMod ? '' : ' hidden'}>
@@ -1447,7 +1441,7 @@ function leadSpec(kind){
   if (type === 'int'){ const it = INTENSIVES[+arg];
     return { kicker:it.d ? 'Запись на интенсив' : 'Предзапись на интенсив', title:it.t, sum:[['Дата', it.d ? dm(it.d) + ', 19:00' : 'Сообщим дату'], ['Стоимость', '2 800 руб.']], fields:[F.name, F.contact, F.note], submit:it.d ? 'Записаться' : 'Оставить предзапись' }; }
   if (type === 'course'){ const c = COURSE[arg];
-    return { kicker:c.kicker, title:c.title, sum:[[c.kids ? 'Длительность' : 'Старт', c.kids ? '3 месяца, 12 занятий' : (c.d ? dm(c.d) : 'Идёт набор')], ['Стоимость', c.price]], fields:c.kids ? [F.parent, F.age, F.contact, F.note] : [F.name, F.contact, F.note], submit:'Записаться' }; }
+    return { kicker:c.kicker, title:c.title, sum:[[c.kids ? 'Длительность' : 'Старт', c.kids ? '3 месяца, 12 занятий' : (c.d ? dm(c.d) : 'Идёт предзапись')], ['Стоимость', c.price]], fields:c.kids ? [F.parent, F.age, F.contact, F.note] : [F.name, F.contact, F.note], submit:'Записаться' }; }
   if (type === 'corp') return { kicker:'Для бизнеса', title:'Обсудить обучение команды', sum:[['Первый шаг', 'Встреча-знакомство'], ['Стоимость и формат', 'После обсуждения']], fields:[F.name, F.contact, F.company, F.request], submit:'Отправить запрос' };
   if (type === 'kidsevents') return { kicker:'Детям 7–14 лет', title:'Мастер-классы, конкурсы и хакатоны', sum:[['Стоимость', '2 000 руб.'], ['Даты', 'Сообщим о ближайших']], fields:[F.parent, F.age, F.contact], submit:'Сообщите мне' };
   if (type === 'kidspick') return { kicker:'Детям 7–14 лет', title:'Подобрать курс для ребёнка', fields:[F.parent, F.age, F.contact, { ...F.note, label:'Чем увлекается ребёнок' }], submit:'Подобрать курс' };
@@ -1561,8 +1555,6 @@ document.addEventListener('click', e => {
   if (d.program){ openMod = 0; return programModal(d.program); }
   if (d.doc){ e.preventDefault(); return docModal(d.doc); }
   if (d.ev) return EV_INDEX[d.ev].open();
-  if (d.filter){ feedState.filter = d.filter; feedState.all = false; return renderFeeds(); }
-  if (d.moreBtn !== undefined){ feedState.all = true; return renderFeeds(); }
   if (d.faqtab){ faqTab = d.faqtab; return renderFaq(); }
   if (d.mod !== undefined){ const box = t.parentElement, body = $('.mod-body', box), open = body.hidden; body.hidden = !open; box.classList.toggle('open', open); t.setAttribute('aria-expanded', open); return; }
   if (d.social) return openModal(head('Соцсети клуба', d.social) + `<p>Ссылку добавим перед запуском. А пока записаться и задать вопрос можно по телефону <a href="tel:+79040001213">${PHONE}</a>.</p>`);
