@@ -521,6 +521,20 @@ fieldset.field{border:0;padding:0;margin:0}
 .wg-list b{line-height:1.35}
 .wg .link-arrow{align-self:flex-start;padding:0}
 @media (max-width:980px){.wgs{grid-template-columns:1fr}}
+/* Направления по две в ряд: фото сверху уходит в белое через размытие */
+.dirs{grid-template-columns:repeat(2,minmax(0,1fr))}
+.dir{display:flex;flex-direction:column;align-items:stretch;min-height:0}
+.dir-media{position:relative;top:auto;right:auto;bottom:auto;width:100%;height:clamp(230px,21vw,290px)}
+.dir-media .fm-blur{-webkit-mask-image:linear-gradient(180deg,transparent 45%,#000 72%,transparent 100%);mask-image:linear-gradient(180deg,transparent 45%,#000 72%,transparent 100%)}
+.dir-media .fm-sharp{-webkit-mask-image:linear-gradient(180deg,#000 50%,transparent 94%);mask-image:linear-gradient(180deg,#000 50%,transparent 94%)}
+.dir-media::after{background:linear-gradient(180deg,rgba(255,255,255,0) 60%,#fff 100%)}
+.dir-text{width:100%;margin-top:-34px;flex:1;align-content:start}
+.dir-text .btn{margin-top:auto}
+.dir-help{background:var(--tint-2);border:1.5px dashed rgba(0,102,255,.32);box-shadow:none;justify-content:center}
+.dir-help .dir-text{margin-top:0;align-content:center}
+.dir-help .ic{width:56px;height:56px;background:#fff}
+.dir-help .hero-actions{margin-top:6px}
+@media (max-width:900px){.dirs{grid-template-columns:1fr}}
 @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
 .reveal.in{opacity:1;transform:none}
@@ -698,6 +712,15 @@ fieldset.field{border:0;padding:0;margin:0}
           <ul class="ticks"><li><span class="ic-sq"><svg class="icon"><use href="#i-check"/></svg></span>Документы и&nbsp;переписка</li><li><span class="ic-sq"><svg class="icon"><use href="#i-check"/></svg></span>Контент и&nbsp;маркетинг</li><li><span class="ic-sq"><svg class="icon"><use href="#i-check"/></svg></span>ИИ для руководителя и&nbsp;команды</li></ul>
           <p class="dir-meta">Стоимость – расчёт под&nbsp;задачу</p>
           <a class="btn" href="#/business">Обсудить обучение <svg class="icon"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+      <article class="dir dir-help reveal">
+        <div class="dir-text">
+          <span class="ic"><svg class="icon"><use href="#i-compass"/></svg></span>
+          <p class="r4">Подбор программы</p>
+          <h3 class="r1">Не&nbsp;знаете, что выбрать?</h3>
+          <p>Свяжитесь с&nbsp;нами – расскажите о&nbsp;своей задаче или интересах ребёнка, и&nbsp;мы подскажем, с&nbsp;чего начать.</p>
+          <div class="hero-actions"><button class="btn" type="button" data-lead="pick">Связаться с&nbsp;нами <svg class="icon"><use href="#i-arrow"/></svg></button><a class="btn btn-ghost" href="tel:+79040001213">8-904-000-12-13</a></div>
         </div>
       </article>
 
