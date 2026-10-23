@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Варианты оформления – proнейро</title>
+<link rel="icon" type="image/png" href="../img/emblem.png">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&display=swap&subset=cyrillic" rel="stylesheet">
+<style>
+:root{--ink:#161A22;--midnight:#0E141D;--cobalt:#0066FF;--cobalt-d:#0052CC;--ice:#78C5FF;--silver:#D4DAE3;--bg:#F3F7FD;--text:#3D4555;--tint:#EAF2FF;--tint-2:#F5F9FF;--line:rgba(22,26,34,.08);--line-2:rgba(22,26,34,.14);--shadow:0 1px 2px rgba(14,20,29,.04),0 12px 32px rgba(14,20,29,.07);--up:0 2px 4px rgba(14,20,29,.05),0 22px 48px rgba(0,102,255,.16);--r-lg:28px;--r-md:20px;--r-sm:14px}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:400 17px/1.5 'Onest',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2,h3,p,ul,ol,figure{margin:0}ul,ol{padding:0;list-style:none}img{display:block;max-width:100%}
+a{color:var(--cobalt)}
+.icon{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.wrap{max-width:1240px;margin:0 auto;padding:0 clamp(16px,4vw,40px)}
+.top{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:8px 18px;flex-wrap:wrap;min-height:60px}
+.top b{color:var(--ink)}
+.top a{font-size:15px;font-weight:500;color:var(--ink);text-decoration:none;padding:6px 12px;border-radius:999px}
+.top a:hover{background:var(--tint);color:var(--cobalt)}
+.intro{padding:40px 0 8px}
+.intro h1{font-weight:600;font-size:clamp(30px,3.6vw,46px);letter-spacing:-.03em;color:var(--ink);margin-bottom:8px}
+.block{padding-top:56px}
+.block > h2{font-weight:600;font-size:clamp(26px,2.8vw,36px);letter-spacing:-.025em;color:var(--ink);margin-bottom:4px}
+.block > .lead{margin-bottom:8px}
+.var{margin-top:34px}
+.v-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.v-num{font-weight:700;font-size:14px;color:#fff;background:var(--cobalt);border-radius:999px;padding:3px 12px}
+.v-title{font-weight:600;font-size:20px;color:var(--ink)}
+.v-cur{font-size:13px;font-weight:600;color:#1E7B45;background:#E7F6EC;border-radius:999px;padding:3px 10px}
+.v-note{margin-bottom:16px;max-width:900px}
+.stage{border-radius:var(--r-lg);overflow:hidden;border:1px dashed var(--line-2);background:var(--bg);padding:clamp(16px,2.4vw,28px)}
+.r2{font-weight:600;font-size:20px;line-height:1.25;letter-spacing:-.015em;color:var(--ink)}
+.r4{font-weight:600;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--cobalt)}
+.big{font-weight:600;font-size:clamp(28px,3.2vw,44px);line-height:1.06;letter-spacing:-.035em;color:var(--ink)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 20px;border-radius:999px;border:0;background:var(--cobalt);color:#fff;font:600 15px 'Onest';white-space:nowrap;text-decoration:none;cursor:pointer}
+.btn .icon{width:18px;height:18px}
+.btn.ghost{background:#fff;color:var(--cobalt);box-shadow:inset 0 0 0 1.5px var(--cobalt)}
+.btn.white{background:#fff;color:var(--ink)}
+.pill{display:inline-flex;align-items:center;min-height:28px;padding:0 12px;border-radius:999px;font-size:13px;font-weight:600;background:var(--tint);color:var(--cobalt-d);white-space:nowrap}
+.pill.k{background:#E9F6FF;color:#0A5E9E}.pill.glass{background:rgba(255,255,255,.92);color:var(--ink)}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--r-md);box-shadow:var(--shadow)}
+.lift{transition:transform .25s,box-shadow .25s}.lift:hover{transform:translateY(-4px);box-shadow:var(--up)}
+.ic-sq{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;background:var(--tint);color:var(--cobalt);flex-shrink:0}
+.meta{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:15px}.meta span{display:inline-flex;align-items:center;gap:6px}.meta .icon{width:16px;height:16px;color:var(--cobalt)}
+.g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.g4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+@media (max-width:980px){.g3,.g4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.ph{position:relative;overflow:hidden;background:var(--silver)}.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.example{font-size:13px;font-weight:600;color:#8A6100;background:#FFF8E6;border-radius:999px;padding:2px 10px;display:inline-block}
+
+/* ===== 1. Первый экран ===== */
+.h-a{position:relative;min-height:440px;display:flex;align-items:center;border-radius:var(--r-md);overflow:hidden;background:var(--bg)}
+.h-a .ph{position:absolute;top:0;right:0;bottom:0;width:50%;-webkit-mask-image:linear-gradient(90deg,transparent,#000 45%);mask-image:linear-gradient(90deg,transparent,#000 45%)}
+.h-txt{position:relative;z-index:1;max-width:520px;display:grid;gap:14px;padding:32px}
+.h-b{position:relative;min-height:480px;border-radius:var(--r-md);overflow:hidden;display:flex;align-items:flex-end}
+.h-b::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(14,20,29,.85),rgba(14,20,29,.35) 60%,rgba(14,20,29,.1))}
+.h-b .h-txt{color:#DCE5F2}.h-b .big{color:#fff}.h-b .r4{color:var(--ice)}
+.h-c{display:grid;gap:22px;justify-items:center;text-align:center;padding:36px 20px 20px}
+.h-c .h-txt{justify-items:center;max-width:720px;padding:0}
+.h-strip{display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:12px;width:100%}
+.h-strip .ph{height:200px;border-radius:var(--r-sm)}
+.h-d{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center}
+.h-d .h-txt{padding:0}
+.collage{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:170px 170px;gap:10px}
+.collage .ph{border-radius:var(--r-sm)}.collage .ph:first-child{grid-row:span 2}
+@media (max-width:760px){.h-a .ph{width:100%;opacity:.25}.h-d{grid-template-columns:1fr}}
+
+/* ===== 2. Списки ===== */
+.l-a{display:grid;gap:8px;align-content:start;padding:20px}
+.l-b{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 40px}
+.l-b li{display:grid;grid-template-columns:52px minmax(0,1fr);gap:12px;padding:18px 0;border-bottom:1px solid var(--line-2)}
+.l-b .n{font-weight:700;font-size:30px;line-height:1;color:var(--cobalt);letter-spacing:-.04em}
+.l-b li > div{display:grid;gap:4px}
+.l-c{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border-radius:var(--r-md);overflow:hidden;box-shadow:var(--shadow)}
+.l-c th,.l-c td{text-align:left;padding:14px 18px;border-bottom:1px solid var(--line);vertical-align:top}
+.l-c th{background:var(--tint-2);color:var(--ink);font-size:14px;font-weight:600}
+.l-c td:first-child{font-weight:600;color:var(--ink)}
+.l-c .was{color:#9A5A00}.l-c .now{color:#1E7B45;font-weight:600}
+.l-d{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:24px;align-items:start}
+.tags{display:flex;flex-wrap:wrap;gap:10px}
+.tag{display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:0 18px;border-radius:999px;background:#fff;border:1.5px solid var(--line-2);font-weight:600;color:var(--ink);cursor:pointer;transition:all .2s}
+.tag .icon{color:var(--cobalt)}
+.tag[aria-pressed="true"]{background:var(--cobalt);border-color:var(--cobalt);color:#fff}.tag[aria-pressed="true"] .icon{color:#fff}
+.tag-out{padding:26px;display:grid;gap:10px}
+.l-e{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.l-e .card{padding:0;overflow:hidden}
+.l-e .bar{height:6px;background:linear-gradient(90deg,var(--cobalt),var(--ice))}
+.l-e .in{padding:18px 20px 20px;display:grid;gap:6px}
+@media (max-width:980px){.l-b,.l-d{grid-template-columns:1fr}.l-e{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* ===== 3. Ближайшие события ===== */
+.e-a{display:grid;grid-template-columns:1.1fr 1fr;gap:16px}
+.pc{display:flex;flex-direction:column;border-radius:var(--r-md);overflow:hidden}
+.pc .ph{aspect-ratio:16/9}
+.pc-b{display:grid;gap:8px;padding:18px 20px 20px;flex:1;align-content:start}
+.when{font-weight:700;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--cobalt)}
+.foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:auto;padding-top:12px;border-top:1px solid var(--line)}
+.foot b{color:var(--ink)}
+.side{display:grid;gap:12px}
+.mc{display:grid;grid-template-columns:110px minmax(0,1fr);gap:14px;padding:10px;border-radius:var(--r-md)}
+.mc .ph{border-radius:12px;min-height:96px}
+.mc > div{display:grid;gap:4px;align-content:center}
+.mc b{color:var(--ink)}
+.e-c{display:grid;gap:10px}
+.row{display:grid;grid-template-columns:100px minmax(0,1fr) auto auto;align-items:center;gap:20px;padding:14px 20px;border-radius:var(--r-md)}
+.row .d{font-weight:700;font-size:32px;line-height:1;letter-spacing:-.04em;color:var(--cobalt)}
+.row .d small{display:block;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-top:4px}
+.row b{color:var(--ink);white-space:nowrap}
+@media (max-width:860px){.e-a{grid-template-columns:1fr}.row{grid-template-columns:72px minmax(0,1fr)}.row b,.row .btn{grid-column:2}}
+
+/* ===== 4. Афиша ===== */
+.month{display:flex;align-items:center;gap:14px;margin:6px 0 12px}
+.month h3{font-weight:600;font-size:22px;color:var(--ink)}
+.month::after{content:"";flex:1;height:1px;background:var(--line-2)}
+.tbl{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border-radius:var(--r-md);overflow:hidden;box-shadow:var(--shadow)}
+.tbl th,.tbl td{text-align:left;padding:14px 18px;border-bottom:1px solid var(--line);vertical-align:middle}
+.tbl th{font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text);background:var(--tint-2)}
+.tbl td:first-child{font-weight:700;color:var(--cobalt);white-space:nowrap}
+.tbl .t{font-weight:600;color:var(--ink)}
+.tbl-wrap{overflow-x:auto}
+.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.cal .dn{font-size:13px;font-weight:600;color:var(--text);text-align:center;padding:4px 0}
+.cal .c{min-height:84px;border-radius:12px;background:#fff;border:1px solid var(--line);padding:6px 8px;font-size:13px;display:grid;align-content:start;gap:4px}
+.cal .c.off{background:transparent;border-color:transparent}
+.cal .c .num{font-weight:600;color:var(--ink)}
+.cal .ev{background:var(--tint);color:var(--cobalt-d);border-radius:8px;padding:3px 6px;font-weight:600;line-height:1.25}
+.cal .ev.k{background:#E9F6FF;color:#0A5E9E}
+@media (max-width:760px){.cal .c{min-height:60px;font-size:11px}}
+
+/* ===== 5. Отзывы ===== */
+.q-a{display:grid;gap:14px;padding:24px}
+.q-a .q{font-size:17px;line-height:1.55;color:var(--ink)}
+.who{display:flex;align-items:center;gap:12px}
+.av{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--tint),var(--silver));display:grid;place-items:center;color:var(--cobalt);font-weight:700}
+.who > div{display:grid;line-height:1.3}.who b{color:var(--ink)}.who span{font-size:14px}
+.stars{color:#F5A400;letter-spacing:2px}
+.q-b{position:relative;padding:clamp(28px,4vw,52px);border-radius:var(--r-lg);background:linear-gradient(135deg,var(--midnight),#16284A);color:#C9D3E3;display:grid;gap:20px}
+.q-b .mark{font-size:90px;line-height:.6;color:var(--ice);font-weight:700}
+.q-b .q{font-size:clamp(20px,2.2vw,28px);line-height:1.35;color:#fff;font-weight:500;max-width:900px}
+.q-b .who b{color:#fff}.q-b .av{background:rgba(255,255,255,.12);color:#fff}
+.q-b .nav{display:flex;gap:10px;justify-content:flex-end}
+.round{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;border:1.5px solid rgba(255,255,255,.3);color:#fff;background:none}
+.chat{display:grid;gap:10px;padding:20px;border-radius:var(--r-md);background:#E7EEF7}
+.bub{max-width:88%;padding:12px 16px;border-radius:18px 18px 18px 4px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.06);font-size:15px;line-height:1.45;color:var(--ink)}
+.bub small{display:block;font-size:12px;color:var(--text);margin-top:4px;text-align:right}
+.bub.me{justify-self:end;border-radius:18px 18px 4px 18px;background:#DCEBFF}
+.chat-h{display:flex;align-items:center;gap:10px;font-weight:600;color:var(--ink);font-size:15px}
+.rate{display:grid;grid-template-columns:240px minmax(0,1fr);gap:16px}
+.rate-c{display:grid;gap:12px}
+.rbox{padding:18px 20px;display:grid;gap:4px}
+.rbox .n{font-weight:700;font-size:34px;line-height:1;color:var(--ink);display:flex;align-items:center;gap:10px}.rbox .stars{font-size:16px}
+@media (max-width:860px){.rate{grid-template-columns:1fr}}
+
+/* ===== 6. Спикеры ===== */
+.sp-ph{background:linear-gradient(160deg,#EAF2FF 0%,#C9DBF7 100%)}
+.sp-ph img{object-fit:cover;object-position:center top;-webkit-mask-image:linear-gradient(180deg,#000 72%,transparent 100%);mask-image:linear-gradient(180deg,#000 72%,transparent 100%)}
+.sp-a{overflow:hidden;display:flex;flex-direction:column}
+.sp-a .ph{aspect-ratio:4/3.6}
+.sp-a .in{padding:18px 20px 22px;display:grid;gap:6px;justify-items:start}
+.sp-b{display:grid;grid-template-columns:220px minmax(0,1fr);overflow:hidden}
+.sp-b .ph{min-height:240px}
+.sp-b .in{padding:24px;display:grid;gap:8px;align-content:center;justify-items:start}
+.sp-c{padding:26px 22px;display:grid;justify-items:center;text-align:center;gap:8px}
+.sp-c .circle{width:150px;height:150px;border-radius:50%;overflow:hidden;position:relative;background:linear-gradient(160deg,#EAF2FF,#9EC8F5);box-shadow:0 0 0 6px #fff,0 0 0 7px var(--line-2)}
+.sp-c .circle img{position:absolute;left:50%;top:6px;width:140%;max-width:none;transform:translateX(-50%)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:4px}
+.sp-d{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);border-radius:var(--r-lg);overflow:hidden;background:linear-gradient(135deg,var(--midnight),#16284A);color:#C9D3E3}
+.sp-d .ph{min-height:380px;background:radial-gradient(circle at 50% 40%,#2A5BA8,#0E141D 75%)}
+.sp-d .ph img{-webkit-mask-image:linear-gradient(180deg,#000 70%,transparent 100%);mask-image:linear-gradient(180deg,#000 70%,transparent 100%);object-fit:contain;object-position:center bottom}
+.sp-d .in{padding:clamp(24px,4vw,48px);display:grid;gap:12px;align-content:center}
+.sp-d .big,.sp-d b{color:#fff}.sp-d .r4{color:var(--ice)}
+.sp-d ul{display:grid;gap:8px;margin-top:4px}.sp-d li{display:flex;gap:10px}.sp-d li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--ice);margin-top:10px;flex-shrink:0}
+@media (max-width:860px){.sp-b,.sp-d{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" class="sr-only" aria-hidden="true">
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="17" rx="3"/><path d="M16 2.5v4M8 2.5v4M3 10h18"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M12 7v5l3.5 2"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M19.5 10c0 5.5-7.5 11.5-7.5 11.5S4.5 15.5 4.5 10a7.5 7.5 0 0 1 15 0Z"/><circle cx="12" cy="10" r="2.7"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M21.5 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 1.6 4.2 2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L7.6 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2.5" y="4.5" width="19" height="15" rx="3"/><path d="m3 7 9 6 9-6"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></symbol>
+  <symbol id="i-cap" viewBox="0 0 24 24"><path d="M22 9.5 12 4.5 2 9.5l10 5 10-5Z"/><path d="M6 11.5v5c3.3 3 8.7 3 12 0v-5M22 9.5v6"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 2.8 2.9 5.9 6.4.9-4.6 4.5 1.1 6.4L12 17.5l-5.8 3 1.1-6.4-4.6-4.5 6.4-.9L12 2.8Z"/></symbol>
+  <symbol id="i-bars" viewBox="0 0 24 24"><path d="M4 20V13M10 20V9M16 20V5M22 20H2"/></symbol>
+  <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9 18h6M10 21.5h4M12 2.5a6.8 6.8 0 0 0-4 12.3V16.5h8v-1.7a6.8 6.8 0 0 0-4-12.3Z"/></symbol>
+  <symbol id="i-ask" viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 0 1-12.4 7.6L3 21l1.9-5.6A8.5 8.5 0 1 1 21 11.5Z"/><path d="M9.8 9.2a2.3 2.3 0 0 1 4.4.8c0 1.6-2.2 2.1-2.2 2.1M12 15h.01"/></symbol>
+  <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></symbol>
+  <symbol id="i-pen" viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></symbol>
+  <symbol id="i-smile" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></symbol>
+  <symbol id="i-game" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="5"/><path d="M6 12h4M8 10v4M15 11h.01M18 13h.01"/></symbol>
+  <symbol id="i-cube" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4a2 2 0 0 0 1-1.7Z"/><path d="M3.3 7 12 12l8.7-5M12 22V12"/></symbol>
+  <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4ZM17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></symbol>
+  <symbol id="i-code" viewBox="0 0 24 24"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-4.6A8 8 0 1 1 21 12Z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-rocket" viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.8.7-2.1-.1-2.9a2.2 2.2 0 0 0-2.9-.1Z"/><path d="m12 15-3-3a22 22 0 0 1 2-4A12.9 12.9 0 0 1 22 2c0 2.7-.8 7.5-6 11a22.4 22.4 0 0 1-4 2Z"/><path d="M9 12H4s.6-3 2-4c1.6-1.1 5 0 5 0M12 15v5s3-.6 4-2c1.1-1.6 0-5 0-5"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 21.5s8-4 8-10V5l-8-3-8 3v6.5c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="m16.2 7.8-2.1 6.3-6.3 2.1 2.1-6.3 6.3-2.1Z"/></symbol>
+  <symbol id="i-trend" viewBox="0 0 24 24"><path d="m22 7-8.5 8.5-5-5L2 17"/><path d="M16 7h6v6"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-2.6-6.4L21 8"/><path d="M21 3v5h-5"/></symbol>
+  <symbol id="i-hourglass" viewBox="0 0 24 24"><path d="M5 22h14M5 2h14M17 22v-4.2a2 2 0 0 0-.6-1.4L12 12l-4.4 4.4a2 2 0 0 0-.6 1.4V22M7 2v4.2a2 2 0 0 0 .6 1.4L12 12l4.4-4.4a2 2 0 0 0 .6-1.4V2"/></symbol>
+  <symbol id="i-brief" viewBox="0 0 24 24"><rect x="2.5" y="7" width="19" height="13.5" rx="2.5"/><path d="M16 20.5V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v15.5"/></symbol>
+  <symbol id="i-gift" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7M7.5 8a2.5 2.5 0 0 1 0-5C9 3 12 8 12 8s3-5 4.5-5a2.5 2.5 0 0 1 0 5"/></symbol>
+  <symbol id="i-monitor" viewBox="0 0 24 24"><rect x="2.5" y="3.5" width="19" height="13" rx="2.5"/><path d="M8 21h8M12 16.5V21"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2.5H6.5a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V8Z"/><path d="M14 2.5V8h5.5M15.5 13h-7M15.5 17h-7"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 2.5-10 5 10 5 10-5-10-5Z"/><path d="m2 16.5 10 5 10-5M2 12l10 5 10-5"/></symbol>
+  <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+  <symbol id="i-ext" viewBox="0 0 24 24"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7Z"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M12 16v-4M12 8h.01"/></symbol>
+</svg>
+
+<nav class="top" aria-label="Разделы"><div class="wrap"><b>Варианты</b>
+  <a href="#hero">Первый экран</a><a href="#lists">Списки</a><a href="#near">Ближайшие события</a><a href="#afisha">Афиша</a><a href="#reviews">Отзывы</a><a href="#speakers">Спикеры</a>
+</div></nav>
+<main class="wrap">
+  <header class="intro"><h1>Варианты оформления блоков</h1>
+    <p>Страница для обсуждения, на сайте её нет. В каждом блоке – 3–5 вариантов. Зелёная метка «Сейчас на сайте» – то, что стоит сейчас. Отзывы и рейтинги – примеры для оформления, не настоящие.</p></header>
+
+  <!-- ============ 1. ПЕРВЫЙ ЭКРАН ============ -->
+  <section class="block" id="hero"><h2>1. Первый экран главной</h2><p class="lead">Самый первый вид сайта: суть клуба, город и главное действие.</p>
+    <div class="var"><div class="v-head"><span class="v-num">A</span><span class="v-title">Текст слева, фото растворяется справа</span><span class="v-cur">Сейчас на сайте</span></div>
+      <p class="v-note">Спокойно и светло, текст хорошо читается. Фото – второстепенно.</p>
+      <div class="stage"><div class="h-a"><div class="ph"><img src="../img/club/zal.jpg" alt=""></div>
+        <div class="h-txt"><p class="r4">Первый в Твери клуб практического ИИ</p><p class="big">Нейросети на&nbsp;практике для&nbsp;себя, работы и&nbsp;бизнеса</p><p>Клуб в&nbsp;центре Твери: взрослые, дети и&nbsp;предприниматели осваивают нейросети на&nbsp;своих задачах.</p><div><span class="btn">Подобрать программу <svg class="icon"><use href="#i-arrow"/></svg></span> <span class="btn ghost">Ближайшие события</span></div></div></div></div></div>
+    <div class="var"><div class="v-head"><span class="v-num">B</span><span class="v-title">Фото на весь экран, текст на затемнении</span></div>
+      <p class="v-note">Самый «эмоциональный»: сразу видно живой клуб. Нужна хорошая горизонтальная фотография занятия с людьми.</p>
+      <div class="stage"><div class="h-b"><div class="ph" style="position:absolute;inset:0"><img src="../img/club/kids-teacher.jpg" alt=""></div>
+        <div class="h-txt" style="padding:36px"><p class="r4">Первый в Твери клуб практического ИИ</p><p class="big">Нейросети на&nbsp;практике для&nbsp;себя, работы и&nbsp;бизнеса</p><p>Клуб в&nbsp;центре Твери: учимся на&nbsp;своих задачах, без сложной теории.</p><div><span class="btn">Подобрать программу <svg class="icon"><use href="#i-arrow"/></svg></span> <span class="btn white">Ближайшие события</span></div></div></div></div></div>
+    <div class="var"><div class="v-head"><span class="v-num">C</span><span class="v-title">Текст по центру, ниже лента из трёх фото</span></div>
+      <p class="v-note">Как у современных сервисов: крупный заголовок в центре, фото показывают и взрослых, и детей, и студию.</p>
+      <div class="stage"><div class="h-c"><div class="h-txt"><p class="r4">Первый в Твери клуб практического ИИ</p><p class="big">Нейросети на&nbsp;практике для&nbsp;себя, работы и&nbsp;бизнеса</p><div><span class="btn">Подобрать программу <svg class="icon"><use href="#i-arrow"/></svg></span> <span class="btn ghost">Ближайшие события</span></div></div>
+        <div class="h-strip"><div class="ph"><img src="../img/adults.jpg?v=2" alt=""></div><div class="ph"><img src="../img/club/zal.jpg" alt=""></div><div class="ph"><img src="../img/club/kids-hero.webp" alt=""></div></div></div></div></div>
+    <div class="var"><div class="v-head"><span class="v-num">D</span><span class="v-title">Текст слева, коллаж справа</span></div>
+      <p class="v-note">Баланс: текст читается так же хорошо, как в A, но справа сразу три живых кадра клуба.</p>
+      <div class="stage"><div class="h-d"><div class="h-txt"><p class="r4">Первый в Твери клуб практического ИИ</p><p class="big">Нейросети на&nbsp;практике для&nbsp;себя, работы и&nbsp;бизнеса</p><p>Клуб в&nbsp;центре Твери: взрослые, дети и&nbsp;предприниматели осваивают нейросети на&nbsp;своих задачах.</p><div><span class="btn">Подобрать программу <svg class="icon"><use href="#i-arrow"/></svg></span></div></div>
+        <div class="collage"><div class="ph"><img src="../img/club/zal.jpg" alt=""></div><div class="ph"><img src="../img/adults.jpg?v=2" alt=""></div><div class="ph"><img src="../img/club/kids-sunday.jpg" alt=""></div></div></div></div></div>
+  </section>
+
+  <!-- ============ 2. СПИСКИ ============ -->
+  <section class="block" id="lists"><h2>2. Списки («Что можно делать с&nbsp;нейросетями», 8 пунктов)</h2><p class="lead">Те же пункты в разной подаче. Подойдёт и для «Для кого», и для преимуществ.</p>
+    <div class="var"><div class="v-head"><span class="v-num">A</span><span class="v-title">Карточки с иконками</span><span class="v-cur">Сейчас на сайте</span></div>
+      <p class="v-note">Ровная сетка 4×2, при наведении карточки оживают. Хорошо сканируется глазами.</p>
+      <div class="stage"><div class="g4" data-list="a"></div></div></div>
+    <div class="var"><div class="v-head"><span class="v-num">B</span><span class="v-title">Нумерованный список в две колонки</span></div>
+      <p class="v-note">Без карточек и иконок – легче и «журнальнее». Крупные синие номера ведут взгляд.</p>
+      <div class="stage"><ol class="l-b" data-list="b"></ol></div></div>
+    <div class="var"><div class="v-head"><span class="v-num">C</span><span class="v-title">Таблица «было → с ИИ»</span></div>
+      <p class="v-note">Показывает пользу в цифрах и минутах. Убедительно для взрослых и бизнеса. Время – примерное, для оформления.</p>
+      <div class="stage"><div style="overflow-x:auto"><table class="l-c"><thead><tr><th>Задача</th><th>Обычно</th><th>С ИИ</th></tr></thead><tbody data-list="c"></tbody></table></div></div></div>
+    <div class="var"><div class="v-head"><span class="v-num">D</span><span class="v-title">Интерактивные теги</span></div>
+      <p class="v-note">Человек нажимает на интересующую задачу – справа появляется пояснение. Компактно и вовлекает. Нажмите любой тег.</p>
+      <div class="stage"><div class="l-d"><div class="tags" data-list="d"></div><div class="card tag-out" data-tag-out></div></div></div></div>
+    <div class="var"><div class="v-head"><span class="v-num">E</span><span class="v-title">Карточки с цветной полосой, без иконок</span></div>
+      <p class="v-note">Спокойнее варианта A: вместо иконок – тонкая градиентная полоса сверху.</p>
+      <div class="stage"><div class="l-e" data-list="e"></div></div></div>
+  </section>
+
+  <!-- ============ 3. БЛИЖАЙШИЕ СОБЫТИЯ ============ -->
+  <section class="block" id="near"><h2>3. Ближайшие события (главная)</h2><p class="lead">3–4 события, чтобы быстро записаться.</p>
+    <div class="var"><div class="v-head"><span class="v-num">A</span><span class="v-title">Крупное ближайшее + список справа</span><span class="v-cur">Сейчас на сайте</span></div>
+      <div class="stage"><div class="e-a">
+        <article class="card pc lift"><div class="ph"><img src="../img/club/kids-sunday.jpg" alt=""><span class="pill" style="position:absolute;left:12px;top:12px;background:var(--cobalt);color:#fff">Ближайшее</span></div><div class="pc-b"><p class="when">Вс, 25 октября · 14:00</p><h3 class="r2">Нейро-воскресенье</h3><p>Игровой мастер-класс для детей и&nbsp;родителей.</p><div class="foot"><b>Бесплатно</b><span class="btn">Записаться <svg class="icon"><use href="#i-arrow"/></svg></span></div></div></article>
+        <div class="side">
+          <article class="card mc lift"><div class="ph"><img src="../img/adults.jpg?v=2" alt=""></div><div><p class="when">Старт в ноябре · взрослым</p><h3 class="r2">Нейросети: с&nbsp;нуля к&nbsp;практике</h3><b>19 200 руб./мес. · 2 месяца</b></div></article>
+          <article class="card mc lift"><div class="ph"><img src="../img/club/kids-elephant.jpg" alt=""></div><div><p class="when">Старт в декабре · детям</p><h3 class="r2">Нейростарт – дети</h3><b>6 600 руб./мес. · 3 месяца</b></div></article>
+          <article class="card mc lift" style="background:var(--tint)"><div class="ph" style="display:grid;place-items:center;background:#fff;color:var(--cobalt)"><svg class="icon" style="width:28px;height:28px;position:static"><use href="#i-cal"/></svg></div><div><h3 class="r2" style="color:var(--cobalt-d)">Вся афиша</h3><p>15 событий</p></div></article>
+        </div></div></div></div>
+    <div class="var"><div class="v-head"><span class="v-num">B</span><span class="v-title">Три фото-карточки в ряд</span></div>
+      <p class="v-note">Все события равны, крупные фото. Просто и понятно.</p>
+      <div class="stage"><div class="g3" data-near="b"></div></div></div>
+    <div class="var"><div class="v-head"><span class="v-num">C</span><span class="v-title">Лента-расписание с крупной датой</span></div>
+      <p class="v-note">Как расписание в театре: строки читаются сверху вниз, дата бросается в глаза. Минимум места.</p>
+      <div class="stage"><div class="e-c" data-near="c"></div></div></div>
+  </section>
+
+  <!-- ============ 4. АФИША ============ -->
+  <section class="block" id="afisha"><h2>4. Афиша (отдельная страница «Все события»)</h2><p class="lead">Когда событий 10–20: как их удобнее просматривать.</p>
+    <div class="var"><div class="v-head"><span class="v-num">A</span><span class="v-title">Сетка горизонтальных карточек</span><span class="v-cur">Сейчас на сайте</span></div>
+      <div class="stage"><div class="g2" data-af="a"></div></div></div>
+    <div class="var"><div class="v-head"><span class="v-num">B</span><span class="v-title">По месяцам</span></div>
+      <p class="v-note">События сгруппированы под заголовками «Октябрь», «Ноябрь» – удобно планировать.</p>
+      <div class="stage" data-af="b"></div></div>
+    <div class="var"><div class="v-head"><span class="v-num">C</span><span class="v-title">Таблица-расписание</span></div>
+      <p class="v-note">Максимально плотно: всё видно на одном экране, удобно сравнивать цены и даты.</p>
+      <div class="stage tbl-wrap"><table class="tbl"><thead><tr><th>Когда</th><th>Событие</th><th>Для кого</th><th>Цена</th><th></th></tr></thead><tbody data-af="c"></tbody></table></div></div>
+    <div class="var"><div class="v-head"><span class="v-num">D</span><span class="v-title">Календарь месяца</span></div>
+      <p class="v-note">Наглядно, когда события по датам. Хорошо, если встреч много и они регулярные.</p>
+      <div class="stage"><div class="month"><h3>Ноябрь 2026</h3></div><div class="cal" data-af="d"></div></div></div>
+  </section>
+
+  <!-- ============ 5. ОТЗЫВЫ ============ -->
+  <section class="block" id="reviews"><h2>5. Отзывы</h2><p class="lead">Тексты и имена – <span class="example">примеры для оформления</span>, на сайт пойдут только настоящие отзывы участников.</p>
+    <div class="var"><div class="v-head"><span class="v-num">A</span><span class="v-title">Карточки с цитатой и автором</span></div>
+      <p class="v-note">Классика: 3 отзыва в ряд, у каждого фото или инициалы, имя и кем человек приходил.</p>
+      <div class="stage"><div class="g3" data-rev="a"></div></div></div>
+    <div class="var"><div class="v-head"><span class="v-num">B</span><span class="v-title">Одна крупная цитата со стрелками</span></div>
+      <p class="v-note">Акцентный тёмный блок: один отзыв крупно, остальные листаются. Сильнее всего действует.</p>
+      <div class="stage"><div class="q-b"><span class="mark">“</span><p class="q">Пример: «Пришла, не понимая, с чего начать. Через месяц делаю презентации и ответы клиентам в два раза быстрее – и наконец перестала бояться нейросетей».</p>
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap"><div class="who"><span class="av">А</span><div><b>Анна, пример</b><span>Базовый курс для взрослых</span></div></div><div class="nav"><span class="round"><svg class="icon" style="transform:rotate(180deg)"><use href="#i-arrow"/></svg></span><span class="round"><svg class="icon"><use href="#i-arrow"/></svg></span></div></div></div></div></div>
+    <div class="var"><div class="v-head"><span class="v-num">C</span><span class="v-title">Скриншоты переписки</span></div>
+      <p class="v-note">Отзывы в виде сообщений из чата – выглядят живо и честно. Можно ставить настоящие скриншоты из MAX или Telegram, с согласия авторов.</p>
+      <div class="stage"><div class="g2">
+        <div class="chat"><p class="chat-h"><span class="av" style="width:34px;height:34px">М</span>Мама Миши, пример</p><div class="bub">Пример: Миша весь вечер показывал свою игру в Roblox, впервые сам что-то сделал, а не просто играл!<small>19:42</small></div><div class="bub me">Спасибо! Ждём на следующем занятии 🙂<small>19:45</small></div></div>
+        <div class="chat"><p class="chat-h"><span class="av" style="width:34px;height:34px">О</span>Ольга, пример</p><div class="bub">Пример: после интенсива собрала себе помощника для ответов клиентам – экономлю час в день.<small>21:10</small></div><div class="bub">Очень понятно объясняете, спасибо!<small>21:11</small></div></div>
+      </div></div></div>
+    <div class="var"><div class="v-head"><span class="v-num">D</span><span class="v-title">Рейтинг на картах + цитаты</span></div>
+      <p class="v-note">Слева – оценка на Яндекс Картах и 2ГИС со ссылкой, справа – 2 короткие цитаты. Вызывает доверие. Цифры рейтинга – примеры.</p>
+      <div class="stage"><div class="rate"><div class="rate-c"><div class="card rbox"><span class="r4">Яндекс Карты</span><span class="n">5,0 <span class="stars">★★★★★</span></span><span>пример · 24 отзыва</span></div><div class="card rbox"><span class="r4">2ГИС</span><span class="n">4,9 <span class="stars">★★★★★</span></span><span>пример · 18 отзывов</span></div></div>
+        <div class="g2" data-rev="d"></div></div></div></div>
+  </section>
+
+  <!-- ============ 6. СПИКЕРЫ ============ -->
+  <section class="block" id="speakers"><h2>6. Преподаватели и спикеры</h2><p class="lead">На примере Светланы: фото без фона, на одинаковой голубой подложке – так все преподаватели будут выглядеть единообразно.</p>
+    <div class="var"><div class="v-head"><span class="v-num">A</span><span class="v-title">Вертикальная карточка, фото на подложке</span></div>
+      <p class="v-note">Ровная сетка по 4 – удобно для главной.</p>
+      <div class="stage"><div class="g4">
+        <article class="card sp-a lift"><div class="ph sp-ph"><img src="../img/team/svetlana.png" alt=""></div><div class="in"><span class="pill">Взрослым</span><h3 class="r2">Светлана Цыро</h3><p>Методолог обучения, преподаватель курсов для&nbsp;взрослых</p></div></article>
+        <article class="card sp-a lift"><div class="ph sp-ph" style="display:grid;place-items:center;color:var(--cobalt)"><svg class="icon" style="width:56px;height:56px;position:static;stroke-width:1.2"><use href="#i-person"/></svg></div><div class="in"><span class="pill">Взрослым</span><h3 class="r2">Анастасия</h3><p>Преподаватель курсов для&nbsp;взрослых</p></div></article>
+        <article class="card sp-a lift"><div class="ph sp-ph" style="display:grid;place-items:center;color:var(--cobalt)"><svg class="icon" style="width:56px;height:56px;position:static;stroke-width:1.2"><use href="#i-person"/></svg></div><div class="in"><span class="pill k">Детям</span><h3 class="r2">Имя педагога</h3><p>Педагог курсов для&nbsp;детей</p></div></article>
+        <article class="card sp-a lift"><div class="ph sp-ph" style="display:grid;place-items:center;color:var(--cobalt)"><svg class="icon" style="width:56px;height:56px;position:static;stroke-width:1.2"><use href="#i-person"/></svg></div><div class="in"><span class="pill k">Детям</span><h3 class="r2">Имя педагога</h3><p>Педагог курсов для&nbsp;детей</p></div></article>
+      </div></div></div>
+    <div class="var"><div class="v-head"><span class="v-num">B</span><span class="v-title">Горизонтальная карточка с описанием</span></div>
+      <p class="v-note">Больше места для текста: 2–3 строки об опыте и чем человек поможет. Хорошо для страниц «Взрослым» и «Детям».</p>
+      <div class="stage"><div class="g2">
+        <article class="card sp-b lift"><div class="ph sp-ph"><img src="../img/team/svetlana.png" alt=""></div><div class="in"><span class="pill">Взрослым</span><h3 class="r2">Светлана Цыро</h3><p>Методолог обучения. Помогает встроить нейросети в&nbsp;работу и&nbsp;своё дело – на&nbsp;ваших задачах, без сложных терминов.</p><span class="example">описание – пример</span></div></article>
+        <article class="card sp-b lift"><div class="ph sp-ph" style="display:grid;place-items:center;color:var(--cobalt)"><svg class="icon" style="width:56px;height:56px;position:static;stroke-width:1.2"><use href="#i-person"/></svg></div><div class="in"><span class="pill">Взрослым</span><h3 class="r2">Анастасия</h3><p>Преподаватель базового курса «Нейросети: с&nbsp;нуля к&nbsp;практике».</p></div></article>
+      </div></div></div>
+    <div class="var"><div class="v-head"><span class="v-num">C</span><span class="v-title">Круглое фото, по центру</span></div>
+      <p class="v-note">Мягко и дружелюбно, хорошо смотрится, когда людей много. Под именем – темы, которые ведёт человек.</p>
+      <div class="stage"><div class="g4">
+        <article class="card sp-c lift"><div class="circle"><img src="../img/team/svetlana.png" alt=""></div><h3 class="r2">Светлана Цыро</h3><p>Методолог, курсы для&nbsp;взрослых</p><div class="chips"><span class="pill">Помощники</span><span class="pill">Сайты</span><span class="pill">Методология</span></div></article>
+        <article class="card sp-c lift"><div class="circle" style="display:grid;place-items:center;color:var(--cobalt)"><svg class="icon" style="width:52px;height:52px;stroke-width:1.2"><use href="#i-person"/></svg></div><h3 class="r2">Анастасия</h3><p>Курсы для&nbsp;взрослых</p><div class="chips"><span class="pill">Базовый курс</span></div></article>
+        <article class="card sp-c lift"><div class="circle" style="display:grid;place-items:center;color:var(--cobalt)"><svg class="icon" style="width:52px;height:52px;stroke-width:1.2"><use href="#i-person"/></svg></div><h3 class="r2">Имя педагога</h3><p>Курсы для&nbsp;детей</p><div class="chips"><span class="pill k">Roblox</span><span class="pill k">Python</span></div></article>
+        <article class="card sp-c lift"><div class="circle" style="display:grid;place-items:center;color:var(--cobalt)"><svg class="icon" style="width:52px;height:52px;stroke-width:1.2"><use href="#i-person"/></svg></div><h3 class="r2">Имя педагога</h3><p>Курсы для&nbsp;детей</p><div class="chips"><span class="pill k">Дизайн</span><span class="pill k">Нейростарт</span></div></article>
+      </div></div></div>
+    <div class="var"><div class="v-head"><span class="v-num">D</span><span class="v-title">Большой портрет ведущего</span></div>
+      <p class="v-note">Для страницы курса или интенсива: один человек крупно, на тёмном фоне, с тем, что он даст участникам.</p>
+      <div class="stage"><div class="sp-d"><div class="ph"><img src="../img/team/svetlana.png" alt=""></div><div class="in"><p class="r4">Ведущая курса</p><p class="big">Светлана Цыро</p><p>Методолог обучения. На&nbsp;курсе помогает:</p><ul><li>собрать своего ИИ-помощника под задачи вашего дела</li><li>сделать сайт или страницу услуги без программиста</li><li>выстроить систему работы с&nbsp;нейросетями</li></ul><span class="example" style="justify-self:start">описание – пример</span></div></div></div></div>
+  </section>
+  <div style="height:80px"></div>
+</main>
+<script>
+const $=s=>document.querySelector(s), I=id=>`<svg class="icon"><use href="#${id}"/></svg>`;
+const L=[['i-file','Документы и таблицы','30 страниц за 5 минут: главное, риски и список дел.','2 часа','10 минут'],['i-chat','Встречи и переписка','Из записи встречи – протокол и задачи. Письма вашим тоном.','1 час','10 минут'],['i-compass','Исследование рынка','Конкуренты, аудитория и проверка фактов за вечер.','3 дня','1 вечер'],['i-monitor','Презентация за час','Структура, тезисы, слайды и речь.','1 день','1 час'],['i-code','Свой сайт без программиста','Лендинг или страница услуги – от идеи до публикации.','2 недели','2 вечера'],['i-layers','Личный ИИ-помощник','Знает ваше дело и отвечает по вашим правилам.','–','1 занятие'],['i-image','Контент, картинки, видео','Посты, рассылки и визуалы без дизайнера.','3 часа','30 минут'],['i-hourglass','Аудит рутины','Что перестать делать руками – и план на 30 дней.','–','1 занятие']];
+$('[data-list="a"]').innerHTML=L.map(([i,t,d])=>`<article class="card l-a lift"><span class="ic-sq">${I(i)}</span><h3 class="r2">${t}</h3><p>${d}</p></article>`).join('');
+$('[data-list="b"]').innerHTML=L.map(([i,t,d],k)=>`<li><span class="n">0${k+1}</span><div><h3 class="r2">${t}</h3><p>${d}</p></div></li>`).join('');
+$('[data-list="c"]').innerHTML=L.map(([i,t,d,a,b])=>`<tr><td>${t}</td><td class="was">${a}</td><td class="now">${b}</td></tr>`).join('');
+$('[data-list="e"]').innerHTML=L.map(([i,t,d])=>`<article class="card lift"><div class="bar"></div><div class="in"><h3 class="r2">${t}</h3><p>${d}</p></div></article>`).join('');
+const tags=$('[data-list="d"]'), out=$('[data-tag-out]');
+const showTag=k=>{[...tags.children].forEach((b,j)=>b.setAttribute('aria-pressed',j===k));const [i,t,d,a,b]=L[k];out.innerHTML=`<span class="ic-sq">${I(i)}</span><h3 class="r2">${t}</h3><p>${d}</p><p><b>Обычно:</b> ${a} · <b style="color:#1E7B45">с ИИ:</b> ${b}</p><span class="btn" style="justify-self:start">Подобрать программу ${I('i-arrow')}</span>`;};
+tags.innerHTML=L.map(([i,t],k)=>`<button type="button" class="tag" aria-pressed="false">${I(i)}${t}</button>`).join('');
+[...tags.children].forEach((b,k)=>b.onclick=()=>showTag(k)); showTag(0);
+const E=[['kids-sunday.jpg','25','окт','вс','Вс, 25 октября · 14:00','Нейро-воскресенье','Детям 7–14','Бесплатно','Записаться'],['../adults.jpg?v=2','','','','Старт в ноябре','Нейросети: с нуля к практике','Взрослым','19 200 руб./мес. · 2 мес.','Предзапись'],['kids-elephant.jpg','','','','Старт в декабре','Нейростарт – дети','Детям 7–14','6 600 руб./мес. · 3 мес.','Предзапись']];
+const img=f=>f.startsWith('../')?`../img/${f.slice(3)}`:`../img/club/${f}`;
+$('[data-near="b"]').innerHTML=E.map(e=>`<article class="card pc lift"><div class="ph"><img src="${img(e[0])}" alt=""></div><div class="pc-b"><p class="when">${e[4]}</p><h3 class="r2">${e[5]}</h3><p>${e[6]}</p><div class="foot"><b>${e[7]}</b><span class="btn ${e[8]==='Записаться'?'':'ghost'}">${e[8]}</span></div></div></article>`).join('');
+$('[data-near="c"]').innerHTML=E.map(e=>`<article class="card row lift"><span class="d">${e[1]||'<span style="font-size:15px">Скоро</span>'}<small>${e[2]?e[2]+' · '+e[3]:'предзапись'}</small></span><div><h3 class="r2">${e[5]}</h3><p>${e[6]} · ${e[4]}</p></div><b>${e[7]}</b><span class="btn ${e[8]==='Записаться'?'':'ghost'}">${e[8]}</span></article>`).join('');
+const AF=[['kids-sunday.jpg','Октябрь','Вс, 25 октября · 14:00','Нейро-воскресенье','Детям','Бесплатно',25,'k'],['zal.jpg','Ноябрь','Сб, 1 ноября · 15:00','Нейро-суббота','Взрослым','Бесплатно',1,'a'],['zal.jpg','Ноябрь','Ср, 5 ноября · 19:00','Интенсив «Свой сайт с нейросетями»','Взрослым','2 800 руб.',5,'a'],['kids-teacher.jpg','Ноябрь','Сб, 8 ноября · 12:00','Мастер-класс для детей','Детям','2 000 руб.',8,'k'],['zal.jpg','Ноябрь','Ср, 12 ноября · 19:00','Интенсив «Личный помощник»','Взрослым','2 800 руб.',12,'a'],['../adults.jpg?v=2','Ноябрь','Старт 17 ноября','Базовый курс «С нуля к практике»','Взрослым','19 200 руб./мес. · 2 мес.',17,'a']];
+$('[data-af="a"]').innerHTML=AF.map(e=>`<article class="card mc lift"><div class="ph"><img src="${img(e[0])}" alt=""></div><div><p class="when">${e[2]} · ${e[4].toLowerCase()}</p><h3 class="r2">${e[3]}</h3><b>${e[5]}</b></div></article>`).join('');
+let html='',cur='';AF.forEach(e=>{if(e[1]!==cur){if(cur)html+='</div>';cur=e[1];html+=`<div class="month"><h3>${cur}</h3></div><div class="g2" style="margin-bottom:18px">`;}html+=`<article class="card mc lift"><div class="ph"><img src="${img(e[0])}" alt=""></div><div><p class="when">${e[2]}</p><h3 class="r2">${e[3]}</h3><b>${e[5]}</b></div></article>`;});$('[data-af="b"]').innerHTML=html+'</div>';
+$('[data-af="c"]').innerHTML=AF.map(e=>`<tr><td>${e[2]}</td><td class="t">${e[3]}</td><td><span class="pill ${e[7]==='k'?'k':''}">${e[4]}</span></td><td>${e[5]}</td><td><span class="btn ghost" style="min-height:38px;padding:0 14px">Записаться</span></td></tr>`).join('');
+const cal=$('[data-af="d"]');let c=['пн','вт','ср','чт','пт','сб','вс'].map(d=>`<div class="dn">${d}</div>`).join('');for(let i=0;i<5;i++)c+='<div class="c off"></div>';for(let d=1;d<=30;d++){const ev=AF.filter(e=>e[1]==='Ноябрь'&&e[6]===d);c+=`<div class="c"><span class="num">${d}</span>${ev.map(e=>`<span class="ev ${e[7]==='k'?'k':''}">${e[3].replace(/Интенсив «|»/g,'')}</span>`).join('')}</div>`;}cal.innerHTML=c;
+const R=[['Е','Елена, пример','Базовый курс','«Пример отзыва: наконец разобралась, как ставить задачу нейросети. Теперь отчёт, который делала полдня, собираю за час».'],['С','Сергей, пример','Интенсив «Свой сайт»','«Пример отзыва: за вечер сделал страницу для своей услуги и уже получил первые заявки».'],['М','Мама Миши, пример','Курс Roblox','«Пример отзыва: сын с горящими глазами показывает свою игру и объясняет код – это бесценно».']];
+$('[data-rev="a"]').innerHTML=R.map(r=>`<article class="card q-a lift"><span class="stars">★★★★★</span><p class="q">${r[3]}</p><div class="who"><span class="av">${r[0]}</span><div><b>${r[1]}</b><span>${r[2]}</span></div></div></article>`).join('');
+$('[data-rev="d"]').innerHTML=R.slice(0,2).map(r=>`<article class="card q-a"><p class="q">${r[3]}</p><div class="who"><span class="av">${r[0]}</span><div><b>${r[1]}</b><span>${r[2]}</span></div></div></article>`).join('');
+</script>
+</body>
+</html>
