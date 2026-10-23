@@ -512,6 +512,15 @@ fieldset.field{border:0;padding:0;margin:0}
 @media (max-width:640px){.events.photo{grid-template-columns:1fr}}
 .fade-hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:70px;background:linear-gradient(180deg,rgba(243,247,253,0),var(--bg));pointer-events:none}
 .variant-tag{position:fixed;left:12px;bottom:12px;z-index:95;margin:0;padding:6px 12px;border-radius:999px;background:var(--ink);color:#fff;font-size:13px;font-weight:600;opacity:.9}.variant-tag a{color:var(--ice)}
+.wgs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.wg{display:flex;flex-direction:column;gap:18px;padding:26px;border-radius:var(--r-md);background:#fff;border:1px solid var(--line);box-shadow:var(--shadow)}
+.wg-head{display:flex;align-items:center;gap:14px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.wg-head .ic{width:48px;height:48px}
+.wg-list{display:grid;gap:18px;flex:1;align-content:start}
+.wg-list li{display:grid;gap:6px;padding-left:16px;border-left:3px solid var(--tint)}
+.wg-list b{line-height:1.35}
+.wg .link-arrow{align-self:flex-start;padding:0}
+@media (max-width:980px){.wgs{grid-template-columns:1fr}}
 @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
 .reveal.in{opacity:1;transform:none}
@@ -620,15 +629,32 @@ fieldset.field{border:0;padding:0;margin:0}
 
   <section class="section wrap" aria-labelledby="pain-title">
     <div class="head"><div class="head-text"><p class="r4">Узнаёте себя?</p><h2 class="r1" id="pain-title">Для кого клуб ProНейро</h2></div></div>
-    <div class="who">
-      <article class="who-card reveal"><div class="who-top"><span class="ic"><svg class="icon"><use href="#i-compass"/></svg></span><span class="pill ">Взрослым</span></div><h3 class="r2">Хотите разобраться в&nbsp;нейросетях, но&nbsp;не&nbsp;знаете, с&nbsp;чего начать</h3><p>Не получилось зарегистрироваться или первый результат разочаровал. Покажем на&nbsp;ваших задачах, без сложных терминов.</p></article>
-      <article class="who-card reveal"><div class="who-top"><span class="ic"><svg class="icon"><use href="#i-trend"/></svg></span><span class="pill ">Взрослым</span></div><h3 class="r2">Уже пользуетесь ИИ, но&nbsp;чувствуете, что можно больше</h3><p>Хочется работать быстрее и&nbsp;качественнее и&nbsp;раньше других узнавать о&nbsp;новых возможностях – это ценят и&nbsp;работодатели, и&nbsp;клиенты.</p></article>
-      <article class="who-card reveal"><div class="who-top"><span class="ic"><svg class="icon"><use href="#i-game"/></svg></span><span class="pill k">Родителям</span></div><h3 class="r2">Хотите, чтобы ребёнок создавал, а&nbsp;не&nbsp;только листал ленту</h3><p>Свои игры, комиксы, сайты и&nbsp;программы вместо бесконечных роликов. Время за&nbsp;компьютером превращается в&nbsp;проект, которым можно гордиться.</p></article>
-      <article class="who-card reveal"><div class="who-top"><span class="ic"><svg class="icon"><use href="#i-shield"/></svg></span><span class="pill k">Родителям</span></div><h3 class="r2">Переживаете, что ИИ будет думать за&nbsp;ребёнка</h3><p>На&nbsp;занятиях нейросеть – помощник, а&nbsp;не&nbsp;замена: ребёнок сам ставит задачу, проверяет ответ и&nbsp;остаётся автором работы.</p></article>
-      <article class="who-card reveal"><div class="who-top"><span class="ic"><svg class="icon"><use href="#i-hourglass"/></svg></span><span class="pill b">Для своего дела</span></div><h3 class="r2">Ведёте дело и&nbsp;всё делаете сами</h3><p>Переписка, документы, контент, ответы клиентам съедают день. Часть можно отдать ИИ и&nbsp;освободить время для важного.</p></article>
-      <article class="who-card reveal"><div class="who-top"><span class="ic"><svg class="icon"><use href="#i-users"/></svg></span><span class="pill b">Для команды</span></div><h3 class="r2">Хотите, чтобы команда работала с&nbsp;ИИ</h3><p>Обучим сотрудников на&nbsp;задачах вашей компании: от&nbsp;переписки и&nbsp;отчётов до&nbsp;помощников для повторяющихся задач.</p></article>
+    <div class="wgs">
+      <article class="wg reveal">
+        <div class="wg-head"><span class="ic"><svg class="icon"><use href="#i-person"/></svg></span><h3 class="r2">Взрослым</h3></div>
+        <ul class="wg-list">
+          <li><b>Хотите разобраться в&nbsp;нейросетях, но&nbsp;не&nbsp;знаете, с&nbsp;чего начать</b><p>Не получилось зарегистрироваться или первый результат разочаровал. Покажем на&nbsp;ваших задачах, без сложных терминов.</p></li>
+          <li><b>Уже пользуетесь ИИ, но&nbsp;чувствуете, что можно больше</b><p>Хочется работать быстрее и&nbsp;качественнее и&nbsp;раньше других узнавать о&nbsp;новых возможностях – это ценят и&nbsp;работодатели, и&nbsp;клиенты.</p></li>
+        </ul>
+        <a class="link-arrow" href="#/adults">Курсы и интенсивы <svg class="icon"><use href="#i-arrow"/></svg></a>
+      </article>
+      <article class="wg reveal">
+        <div class="wg-head"><span class="ic"><svg class="icon"><use href="#i-smile"/></svg></span><h3 class="r2">Родителям</h3></div>
+        <ul class="wg-list">
+          <li><b>Хотите, чтобы ребёнок создавал, а&nbsp;не&nbsp;только листал ленту</b><p>Свои игры, комиксы, сайты и&nbsp;программы вместо бесконечных роликов. Время за&nbsp;компьютером превращается в&nbsp;проект, которым можно гордиться.</p></li>
+          <li><b>Переживаете, что ИИ будет думать за&nbsp;ребёнка</b><p>На&nbsp;занятиях нейросеть – помощник, а&nbsp;не&nbsp;замена: ребёнок сам ставит задачу, проверяет ответ и&nbsp;остаётся автором работы.</p></li>
+        </ul>
+        <a class="link-arrow" href="#/kids">Курсы для детей <svg class="icon"><use href="#i-arrow"/></svg></a>
+      </article>
+      <article class="wg reveal">
+        <div class="wg-head"><span class="ic"><svg class="icon"><use href="#i-brief"/></svg></span><h3 class="r2">Для дела и&nbsp;команды</h3></div>
+        <ul class="wg-list">
+          <li><b>Ведёте дело и&nbsp;всё делаете сами</b><p>Переписка, документы, контент, ответы клиентам съедают день. Часть можно отдать ИИ и&nbsp;освободить время для важного.</p></li>
+          <li><b>Хотите, чтобы команда работала с&nbsp;ИИ</b><p>Обучим сотрудников на&nbsp;задачах вашей компании: от&nbsp;переписки и&nbsp;отчётов до&nbsp;помощников для повторяющихся задач.</p></li>
+        </ul>
+        <a class="link-arrow" href="#/business">Обучение для бизнеса <svg class="icon"><use href="#i-arrow"/></svg></a>
+      </article>
     </div>
-    <div class="who-bar reveal"><p><b>Хотя бы один пункт про&nbsp;вас?</b> Тогда вам к&nbsp;нам – выберите, с&nbsp;чего начать.</p><a class="btn btn-light" href="#/directions">Выбрать направление <svg class="icon"><use href="#i-arrow"/></svg></a></div>
   </section>
 
   <section class="section wrap" id="directions" aria-labelledby="dir-title">
