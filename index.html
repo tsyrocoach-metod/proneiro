@@ -597,6 +597,33 @@ fieldset.field{border:0;padding:0;margin:0}
 .dir-cover + .dir-text{margin-top:0;padding:22px 28px 26px;gap:12px}
 .dir-title{margin:0;font-weight:600;font-size:clamp(24px,2.1vw,30px);line-height:1.15;letter-spacing:-.025em;color:var(--ink)}
 .dir-cover + .dir-text .dir-list{margin-bottom:16px;gap:8px}
+/* Главная: фото на правые 60%, переход заканчивается к середине экрана */
+[data-page="home"] .fade-media{width:60vw;-webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 7%),linear-gradient(180deg,#000 82%,transparent 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent 0%,#000 7%),linear-gradient(180deg,#000 82%,transparent 100%);mask-composite:intersect}
+[data-page="home"] .fm-blur{-webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 8%,#000 14%,transparent 26%);mask-image:linear-gradient(90deg,transparent 0%,#000 8%,#000 14%,transparent 26%)}
+[data-page="home"] .fm-sharp{-webkit-mask-image:linear-gradient(90deg,transparent 3%,#000 24%);mask-image:linear-gradient(90deg,transparent 3%,#000 24%)}
+[data-page="home"] .fade-hero .hero-text{max-width:min(500px,34vw);padding-top:clamp(48px,7vw,96px);padding-bottom:clamp(48px,7vw,96px)}
+@media (max-width:900px){[data-page="home"] .fade-media{width:100%;-webkit-mask-image:none;mask-image:none}[data-page="home"] .fade-hero .hero-text{max-width:none}}
+/* «Узнаёте себя?»: карточки появляются по очереди, оживают при наведении, черта переливается */
+.wq{transition:transform .3s ease,box-shadow .3s ease}
+.wq:hover{transform:translateY(-6px);box-shadow:0 2px 4px rgba(14,20,29,.05),0 24px 48px rgba(0,102,255,.16)}
+.wq b::before{background:linear-gradient(180deg,var(--cobalt),var(--ice),var(--cobalt));background-size:100% 220%;animation:wq-flow 4s ease-in-out infinite}
+.wq:hover b::before{width:5px}
+@keyframes wq-flow{0%,100%{background-position:0 0}50%{background-position:0 100%}}
+.wq.reveal.in{animation:wq-in .7s cubic-bezier(.2,.7,.2,1) both;animation-delay:var(--d,0s)}
+@keyframes wq-in{from{opacity:0;translate:0 30px;scale:.97}to{opacity:1;translate:0 0;scale:1}}
+.wg:nth-child(1) .wq:nth-of-type(1){--d:0s}.wg:nth-child(2) .wq:nth-of-type(1){--d:.12s}.wg:nth-child(3) .wq:nth-of-type(1){--d:.24s}
+.wg:nth-child(1) .wq:nth-of-type(2){--d:.2s}.wg:nth-child(2) .wq:nth-of-type(2){--d:.32s}.wg:nth-child(3) .wq:nth-of-type(2){--d:.44s}
+/* «Нейрограмотность»: ярче свечение; при наведении – блик и мерцающие искры */
+.nl::after{background:radial-gradient(circle,rgba(150,210,255,.6),transparent 65%)!important;width:360px!important;height:360px!important}
+.nl::before{background:radial-gradient(circle,rgba(150,210,255,.45),transparent 65%)!important}
+.nl-shine{position:absolute;top:-20%;bottom:-20%;left:-40%;width:35%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.28),transparent);transform:skewX(-18deg) translateX(-120%);pointer-events:none;z-index:0}
+.nl:hover .nl-shine{animation:nl-sweep 1.8s ease-in-out infinite}
+@keyframes nl-sweep{0%{transform:skewX(-18deg) translateX(0)}100%{transform:skewX(-18deg) translateX(520%)}}
+.nl-sparks{position:absolute;inset:0;pointer-events:none;z-index:0}
+.nl-sparks i{position:absolute;left:var(--x);top:var(--y);width:6px;height:6px;border-radius:50%;background:#fff;box-shadow:0 0 10px 3px rgba(150,210,255,.9);opacity:0;transform:scale(.4)}
+.nl:hover .nl-sparks i{animation:nl-twinkle 1.6s ease-in-out infinite;animation-delay:var(--t)}
+@keyframes nl-twinkle{0%,100%{opacity:0;transform:scale(.4)}50%{opacity:1;transform:scale(1.2)}}
+.nl:hover::after{animation-duration:3s}
 @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
 .shot .reveal{opacity:1;transform:none;transition:none}
@@ -721,6 +748,7 @@ fieldset.field{border:0;padding:0;margin:0}
       </div>
     </div>
     <div class="nl reveal">
+      <span class="nl-shine" aria-hidden="true"></span><span class="nl-sparks" aria-hidden="true"><i style="--x:8%;--y:22%;--t:0s"></i><i style="--x:18%;--y:70%;--t:.6s"></i><i style="--x:34%;--y:30%;--t:1.2s"></i><i style="--x:52%;--y:78%;--t:.3s"></i><i style="--x:66%;--y:18%;--t:.9s"></i><i style="--x:78%;--y:60%;--t:1.5s"></i><i style="--x:90%;--y:34%;--t:.45s"></i><i style="--x:44%;--y:52%;--t:1.1s"></i></span>
       <div class="nl-text">
         <p class="r4">Нейрограмотность</p>
         <h3 class="nl-title">Навык, который важно освоить каждому</h3>
