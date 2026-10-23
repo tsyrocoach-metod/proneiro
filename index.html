@@ -430,17 +430,17 @@ fieldset.field{border:0;padding:0;margin:0}
 
 /* Фото, которое растворяется в фоне через размытие */
 .fade-hero{position:relative;overflow:hidden;min-height:clamp(540px,76vh,740px);display:flex;align-items:center}
-.fade-media{position:absolute;top:0;right:0;bottom:0;width:min(54vw,960px);pointer-events:none}
+.fade-media{position:absolute;top:0;right:0;bottom:0;width:min(54vw,960px);pointer-events:none;overflow:hidden}
 .dir-media::after{content:"";position:absolute;inset:0}
-.dir-media::after{background:linear-gradient(90deg,#fff 0%,rgba(255,255,255,.6) 20%,rgba(255,255,255,0) 46%)}
+.dir-media::after{background:linear-gradient(90deg,#fff 0%,#fff 6%,rgba(255,255,255,.75) 22%,rgba(255,255,255,.25) 40%,rgba(255,255,255,0) 55%)}
 .fade-media img,.dir-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.fm-blur{filter:blur(24px) saturate(1.05);transform:scale(1.1);-webkit-mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.55) 18%,#000 36%,#000 46%,transparent 66%);mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.55) 18%,#000 36%,#000 46%,transparent 66%)}
+.fm-blur{filter:blur(18px) saturate(1.05);transform:scale(1.06);-webkit-mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.55) 18%,#000 36%,#000 46%,transparent 66%);mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.55) 18%,#000 36%,#000 46%,transparent 66%)}
 .fm-sharp{-webkit-mask-image:linear-gradient(90deg,transparent 22%,#000 55%);mask-image:linear-gradient(90deg,transparent 22%,#000 55%)}
 .fade-inner{position:relative;z-index:1;width:100%}
 .fade-hero .hero-text{max-width:min(600px,46vw);padding-top:clamp(32px,5vw,64px);padding-bottom:clamp(32px,5vw,64px)}
 .dirs{display:grid;gap:18px}
 .dir{position:relative;overflow:hidden;min-height:400px;display:flex;align-items:center;border-radius:var(--r-lg);background:#fff;border:1px solid var(--line);box-shadow:var(--shadow)}
-.dir-media{position:absolute;top:0;right:0;bottom:0;width:60%;pointer-events:none}
+.dir-media{position:absolute;top:0;right:0;bottom:0;width:62%;pointer-events:none;overflow:hidden}
 .dir-text{position:relative;z-index:1;width:min(560px,52%);display:grid;gap:14px;padding:clamp(24px,3.4vw,44px)}
 .dir-meta{font-weight:600;color:var(--ink)}
 .dir .btn{justify-self:start;margin-top:4px}
@@ -474,6 +474,44 @@ fieldset.field{border:0;padding:0;margin:0}
 .field select{width:100%;min-height:52px;padding:12px 16px;border-radius:var(--r-sm);border:1.5px solid var(--line-2);background:#fff;font-size:16px}
 .form-msg{padding:14px 16px;border-radius:var(--r-sm);background:#FDECEA;border:1px solid #F2B8B5;color:#7A1C16}
 
+.facts-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}.facts-row li{display:inline-flex;align-items:center;gap:8px;min-height:38px;padding:0 14px;border-radius:999px;background:var(--tint-2);border:1px solid var(--line);color:var(--ink);font-size:15px;font-weight:500}.facts-row .icon{width:17px;height:17px;color:var(--cobalt)}
+.who{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.who-card{display:grid;gap:10px;align-content:start;padding:24px;border-radius:var(--r-md);background:#fff;border:1px solid var(--line);box-shadow:var(--shadow)}
+.who-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:4px}
+.who-card .ic{width:48px;height:48px}
+.who-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:16px;padding:20px 24px;border-radius:var(--r-md);background:linear-gradient(120deg,var(--cobalt),#1E56D8 60%,#123E9E);color:#DCE8FF;box-shadow:0 14px 34px rgba(0,102,255,.22)}
+.who-bar b{color:#fff}
+@media (max-width:980px){.who{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:620px){.who{grid-template-columns:1fr}}
+.why3-head{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:16px 48px;align-items:end;margin-bottom:30px;position:relative;z-index:1}
+.why3-lead{font-size:19px;line-height:1.55;color:#DCE5F2}
+.why3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;position:relative;z-index:1}
+.why3-card{display:grid;gap:10px;align-content:start;padding:24px;border-radius:var(--r-md);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12)}
+.why3-card .num{font-weight:700;font-size:40px;letter-spacing:-.04em;line-height:1;color:var(--ice)}
+@media (max-width:900px){.why3-head,.why3{grid-template-columns:1fr}}
+/* События: фото-карточки, ближайшее – крупнее */
+.events.photo{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.pc{display:flex;flex-direction:column;border-radius:var(--r-md);overflow:hidden;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);transition:transform .25s,box-shadow .25s}
+.pc:hover{transform:translateY(-4px);box-shadow:var(--shadow-up)}
+.pc-ph{position:relative;aspect-ratio:16/10;overflow:hidden;background:var(--silver)}
+.pc-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.pc:hover .pc-ph img{transform:scale(1.04)}
+.pc-ph .pill{position:absolute;left:12px;top:12px;background:rgba(255,255,255,.94);color:var(--ink)}
+.pc-body{display:flex;flex-direction:column;gap:10px;padding:18px 20px 20px;flex:1}
+.pc-when{font-weight:700;font-size:14px;letter-spacing:.04em;text-transform:uppercase;color:var(--cobalt)}
+.pc-name{background:none;border:0;padding:0;text-align:left;cursor:pointer}
+.pc-name:hover{color:var(--cobalt)}
+.pc-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:auto;padding-top:14px;border-top:1px solid var(--line)}
+.pc-foot b{color:var(--ink);white-space:nowrap}
+.pc.main{grid-column:span 2;border:1.5px solid rgba(0,102,255,.35);box-shadow:var(--shadow-up)}
+.pc.main .pc-ph{aspect-ratio:16/8.4}
+.pc.main .pc-ph .pill{background:var(--cobalt);color:#fff}
+.pc.main .pc-body{padding:22px 24px 24px}
+.pc-desc{margin:0}
+@media (max-width:1100px){.events.photo{grid-template-columns:repeat(2,minmax(0,1fr))}.pc.main{grid-column:1/-1}}
+@media (max-width:640px){.events.photo{grid-template-columns:1fr}}
+.fade-hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:70px;background:linear-gradient(180deg,rgba(243,247,253,0),var(--bg));pointer-events:none}
+.variant-tag{position:fixed;left:12px;bottom:12px;z-index:95;margin:0;padding:6px 12px;border-radius:999px;background:var(--ink);color:#fff;font-size:13px;font-weight:600;opacity:.9}.variant-tag a{color:var(--ice)}
 @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
 .reveal.in{opacity:1;transform:none}
@@ -571,7 +609,7 @@ fieldset.field{border:0;padding:0;margin:0}
       <div class="hero-text">
         <p class="r4">Первый в&nbsp;Твери клуб практического ИИ</p>
         <h1 class="r1" id="home-title">Нейросети на&nbsp;практике для&nbsp;себя, работы и&nbsp;бизнеса</h1>
-        <p class="hero-lead">Мы создали не&nbsp;курсы по&nbsp;нейросетям, а&nbsp;сообщество, где искусственный интеллект становится понятным, полезным и&nbsp;применимым в&nbsp;жизни. Без сложной теории: решаем ваши задачи, знакомимся с&nbsp;людьми, которым тоже интересно новое.</p>
+        <p class="hero-lead">ProНейро – клуб в&nbsp;центре Твери, где взрослые, дети и&nbsp;предприниматели осваивают нейросети на&nbsp;своих задачах: без сложной теории, с&nbsp;живым общением и&nbsp;поддержкой.</p>
         <div class="hero-actions">
           <a class="btn" href="#/directions">Подобрать программу <svg class="icon"><use href="#i-arrow"/></svg></a>
           <a class="btn btn-ghost" href="#/events">Ближайшие события</a>
@@ -581,20 +619,16 @@ fieldset.field{border:0;padding:0;margin:0}
   </section>
 
   <section class="section wrap" aria-labelledby="pain-title">
-    <div class="panel pain-panel">
-      <div class="head-text">
-        <p class="r4">Для кого клуб</p>
-        <h2 class="r1" id="pain-title">Узнаёте себя?</h2>
-      </div>
-      <ul class="pain-list">
-        <li><span class="ic-sq"><svg class="icon"><use href="#i-compass"/></svg></span><span><b>Не&nbsp;знаете, как подойти к&nbsp;нейросетям?</b> Не получилось зарегистрироваться или результат разочаровал.</span></li>
-        <li><span class="ic-sq"><svg class="icon"><use href="#i-trend"/></svg></span><span><b>Уже пользуетесь ИИ, но&nbsp;хотите большего?</b> Чувствуете, что можно быстрее, качественнее и&nbsp;даже то, о&nbsp;чём вы не&nbsp;догадывались.</span></li>
-        <li><span class="ic-sq"><svg class="icon"><use href="#i-refresh"/></svg></span><span><b>Хотите первыми осваивать обновления?</b> Мир ИИ меняется молниеносно – хочется раньше других узнавать о&nbsp;новых функциях и&nbsp;нейросетях.</span></li>
-        <li><span class="ic-sq"><svg class="icon"><use href="#i-hourglass"/></svg></span><span><b>Хотите отдать рутину ИИ?</b> У каждого специалиста есть то, что можно автоматизировать и&nbsp;освободить время для&nbsp;важного.</span></li>
-        <li><span class="ic-sq"><svg class="icon"><use href="#i-brief"/></svg></span><span><b>Хотите преимущество на&nbsp;рынке труда?</b> Работодатели выбирают тех, кто умеет встроить ИИ в&nbsp;рабочие процессы.</span></li>
-      </ul>
-      <div class="pain-end"><p><b>Хотя бы один пункт про вас?</b> Тогда вам к&nbsp;нам – выберите, с&nbsp;чего начать.</p><a class="btn" href="#/directions">Выбрать направление <svg class="icon"><use href="#i-arrow"/></svg></a></div>
+    <div class="head"><div class="head-text"><p class="r4">Узнаёте себя?</p><h2 class="r1" id="pain-title">Для кого клуб ProНейро</h2></div></div>
+    <div class="who">
+      <article class="who-card reveal"><div class="who-top"><span class="ic"><svg class="icon"><use href="#i-compass"/></svg></span><span class="pill ">Взрослым</span></div><h3 class="r2">Хотите разобраться в&nbsp;нейросетях, но&nbsp;не&nbsp;знаете, с&nbsp;чего начать</h3><p>Не получилось зарегистрироваться или первый результат разочаровал. Покажем на&nbsp;ваших задачах, без сложных терминов.</p></article>
+      <article class="who-card reveal"><div class="who-top"><span class="ic"><svg class="icon"><use href="#i-trend"/></svg></span><span class="pill ">Взрослым</span></div><h3 class="r2">Уже пользуетесь ИИ, но&nbsp;чувствуете, что можно больше</h3><p>Хочется работать быстрее и&nbsp;качественнее и&nbsp;раньше других узнавать о&nbsp;новых возможностях – это ценят и&nbsp;работодатели, и&nbsp;клиенты.</p></article>
+      <article class="who-card reveal"><div class="who-top"><span class="ic"><svg class="icon"><use href="#i-game"/></svg></span><span class="pill k">Родителям</span></div><h3 class="r2">Хотите, чтобы ребёнок создавал, а&nbsp;не&nbsp;только листал ленту</h3><p>Свои игры, комиксы, сайты и&nbsp;программы вместо бесконечных роликов. Время за&nbsp;компьютером превращается в&nbsp;проект, которым можно гордиться.</p></article>
+      <article class="who-card reveal"><div class="who-top"><span class="ic"><svg class="icon"><use href="#i-shield"/></svg></span><span class="pill k">Родителям</span></div><h3 class="r2">Переживаете, что ИИ будет думать за&nbsp;ребёнка</h3><p>На&nbsp;занятиях нейросеть – помощник, а&nbsp;не&nbsp;замена: ребёнок сам ставит задачу, проверяет ответ и&nbsp;остаётся автором работы.</p></article>
+      <article class="who-card reveal"><div class="who-top"><span class="ic"><svg class="icon"><use href="#i-hourglass"/></svg></span><span class="pill b">Для своего дела</span></div><h3 class="r2">Ведёте дело и&nbsp;всё делаете сами</h3><p>Переписка, документы, контент, ответы клиентам съедают день. Часть можно отдать ИИ и&nbsp;освободить время для важного.</p></article>
+      <article class="who-card reveal"><div class="who-top"><span class="ic"><svg class="icon"><use href="#i-users"/></svg></span><span class="pill b">Для команды</span></div><h3 class="r2">Хотите, чтобы команда работала с&nbsp;ИИ</h3><p>Обучим сотрудников на&nbsp;задачах вашей компании: от&nbsp;переписки и&nbsp;отчётов до&nbsp;помощников для повторяющихся задач.</p></article>
     </div>
+    <div class="who-bar reveal"><p><b>Хотя бы один пункт про&nbsp;вас?</b> Тогда вам к&nbsp;нам – выберите, с&nbsp;чего начать.</p><a class="btn btn-light" href="#/directions">Выбрать направление <svg class="icon"><use href="#i-arrow"/></svg></a></div>
   </section>
 
   <section class="section wrap" id="directions" aria-labelledby="dir-title">
@@ -652,35 +686,20 @@ fieldset.field{border:0;padding:0;margin:0}
           <h2 class="r1" id="ev-title">Ближайшие события</h2>
         </div>
       </div>
-      <div class="events" data-feed="home"></div>
+      <div class="events photo" data-feed="home"></div>
     </div>
   </section>
 
   <section class="section wrap" aria-labelledby="why-home-title">
     <div class="dark">
-      <div class="dark-grid">
-        <div>
-          <p class="r4">Почему ProНейро</p>
-          <h2 class="r1" id="why-home-title">Клуб развития человека в&nbsp;эпоху искусственного интеллекта</h2>
-          <ul class="not-list">
-            <li><span class="x"><svg class="icon"><use href="#i-x"/></svg></span>Не&nbsp;школа</li>
-            <li><span class="x"><svg class="icon"><use href="#i-x"/></svg></span>Не&nbsp;компьютерные курсы</li>
-            <li><span class="x"><svg class="icon"><use href="#i-x"/></svg></span>Не&nbsp;кружок программирования</li>
-            <li class="yes"><span class="x"><svg class="icon"><use href="#i-check"/></svg></span>Место, где технологии становятся понятными и&nbsp;полезными</li>
-          </ul>
-          <ul class="facts-dark" aria-label="Студия клуба">
-            <li><svg class="icon"><use href="#i-pin"/></svg>Центр Твери</li>
-            <li><svg class="icon"><use href="#i-users"/></svg>Студия на&nbsp;9 рабочих мест</li>
-            <li><svg class="icon"><use href="#i-monitor"/></svg>Новые компьютеры и&nbsp;ПО для нейросетей</li>
-            <li><svg class="icon"><use href="#i-star"/></svg>Демо-экран с&nbsp;профессиональным звуком</li>
-            <li><svg class="icon"><use href="#i-check"/></svg>Можно без опыта</li>
-          </ul>
-        </div>
-        <div class="pillars">
-          <div class="pillar"><span class="ic"><svg class="icon"><use href="#i-users"/></svg></span><div><h3 class="r2">Люди важнее инструментов</h3><p>Модель нейросети может завтра поменяться. Среда и&nbsp;навык думать остаются.</p></div></div>
-          <div class="pillar"><span class="ic"><svg class="icon"><use href="#i-layers"/></svg></span><div><h3 class="r2">Практика прежде теории</h3><p>Сначала решаем задачу, потом объясняем механику. Уходите с&nbsp;готовым инструментом и&nbsp;пониманием следующего шага.</p></div></div>
-          <div class="pillar"><span class="ic"><svg class="icon"><use href="#i-ask"/></svg></span><div><h3 class="r2">Любопытство без снобизма</h3><p>Вопросы приветствуются, а&nbsp;незнание терминов – не&nbsp;противопоказание. Спокойная дружелюбная атмосфера.</p></div></div>
-        </div>
+      <div class="why3-head">
+        <div class="head-text"><p class="r4">Почему ProНейро</p><h2 class="r1" id="why-home-title">Клуб, а&nbsp;не&nbsp;курсы</h2></div>
+        <p class="why3-lead">Мы создали не&nbsp;курсы по&nbsp;нейросетям, а&nbsp;сообщество, где искусственный интеллект становится понятным, полезным и&nbsp;применимым в&nbsp;жизни.</p>
+      </div>
+      <div class="why3">
+        <article class="why3-card reveal"><span class="num">01</span><h3 class="r2">Люди важнее инструментов</h3><p>Модель нейросети может завтра поменяться. Среда и&nbsp;навык думать остаются.</p></article>
+        <article class="why3-card reveal"><span class="num">02</span><h3 class="r2">Практика прежде теории</h3><p>Сначала решаем задачу, потом объясняем механику. Уходите с&nbsp;готовым инструментом и&nbsp;пониманием следующего шага.</p></article>
+        <article class="why3-card reveal"><span class="num">03</span><h3 class="r2">Любопытство без снобизма</h3><p>Вопросы приветствуются, а&nbsp;незнание терминов – не&nbsp;противопоказание.</p></article>
       </div>
     </div>
   </section>
@@ -707,7 +726,8 @@ fieldset.field{border:0;padding:0;margin:0}
         <div class="head-text">
           <p class="r4">Жизнь клуба</p>
           <h2 class="r1" id="life-title">Так проходят занятия в&nbsp;ProНейро</h2>
-          <p>Камерная студия на&nbsp;9 рабочих мест: новые компьютеры, демо-экран с&nbsp;профессиональным звуком и&nbsp;программы для работы с&nbsp;нейросетями.</p>
+          <p>Камерная студия в&nbsp;центре Твери – каждый работает за&nbsp;своим компьютером.</p>
+          <ul class="facts-row" aria-label="Студия клуба"><li><svg class="icon"><use href="#i-users"/></svg>9 рабочих мест</li><li><svg class="icon"><use href="#i-monitor"/></svg>Новые компьютеры и&nbsp;ПО для нейросетей</li><li><svg class="icon"><use href="#i-star"/></svg>Демо-экран с&nbsp;профессиональным звуком</li></ul>
         </div>
       </div>
       <div class="gallery">
@@ -1424,10 +1444,29 @@ function evCard(e){
     <div class="ev-right"><b>${esc(e.price || '')}</b><button type="button" class="btn btn-sm${e.free ? '' : ' btn-ghost'}" data-lead="ev:${esc(e.id)}">${esc(e.cta || 'Записаться')}${e.free ? ' ' + ic('i-arrow') : ''}</button></div>
   </article>`;
 }
+
+// Фото события: своё → фото курса → по умолчанию для детей/взрослых
+function evPhoto(e){
+  const p = e.photo || (e.course_id && COURSE[e.course_id] && COURSE[e.course_id].photo) || (e.audience === 'k' ? './img/club/kids-sunday.jpg' : './img/club/zal.jpg');
+  return p;
+}
+function photoCard(e, main){
+  const aud = e.audience === 'k' ? 'Детям 7–14' : (AUD[e.audience] || '');
+  const when = e.d ? `${WD[e.d.getDay()]}, ${dm(e.d)}${e.time && /\d:\d/.test(e.time) ? ' · ' + e.time.split('–')[0] : ''}` : (e.label === 'Предзапись' ? 'Идёт предзапись' : 'Скоро');
+  const meta = [aud ? `<span>${ic('i-users')}${esc(aud)}</span>` : '', e.time && !(e.d && /\d:\d/.test(e.time)) ? `<span>${ic('i-clock')}${esc(e.time)}</span>` : '', e.place ? `<span>${ic('i-pin')}${esc(e.place)}</span>` : ''].join('');
+  return `<article class="pc reveal${main ? ' main' : ''}">
+    <div class="pc-ph"><img src="${esc(evPhoto(e))}" alt="" loading="lazy">${main ? '<span class="pill">Ближайшее</span>' : (e.free ? '<span class="pill">Бесплатно</span>' : '')}</div>
+    <div class="pc-body"><p class="pc-when">${esc(when)}</p>
+      <h3><button type="button" class="pc-name r2" data-ev="${esc(e.id)}">${nb(e.title)}</button></h3>
+      ${main && e.description ? `<p class="pc-desc">${nb(e.description)}</p>` : ''}
+      <div class="ev-meta">${meta}</div>
+      <div class="pc-foot"><b>${esc(e.free ? 'Бесплатно' : (e.price || ''))}</b><button type="button" class="btn btn-sm${e.free || main ? '' : ' btn-ghost'}" data-lead="ev:${esc(e.id)}">${esc(e.cta || 'Записаться')}${e.free || main ? ' ' + ic('i-arrow') : ''}</button></div>
+    </div></article>`;
+}
 let EV_INDEX = {};
 function renderFeeds(){
   const all = allEvents(); EV_INDEX = Object.fromEntries(all.map(e => [e.id, e]));
-  $('[data-feed="home"]').innerHTML = all.filter(e => e.show_home).map(evCard).join('');
+  $('[data-feed="home"]').innerHTML = all.filter(e => e.show_home).map((e, i) => photoCard(e, i === 0)).join('');
   $('[data-feed="intensives"]').innerHTML = all.filter(e => e.kind === 'intensive').map(evCard).join('');
   const sun = EV_INDEX.sunday; $$('[data-next-sunday]').forEach(el => el.textContent = sun && sun.d ? 'Ближайшее – ' + dm(sun.d) : 'Последнее воскресенье месяца');
   observeReveal();
