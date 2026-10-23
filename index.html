@@ -646,6 +646,28 @@ main > [data-page] > .section{padding-top:clamp(28px,4vw,48px);padding-bottom:cl
 .price-box b{color:var(--ink);white-space:nowrap}
 .price-dur{font-size:13px;line-height:1.3;color:var(--text)}
 .foot ul + ul{margin-top:8px}
+/* Страница «Взрослым» */
+.cando-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.cando{display:grid;gap:8px;align-content:start;padding:22px;border-radius:var(--r-md);background:#fff;border:1px solid var(--line);box-shadow:var(--shadow)}
+.cando .ic-sq{margin-bottom:4px}
+.fmt-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.fmt{display:flex;flex-direction:column;gap:6px;padding:22px;border-radius:var(--r-md);background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);text-decoration:none;color:var(--text);transition:transform .25s,box-shadow .25s,border-color .25s}
+.fmt:hover{transform:translateY(-4px);box-shadow:var(--shadow-up);border-color:rgba(0,102,255,.3)}
+.fmt-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.fmt-sub{font-size:15px}
+.fmt-meta{font-weight:600;color:var(--ink);margin-top:4px}
+.fmt-go{display:inline-flex;align-items:center;gap:6px;margin-top:auto;padding-top:14px;font-weight:600;color:var(--cobalt)}
+.fmt-go .icon{width:18px;height:18px;transition:transform .2s}.fmt:hover .fmt-go .icon{transform:translateX(3px)}
+.sat{display:flex;align-items:flex-end;justify-content:space-between;gap:20px 40px;flex-wrap:wrap}
+.sat .head-text{max-width:760px}
+.courses.one{grid-template-columns:1fr}
+.courses.one .course{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)}
+.courses.one .course-img{aspect-ratio:auto;min-height:100%}
+.courses.one .course-body{padding:28px 32px 30px}
+.courses.one .course-actions{max-width:420px}
+@media (max-width:1080px){.cando-grid,.fmt-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:760px){.courses.one .course{grid-template-columns:1fr}.courses.one .course-img{aspect-ratio:4/3}}
+@media (max-width:560px){.cando-grid,.fmt-grid{grid-template-columns:1fr}}
 @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
 .shot .reveal{opacity:1;transform:none;transition:none}
@@ -1054,45 +1076,47 @@ main > [data-page] > .section{padding-top:clamp(28px,4vw,48px);padding-bottom:cl
 <!-- ============ ВЗРОСЛЫМ ============ -->
 <div data-page="adults" hidden>
   <section class="fade-hero" aria-labelledby="ad-title">
-    <div class="fade-media"><img class="fm-blur" src="./img/adults.jpg?v=2" alt="" aria-hidden="true" fetchpriority="high"><img class="fm-sharp" src="./img/adults.jpg?v=2" alt="Взрослые на занятии в клубе" fetchpriority="high"></div>
+    <div class="fade-media"><img class="fm-blur" src="./img/club/dir-adults.webp" alt="" aria-hidden="true" fetchpriority="high"><img class="fm-sharp" src="./img/club/dir-adults.webp" alt="Рабочий стол: планы, графики и ноутбук" fetchpriority="high"></div>
     <div class="wrap fade-inner">
       <div class="hero-text">
         <nav class="crumbs" aria-label="Навигация по сайту"><a href="#/">Главная</a><span aria-hidden="true">/</span><span>Взрослым</span></nav>
-        <p class="r4">Для взрослых</p>
         <h1 class="r1" id="ad-title">Освоить ИИ для&nbsp;работы и&nbsp;своего дела</h1>
-        <p class="hero-lead">Здесь не&nbsp;нужно разбираться в&nbsp;сложных терминах, иметь техническое образование и&nbsp;долго слушать лекции. Шаг за&nbsp;шагом на&nbsp;практике покажем, как с&nbsp;помощью нейросетей:</p>
-        <ul class="ticks">
-          <li><span class="ic-sq"><svg class="icon"><use href="#i-check"/></svg></span>решать свои реальные рабочие задачи;</li>
-          <li><span class="ic-sq"><svg class="icon"><use href="#i-check"/></svg></span>экономить время и&nbsp;упрощать привычные процессы;</li>
-          <li><span class="ic-sq"><svg class="icon"><use href="#i-check"/></svg></span>находить новые идеи для бизнеса и&nbsp;развития;</li>
-          <li><span class="ic-sq"><svg class="icon"><use href="#i-check"/></svg></span>открывать новые возможности для заработка;</li>
-          <li><span class="ic-sq"><svg class="icon"><use href="#i-check"/></svg></span>общаться с&nbsp;людьми, которым тоже интересно осваивать новое.</li>
-        </ul>
+        <p class="hero-lead">Чтобы рутина занимала меньше времени, работа шла быстрее и&nbsp;качественнее, а&nbsp;у&nbsp;вас появилось преимущество – на&nbsp;рынке труда и&nbsp;в&nbsp;своём деле. Без сложных терминов и&nbsp;долгих лекций: шаг за&nbsp;шагом, на&nbsp;ваших задачах.</p>
         <div class="hero-actions">
-          <a class="btn" href="#/adult-courses">Смотреть курсы <svg class="icon"><use href="#i-arrow"/></svg></a>
-          <a class="btn btn-ghost" href="#/intensives">Интенсивы</a>
+          <a class="btn" href="#/adult-formats">Выбрать формат <svg class="icon"><use href="#i-arrow"/></svg></a>
+          <button class="btn btn-ghost" type="button" data-lead="adultpick">Подобрать программу</button>
         </div>
       </div>
     </div>
   </section>
 
   <section class="section wrap" aria-labelledby="can-title">
-      <div class="card">
-        <p class="r4">В ProНейро можно</p>
-        <h2 class="r2" id="can-title">Задавать любые вопросы, пробовать, ошибаться и&nbsp;получать поддержку</h2>
-        <p>В спокойной дружелюбной атмосфере вы освоите навык, который останется полезным независимо от&nbsp;того, какая нейросеть станет популярной завтра.</p>
-        <div class="then-now">
-          <div class="card"><p class="r4">Тогда · компьютерная грамотность</p><p>Набрать документ, найти нужное в&nbsp;интернете, общаться по&nbsp;почте.</p></div>
-          <div class="card now"><p class="r4">Сейчас · грамотность в&nbsp;ИИ</p><p>Ставить нейросети понятную задачу, проверять ответы и&nbsp;думать самостоятельно, бережно обращаться с&nbsp;данными.</p></div>
-        </div>
+    <div class="head"><div class="head-text"><p class="r4">Что вы сможете</p><h2 class="r1" id="can-title">Что можно делать с&nbsp;помощью нейросетей</h2>
+      <p>Это задачи, которые мы разбираем на&nbsp;занятиях – на&nbsp;ваших примерах из&nbsp;работы.</p></div></div>
+    <div class="cando-grid"><article class="cando reveal"><span class="ic-sq"><svg class="icon"><use href="#i-chat"/></svg></span><h3 class="r2">Письма и&nbsp;переписка</h3><p>Ответы клиентам, деловые письма и&nbsp;сообщения – за&nbsp;минуты, вашим тоном.</p></article><article class="cando reveal"><span class="ic-sq"><svg class="icon"><use href="#i-file"/></svg></span><h3 class="r2">Документы</h3><p>30 страниц за&nbsp;5 минут: главное, риски и&nbsp;список дел из&nbsp;любого текста.</p></article><article class="cando reveal"><span class="ic-sq"><svg class="icon"><use href="#i-users"/></svg></span><h3 class="r2">Встречи</h3><p>Запись встречи превращается в&nbsp;протокол, решения и&nbsp;задачи со&nbsp;сроками.</p></article><article class="cando reveal"><span class="ic-sq"><svg class="icon"><use href="#i-bars"/></svg></span><h3 class="r2">Таблицы и&nbsp;цифры</h3><p>Находить закономерности и&nbsp;ошибки в&nbsp;Excel без страха формул.</p></article><article class="cando reveal"><span class="ic-sq"><svg class="icon"><use href="#i-monitor"/></svg></span><h3 class="r2">Презентации</h3><p>Структура, тезисы и&nbsp;слайды за&nbsp;час вместо вечера.</p></article><article class="cando reveal"><span class="ic-sq"><svg class="icon"><use href="#i-image"/></svg></span><h3 class="r2">Контент и&nbsp;картинки</h3><p>Посты, рассылки, визуалы и&nbsp;простые видео для соцсетей и&nbsp;рекламы.</p></article><article class="cando reveal"><span class="ic-sq"><svg class="icon"><use href="#i-trend"/></svg></span><h3 class="r2">Маркетинг и&nbsp;продажи</h3><p>Анализ конкурентов, коммерческие предложения, ответы на&nbsp;возражения.</p></article><article class="cando reveal"><span class="ic-sq"><svg class="icon"><use href="#i-layers"/></svg></span><h3 class="r2">Свой помощник</h3><p>ИИ-помощник под вашу профессию и&nbsp;система работы с&nbsp;нейросетями.</p></article></div>
+  </section>
+
+  <section class="section wrap" id="adult-formats" aria-labelledby="fmt-title">
+    <div class="head"><div class="head-text"><p class="r4">Форматы</p><h2 class="r1" id="fmt-title">Выберите, как удобнее начать</h2>
+      <p>От бесплатной встречи-знакомства до курса и&nbsp;обучения всей команды.</p></div></div>
+    <div class="fmt-grid"><a class="fmt reveal" href="#/adult-saturday"><span class="fmt-top"><span class="r4">Формат 1</span><span class="ic-sq"><svg class="icon"><use href="#i-gift"/></svg></span></span><span class="fmt-sub">Знакомство</span><span class="r2">Нейро-суббота</span><span class="fmt-meta">Бесплатно · 1,5 часа</span><span class="fmt-go">Подробнее <svg class="icon"><use href="#i-arrow"/></svg></span></a><a class="fmt reveal" href="#/intensives"><span class="fmt-top"><span class="r4">Формат 2</span><span class="ic-sq"><svg class="icon"><use href="#i-bulb"/></svg></span></span><span class="fmt-sub">Одна тема за&nbsp;вечер</span><span class="r2">Интенсивы</span><span class="fmt-meta">2&nbsp;800 руб. · 2 часа</span><span class="fmt-go">Подробнее <svg class="icon"><use href="#i-arrow"/></svg></span></a><a class="fmt reveal" href="#/adult-courses"><span class="fmt-top"><span class="r4">Формат 3</span><span class="ic-sq"><svg class="icon"><use href="#i-cap"/></svg></span></span><span class="fmt-sub">Системно, с&nbsp;нуля</span><span class="r2">Базовый курс</span><span class="fmt-meta">19&nbsp;200 руб./мес. · 2 месяца</span><span class="fmt-go">Подробнее <svg class="icon"><use href="#i-arrow"/></svg></span></a><a class="fmt reveal" href="#/teams"><span class="fmt-top"><span class="r4">Формат 4</span><span class="ic-sq"><svg class="icon"><use href="#i-users"/></svg></span></span><span class="fmt-sub">Для компаний</span><span class="r2">Обучение команды</span><span class="fmt-meta">Расчёт под задачу</span><span class="fmt-go">Подробнее <svg class="icon"><use href="#i-arrow"/></svg></span></a></div>
+  </section>
+
+  <section class="section wrap" id="adult-saturday" aria-labelledby="sat-title">
+    <div class="panel sat">
+      <div class="head-text"><p class="r4">Формат 1 · Знакомство · бесплатно</p><h2 class="r1" id="sat-title">Нейро-суббота</h2>
+        <p>Бесплатный мастер-класс для тех, кто хочет чувствовать себя уверенно в&nbsp;новом мире, познакомиться с&nbsp;возможностями нейросетей и&nbsp;работой клуба. К&nbsp;концу встречи – готовый инструмент и&nbsp;понимание следующего шага.</p>
+        <div class="ev-meta"><span><svg class="icon"><use href="#i-cal"/></svg>Последняя суббота месяца</span><span><svg class="icon"><use href="#i-clock"/></svg>15:00–16:30</span><span><svg class="icon"><use href="#i-pin"/></svg>Новоторжская, 18</span></div>
       </div>
+      <button class="btn" type="button" data-lead="saturday">Записаться бесплатно <svg class="icon"><use href="#i-arrow"/></svg></button>
+    </div>
   </section>
 
   <section class="section wrap" id="intensives" aria-labelledby="int-title">
     <div class="panel">
       <div class="head">
         <div class="head-text">
-          <p class="r4">Интенсивы · 2 часа · 2&nbsp;800 руб.</p>
+          <p class="r4">Формат 2 · Интенсивы · 2 часа · 2&nbsp;800 руб.</p>
           <h2 class="r1" id="int-title">Одна тема – один вечер – готовый инструмент</h2>
           <p>Тематические встречи в&nbsp;кругу единомышленников: актуальные темы, живое общение, практические задания и&nbsp;инструменты, которые можно использовать сразу после встречи. Минимум теории – максимум практики.</p>
         </div>
@@ -1104,17 +1128,17 @@ main > [data-page] > .section{padding-top:clamp(28px,4vw,48px);padding-bottom:cl
   <section class="section wrap" id="adult-courses" aria-labelledby="ac-title">
     <div class="head">
       <div class="head-text">
-        <p class="r4">Курсы · 2 месяца · 16 занятий</p>
-        <h2 class="r1" id="ac-title">Базовый и&nbsp;продвинутый курсы</h2>
-        <p>Авторские программы с&nbsp;упором на&nbsp;практику: одно занятие онлайн и&nbsp;одно очно каждую неделю.</p>
+        <p class="r4">Формат 3 · Базовый курс · 2 месяца · 16 занятий</p>
+        <h2 class="r1" id="ac-title">Системно и&nbsp;с&nbsp;нуля – за&nbsp;2 месяца</h2>
+        <p>Авторская программа с&nbsp;упором на&nbsp;практику: одно занятие онлайн и&nbsp;одно очно каждую неделю.</p>
       </div>
     </div>
-    <div class="courses two" data-courses="adults"></div>
+    <div class="courses one" data-courses="adults"></div>
   </section>
 
   <section class="section wrap" id="teams" aria-labelledby="teams-title">
     <div class="panel">
-      <div class="head"><div class="head-text"><p class="r4">Для компаний · обучение под запрос</p><h2 class="r1" id="teams-title">Обучение для вашей команды</h2>
+      <div class="head"><div class="head-text"><p class="r4">Формат 4 · Для команды · под запрос</p><h2 class="r1" id="teams-title">Обучение для вашей команды</h2>
         <p>Вы ставите задачу – мы предлагаем программу и&nbsp;формат и&nbsp;производим расчёт. Начинаем со&nbsp;встречи-знакомства.</p></div></div>
       <ol class="grid-3">
         <li class="step"><span class="n">1</span><p>Обсуждаем рабочие задачи, текущий опыт и&nbsp;желаемый результат.</p></li>
@@ -1757,6 +1781,7 @@ function leadInfo(kind){
       interest:'Курс «' + c.title + '»', iid:'course:' + c.id, kids:c.kids, submit:'Оставить заявку', msg:`Здравствуйте! Хочу записа${c.kids ? 'ть ребёнка' : 'ться'} на курс «${c.title}».` }; }
   if (type === 'corp') return { kicker:'Для компаний', title:'Обсудить обучение команды', sum:[['Первый шаг', 'Встреча-знакомство'], ['Стоимость и формат', 'После обсуждения']], interest:'Обучение для команды', iid:'corp', kids:false, company:true, submit:'Отправить запрос', msg:'Здравствуйте! Хотим обсудить обучение нейросетям для нашей команды.' };
   if (type === 'kidspick') return { kicker:'Детям 7–14 лет', title:'Подобрать курс для ребёнка', interest:'Подобрать курс для ребёнка', iid:'kidspick', kids:true, submit:'Подобрать курс', msg:'Здравствуйте! Помогите подобрать курс для ребёнка.' };
+  if (type === 'saturday') return { kicker:'Запись на бесплатную встречу', title:'Нейро-суббота', sum:[['Когда', 'Последняя суббота месяца, 15:00–16:30'], ['Стоимость', 'Бесплатно']], interest:'Нейро-суббота', iid:'saturday', kids:false, submit:'Записаться бесплатно', msg:'Здравствуйте! Хочу записаться на Нейро-субботу.' };
   if (type === 'adultpick') return { kicker:'Для взрослых', title:'Подобрать программу', interest:'Подобрать программу для взрослого', iid:'adultpick', kids:false, submit:'Подобрать программу', msg:'Здравствуйте! Помогите подобрать программу по нейросетям.' };
   return { kicker:'Запись в клуб', title:'Записаться или подобрать программу', choose:true, submit:'Отправить заявку', msg:'Здравствуйте! Хочу записаться в клуб ProНейро. Помогите подобрать программу.' };
 }
@@ -1892,7 +1917,7 @@ function route(){
   let page = PAGES.includes(h) ? h : 'home', anchor = null;
   if (['events','contacts','directions'].includes(h)){ page = 'home'; anchor = h; }
   if (h === 'kids-courses'){ page = 'kids'; anchor = h; }
-  if (['adult-courses','intensives','teams'].includes(h)){ page = 'adults'; anchor = h; }
+  if (['adult-courses','intensives','teams','adult-formats','adult-saturday'].includes(h)){ page = 'adults'; anchor = h; }
   if (h === 'business'){ page = 'adults'; anchor = 'teams'; }
   $$('[data-page]').forEach(p => p.hidden = p.dataset.page !== page);
   $$('[data-nav]').forEach(a => { if (a.dataset.nav === (anchor || page)) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
