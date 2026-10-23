@@ -490,7 +490,7 @@ fieldset.field{border:0;padding:0;margin:0}
 .why3-card .num{font-weight:700;font-size:40px;letter-spacing:-.04em;line-height:1;color:var(--ice)}
 @media (max-width:900px){.why3-head,.why3{grid-template-columns:1fr}}
 /* События: фото-карточки, ближайшее – крупнее */
-.events.photo{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.events.photo{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:18px;align-items:start}
 .pc{display:flex;flex-direction:column;border-radius:var(--r-md);overflow:hidden;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);transition:transform .25s,box-shadow .25s}
 .pc:hover{transform:translateY(-4px);box-shadow:var(--shadow-up)}
 .pc-ph{position:relative;aspect-ratio:16/10;overflow:hidden;background:var(--silver)}
@@ -503,12 +503,22 @@ fieldset.field{border:0;padding:0;margin:0}
 .pc-name:hover{color:var(--cobalt)}
 .pc-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:auto;padding-top:14px;border-top:1px solid var(--line)}
 .pc-foot b{color:var(--ink);white-space:nowrap}
-.pc.main{grid-column:span 2;border:1.5px solid rgba(0,102,255,.35);box-shadow:var(--shadow-up)}
+.pc.main{border:1.5px solid rgba(0,102,255,.35);box-shadow:var(--shadow-up)}
 .pc.main .pc-ph{aspect-ratio:16/8.4}
 .pc.main .pc-ph .pill{background:var(--cobalt);color:#fff}
 .pc.main .pc-body{padding:22px 24px 24px}
 .pc-desc{margin:0}
-@media (max-width:1100px){.events.photo{grid-template-columns:repeat(2,minmax(0,1fr))}.pc.main{grid-column:1/-1}}
+.ev-side{display:grid;gap:14px}
+.mc{display:grid;grid-template-columns:150px minmax(0,1fr);gap:18px;padding:12px;border-radius:var(--r-md);background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);transition:transform .25s,box-shadow .25s}
+.mc:hover{transform:translateY(-3px);box-shadow:var(--shadow-up)}
+.mc-ph{position:relative;border-radius:var(--r-sm);overflow:hidden;background:var(--silver);min-height:130px}
+.mc-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.mc-body{display:flex;flex-direction:column;gap:6px;padding:4px 6px 2px 0}
+.mc .pc-when{font-size:13px}
+.mc-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:auto;padding-top:8px}
+.mc-foot b{color:var(--ink);white-space:nowrap}
+@media (max-width:1000px){.events.photo{grid-template-columns:1fr}}
+@media (max-width:520px){.mc{grid-template-columns:96px minmax(0,1fr);gap:12px}.mc-ph{min-height:96px}.mc-foot{flex-wrap:wrap}}
 @media (max-width:640px){.events.photo{grid-template-columns:1fr}}
 .variant-tag{position:fixed;left:12px;bottom:12px;z-index:95;margin:0;padding:6px 12px;border-radius:999px;background:var(--ink);color:#fff;font-size:13px;font-weight:600;opacity:.9}.variant-tag a{color:var(--ice)}
 /* Направления по две в ряд: фото сверху уходит в белое через размытие */
@@ -1474,10 +1484,21 @@ function photoCard(e, main){
       <div class="pc-foot"><b>${esc(e.free ? 'Бесплатно' : (e.price || ''))}</b><button type="button" class="btn btn-sm${e.free || main ? '' : ' btn-ghost'}" data-lead="ev:${esc(e.id)}">${esc(e.cta || 'Записаться')}${e.free || main ? ' ' + ic('i-arrow') : ''}</button></div>
     </div></article>`;
 }
+function miniCard(e){
+  const when = e.d ? `${WD[e.d.getDay()]}, ${dm(e.d)}${e.time && /\d:\d/.test(e.time) ? ' · ' + e.time.split('–')[0] : ''}` : (e.label === 'Предзапись' ? 'Идёт предзапись' : 'Скоро');
+  const aud = e.audience === 'k' ? 'детям 7–14' : (e.audience === 'b' ? 'командам' : 'взрослым');
+  return `<article class="mc reveal">
+    <div class="mc-ph"><img src="${esc(evPhoto(e))}" alt="" loading="lazy"></div>
+    <div class="mc-body"><p class="pc-when">${esc(when)} · ${aud}</p>
+      <h3><button type="button" class="pc-name r2" data-ev="${esc(e.id)}">${nb(e.title)}</button></h3>
+      <div class="mc-foot"><b>${esc(e.free ? 'Бесплатно' : (e.price || ''))}</b><button type="button" class="btn btn-sm${e.free ? '' : ' btn-ghost'}" data-lead="ev:${esc(e.id)}">${esc(e.cta || 'Записаться')}</button></div>
+    </div></article>`;
+}
 let EV_INDEX = {};
 function renderFeeds(){
   const all = allEvents(); EV_INDEX = Object.fromEntries(all.map(e => [e.id, e]));
-  $('[data-feed="home"]').innerHTML = all.filter(e => e.show_home).map((e, i) => photoCard(e, i === 0)).join('');
+  const home = all.filter(e => e.show_home);
+  $('[data-feed="home"]').innerHTML = home.length ? photoCard(home[0], true) + (home.length > 1 ? `<div class="ev-side">${home.slice(1).map(miniCard).join('')}</div>` : '') : '';
   $('[data-feed="intensives"]').innerHTML = all.filter(e => e.kind === 'intensive').map(evCard).join('');
   const sun = EV_INDEX.sunday; $$('[data-next-sunday]').forEach(el => el.textContent = sun && sun.d ? 'Ближайшее – ' + dm(sun.d) : 'Последнее воскресенье месяца');
   observeReveal();
