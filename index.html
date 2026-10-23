@@ -699,6 +699,31 @@ main > [data-page] > .section{padding-top:clamp(28px,4vw,48px);padding-bottom:cl
 .cando:hover .ic-sq{background:var(--cobalt);color:#fff;transform:scale(1.08) rotate(-4deg)}
 .cando.reveal.in{animation:wq-in .7s cubic-bezier(.2,.7,.2,1) both;animation-delay:var(--d,0s)}
 .cando:nth-child(2){--d:.08s}.cando:nth-child(3){--d:.16s}.cando:nth-child(4){--d:.24s}.cando:nth-child(5){--d:.12s}.cando:nth-child(6){--d:.2s}.cando:nth-child(7){--d:.28s}.cando:nth-child(8){--d:.36s}
+/* Форматы – тёмный блок */
+.fmt-dark .head{position:relative;z-index:1}
+.fmt-dark .head-text p:not(.r4){color:#C9D3E3}
+.fmt-dark .fmt-grid{position:relative;z-index:1}
+.fmt-dark .fmt{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.14);box-shadow:none;color:#C9D3E3}
+.fmt-dark .fmt .r2{color:#fff}.fmt-dark .fmt .r4{color:var(--ice)}
+.fmt-dark .fmt-meta{color:#fff}
+.fmt-dark .fmt .ic-sq{background:rgba(120,197,255,.16);color:var(--ice)}
+.fmt-dark .fmt-go{color:var(--ice)}
+.fmt-dark .fmt:hover{background:var(--cobalt);border-color:var(--cobalt);transform:translateY(-6px);box-shadow:0 20px 44px rgba(0,102,255,.35)}
+.fmt-dark .fmt:hover .fmt-go,.fmt-dark .fmt:hover .r4{color:#fff}
+.fmt-dark .fmt:hover .ic-sq{background:#fff;color:var(--cobalt)}
+/* Интенсивы – листаются вправо */
+.int-tools{display:flex;justify-content:flex-end;align-items:center;gap:10px;margin:-8px 0 16px}
+.int-nav{background:#fff;color:var(--cobalt);border:1.5px solid var(--cobalt);cursor:pointer}
+.int-nav:hover{background:var(--cobalt);color:#fff}
+.int-scroll{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 3*16px)/3.4);gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 14px;scrollbar-width:thin}
+.int-scroll.all{grid-auto-flow:row;grid-template-columns:repeat(3,minmax(0,1fr));overflow:visible}
+.ic-card{scroll-snap-align:start;display:flex;flex-direction:column;gap:8px;align-items:flex-start;padding:22px;border-radius:var(--r-md);background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);transition:transform .25s,box-shadow .25s}
+.ic-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-up)}
+.ic-card .ic-sq{margin-bottom:6px}
+.ic-card .pc-when{font-size:13px}
+.ic-meta{font-size:15px;color:var(--text);margin-bottom:6px}
+.ic-card .btn{margin-top:auto}
+@media (max-width:900px){.int-scroll{grid-auto-columns:75%}.int-scroll.all{grid-template-columns:1fr}}
 @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
 .shot .reveal{opacity:1;transform:none;transition:none}
@@ -1122,9 +1147,11 @@ main > [data-page] > .section{padding-top:clamp(28px,4vw,48px);padding-bottom:cl
   </section>
 
   <section class="section wrap" id="adult-formats" aria-labelledby="fmt-title">
+    <div class="dark fmt-dark">
     <div class="head"><div class="head-text"><p class="r4">Форматы</p><h2 class="r1" id="fmt-title">Выберите, как удобнее начать</h2>
       <p>От бесплатной встречи-знакомства до курса и&nbsp;обучения всей команды.</p></div></div>
-    <div class="fmt-grid"><a class="fmt reveal" href="#/adult-saturday"><span class="fmt-top"><span class="r4">Формат 1</span><span class="ic-sq"><svg class="icon"><use href="#i-gift"/></svg></span></span><span class="fmt-sub">Знакомство</span><span class="r2">Нейро-суббота</span><span class="fmt-meta">Бесплатно · 1,5 часа</span><span class="fmt-go">Подробнее <svg class="icon"><use href="#i-arrow"/></svg></span></a><a class="fmt reveal" href="#/intensives"><span class="fmt-top"><span class="r4">Формат 2</span><span class="ic-sq"><svg class="icon"><use href="#i-bulb"/></svg></span></span><span class="fmt-sub">Одна тема за&nbsp;вечер</span><span class="r2">Интенсивы</span><span class="fmt-meta">2&nbsp;800 руб. · 2 часа</span><span class="fmt-go">Подробнее <svg class="icon"><use href="#i-arrow"/></svg></span></a><a class="fmt reveal" href="#/adult-courses"><span class="fmt-top"><span class="r4">Формат 3</span><span class="ic-sq"><svg class="icon"><use href="#i-cap"/></svg></span></span><span class="fmt-sub">Системно, с&nbsp;нуля</span><span class="r2">Базовый курс</span><span class="fmt-meta">19&nbsp;200 руб./мес. · 2 месяца</span><span class="fmt-go">Подробнее <svg class="icon"><use href="#i-arrow"/></svg></span></a><a class="fmt reveal" href="#/teams"><span class="fmt-top"><span class="r4">Формат 4</span><span class="ic-sq"><svg class="icon"><use href="#i-users"/></svg></span></span><span class="fmt-sub">Для компаний</span><span class="r2">Обучение команды</span><span class="fmt-meta">Расчёт под задачу</span><span class="fmt-go">Подробнее <svg class="icon"><use href="#i-arrow"/></svg></span></a></div>
+    <div class="fmt-grid"><a class="fmt reveal" href="#/adult-saturday"><span class="fmt-top"><span class="r4">Формат 1</span><span class="ic-sq"><svg class="icon"><use href="#i-gift"/></svg></span></span><span class="fmt-sub">Знакомство</span><span class="r2">Нейро-суббота</span><span class="fmt-meta">Бесплатно · 1,5 часа</span><span class="fmt-go">Подробнее <svg class="icon"><use href="#i-arrow"/></svg></span></a><a class="fmt reveal" href="#/intensives"><span class="fmt-top"><span class="r4">Формат 2</span><span class="ic-sq"><svg class="icon"><use href="#i-bulb"/></svg></span></span><span class="fmt-sub">Одна тема за&nbsp;вечер</span><span class="r2">Интенсивы</span><span class="fmt-meta">2&nbsp;800 руб. · 2 часа</span><span class="fmt-go">Подробнее <svg class="icon"><use href="#i-arrow"/></svg></span></a><a class="fmt reveal" href="#/adult-courses"><span class="fmt-top"><span class="r4">Формат 3</span><span class="ic-sq"><svg class="icon"><use href="#i-cap"/></svg></span></span><span class="fmt-sub">Системно, с&nbsp;нуля</span><span class="r2">Базовый курс</span><span class="fmt-meta">19&nbsp;200 руб./мес. · 2&nbsp;месяца</span><span class="fmt-go">Подробнее <svg class="icon"><use href="#i-arrow"/></svg></span></a><a class="fmt reveal" href="#/teams"><span class="fmt-top"><span class="r4">Формат 4</span><span class="ic-sq"><svg class="icon"><use href="#i-users"/></svg></span></span><span class="fmt-sub">Для компаний</span><span class="r2">Обучение команды</span><span class="fmt-meta">Расчёт под задачу</span><span class="fmt-go">Подробнее <svg class="icon"><use href="#i-arrow"/></svg></span></a></div>
+    </div>
   </section>
 
   <section class="section wrap" id="adult-saturday" aria-labelledby="sat-title">
@@ -1146,7 +1173,8 @@ main > [data-page] > .section{padding-top:clamp(28px,4vw,48px);padding-bottom:cl
           <p>Тематические встречи в&nbsp;кругу единомышленников: актуальные темы, живое общение, практические задания и&nbsp;инструменты, которые можно использовать сразу после встречи. Минимум теории – максимум практики.</p>
         </div>
       </div>
-      <div class="events" data-feed="intensives"></div>
+      <div class="int-tools"><button class="round int-nav" type="button" data-int-nav="-1" aria-label="Назад"><svg class="icon" style="transform:rotate(180deg)"><use href="#i-arrow"/></svg></button><button class="round int-nav" type="button" data-int-nav="1" aria-label="Вперёд"><svg class="icon"><use href="#i-arrow"/></svg></button><button class="btn btn-ghost btn-sm" type="button" data-int-all>Показать все</button></div>
+      <div class="int-scroll" data-feed="intensives"></div>
     </div>
   </section>
 
@@ -1665,6 +1693,16 @@ function priceHtml(e){
   const dur = c ? 'курс ' + (c.len || '').split(' · ').reverse().join(' · ') : (e.duration || '');
   return `<span class="price-box"><b>${price}</b>${dur ? `<span class="price-dur">${esc(dur)}</span>` : ''}</span>`;
 }
+function intCard(e){
+  const when = e.d ? `${WD[e.d.getDay()]}, ${dm(e.d)}` : (e.when_text || 'Предзапись');
+  return `<article class="ic-card">
+    <span class="ic-sq">${ic('i-bulb')}</span>
+    <p class="pc-when">${esc(when)}</p>
+    <h3><button type="button" class="pc-name r2" data-ev="${esc(e.id)}">${nb(e.title)}</button></h3>
+    <p class="ic-meta">Интенсив · 2 часа · ${esc(e.price || '')}</p>
+    <button type="button" class="btn btn-sm btn-ghost" data-lead="ev:${esc(e.id)}">${esc(e.cta || 'Предзапись')}</button>
+  </article>`;
+}
 function miniCard(e){
   const when = e.d ? `${WD[e.d.getDay()]}, ${dm(e.d)}${e.time && /\d:\d/.test(e.time) ? ' · ' + e.time.split('–')[0] : ''}` : (e.when_text || (e.label === 'Предзапись' ? 'Идёт предзапись' : 'Скоро'));
   const aud = e.audience === 'k' ? 'детям 7–14' : (e.audience === 'b' ? 'командам' : 'взрослым');
@@ -1691,7 +1729,7 @@ function renderFeeds(){
   const allTile = `<a class="mc mc-all reveal" href="#/afisha"><span class="mc-all-ic">${ic('i-cal')}</span><span class="mc-all-text"><span class="r2">Вся афиша</span><span>${all.length} ${plural(all.length, 'событие', 'события', 'событий')}: встречи, интенсивы, курсы</span></span><span class="round">${ic('i-arrow')}</span></a>`;
   $('[data-feed="home"]').innerHTML = home.length ? photoCard(home[0], true) + `<div class="ev-side">${home.slice(1, 4).map(miniCard).join('')}${allTile}</div>` : '';
   renderAfisha(all);
-  $('[data-feed="intensives"]').innerHTML = all.filter(e => e.kind === 'intensive').map(evCard).join('');
+  $('[data-feed="intensives"]').innerHTML = all.filter(e => e.kind === 'intensive').map(intCard).join('');
   const sun = EV_INDEX.sunday; $$('[data-next-sunday]').forEach(el => el.textContent = sun && sun.d ? 'Ближайшее – ' + dm(sun.d) : 'Последнее воскресенье месяца');
   observeReveal();
 }
@@ -1988,6 +2026,8 @@ document.addEventListener('click', e => {
   if (d.program){ openMod = 0; return programModal(d.program); }
   if (d.doc){ e.preventDefault(); return docModal(d.doc); }
   if (d.ev) return EV_INDEX[d.ev] && EV_INDEX[d.ev].open();
+  if (d.intNav){ const sc = $('[data-feed="intensives"]'); sc.scrollBy({ left: (+d.intNav) * (sc.clientWidth * .8), behavior:'smooth' }); return; }
+  if (d.intAll !== undefined){ const sc = $('[data-feed="intensives"]'); const on = sc.classList.toggle('all'); t.textContent = on ? 'Свернуть' : 'Показать все'; $$('.int-nav').forEach(b => b.hidden = on); return; }
   if (d.faqtab){ faqTab = d.faqtab; return renderFaq(); }
   if (d.af){ afFilter = d.af; return renderAfisha(); }
   if (d.mod !== undefined){ const box = t.parentElement, body = $('.mod-body', box), open = body.hidden; body.hidden = !open; box.classList.toggle('open', open); t.setAttribute('aria-expanded', open); return; }
