@@ -224,7 +224,8 @@ a.btn{cursor:pointer}
 @media (max-width:900px){.dark-grid{grid-template-columns:1fr}}
 
 /* Путь */
-.steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;counter-reset:s}
+.steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:24px;counter-reset:s;position:relative}
+[data-page="home"] .steps::before{content:"";position:absolute;left:18px;right:18px;top:18px;height:2px;background:linear-gradient(90deg,var(--cobalt),var(--ice))}
 .step{position:relative;display:grid;gap:10px;align-content:start;padding:20px;border-radius:var(--r-md);background:#fff;border:1px solid var(--line)}
 .step .n{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--cobalt);color:#fff;font-weight:700;font-size:15px}
 
@@ -629,6 +630,22 @@ fieldset.field{border:0;padding:0;margin:0}
 section[aria-labelledby="life-title"] .head-text{max-width:none}
 section[aria-labelledby="life-title"] .facts-row{flex-wrap:nowrap}
 @media (max-width:900px){section[aria-labelledby="life-title"] .facts-row{flex-wrap:wrap}}
+/* Шаги на главной – без карточек, на одной линии */
+[data-page="home"] .steps .step{padding:0;background:none;border:0;gap:8px}
+[data-page="home"] .steps .step .n{position:relative;z-index:1;box-shadow:0 0 0 6px var(--bg)}
+@media (max-width:1080px){[data-page="home"] .steps::before{display:none}[data-page="home"] .steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){[data-page="home"] .steps{grid-template-columns:1fr}}
+/* Форма внизу: мессенджеры и каналы слева */
+.lead-side{display:grid;gap:12px;margin-top:12px;padding-top:22px;border-top:1px solid var(--line)}
+.lead-row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px}
+.lead-row .btn{min-height:44px;padding:0 18px;font-size:15px}
+/* Одинаковые отступы: все цветные и белые подложки – как .panel; одинаковый шаг между блоками */
+.dark,.rev,.nl{padding:clamp(22px,3.4vw,44px)}
+main > [data-page] > .section{padding-top:clamp(28px,4vw,48px);padding-bottom:clamp(28px,4vw,48px)}
+.price-box{display:grid;gap:2px}
+.price-box b{color:var(--ink);white-space:nowrap}
+.price-dur{font-size:13px;line-height:1.3;color:var(--text)}
+.foot ul + ul{margin-top:8px}
 @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
 .shot .reveal{opacity:1;transform:none;transition:none}
@@ -775,7 +792,7 @@ section[aria-labelledby="life-title"] .facts-row{flex-wrap:nowrap}
         <div class="dir-text">
           <p class="r4">Для взрослых</p>
           <h3 class="dir-title">ИИ для&nbsp;работы и&nbsp;своего дела</h3>
-          <ul class="dir-list"><li><b>Курсы</b> – 2 месяца: базовый «с&nbsp;нуля» и&nbsp;продвинутый «система для дела»</li><li><b>Интенсивы</b> – 2 часа: одна тема и&nbsp;готовый инструмент за&nbsp;вечер</li></ul>
+          <ul class="dir-list"><li><b>Курсы</b> – 2 месяца: базовый и&nbsp;продвинутый, обучение для&nbsp;команд</li><li><b>Интенсивы</b> – 2 часа: одна тема и&nbsp;готовый инструмент за&nbsp;вечер</li><li><b>Знакомство</b> – бесплатная Нейро-суббота для взрослых</li></ul>
           <a class="btn" href="#/adults">Подробнее <svg class="icon"><use href="#i-arrow"/></svg></a>
         </div>
       </article>
@@ -895,6 +912,13 @@ section[aria-labelledby="life-title"] .facts-row{flex-wrap:nowrap}
         <p class="r4">Запись и подбор программы</p>
         <h2 class="r1" id="lead-title">Не&nbsp;знаете, с&nbsp;чего начать? Подскажем</h2>
         <p>Оставьте телефон – перезвоним, ответим на&nbsp;вопросы, расскажем о&nbsp;ближайших встречах и&nbsp;поможем выбрать программу под вашу задачу или интересы ребёнка.</p>
+        <div class="lead-side">
+          <p class="r4">Написать нам</p>
+          <div class="lead-row"><a class="btn btn-ghost" role="link" aria-disabled="true"><svg class="icon"><use href="#i-chat"/></svg>MAX</a><a class="btn btn-ghost" role="link" aria-disabled="true"><svg class="icon"><use href="#i-send"/></svg>Telegram</a></div>
+          <p class="r4">Подписаться на&nbsp;клуб</p>
+          <p>Анонсы встреч, новые курсы и&nbsp;полезное про нейросети.</p>
+          <div class="lead-row"><a class="btn btn-ghost" role="link" aria-disabled="true">Канал в&nbsp;Telegram</a><a class="btn btn-ghost" role="link" aria-disabled="true">Канал в&nbsp;MAX</a><a class="btn btn-ghost" role="link" aria-disabled="true">ВКонтакте</a></div>
+        </div>
       </div>
       <div class="form-card" data-inline-form></div>
     </div>
@@ -1578,8 +1602,15 @@ function photoCard(e, main){
       <h3><button type="button" class="pc-name r2" data-ev="${esc(e.id)}">${nb(e.title)}</button></h3>
       ${main && e.description ? `<p class="pc-desc">${nb(e.description)}</p>` : ''}
       <div class="ev-meta">${meta}</div>
-      <div class="pc-foot"><b>${esc(e.free ? 'Бесплатно' : (e.price || ''))}</b><button type="button" class="btn btn-sm${e.free || main ? '' : ' btn-ghost'}" data-lead="ev:${esc(e.id)}">${esc(e.cta || 'Записаться')}${e.free || main ? ' ' + ic('i-arrow') : ''}</button></div>
+      <div class="pc-foot">${priceHtml(e)}<button type="button" class="btn btn-sm${e.free || main ? '' : ' btn-ghost'}" data-lead="ev:${esc(e.id)}">${esc(e.cta || 'Записаться')}${e.free || main ? ' ' + ic('i-arrow') : ''}</button></div>
     </div></article>`;
+}
+// Цена + длительность курса, чтобы было понятно, за какой срок платёж «в месяц»
+function priceHtml(e){
+  const price = esc(e.free ? 'Бесплатно' : (e.price || ''));
+  const c = e.course_id && COURSE[e.course_id];
+  const dur = c ? 'курс ' + (c.len || '').split(' · ').reverse().join(' · ') : (e.duration || '');
+  return `<span class="price-box"><b>${price}</b>${dur ? `<span class="price-dur">${esc(dur)}</span>` : ''}</span>`;
 }
 function miniCard(e){
   const when = e.d ? `${WD[e.d.getDay()]}, ${dm(e.d)}${e.time && /\d:\d/.test(e.time) ? ' · ' + e.time.split('–')[0] : ''}` : (e.when_text || (e.label === 'Предзапись' ? 'Идёт предзапись' : 'Скоро'));
@@ -1588,7 +1619,7 @@ function miniCard(e){
     <div class="mc-ph"><img src="${esc(evPhoto(e))}" alt="" loading="lazy"></div>
     <div class="mc-body"><p class="pc-when">${esc(when)} · ${aud}</p>
       <h3><button type="button" class="pc-name r2" data-ev="${esc(e.id)}">${nb(e.title)}</button></h3>
-      <div class="mc-foot"><b>${esc(e.free ? 'Бесплатно' : (e.price || ''))}</b><button type="button" class="btn btn-sm${e.free ? '' : ' btn-ghost'}" data-lead="ev:${esc(e.id)}">${esc(e.cta || 'Записаться')}</button></div>
+      <div class="mc-foot">${priceHtml(e)}<button type="button" class="btn btn-sm${e.free ? '' : ' btn-ghost'}" data-lead="ev:${esc(e.id)}">${esc(e.cta || 'Записаться')}</button></div>
     </div></article>`;
 }
 const plural = (n, one, few, many) => { const a = n % 10, b = n % 100; return a === 1 && b !== 11 ? one : a >= 2 && a <= 4 && (b < 12 || b > 14) ? few : many; };
@@ -1747,26 +1778,27 @@ function contactHtml(msg){
   </div><p class="copy-note" hidden>Текст сообщения скопирован – вставьте его в&nbsp;чат.</p>`;
 }
 let formSeq = 0;
-function formHtml(kind){
+function formHtml(kind, opts = {}){
   const s = leadInfo(kind), id = 'lf' + (++formSeq);
   const field = (name, label, attrs = '', hint = '') => `<div class="field"${name === 'child_age' ? ' data-age' + (s.kids ? '' : ' hidden') : ''}><label for="${id}-${name}">${label}${hint ? `<span class="hint">${hint}</span>` : ''}</label><input id="${id}-${name}" name="${name}" ${attrs} aria-describedby="${id}-${name}-err"><p class="err" id="${id}-${name}-err" hidden></p></div>`;
   const choose = s.choose ? `<div class="field"><label for="${id}-int">Что вас интересует</label><select id="${id}-int" name="iid">${interestOptions().map(([v, l, k]) => `<option value="${esc(v)}" data-kids="${k ? 1 : 0}">${esc(l)}</option>`).join('')}</select></div>` : '';
   return `<form class="form" novalidate data-lead-form="${esc(kind)}">
     ${choose}
     ${field('name', s.kids ? 'Имя родителя' : 'Ваше имя', 'type="text" autocomplete="name" required maxlength="100"')}
-    ${field('phone', 'Телефон', 'type="tel" inputmode="tel" autocomplete="tel" required placeholder="+7 900 000-00-00" maxlength="40"')}
+    ${field('phone', 'Телефон', 'type="tel" inputmode="tel" autocomplete="tel" required placeholder="+7 (900) 000-00-00" maxlength="18" data-phone')}
     ${field('child_age', 'Возраст ребёнка', 'type="text" inputmode="numeric" maxlength="2" placeholder="Например, 9"')}
     ${s.company ? field('company', 'Компания', 'type="text" autocomplete="organization" maxlength="120"', ' (необязательно)') : ''}
     <fieldset class="field"><legend>Как удобнее связаться</legend><div class="seg">
-      <label><input type="radio" name="contact_via" value="max" checked><span>MAX</span></label>
-      <label><input type="radio" name="contact_via" value="telegram"><span>Telegram</span></label></div></fieldset>
+      <label><input type="radio" name="contact_via" value="call" checked><span>Перезвонить</span></label>
+      <label><input type="radio" name="contact_via" value="telegram"><span>Telegram</span></label>
+      <label><input type="radio" name="contact_via" value="max"><span>MAX</span></label></div></fieldset>
     <div class="field"><label for="${id}-comment">${s.company ? 'Задача команды' : 'Вопрос или пожелание'}<span class="hint"> (необязательно)</span></label><textarea id="${id}-comment" name="comment" maxlength="1500"></textarea></div>
     <div class="hp" aria-hidden="true"><label>Сайт <input name="website" tabindex="-1" autocomplete="off"></label></div>
     <label class="check"><input type="checkbox" name="consent"><span>Согласен(на) на&nbsp;обработку персональных данных в&nbsp;соответствии с&nbsp;<button class="linkish" type="button" data-doc="policy">Политикой</button></span></label>
     <p class="err" data-consent-err hidden>Нужно согласие на&nbsp;обработку данных</p>
     <p class="form-msg" data-form-msg hidden></p>
     <button class="btn btn-block" type="submit">${esc(s.submit)} ${ic('i-arrow')}</button>
-    <div class="lead-alt"><p>Или напишите нам в&nbsp;мессенджер:</p>${contactHtml(s.msg)}</div>
+    ${opts.inline ? '' : `<div class="lead-alt"><p>Или напишите нам в&nbsp;мессенджер:</p>${contactHtml(s.msg)}</div>`}
   </form>`;
 }
 function leadModal(kind){
@@ -1777,13 +1809,33 @@ function setErr(form, name, msg){
   const el = form.elements[name], er = el && $('#' + el.id + '-err');
   if (!el || !er) return; el.setAttribute('aria-invalid', msg ? 'true' : 'false'); er.textContent = msg; er.hidden = !msg;
 }
+/* Телефон: всегда +7 (XXX) XXX-XX-XX; 8 или 7 в начале превращаются в +7 */
+function formatPhone(v){
+  let d = String(v || '').replace(/\D/g, '');
+  if (d[0] === '8' || d[0] === '7') d = d.slice(1);
+  d = d.slice(0, 10);
+  let out = '+7';
+  if (d.length) out += ' (' + d.slice(0, 3);
+  if (d.length >= 3) out += ')';
+  if (d.length > 3) out += ' ' + d.slice(3, 6);
+  if (d.length > 6) out += '-' + d.slice(6, 8);
+  if (d.length > 8) out += '-' + d.slice(8, 10);
+  return out;
+}
+document.addEventListener('focusin', e => { const t = e.target; if (t.matches && t.matches('[data-phone]') && !t.value) t.value = '+7 '; });
+document.addEventListener('focusout', e => { const t = e.target; if (t.matches && t.matches('[data-phone]') && t.value.replace(/\D/g, '') === '7') t.value = ''; });
+document.addEventListener('input', e => {
+  const t = e.target; if (!(t.matches && t.matches('[data-phone]'))) return;
+  if (e.inputType && e.inputType.startsWith('delete')) { if (t.value.replace(/\D/g, '').length <= 1) t.value = '+7 '; return; }
+  t.value = formatPhone(t.value);
+});
 async function submitLead(form){
   const f = form.elements, ageBox = $('[data-age]', form);
   let first = null;
   const name = f.name.value.trim(), phone = f.phone.value.trim(), digits = phone.replace(/\D/g, ''), age = f.child_age.value.trim();
   setErr(form, 'name', name ? '' : 'Укажите имя'); if (!name) first = first || f.name;
-  const okPhone = /^[\d\s()+\-]+$/.test(phone) && digits.length >= 10 && digits.length <= 12;
-  setErr(form, 'phone', okPhone ? '' : 'Укажите телефон – от 10 цифр'); if (!okPhone) first = first || f.phone;
+  const okPhone = /^7\d{10}$/.test(digits);
+  setErr(form, 'phone', okPhone ? '' : 'Укажите телефон полностью: +7 и 10 цифр'); if (!okPhone) first = first || f.phone;
   const needAge = !ageBox.hidden, okAge = !needAge || !age || (/^\d+$/.test(age) && +age >= 5 && +age <= 18);
   setErr(form, 'child_age', okAge ? '' : 'Возраст – числом'); if (!okAge) first = first || f.child_age;
   const cerr = $('[data-consent-err]', form); cerr.hidden = f.consent.checked; if (!f.consent.checked) first = first || f.consent;
@@ -1800,7 +1852,7 @@ async function submitLead(form){
     const d = await r.json().catch(() => ({}));
     if (!r.ok) throw new Error(d.error || '');
     const done = `<div class="success"><span class="ic">${ic('i-check')}</span><h2 class="r1"${form.closest('#modal') ? ' id="modal-title"' : ''}>Заявка принята</h2>
-      <p>Спасибо, ${esc(name)}! Мы напишем вам в&nbsp;ближайшее время${data.contact_via === 'telegram' ? ' в&nbsp;Telegram' : ' в&nbsp;MAX'}.</p>
+      <p>Спасибо, ${esc(name)}! Мы свяжемся с&nbsp;вами в&nbsp;ближайшее время${data.contact_via === 'telegram' ? ' в&nbsp;Telegram' : data.contact_via === 'max' ? ' в&nbsp;MAX' : ' по&nbsp;телефону'}.</p>
       ${form.closest('#modal') ? '<button class="btn" type="button" data-close>Хорошо</button>' : ''}</div>`;
     if (form.closest('#modal')) mbody.innerHTML = done; else form.outerHTML = done;
   } catch (e) {
@@ -1829,7 +1881,7 @@ async function loadContent(){
     if (Array.isArray(d.events)) EVENTS = d.events;
     if (Array.isArray(d.docs) && d.docs.length) DOCS = d.docs;
     renderFeeds(); renderCourses(); renderDocs();
-    const pick = $('[data-inline-form]'); if (pick && pick.querySelector('form') && !pick.querySelector('form').elements.name.value) pick.innerHTML = formHtml('pick');
+    const pick = $('[data-inline-form]'); if (pick && pick.querySelector('form') && !pick.querySelector('form').elements.name.value) pick.innerHTML = formHtml('pick', { inline:true });
   } catch (e) { /* админка недоступна – остаются данные, зашитые в сайт */ }
 }
 
@@ -1903,7 +1955,7 @@ window.addEventListener('hashchange', route);
 
 /* ===== Старт ===== */
 renderFeeds(); renderCourses(); renderFaq(); renderDocs();
-$('[data-inline-form]').innerHTML = formHtml('pick');
+$('[data-inline-form]').innerHTML = formHtml('pick', { inline:true });
 route();
 loadContent();
 </script>
