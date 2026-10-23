@@ -769,6 +769,17 @@ main > [data-page] > .section{padding-top:clamp(28px,4vw,48px);padding-bottom:cl
 .cp-team .tch-ph.has{background:linear-gradient(160deg,rgba(120,197,255,.18),rgba(255,255,255,.04))}
 .cp-team .tch-body p{color:#C9D3E3}
 .cp-team .tch-note{color:#C9D3E3;opacity:.7}
+
+/* Набор на курсы */
+.seats{display:flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:var(--cobalt-d)}
+.seats .icon{width:16px;height:16px;flex-shrink:0}
+.course-img{position:relative}
+.course-img .pill{position:absolute;left:12px;top:12px;background:rgba(255,255,255,.94);color:var(--ink)}
+.cp-status{display:flex;align-items:center;flex-wrap:wrap;gap:8px 14px;font-weight:600;color:var(--ink)}
+.cp-status > span:last-child{display:inline-flex;align-items:center;gap:6px}
+.cp-status .icon{width:18px;height:18px;color:var(--cobalt)}
+.tch-grid.two.solo{grid-template-columns:minmax(0,620px)}
+.dark .seats,.fmt-dark .seats{color:var(--ice)}
 </style>
 </head>
 <body>
@@ -1262,7 +1273,7 @@ main > [data-page] > .section{padding-top:clamp(28px,4vw,48px);padding-bottom:cl
     <nav class="crumbs" aria-label="Навигация по сайту"><a href="#/">Главная</a><span aria-hidden="true">/</span><span>Афиша</span></nav>
     <div class="head">
       <div class="head-text"><p class="r4">Афиша клуба</p><h1 class="r1" id="af-title">Все события ProНейро</h1>
-        <p>Бесплатные встречи, мастер-классы, интенсивы и&nbsp;предзапись на&nbsp;курсы – для взрослых и&nbsp;детей.</p></div>
+        <p>Бесплатные встречи, мастер-классы, интенсивы и&nbsp;набор на&nbsp;курсы – для взрослых и&nbsp;детей.</p></div>
       <div class="filters" role="group" aria-label="Для кого" data-af-filters></div>
     </div>
     <div class="afisha-grid" data-afisha></div>
@@ -1527,6 +1538,14 @@ async function apiFetch(path, opts = {}, timeout = 12000){
 const PHONE = '8\u2011904\u2011000\u201112\u201113'; // неразрывные дефисы, чтобы номер не рвался
 
 /* ===== Данные ===== */
+// Набор на курсы и интенсивы: статус – «Идёт набор», кнопка – «Занять место».
+const NABOR = 'Идёт набор', SEATS = 'Количество мест ограничено', TAKE = 'Занять место';
+const isNabor = e => e.kind === 'prereg' || e.kind === 'intensive';
+const ctaOf = e => (isNabor(e) && (!e.cta || e.cta === 'Предзапись')) ? TAKE : (e.cta || 'Записаться');
+const seatsHtml = (short) => `<p class="seats">${ic('i-hourglass')}${short ? 'Мест ограничено' : SEATS}</p>`;
+// Старт курса: дата → подпись из афиши («Старт в ноябре») → «Идёт набор»
+function courseStart(c){ const e = EVENTS.find(x => x.course_id === c.id && x.when_text); return c.d ? dm(c.d) : (e ? e.when_text.replace(/^старт\s+/i, '') : NABOR); }
+
 const MONTHS = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
 const MON = ['янв','фев','мар','апр','мая','июн','июл','авг','сен','окт','ноя','дек'];
 const WD = ['вс','пн','вт','ср','чт','пт','сб'];
@@ -1544,7 +1563,7 @@ const FREE = {
     result:'Ребёнок попробует нейросети сам, а вы увидите, как устроены занятия.' },
 };
 
-// Даты интенсивов пока не объявлены – везде предзапись. Когда дата появится, добавить d:new Date(ГГГГ, месяц-1, день).
+// Даты интенсивов пока не объявлены – везде «Идёт набор». Когда дата появится, добавить d:new Date(ГГГГ, месяц-1, день).
 const INTENSIVES = [
   { t:'Свой сайт с нейросетями: от идеи до публикации' },
   { t:'Личный помощник на базе нейросети' },
@@ -1640,15 +1659,14 @@ const courseFromApi = c => ({ id:c.id, page:c.page, tag:c.tag || '', title:c.tit
 const S0 = FREE.sunday;
 let EVENTS = [
   { id:'sunday', title:S0.title, audience:'k', kind:'event', date:'', repeat:'last-0', time:S0.time, place:'Новоторжская, 18', price:'0 руб.', free:true, description:S0.desc, result:S0.result, course_id:'', show_home:true, cta:'Записаться' },
-  ...ADULT.map(c => ({ id:'pre-' + c.id, title:'Курс «' + c.title + '»', audience:'a', kind:'prereg', time:'2 месяца · ' + c.format, price:c.price, course_id:c.id, show_home:c.id === 'basic', cta:'Предзапись' })),
-  ...KIDS.map(c => ({ id:'pre-' + c.id, title:'Курс «' + c.title + '»', audience:'k', kind:'prereg', time:'3 месяца · очно, 1 раз в неделю', price:c.price, course_id:c.id, show_home:c.id === 'neurostart', cta:'Предзапись' })),
-  ...INTENSIVES.map((it, i) => ({ id:'int-' + (i + 1), title:it.t, audience:'a', kind:'intensive', time:'Интенсив · 2 часа', price:'2 800 руб.', description:INT_DESC, cta:'Предзапись' })),
+  ...ADULT.map(c => ({ id:'pre-' + c.id, title:'Курс «' + c.title + '»', audience:'a', kind:'prereg', time:'2 месяца · ' + c.format, price:c.price, course_id:c.id, show_home:c.id === 'basic', cta:TAKE })),
+  ...KIDS.map(c => ({ id:'pre-' + c.id, title:'Курс «' + c.title + '»', audience:'k', kind:'prereg', time:'3 месяца · очно, 1 раз в неделю', price:c.price, course_id:c.id, show_home:c.id === 'neurostart', cta:TAKE })),
+  ...INTENSIVES.map((it, i) => ({ id:'int-' + (i + 1), title:it.t, audience:'a', kind:'intensive', time:'Интенсив · 2 часа', price:'2 800 руб.', description:INT_DESC, cta:TAKE })),
   { id:'kids-mk', title:'Мастер-классы, конкурсы и хакатоны для детей', audience:'k', kind:'event', time:'Даты – в анонсах клуба', price:'2 000 руб.', description:'Новые темы, творческие задания и командные соревнования. Дети пробуют современные инструменты, решают интересные задачи и создают собственные проекты.', cta:'Узнать' },
 ];
 let DOCS = [{ id:'oferta', title:'Договор-оферта' }, { id:'policy', title:'Политика обработки персональных данных' }];
 const WD_LAST = ['каждое последнее воскресенье','каждый последний понедельник','каждый последний вторник','каждую последнюю среду','каждый последний четверг','каждую последнюю пятницу','каждую последнюю субботу'];
-const KIND_RU = { event:'Событие', prereg:'Предзапись на курс', intensive:'Интенсив · 2 часа' };
-
+const KIND_RU = { event:'Событие', prereg:'Набор на курс', intensive:'Интенсив · 2 часа' };
 const FAQ = {
   a: [
     ['Нужно ли разбираться в компьютерах?','Нет. Здесь не нужно разбираться в сложных терминах и иметь техническое образование. Шаг за шагом на практике покажем, как работать с нейросетями на ваших задачах.'],
@@ -1687,7 +1705,7 @@ function evIcon(e){
 }
 function allEvents(){
   const t = today();
-  const list = EVENTS.map((e, i) => ({ ...e, i, d: evDate(e), icon: evIcon(e), label: (e.kind === 'prereg' || e.kind === 'intensive') ? 'Предзапись' : 'Скоро',
+  const list = EVENTS.map((e, i) => ({ ...e, i, d: evDate(e), icon: evIcon(e), label: isNabor(e) ? NABOR : 'Скоро',
     open: () => (e.course_id && COURSE[e.course_id]) ? (location.hash = courseUrl(COURSE[e.course_id])) : eventModal(e.id) }))
     .filter(e => !(e.d && e.d < t));
   return list.sort((a, b) => (a.d && b.d) ? a.d - b.d : a.d ? -1 : b.d ? 1 : a.i - b.i);
@@ -1706,7 +1724,7 @@ function evCard(e){
       <h3><button type="button" class="ev-name r2" data-ev="${esc(e.id)}">${when}${nb(e.title)}</button></h3>
       <div class="ev-meta">${e.time ? `<span>${ic('i-clock')}${esc(e.time)}</span>` : ''}${e.place ? `<span>${ic('i-pin')}${esc(e.place)}</span>` : ''}</div>
     </div>
-    <div class="ev-right"><b>${esc(e.price || '')}</b><button type="button" class="btn btn-sm${e.free ? '' : ' btn-ghost'}" data-lead="ev:${esc(e.id)}">${esc(e.cta || 'Записаться')}${e.free ? ' ' + ic('i-arrow') : ''}</button></div>
+    <div class="ev-right"><b>${esc(e.price || '')}</b><button type="button" class="btn btn-sm${e.free ? '' : ' btn-ghost'}" data-lead="ev:${esc(e.id)}">${esc(ctaOf(e))}${e.free ? ' ' + ic('i-arrow') : ''}</button></div>
   </article>`;
 }
 
@@ -1717,15 +1735,15 @@ function evPhoto(e){
 }
 function photoCard(e, main){
   const aud = e.audience === 'k' ? 'Детям 7–14' : (AUD[e.audience] || '');
-  const when = e.d ? `${WD[e.d.getDay()]}, ${dm(e.d)}${e.time && /\d:\d/.test(e.time) ? ' · ' + e.time.split('–')[0] : ''}` : (e.when_text || (e.label === 'Предзапись' ? 'Идёт предзапись' : 'Скоро'));
+  const when = e.d ? `${WD[e.d.getDay()]}, ${dm(e.d)}${e.time && /\d:\d/.test(e.time) ? ' · ' + e.time.split('–')[0] : ''}` : (e.when_text || (e.label === NABOR ? NABOR : 'Скоро'));
   const meta = [aud ? `<span>${ic('i-users')}${esc(aud)}</span>` : '', e.time && !(e.d && /\d:\d/.test(e.time)) ? `<span>${ic('i-clock')}${esc(e.time)}</span>` : '', e.place ? `<span>${ic('i-pin')}${esc(e.place)}</span>` : ''].join('');
   return `<article class="pc reveal${main ? ' main' : ''}">
-    <div class="pc-ph"><img src="${esc(evPhoto(e))}" alt="" loading="lazy">${main ? '<span class="pill">Ближайшее</span>' : (e.free ? '<span class="pill">Бесплатно</span>' : '')}</div>
+    <div class="pc-ph"><img src="${esc(evPhoto(e))}" alt="" loading="lazy">${main ? '<span class="pill">Ближайшее</span>' : (e.free ? '<span class="pill">Бесплатно</span>' : isNabor(e) ? `<span class="pill">${NABOR}</span>` : '')}</div>
     <div class="pc-body"><p class="pc-when">${esc(when)}</p>
       <h3><button type="button" class="pc-name r2" data-ev="${esc(e.id)}">${nb(e.title)}</button></h3>
       ${main && e.description ? `<p class="pc-desc">${nb(e.description)}</p>` : ''}
-      <div class="ev-meta">${meta}</div>
-      <div class="pc-foot">${priceHtml(e)}<button type="button" class="btn btn-sm${e.free || main ? '' : ' btn-ghost'}" data-lead="ev:${esc(e.id)}">${esc(e.cta || 'Записаться')}${e.free || main ? ' ' + ic('i-arrow') : ''}</button></div>
+      <div class="ev-meta">${meta}</div>${isNabor(e) ? seatsHtml() : ''}
+      <div class="pc-foot">${priceHtml(e)}<button type="button" class="btn btn-sm${e.free || main ? '' : ' btn-ghost'}" data-lead="ev:${esc(e.id)}">${esc(ctaOf(e))}${e.free || main ? ' ' + ic('i-arrow') : ''}</button></div>
     </div></article>`;
 }
 // Цена + длительность курса, чтобы было понятно, за какой срок платёж «в месяц»
@@ -1736,23 +1754,23 @@ function priceHtml(e){
   return `<span class="price-box"><b>${price}</b>${dur ? `<span class="price-dur">${esc(dur)}</span>` : ''}</span>`;
 }
 function intCard(e){
-  const when = e.d ? `${WD[e.d.getDay()]}, ${dm(e.d)}` : (e.when_text || 'Предзапись');
+  const when = e.d ? `${WD[e.d.getDay()]}, ${dm(e.d)}` : (e.when_text || NABOR);
   return `<article class="ic-card">
     <span class="ic-sq">${ic('i-bulb')}</span>
     <p class="pc-when">${esc(when)}</p>
     <h3><button type="button" class="pc-name r2" data-ev="${esc(e.id)}">${nb(e.title)}</button></h3>
-    <p class="ic-meta">Интенсив · 2 часа · ${esc(e.price || '')}</p>
-    <button type="button" class="btn btn-sm btn-ghost" data-lead="ev:${esc(e.id)}">${esc(e.cta || 'Предзапись')}</button>
+    <p class="ic-meta">Интенсив · 2 часа · ${esc(e.price || '')}</p>${seatsHtml(true)}
+    <button type="button" class="btn btn-sm btn-ghost" data-lead="ev:${esc(e.id)}">${esc(ctaOf(e))}</button>
   </article>`;
 }
 function miniCard(e){
-  const when = e.d ? `${WD[e.d.getDay()]}, ${dm(e.d)}${e.time && /\d:\d/.test(e.time) ? ' · ' + e.time.split('–')[0] : ''}` : (e.when_text || (e.label === 'Предзапись' ? 'Идёт предзапись' : 'Скоро'));
+  const when = e.d ? `${WD[e.d.getDay()]}, ${dm(e.d)}${e.time && /\d:\d/.test(e.time) ? ' · ' + e.time.split('–')[0] : ''}` : (e.when_text || (e.label === NABOR ? NABOR : 'Скоро'));
   const aud = e.audience === 'k' ? 'детям 7–14' : (e.audience === 'b' ? 'командам' : 'взрослым');
   return `<article class="mc reveal">
     <div class="mc-ph"><img src="${esc(evPhoto(e))}" alt="" loading="lazy"></div>
     <div class="mc-body"><p class="pc-when">${esc(when)} · ${aud}</p>
       <h3><button type="button" class="pc-name r2" data-ev="${esc(e.id)}">${nb(e.title)}</button></h3>
-      <div class="mc-foot">${priceHtml(e)}<button type="button" class="btn btn-sm${e.free ? '' : ' btn-ghost'}" data-lead="ev:${esc(e.id)}">${esc(e.cta || 'Записаться')}</button></div>
+      ${isNabor(e) ? seatsHtml(true) : ''}<div class="mc-foot">${priceHtml(e)}<button type="button" class="btn btn-sm${e.free ? '' : ' btn-ghost'}" data-lead="ev:${esc(e.id)}">${esc(ctaOf(e))}</button></div>
     </div></article>`;
 }
 const plural = (n, one, few, many) => { const a = n % 10, b = n % 100; return a === 1 && b !== 11 ? one : a >= 2 && a <= 4 && (b < 12 || b > 14) ? few : many; };
@@ -1780,7 +1798,7 @@ function renderFeeds(){
 function courseCard(c){
   const img = esc(c.photo || '');
   return `<article class="course reveal">
-    <a class="course-img" href="${courseUrl(c)}" tabindex="-1" aria-hidden="true"><img src="${img}" alt="" loading="lazy"></a>
+    <a class="course-img" href="${courseUrl(c)}" tabindex="-1" aria-hidden="true"><img src="${img}" alt="" loading="lazy"><span class="pill">${NABOR}</span></a>
     <div class="course-body">
       <p class="r4">${esc(c.tag)}</p>
       <h3 class="r2"><a href="${courseUrl(c)}">${nb(c.title)}</a></h3>
@@ -1788,8 +1806,8 @@ function courseCard(c){
       <ul class="course-points">${c.points.map(([i, t]) => `<li><span class="ic-sq">${ic(i)}</span><span>${nb(t)}</span></li>`).join('')}</ul>
       <div class="course-foot">
         <div><span class="r2">${esc(c.price)}</span><p>${esc(c.len)}${c.d ? ' · старт ' + dm(c.d) : ''}</p></div>
-      </div>
-      <div class="course-actions"><button class="btn btn-sm" type="button" data-lead="course:${c.id}">Записаться</button><a class="btn btn-ghost btn-sm" href="${courseUrl(c)}">Подробнее</a></div>
+      </div>${seatsHtml()}
+      <div class="course-actions"><button class="btn btn-sm" type="button" data-lead="course:${c.id}">${TAKE}</button><a class="btn btn-ghost btn-sm" href="${courseUrl(c)}">Подробнее</a></div>
     </div>
   </article>`;
 }
@@ -1805,6 +1823,8 @@ function renderCourses(){
 // программа по модулям → что создаст → как пригодится → стоимость и запись.
 const courseUrl = c => '#/' + (c.page === 'kids' ? 'kids' : 'adults') + '/' + c.id;
 // Строка «инструменты» из шапки файлов программ. В админке такого поля нет – держим здесь.
+// Кого из преподавателей направления не показывать на странице курса (по имени в карточке).
+const COURSE_HIDE_TEACHERS = { basic:['Светлана Цыро'] };
 const COURSE_TOOLS = { designer:['Figma','Нейросети'], roblox:['Roblox Studio','Программирование и ИИ'], python:['Python','Программирование и ИИ'] };
 // Общий текст Натальи для взрослой аудитории – если у взрослого курса нет своего описания.
 const ADULT_INTRO = 'Здесь не нужно разбираться в сложных терминах и иметь техническое образование, долго слушать лекции и изучать теорию. Мы шаг за шагом на практике покажем, как с помощью нейросетей решать свои реальные рабочие задачи, экономить время и упрощать привычные процессы. В ProНейро можно задавать любые вопросы, пробовать, ошибаться и получать поддержку от экспертов.';
@@ -1825,8 +1845,8 @@ function renderCoursePage(id){
     ...(COURSE_TOOLS[c.id] || []).map(t => ['i-star', t])].filter(x => x[1]);
   const total = c.modules.reduce((n, m) => n + (m.l || []).length, 0);
   const facts_ = k
-    ? [['Для кого', 'Дети 7–14 лет'], ['Длительность', [lp.months, lessonsTxt].filter(Boolean).join(', ')], ['Формат', 'Очно в студии клуба, небольшая группа'], ['Стоимость', c.price]]
-    : [['Старт', c.d ? dm(c.d) : 'Идёт предзапись'], ['Длительность', [lp.months, lp.lessons].filter(Boolean).join(', ')], ['Формат', c.format || ''], ['Стоимость', c.price]];
+    ? [['Для кого', 'Дети 7–14 лет'], ['Старт', courseStart(c)], ['Длительность', [lp.months, lessonsTxt].filter(Boolean).join(', ')], ['Формат', 'Очно в студии клуба, небольшая группа'], ['Стоимость', c.price]]
+    : [['Старт', courseStart(c)], ['Длительность', [lp.months, lp.lessons].filter(Boolean).join(', ')], ['Формат', c.format || ''], ['Стоимость', c.price]];
   const mods = c.modules.map((m, i) => {
     let n = parseInt(String(m.r || '').replace(/^0+/, ''), 10) || 1;
     const lessons = (m.l || []).map(([t, d]) => `<div class="cp-lesson"><span class="n" aria-hidden="true">${String(n++).padStart(2, '0')}</span><h4 class="r2">${nb(t)}</h4><p>${nb(d)}</p></div>`).join('');
@@ -1836,7 +1856,10 @@ function renderCoursePage(id){
   }).join('');
   const creates = (c.creates || []).length ? `<div class="panel"><p class="r4">Результат курса</p><h2 class="r1" style="font-size:clamp(26px,2.6vw,36px)">${k ? 'Что ребёнок создаст' : 'Что у вас будет'}</h2><ul class="ticks">${c.creates.map(t => `<li><span class="ic-sq">${ic('i-check')}</span><span>${nb(t)}</span></li>`).join('')}</ul></div>` : '';
   const future = c.future ? `<div class="panel"><p class="r4">Навыки</p><h2 class="r1" style="font-size:clamp(26px,2.6vw,36px)">Как это пригодится в&nbsp;будущем</h2>${introHtml(c.future)}</div>` : '';
-  const team = $(`[data-page="${dir}"] .tch-grid`);
+  const team0 = $(`[data-page="${dir}"] .tch-grid`), team = team0 && team0.cloneNode(true);
+  if (team){ const hide = COURSE_HIDE_TEACHERS[c.id] || [];
+    $$('.tch', team).forEach(t => { const n = $('h3', t); if (n && hide.includes(n.textContent.trim())) t.remove(); });
+    if ($$('.tch', team).length === 1) team.classList.add('solo'); }
   const others = (k ? KIDS : ADULT).filter(x => x.id !== c.id);
   box.innerHTML = `
   <section class="fade-hero cp-hero" aria-labelledby="cp-title">
@@ -1848,7 +1871,8 @@ function renderCoursePage(id){
       ${c.sub ? `<p class="hero-lead">${nb(c.sub)}</p>` : ''}
       <ul class="chips" aria-label="Коротко о курсе">${chips.map(([i, t]) => `<li class="chip">${ic(i)}${esc(t)}</li>`).join('')}</ul>
       <div class="cp-price"><span class="r2">${esc(c.price)}</span><span>${esc([lp.months, lp.lessons].filter(Boolean).join(' · '))}</span></div>
-      <div class="hero-actions"><button class="btn" type="button" data-lead="course:${esc(c.id)}">Записаться ${ic('i-arrow')}</button><button class="btn btn-ghost" type="button" data-goto="cp-program">Смотреть программу</button></div>
+      <p class="cp-status"><span class="pill free">${NABOR}</span><span>${ic('i-hourglass')}${SEATS}</span></p>
+      <div class="hero-actions"><button class="btn" type="button" data-lead="course:${esc(c.id)}">${TAKE} ${ic('i-arrow')}</button><button class="btn btn-ghost" type="button" data-goto="cp-program">Смотреть программу</button></div>
     </div></div>
   </section>
 
@@ -1868,8 +1892,8 @@ function renderCoursePage(id){
 
   <section class="section wrap">
     <div class="cta">
-      <div class="cta-left"><span class="ic">${ic('i-rocket')}</span><div><h2 class="r2">${k ? 'Записать ребёнка на&nbsp;курс' : 'Записаться на&nbsp;курс'}</h2><p>${esc(c.price)} · ${esc([lp.months, lp.lessons].filter(Boolean).join(' · '))}. Ответим на&nbsp;вопросы и&nbsp;расскажем о&nbsp;старте группы.</p></div></div>
-      <button class="btn btn-light" type="button" data-lead="course:${esc(c.id)}">Записаться ${ic('i-arrow')}</button>
+      <div class="cta-left"><span class="ic">${ic('i-rocket')}</span><div><h2 class="r2">${k ? 'Записать ребёнка на&nbsp;курс' : 'Записаться на&nbsp;курс'}</h2><p>${NABOR}, количество мест ограничено. ${esc(c.price)} · ${esc([lp.months, lp.lessons].filter(Boolean).join(' · '))}.</p></div></div>
+      <button class="btn btn-light" type="button" data-lead="course:${esc(c.id)}">${TAKE} ${ic('i-arrow')}</button>
     </div>
   </section>
 
@@ -1916,21 +1940,22 @@ function eventModal(id){
   if (!e) return leadModal('general');
   const aud = e.audience === 'k' ? 'для детей' : e.audience === 'b' ? 'для бизнеса' : 'для взрослых';
   const rows = [];
-  rows.push(['Когда', e.d ? dm(e.d) + (e.time && /\d:\d/.test(e.time) ? ', ' + e.time : '') : (e.label === 'Предзапись' ? 'Сообщим, когда назначим' : (e.time || 'Скоро'))]);
+  rows.push(['Когда', e.d ? dm(e.d) + (e.time && /\d:\d/.test(e.time) ? ', ' + e.time : '') : (e.label === NABOR ? 'Сообщим, когда назначим' : (e.time || 'Скоро'))]);
   if (e.repeat) rows.push(['Повторяется', WD_LAST[+String(e.repeat).split('-')[1]] + ' месяца']);
   else if (e.time && !(e.d && /\d:\d/.test(e.time))) rows.push(['Формат', e.time]);
   if (e.place) rows.push(['Где', 'Студия клуба, ' + e.place]);
   if (e.price) rows.push(['Стоимость', e.free ? 'Бесплатно' : e.price]);
+  if (isNabor(e)) rows.push(['Места', 'Количество ограничено']);
   openModal(head((e.free ? 'Бесплатная встреча' : (KIND_RU[e.kind] || 'Событие')) + ' · ' + aud, e.title) + facts(rows) +
     (e.description ? `<p>${nb(e.description)}</p>` : '') + (e.result ? `<div class="dialog-sec"><p><b>Результат.</b> ${nb(e.result)}</p></div>` : '') +
-    `<div class="dialog-actions"><button class="btn" type="button" data-lead="ev:${esc(e.id)}">${esc(e.cta || 'Записаться')} ${ic('i-arrow')}</button></div>`);
+    `<div class="dialog-actions"><button class="btn" type="button" data-lead="ev:${esc(e.id)}">${esc(ctaOf(e))} ${ic('i-arrow')}</button></div>`);
 }
 let openMod = 0;
 function programModal(id){
   const c = COURSE[id];
   const sum = c.kids
-    ? [['Для кого', 'Дети 7–14 лет'], ['Длительность', '3 месяца, 12 занятий'], ['Формат', 'Очно в студии клуба' + (c.lesson ? ', по ' + c.lesson : '')], ['Стоимость', c.price]]
-    : [['Старт', c.d ? dm(c.d) : 'Идёт предзапись'], ['Длительность', '2 месяца, 16 занятий'], ['Формат', c.format], ['Стоимость', c.price]];
+    ? [['Для кого', 'Дети 7–14 лет'], ['Старт', courseStart(c)], ['Длительность', '3 месяца, 12 занятий'], ['Формат', 'Очно в студии клуба' + (c.lesson ? ', по ' + c.lesson : '')], ['Стоимость', c.price]]
+    : [['Старт', courseStart(c)], ['Длительность', '2 месяца, 16 занятий'], ['Формат', c.format], ['Стоимость', c.price]];
   const mods = c.modules.map((m, i) => `<div class="mod${i === openMod ? ' open' : ''}">
       <button type="button" aria-expanded="${i === openMod}" data-mod="${i}"><span><span class="r4">Модуль ${i + 1} · занятия ${esc(m.r)}</span><span class="r2">${nb(m.t)}</span></span><span class="pm">${ic('i-plus','icon icon-sm')}</span></button>
       <div class="mod-body"${i === openMod ? '' : ' hidden'}>
@@ -1970,12 +1995,12 @@ function leadInfo(kind){
     if (e.course_id && COURSE[e.course_id]) return leadInfo('course:' + e.course_id);
     const sum = [['Когда', e.d ? dm(e.d) + (e.time && /\d:\d/.test(e.time) ? ', ' + e.time : '') : 'Сообщим, когда назначим']];
     if (e.price) sum.push(['Стоимость', e.free ? 'Бесплатно' : e.price]);
-    return { kicker: e.free ? 'Запись на бесплатную встречу' : (e.d ? 'Запись' : 'Предзапись'), title:e.title, sum, interest:e.title + (e.d ? ', ' + dm(e.d) : ''), iid:'ev:' + e.id, kids: e.audience === 'k',
-      submit: e.free || e.d ? 'Записаться' : 'Оставить предзапись', msg:`Здравствуйте! Хочу записаться: ${e.title}${e.d ? ', ' + dm(e.d) : ''}.` };
+    return { kicker: e.free ? 'Запись на бесплатную встречу' : (e.d ? 'Запись' : NABOR), title:e.title, sum, interest:e.title + (e.d ? ', ' + dm(e.d) : ''), iid:'ev:' + e.id, kids: e.audience === 'k',
+      submit: e.free ? 'Записаться' : isNabor(e) ? TAKE : 'Записаться', msg:`Здравствуйте! Хочу записаться: ${e.title}${e.d ? ', ' + dm(e.d) : ''}.` };
   }
   if (type === 'course'){ const c = COURSE[arg]; if (!c) return leadInfo('general');
-    return { kicker:c.kicker, title:c.title, sum:[[c.kids ? 'Длительность' : 'Старт', c.kids ? (c.len || '') : 'Идёт предзапись'], ['Стоимость', c.price]],
-      interest:'Курс «' + c.title + '»', iid:'course:' + c.id, kids:c.kids, submit:'Оставить заявку', msg:`Здравствуйте! Хочу записа${c.kids ? 'ть ребёнка' : 'ться'} на курс «${c.title}».` }; }
+    return { kicker:c.kicker, title:c.title, sum:[['Старт', courseStart(c)], ['Стоимость', c.price], ['Места', 'Количество ограничено']],
+      interest:'Курс «' + c.title + '»', iid:'course:' + c.id, kids:c.kids, submit:TAKE, msg:`Здравствуйте! Хочу записа${c.kids ? 'ть ребёнка' : 'ться'} на курс «${c.title}».` }; }
   if (type === 'corp') return { kicker:'Для компаний', title:'Обсудить обучение команды', sum:[['Первый шаг', 'Встреча-знакомство'], ['Стоимость и формат', 'После обсуждения']], interest:'Обучение для команды', iid:'corp', kids:false, company:true, submit:'Отправить запрос', msg:'Здравствуйте! Хотим обсудить обучение нейросетям для нашей команды.' };
   if (type === 'kidspick') return { kicker:'Детям 7–14 лет', title:'Подобрать курс для ребёнка', interest:'Подобрать курс для ребёнка', iid:'kidspick', kids:true, submit:'Подобрать курс', msg:'Здравствуйте! Помогите подобрать курс для ребёнка.' };
   if (type === 'saturday') return { kicker:'Запись на бесплатную встречу', title:'Нейро-суббота', sum:[['Когда', 'Последняя суббота месяца, 15:00–16:30'], ['Стоимость', 'Бесплатно']], interest:'Нейро-суббота', iid:'saturday', kids:false, submit:'Записаться бесплатно', msg:'Здравствуйте! Хочу записаться на Нейро-субботу.' };
