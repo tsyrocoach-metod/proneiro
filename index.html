@@ -490,7 +490,7 @@ fieldset.field{border:0;padding:0;margin:0}
 .why3-card .num{font-weight:700;font-size:40px;letter-spacing:-.04em;line-height:1;color:var(--ice)}
 @media (max-width:900px){.why3-head,.why3{grid-template-columns:1fr}}
 /* События: фото-карточки, ближайшее – крупнее */
-.events.photo{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:18px;align-items:start}
+.events.photo{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:18px;align-items:stretch}
 .pc{display:flex;flex-direction:column;border-radius:var(--r-md);overflow:hidden;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);transition:transform .25s,box-shadow .25s}
 .pc:hover{transform:translateY(-4px);box-shadow:var(--shadow-up)}
 .pc-ph{position:relative;aspect-ratio:16/10;overflow:hidden;background:var(--silver)}
@@ -508,16 +508,25 @@ fieldset.field{border:0;padding:0;margin:0}
 .pc.main .pc-ph .pill{background:var(--cobalt);color:#fff}
 .pc.main .pc-body{padding:22px 24px 24px}
 .pc-desc{margin:0}
-.ev-side{display:grid;gap:14px}
+.ev-side{display:grid;gap:14px;grid-auto-rows:1fr}
 .mc{display:grid;grid-template-columns:150px minmax(0,1fr);gap:18px;padding:12px;border-radius:var(--r-md);background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);transition:transform .25s,box-shadow .25s}
 .mc:hover{transform:translateY(-3px);box-shadow:var(--shadow-up)}
-.mc-ph{position:relative;border-radius:var(--r-sm);overflow:hidden;background:var(--silver);min-height:130px}
+.mc-ph{position:relative;border-radius:var(--r-sm);overflow:hidden;background:var(--silver);min-height:112px}
 .mc-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .mc-body{display:flex;flex-direction:column;gap:6px;padding:4px 6px 2px 0}
 .mc .pc-when{font-size:13px}
-.mc-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:auto;padding-top:8px}
+.mc-foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px 10px;margin-top:auto;padding-top:8px}
+.mc-foot .btn{flex-shrink:0;max-width:100%}
 .mc-foot b{color:var(--ink);white-space:nowrap}
-@media (max-width:1000px){.events.photo{grid-template-columns:1fr}}
+.mc-all{grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:16px;padding:18px 20px;background:var(--tint);border-color:rgba(0,102,255,.2);box-shadow:none;text-decoration:none;color:var(--text)}
+.mc-all:hover{background:#DFEBFF}
+.mc-all-ic{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;background:#fff;color:var(--cobalt)}
+.mc-all-ic .icon{width:24px;height:24px}
+.mc-all-text{display:grid;gap:4px}
+.mc-all .r2{color:var(--cobalt-d)}
+.mc-all .round{background:var(--cobalt)}
+@media (max-width:1240px) and (min-width:1001px){.mc{grid-template-columns:118px minmax(0,1fr);gap:14px}.mc-all{grid-template-columns:auto minmax(0,1fr) auto}}
+@media (max-width:1000px){.events.photo{grid-template-columns:1fr}.ev-side{grid-auto-rows:auto}}
 @media (max-width:520px){.mc{grid-template-columns:96px minmax(0,1fr);gap:12px}.mc-ph{min-height:96px}.mc-foot{flex-wrap:wrap}}
 @media (max-width:640px){.events.photo{grid-template-columns:1fr}}
 .variant-tag{position:fixed;left:12px;bottom:12px;z-index:95;margin:0;padding:6px 12px;border-radius:999px;background:var(--ink);color:#fff;font-size:13px;font-weight:600;opacity:.9}.variant-tag a{color:var(--ice)}
@@ -582,6 +591,7 @@ fieldset.field{border:0;padding:0;margin:0}
 .af-empty{padding:30px;text-align:center;border-radius:var(--r-md);background:#fff;border:1px dashed var(--line-2)}
 @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+.shot .reveal{opacity:1;transform:none;transition:none}
 .reveal.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}
 @media (max-width:640px){body{font-size:16px}.r2{font-size:19px}.btn{white-space:normal;text-align:center;line-height:1.25;padding-top:10px;padding-bottom:10px}}
@@ -660,7 +670,6 @@ fieldset.field{border:0;padding:0;margin:0}
   <a href="#/events">Ближайшие события <svg class="icon"><use href="#i-arrow"/></svg></a>
   <a href="#/contacts">Контакты <svg class="icon"><use href="#i-arrow"/></svg></a>
   <button class="btn" type="button" data-lead="general">Записаться</button>
-  <a class="mnav-phone" href="tel:+79040001213">Позвонить: 8-904-000-12-13</a>
 </nav>
 
 <main id="main">
@@ -750,7 +759,6 @@ fieldset.field{border:0;padding:0;margin:0}
         </div>
       </div>
       <div class="events photo" data-feed="home"></div>
-      <div class="feed-more" data-feed-more></div>
     </div>
   </section>
 
@@ -857,7 +865,7 @@ fieldset.field{border:0;padding:0;margin:0}
           <div class="info-row"><span class="ic-sq"><svg class="icon"><use href="#i-mail"/></svg></span><div><b><a href="mailto:Grand.tver@mail.ru">Grand.tver@mail.ru</a></b><p>Электронная почта</p></div></div>
           <div class="find-actions">
             <a class="btn" href="https://yandex.ru/maps/-/CXRhb66v" target="_blank" rel="noopener">Открыть в&nbsp;Яндекс Картах <svg class="icon"><use href="#i-ext"/></svg></a>
-            <a class="btn btn-ghost" href="tel:+79040001213">Позвонить</a>
+            <button class="btn btn-ghost" type="button" data-lead="pick">Связаться с&nbsp;нами</button>
           </div>
         </div>
       </div>
@@ -1303,11 +1311,25 @@ fieldset.field{border:0;padding:0;margin:0}
 /* ===== Настройки ===== */
 // Куда пишут желающие записаться. Сайт сам заявки не собирает – кнопки открывают чат с клубом.
 // telegram – ник без @ (например, proneiro_club); max – ссылка на профиль или канал в MAX.
-// Пока поле пустое, кнопка не показывается и остаётся «Позвонить».
+// Пока поле пустое, кнопка показывается, но никуда не ведёт.
 const CONTACTS = { telegram:'', max:'' };
 // Админка клуба (заявки, афиша, курсы, документы) живёт на том же сервере: /api и /admin.
 // При проверке на своём компьютере сайт обращается к админке, запущенной рядом.
-const API_BASE = /^(localhost|127\.0\.0\.1)$/.test(location.hostname) ? 'http://localhost:8091' : '';
+const API_BASES = /^(localhost|127\.0\.0\.1)$/.test(location.hostname) ? ['http://localhost:8091'] : ['', 'https://api.proneiroclub.ru'];
+// Пробует адреса по очереди: у части посетителей ещё открывается старая копия сайта без приёма заявок.
+async function apiFetch(path, opts = {}, timeout = 12000){
+  let last;
+  for (const base of API_BASES){
+    try {
+      const ctrl = new AbortController(); const tm = setTimeout(() => ctrl.abort(), timeout);
+      const r = await fetch(base + path, { ...opts, signal: ctrl.signal }); clearTimeout(tm);
+      if (r.status === 404 || r.status === 405 || !(r.headers.get('content-type') || '').includes('json')) { last = r; continue; }
+      return r;
+    } catch (e) { last = e; }
+  }
+  if (last instanceof Response) return last;
+  throw last || new Error('network');
+}
 const PHONE = '8\u2011904\u2011000\u201112\u201113'; // неразрывные дефисы, чтобы номер не рвался
 
 /* ===== Данные ===== */
@@ -1501,7 +1523,7 @@ function evPhoto(e){
 }
 function photoCard(e, main){
   const aud = e.audience === 'k' ? 'Детям 7–14' : (AUD[e.audience] || '');
-  const when = e.d ? `${WD[e.d.getDay()]}, ${dm(e.d)}${e.time && /\d:\d/.test(e.time) ? ' · ' + e.time.split('–')[0] : ''}` : (e.label === 'Предзапись' ? 'Идёт предзапись' : 'Скоро');
+  const when = e.d ? `${WD[e.d.getDay()]}, ${dm(e.d)}${e.time && /\d:\d/.test(e.time) ? ' · ' + e.time.split('–')[0] : ''}` : (e.when_text || (e.label === 'Предзапись' ? 'Идёт предзапись' : 'Скоро'));
   const meta = [aud ? `<span>${ic('i-users')}${esc(aud)}</span>` : '', e.time && !(e.d && /\d:\d/.test(e.time)) ? `<span>${ic('i-clock')}${esc(e.time)}</span>` : '', e.place ? `<span>${ic('i-pin')}${esc(e.place)}</span>` : ''].join('');
   return `<article class="pc reveal${main ? ' main' : ''}">
     <div class="pc-ph"><img src="${esc(evPhoto(e))}" alt="" loading="lazy">${main ? '<span class="pill">Ближайшее</span>' : (e.free ? '<span class="pill">Бесплатно</span>' : '')}</div>
@@ -1513,7 +1535,7 @@ function photoCard(e, main){
     </div></article>`;
 }
 function miniCard(e){
-  const when = e.d ? `${WD[e.d.getDay()]}, ${dm(e.d)}${e.time && /\d:\d/.test(e.time) ? ' · ' + e.time.split('–')[0] : ''}` : (e.label === 'Предзапись' ? 'Идёт предзапись' : 'Скоро');
+  const when = e.d ? `${WD[e.d.getDay()]}, ${dm(e.d)}${e.time && /\d:\d/.test(e.time) ? ' · ' + e.time.split('–')[0] : ''}` : (e.when_text || (e.label === 'Предзапись' ? 'Идёт предзапись' : 'Скоро'));
   const aud = e.audience === 'k' ? 'детям 7–14' : (e.audience === 'b' ? 'командам' : 'взрослым');
   return `<article class="mc reveal">
     <div class="mc-ph"><img src="${esc(evPhoto(e))}" alt="" loading="lazy"></div>
@@ -1535,8 +1557,8 @@ let EV_INDEX = {};
 function renderFeeds(){
   const all = allEvents(); EV_INDEX = Object.fromEntries(all.map(e => [e.id, e]));
   const home = all.filter(e => e.show_home);
-  $('[data-feed="home"]').innerHTML = home.length ? photoCard(home[0], true) + (home.length > 1 ? `<div class="ev-side">${home.slice(1, 4).map(miniCard).join('')}</div>` : '') : '';
-  $('[data-feed-more]').innerHTML = all.length > Math.min(home.length, 4) ? `<a class="btn btn-ghost" href="#/afisha">Вся афиша · ${all.length} ${plural(all.length, 'событие', 'события', 'событий')} ${ic('i-arrow')}</a>` : '';
+  const allTile = `<a class="mc mc-all reveal" href="#/afisha"><span class="mc-all-ic">${ic('i-cal')}</span><span class="mc-all-text"><span class="r2">Вся афиша</span><span>${all.length} ${plural(all.length, 'событие', 'события', 'событий')}: встречи, интенсивы, курсы</span></span><span class="round">${ic('i-arrow')}</span></a>`;
+  $('[data-feed="home"]').innerHTML = home.length ? photoCard(home[0], true) + `<div class="ev-side">${home.slice(1, 4).map(miniCard).join('')}${allTile}</div>` : '';
   renderAfisha(all);
   $('[data-feed="intensives"]').innerHTML = all.filter(e => e.kind === 'intensive').map(evCard).join('');
   const sun = EV_INDEX.sunday; $$('[data-next-sunday]').forEach(el => el.textContent = sun && sun.d ? 'Ближайшее – ' + dm(sun.d) : 'Последнее воскресенье месяца');
@@ -1627,7 +1649,7 @@ async function docModal(key){
   const tpl = $('#doc-' + key);
   openModal(head('Документ', meta.title) + `<div class="doc">${tpl ? tpl.innerHTML : '<p>Загружаем…</p>'}</div>`, true);
   try {
-    const r = await fetch(API_BASE + '/api/public/doc/' + encodeURIComponent(key), { cache:'no-cache' }).then(x => { if (!x.ok) throw 0; return x.json(); });
+    const r = await apiFetch('/api/public/doc/' + encodeURIComponent(key), { cache:'no-cache' }, 6000).then(x => { if (!x.ok) throw 0; return x.json(); });
     if (modal.hidden) return;
     const body = r.html || (r.file ? `<p><a href="${esc(r.file)}" target="_blank" rel="noopener">Открыть документ (PDF)</a></p>` : '');
     if (body) $('.doc', mbody).innerHTML = body + (r.html && r.file ? `<p><a href="${esc(r.file)}" target="_blank" rel="noopener">Скачать файл</a></p>` : '');
@@ -1673,9 +1695,8 @@ function contactHtml(msg){
   const tg = CONTACTS.telegram ? ` href="https://t.me/${encodeURIComponent(CONTACTS.telegram)}?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener"` : ' role="link" aria-disabled="true"';
   const mx = CONTACTS.max ? ` href="${esc(CONTACTS.max)}" target="_blank" rel="noopener" data-copy="${esc(msg)}"` : ' role="link" aria-disabled="true"';
   return `<div class="contact-btns">
-    <a class="btn btn-ghost"${tg}>${ic('i-send')}Telegram</a>
-    <a class="btn btn-ghost"${mx}>${ic('i-chat')}MAX</a>
-    <a class="btn btn-ghost" href="tel:+79040001213">${ic('i-phone')}${PHONE}</a>
+    <a class="btn btn-ghost"${mx}>${ic('i-chat')}Написать в&nbsp;MAX</a>
+    <a class="btn btn-ghost"${tg}>${ic('i-send')}Написать в&nbsp;Telegram</a>
   </div><p class="copy-note" hidden>Текст сообщения скопирован – вставьте его в&nbsp;чат.</p>`;
 }
 let formSeq = 0;
@@ -1690,16 +1711,15 @@ function formHtml(kind){
     ${field('child_age', 'Возраст ребёнка', 'type="text" inputmode="numeric" maxlength="2" placeholder="Например, 9"')}
     ${s.company ? field('company', 'Компания', 'type="text" autocomplete="organization" maxlength="120"', ' (необязательно)') : ''}
     <fieldset class="field"><legend>Как удобнее связаться</legend><div class="seg">
-      <label><input type="radio" name="contact_via" value="call" checked><span>Звонок</span></label>
-      <label><input type="radio" name="contact_via" value="telegram"><span>Telegram</span></label>
-      <label><input type="radio" name="contact_via" value="max"><span>MAX</span></label></div></fieldset>
+      <label><input type="radio" name="contact_via" value="max" checked><span>MAX</span></label>
+      <label><input type="radio" name="contact_via" value="telegram"><span>Telegram</span></label></div></fieldset>
     <div class="field"><label for="${id}-comment">${s.company ? 'Задача команды' : 'Вопрос или пожелание'}<span class="hint"> (необязательно)</span></label><textarea id="${id}-comment" name="comment" maxlength="1500"></textarea></div>
     <div class="hp" aria-hidden="true"><label>Сайт <input name="website" tabindex="-1" autocomplete="off"></label></div>
     <label class="check"><input type="checkbox" name="consent"><span>Согласен(на) на&nbsp;обработку персональных данных в&nbsp;соответствии с&nbsp;<button class="linkish" type="button" data-doc="policy">Политикой</button></span></label>
     <p class="err" data-consent-err hidden>Нужно согласие на&nbsp;обработку данных</p>
     <p class="form-msg" data-form-msg hidden></p>
     <button class="btn btn-block" type="submit">${esc(s.submit)} ${ic('i-arrow')}</button>
-    <div class="lead-alt"><p>Или напишите нам:</p>${contactHtml(s.msg)}</div>
+    <div class="lead-alt"><p>Или напишите нам в&nbsp;мессенджер:</p>${contactHtml(s.msg)}</div>
   </form>`;
 }
 function leadModal(kind){
@@ -1728,12 +1748,12 @@ async function submitLead(form){
   const btn = $('button[type=submit]', form), msg = $('[data-form-msg]', form); btn.disabled = true; msg.hidden = true;
   try {
     const ctrl = new AbortController(); const tm = setTimeout(() => ctrl.abort(), 12000);
-    const r = await fetch(API_BASE + '/api/public/lead', { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify(data), signal: ctrl.signal });
+    const r = await apiFetch('/api/public/lead', { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify(data) });
     clearTimeout(tm);
     const d = await r.json().catch(() => ({}));
     if (!r.ok) throw new Error(d.error || '');
     const done = `<div class="success"><span class="ic">${ic('i-check')}</span><h2 class="r1"${form.closest('#modal') ? ' id="modal-title"' : ''}>Заявка принята</h2>
-      <p>Спасибо, ${esc(name)}! Мы свяжемся с&nbsp;вами в&nbsp;ближайшее время${data.contact_via === 'call' ? ' по&nbsp;телефону' : data.contact_via === 'telegram' ? ' в&nbsp;Telegram' : ' в&nbsp;MAX'}.</p>
+      <p>Спасибо, ${esc(name)}! Мы напишем вам в&nbsp;ближайшее время${data.contact_via === 'telegram' ? ' в&nbsp;Telegram' : ' в&nbsp;MAX'}.</p>
       ${form.closest('#modal') ? '<button class="btn" type="button" data-close>Хорошо</button>' : ''}</div>`;
     if (form.closest('#modal')) mbody.innerHTML = done; else form.outerHTML = done;
   } catch (e) {
@@ -1750,7 +1770,7 @@ document.addEventListener('change', e => {
 async function loadContent(){
   try {
     const ctrl = new AbortController(); const tm = setTimeout(() => ctrl.abort(), 4000);
-    const r = await fetch(API_BASE + '/api/public/content', { signal: ctrl.signal, cache:'no-cache' }); clearTimeout(tm);
+    const r = await apiFetch('/api/public/content', { cache:'no-cache' }, 4000); clearTimeout(tm);
     if (!r.ok) return;
     const d = await r.json();
     if (Array.isArray(d.courses) && d.courses.length){
