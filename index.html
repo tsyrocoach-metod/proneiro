@@ -468,6 +468,11 @@ fieldset.field{border:0;padding:0;margin:0}
 .contact{display:grid;gap:16px}
 .contact-btns{display:grid;gap:10px}
 .copy-note{color:var(--cobalt-d);font-weight:500}
+.lead-alt{display:grid;gap:12px;margin-top:22px;padding-top:18px;border-top:1px solid var(--line)}
+.lead-alt .contact-btns{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+.hp{position:absolute!important;left:-10000px!important;width:1px;height:1px;overflow:hidden}
+.field select{width:100%;min-height:52px;padding:12px 16px;border-radius:var(--r-sm);border:1.5px solid var(--line-2);background:#fff;font-size:16px}
+.form-msg{padding:14px 16px;border-radius:var(--r-sm);background:#FDECEA;border:1px solid #F2B8B5;color:#7A1C16}
 
 @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
@@ -750,9 +755,9 @@ fieldset.field{border:0;padding:0;margin:0}
       <div class="lead-text">
         <p class="r4">Запись и подбор программы</p>
         <h2 class="r1" id="lead-title">Не&nbsp;знаете, с&nbsp;чего начать? Подскажем</h2>
-        <p>Напишите нам – ответим на&nbsp;вопросы, расскажем о&nbsp;ближайших встречах и&nbsp;поможем выбрать программу под вашу задачу или интересы ребёнка.</p>
+        <p>Оставьте телефон – перезвоним, ответим на&nbsp;вопросы, расскажем о&nbsp;ближайших встречах и&nbsp;поможем выбрать программу под вашу задачу или интересы ребёнка.</p>
       </div>
-      <div class="form-card" data-contact="pick"></div>
+      <div class="form-card" data-inline-form></div>
     </div>
   </section>
 
@@ -1021,7 +1026,7 @@ fieldset.field{border:0;padding:0;margin:0}
       </div>
       <div class="card">
         <h2 class="r2">Документы</h2>
-        <div class="find-actions">
+        <div class="find-actions" data-docs-buttons>
           <button class="btn btn-ghost btn-sm" type="button" data-doc="oferta"><svg class="icon"><use href="#i-file"/></svg>Договор-оферта</button>
           <button class="btn btn-ghost btn-sm" type="button" data-doc="policy"><svg class="icon"><use href="#i-file"/></svg>Политика обработки персональных данных</button>
         </div>
@@ -1065,6 +1070,8 @@ fieldset.field{border:0;padding:0;margin:0}
         <p class="r4">Документы</p>
         <ul>
           <li><a href="#/svedeniya">Сведения об&nbsp;образовательной организации</a></li>
+        </ul>
+        <ul data-docs-list>
           <li><button class="linkish" type="button" data-doc="oferta">Договор-оферта</button></li>
           <li><button class="linkish" type="button" data-doc="policy">Политика обработки персональных данных</button></li>
         </ul>
@@ -1229,6 +1236,9 @@ fieldset.field{border:0;padding:0;margin:0}
 // telegram – ник без @ (например, proneiro_club); max – ссылка на профиль или канал в MAX.
 // Пока поле пустое, кнопка не показывается и остаётся «Позвонить».
 const CONTACTS = { telegram:'', max:'' };
+// Админка клуба (заявки, афиша, курсы, документы) живёт на том же сервере: /api и /admin.
+// При проверке на своём компьютере сайт обращается к админке, запущенной рядом.
+const API_BASE = /^(localhost|127\.0\.0\.1)$/.test(location.hostname) ? 'http://localhost:8091' : '';
 const PHONE = '8\u2011904\u2011000\u201112\u201113'; // неразрывные дефисы, чтобы номер не рвался
 
 /* ===== Данные ===== */
@@ -1328,7 +1338,31 @@ const ADULT = [
       { r:'13–16', t:'Система и команда', res:'Всё работает как одна система, есть регламент, посчитан итоговый эффект и план на 90 дней.', l:[['Очно. Одна система вместо отдельных помощников','Связываем всё, что собрали: помощники, сайт, инструмент, связки. Общая база знаний дела и единые правила.'],['Онлайн. Правила работы с ИИ','Для команды – кто за что отвечает и что сотрудникам можно и нельзя. Для соло-предпринимателя – как система работает, когда вас нет на связи.'],['Онлайн. Итоговый эффект и план на случай сбоя','Сводим замеры всех спринтов: сколько часов и рублей освободилось, сколько стоят сервисы в месяц. Составляем план на случай, если сервис сломался или изменил условия.'],['Очно. Защита проекта и план на 90 дней','Каждый показывает свою систему, сайт и инструмент: как было, как стало, что посчитано. Составляем план на 90 дней.']] }] },
 ];
 ADULT.forEach(c => { c.price = '19 200 руб./мес.'; c.len = '16 занятий · 2 месяца'; c.aud = 'a'; c.kicker = 'Курс для взрослых · ' + c.tag.toLowerCase(); c.format = '1 онлайн + 1 очно в неделю'; });
-const COURSE = Object.fromEntries([...KIDS, ...ADULT].map(c => [c.id, c]));
+KIDS.forEach(c => { c.page = 'kids'; c.photo = './img/club/' + c.img + '.jpg'; });
+ADULT.forEach(c => { c.page = 'adults'; c.photo = './img/' + c.img; });
+const COURSE = {};
+function finishCourse(c){
+  c.kids = c.page === 'kids'; c.aud = c.kids ? 'k' : 'a';
+  c.kicker = c.kids ? 'Курс для детей 7–14 лет' : 'Курс для взрослых' + (c.tag ? ' · ' + c.tag.toLowerCase() : '');
+  return c;
+}
+function indexCourses(){ Object.keys(COURSE).forEach(k => delete COURSE[k]); [...KIDS, ...ADULT].forEach(c => { finishCourse(c); COURSE[c.id] = c; }); }
+indexCourses();
+const courseFromApi = c => ({ id:c.id, page:c.page, tag:c.tag || '', title:c.title, sub:c.sub || '', cs:c.card_sub || '', photo:c.photo || '', points:c.points || [],
+  price:c.price || '', len:c.length || '', format:c.format || '', lesson:c.lesson || '', intro:c.intro || '', modules:c.modules || [], creates:c.creates || [], future:c.future || '' });
+
+// События по умолчанию – то же, что лежит в админке при запуске. Если админка ответила, берём её данные.
+const S0 = FREE.sunday;
+let EVENTS = [
+  { id:'sunday', title:S0.title, audience:'k', kind:'event', date:'', repeat:'last-0', time:S0.time, place:'Новоторжская, 18', price:'0 руб.', free:true, description:S0.desc, result:S0.result, course_id:'', show_home:true, cta:'Записаться' },
+  ...ADULT.map(c => ({ id:'pre-' + c.id, title:'Курс «' + c.title + '»', audience:'a', kind:'prereg', time:'2 месяца · ' + c.format, price:c.price, course_id:c.id, show_home:c.id === 'basic', cta:'Предзапись' })),
+  ...KIDS.map(c => ({ id:'pre-' + c.id, title:'Курс «' + c.title + '»', audience:'k', kind:'prereg', time:'3 месяца · очно, 1 раз в неделю', price:c.price, course_id:c.id, show_home:c.id === 'neurostart', cta:'Предзапись' })),
+  ...INTENSIVES.map((it, i) => ({ id:'int-' + (i + 1), title:it.t, audience:'a', kind:'intensive', time:'Интенсив · 2 часа', price:'2 800 руб.', description:INT_DESC, cta:'Предзапись' })),
+  { id:'kids-mk', title:'Мастер-классы, конкурсы и хакатоны для детей', audience:'k', kind:'event', time:'Даты – в анонсах клуба', price:'2 000 руб.', description:'Новые темы, творческие задания и командные соревнования. Дети пробуют современные инструменты, решают интересные задачи и создают собственные проекты.', cta:'Узнать' },
+];
+let DOCS = [{ id:'oferta', title:'Договор-оферта' }, { id:'policy', title:'Политика обработки персональных данных' }];
+const WD_LAST = ['каждое последнее воскресенье','каждый последний понедельник','каждый последний вторник','каждую последнюю среду','каждый последний четверг','каждую последнюю пятницу','каждую последнюю субботу'];
+const KIND_RU = { event:'Событие', prereg:'Предзапись на курс', intensive:'Интенсив · 2 часа' };
 
 const FAQ = {
   a: [
@@ -1337,7 +1371,7 @@ const FAQ = {
     ['Что нужно для занятий?','Очные занятия проходят в студии клуба: там есть компьютеры, демо-экран и программы для работы с нейросетями. Для онлайн-занятий курса понадобится свой компьютер и интернет.'],
     ['Как организована практика?','Минимум теории – максимум практики: на каждом занятии решаем реальные задачи – письма, документы, таблицы, контент. Вопросы можно задавать в любой момент.'],
     ['Как выбрать программу?','Напишите нам или позвоните – расскажите, какие задачи хотите решать, и мы подскажем, с чего начать: с интенсива, базового или продвинутого курса.'],
-    ['Как записаться?','Нажмите «Записаться» у курса или события – откроется чат с клубом с уже готовым сообщением. Или позвоните по телефону ' + PHONE + '.'] ],
+    ['Как записаться?','Нажмите «Записаться» у курса или события и оставьте телефон – мы перезвоним. Или напишите нам в Telegram, MAX, позвоните по телефону ' + PHONE + '.'] ],
   k: [
     ['Нужен ли ребёнку опыт программирования?','Нет. Начинаем с нуля, опыт программирования не требуется.'],
     ['Для какого возраста курсы?','Для детей 7–14 лет.'],
@@ -1356,48 +1390,52 @@ const nb = s => esc(s).replace(/(^|[\s(«])(в|во|с|со|и|а|на|по|не
 const ic = (id, cls = 'icon') => `<svg class="${cls}"><use href="#${id}"/></svg>`;
 
 /* ===== Лента событий ===== */
+function evDate(e){
+  if (e.repeat) return nextLastWeekday(+String(e.repeat).split('-')[1]);
+  if (e.date) return new Date(e.date + 'T00:00:00');
+  return null;
+}
+function evIcon(e){
+  if (e.kind === 'intensive') return 'i-bulb';
+  if (e.kind === 'prereg') return e.audience === 'k' ? 'i-rocket' : 'i-cap';
+  return e.audience === 'b' ? 'i-brief' : e.audience === 'k' ? 'i-trophy' : 'i-cal';
+}
 function allEvents(){
-  const list = [];
-  Object.entries(FREE).forEach(([id, e]) => list.push({ id, aud:e.aud, d:e.d, title:e.title, time:e.time, place:'Новоторжская, 18', price:'0 руб.', free:true, lead:'event:' + id, cta:'Записаться', open:() => eventModal(id) }));
-  INTENSIVES.forEach((it, i) => list.push({ id:'int'+i, aud:'a', d:it.d || null, kind:'int', icon:'i-bulb', title:it.t, label:'Предзапись', time:'Интенсив · 2 часа', price:'2 800 руб.', lead:'int:' + i, cta:'Предзапись', open:() => intensiveModal(i) }));
-  ADULT.forEach(c => list.push({ id:'c-'+c.id, aud:'a', d:c.d || null, kind:'course', icon:'i-cap', title:'Курс «' + c.title + '»', label:'Предзапись', time:'2 месяца · ' + c.format, price:c.price, lead:'course:' + c.id, cta:'Предзапись', open:() => programModal(c.id) }));
-  KIDS.forEach(c => list.push({ id:'c-'+c.id, aud:'k', d:null, kind:'course', icon:'i-rocket', title:'Курс «' + c.title + '»', label:'Предзапись', time:'3 месяца · очно, 1 раз в неделю', price:c.price, lead:'course:' + c.id, cta:'Предзапись', open:() => programModal(c.id) }));
-  list.push({ id:'kids-mk', aud:'k', d:null, icon:'i-trophy', title:'Мастер-классы, конкурсы и хакатоны для детей', label:'Скоро', time:'Даты – в анонсах клуба', price:'2 000 руб.', lead:'kidsevents', cta:'Узнать', open:() => leadModal('kidsevents') });
-  list.push({ id:'corp', aud:'b', d:null, icon:'i-brief', title:'Обучение для вашей команды', label:'По запросу', time:'Формат и стоимость – после обсуждения', price:'Расчёт под задачу', lead:'corp', cta:'Обсудить', open:() => leadModal('corp') });
   const t = today();
-  const dated = list.filter(x => x.d && x.d >= t).sort((a, b) => a.d - b.d);
-  return [...dated, ...list.filter(x => !x.d)];
+  const list = EVENTS.map((e, i) => ({ ...e, i, d: evDate(e), icon: evIcon(e), label: (e.kind === 'prereg' || e.kind === 'intensive') ? 'Предзапись' : 'Скоро',
+    open: () => (e.course_id && COURSE[e.course_id]) ? programModal(e.course_id) : eventModal(e.id) }))
+    .filter(e => !(e.d && e.d < t));
+  return list.sort((a, b) => (a.d && b.d) ? a.d - b.d : a.d ? -1 : b.d ? 1 : a.i - b.i);
 }
 function evCard(e){
   const date = e.d
     ? `<div class="ev-date" aria-hidden="true"><b>${e.d.getDate()}</b><span>${MON[e.d.getMonth()]} · ${WD[e.d.getDay()]}</span></div>`
-    : `<div class="ev-date pre" aria-hidden="true">${ic(e.icon || 'i-cal')}<span>${esc(e.label || 'Скоро')}</span></div>`;
-  const aud = e.aud === 'k' ? 'Детям 7–14' : AUD[e.aud];
-  const pills = `<span class="pill ${e.aud === 'a' ? '' : e.aud}">${aud}</span>` + (e.free ? '<span class="pill">Бесплатно</span>' : '');
+    : `<div class="ev-date pre" aria-hidden="true">${ic(e.icon)}<span>${esc(e.label)}</span></div>`;
+  const aud = e.audience === 'k' ? 'Детям 7–14' : (AUD[e.audience] || '');
+  const pills = (aud ? `<span class="pill ${e.audience === 'a' ? '' : e.audience}">${aud}</span>` : '') + (e.free ? '<span class="pill">Бесплатно</span>' : '');
   const when = e.d ? `<span class="sr-only">${dm(e.d)}, ${WD[e.d.getDay()]}. </span>` : '';
   return `<article class="ev reveal">
     ${date}
     <div class="ev-mid">
       <div class="pills">${pills}</div>
-      <h3><button type="button" class="ev-name r2" data-ev="${e.id}">${when}${nb(e.title)}</button></h3>
+      <h3><button type="button" class="ev-name r2" data-ev="${esc(e.id)}">${when}${nb(e.title)}</button></h3>
       <div class="ev-meta">${e.time ? `<span>${ic('i-clock')}${esc(e.time)}</span>` : ''}${e.place ? `<span>${ic('i-pin')}${esc(e.place)}</span>` : ''}</div>
     </div>
-    <div class="ev-right"><b>${esc(e.price)}</b><button type="button" class="btn btn-sm${e.free ? '' : ' btn-ghost'}" data-lead="${e.lead}">${esc(e.cta)}${e.free ? ' ' + ic('i-arrow') : ''}</button></div>
+    <div class="ev-right"><b>${esc(e.price || '')}</b><button type="button" class="btn btn-sm${e.free ? '' : ' btn-ghost'}" data-lead="ev:${esc(e.id)}">${esc(e.cta || 'Записаться')}${e.free ? ' ' + ic('i-arrow') : ''}</button></div>
   </article>`;
 }
-const HOME_FEED = ['sunday', 'c-basic', 'c-neurostart'];
 let EV_INDEX = {};
 function renderFeeds(){
   const all = allEvents(); EV_INDEX = Object.fromEntries(all.map(e => [e.id, e]));
-  // Пока даты анонсов не известны, на главной – только эти карточки. Добавить событие = вписать его id сюда.
-  $('[data-feed="home"]').innerHTML = HOME_FEED.map(id => EV_INDEX[id]).filter(Boolean).map(evCard).join('');
-  $('[data-feed="intensives"]').innerHTML = all.filter(e => e.kind === 'int').map(evCard).join('');
+  $('[data-feed="home"]').innerHTML = all.filter(e => e.show_home).map(evCard).join('');
+  $('[data-feed="intensives"]').innerHTML = all.filter(e => e.kind === 'intensive').map(evCard).join('');
+  const sun = EV_INDEX.sunday; $$('[data-next-sunday]').forEach(el => el.textContent = sun && sun.d ? 'Ближайшее – ' + dm(sun.d) : 'Последнее воскресенье месяца');
   observeReveal();
 }
 
 /* ===== Курсы ===== */
 function courseCard(c){
-  const img = c.kids ? `./img/club/${c.img}.jpg` : `./img/${c.img}`;
+  const img = esc(c.photo || '');
   return `<article class="course reveal">
     <div class="course-img"><img src="${img}" alt="" loading="lazy"></div>
     <div class="course-body">
@@ -1443,17 +1481,18 @@ const head = (kicker, title) => `<div class="dialog-head"><p class="r4">${esc(ki
 const facts = arr => `<div class="facts">${arr.map(([k, v]) => `<div class="fact"><span>${esc(k)}</span><b>${esc(v)}</b></div>`).join('')}</div>`;
 
 function eventModal(id){
-  const e = FREE[id];
-  openModal(head('Бесплатная встреча · ' + e.who, e.title) +
-    facts([['Ближайшая', dm(e.d) + ', ' + e.time], ['Когда', e.rule], ['Где', 'Студия клуба, Новоторжская, 18'], ['Стоимость', 'Бесплатно']]) +
-    `<p>${nb(e.desc)}</p><div class="dialog-sec"><p><b>Результат.</b> ${nb(e.result)}</p></div>
-     <div class="dialog-actions"><button class="btn" type="button" data-lead="event:${id}">Записаться ${ic('i-arrow')}</button></div>`);
-}
-function intensiveModal(i){
-  const it = INTENSIVES[i];
-  openModal(head(it.d ? 'Интенсив для взрослых · 2 часа' : 'Интенсив · идёт предзапись', it.t) +
-    facts([['Дата', it.d ? dm(it.d) + ', 19:00' : 'Сообщим, когда назначим'], ['Стоимость', '2 800 руб.']]) +
-    `<p>${nb(INT_DESC)}</p><div class="dialog-actions"><button class="btn" type="button" data-lead="int:${i}">${it.d ? 'Записаться' : 'Оставить предзапись'} ${ic('i-arrow')}</button></div>`);
+  const e = EV_INDEX[id];
+  if (!e) return leadModal('general');
+  const aud = e.audience === 'k' ? 'для детей' : e.audience === 'b' ? 'для бизнеса' : 'для взрослых';
+  const rows = [];
+  rows.push(['Когда', e.d ? dm(e.d) + (e.time && /\d:\d/.test(e.time) ? ', ' + e.time : '') : (e.label === 'Предзапись' ? 'Сообщим, когда назначим' : (e.time || 'Скоро'))]);
+  if (e.repeat) rows.push(['Повторяется', WD_LAST[+String(e.repeat).split('-')[1]] + ' месяца']);
+  else if (e.time && !(e.d && /\d:\d/.test(e.time))) rows.push(['Формат', e.time]);
+  if (e.place) rows.push(['Где', 'Студия клуба, ' + e.place]);
+  if (e.price) rows.push(['Стоимость', e.free ? 'Бесплатно' : e.price]);
+  openModal(head((e.free ? 'Бесплатная встреча' : (KIND_RU[e.kind] || 'Событие')) + ' · ' + aud, e.title) + facts(rows) +
+    (e.description ? `<p>${nb(e.description)}</p>` : '') + (e.result ? `<div class="dialog-sec"><p><b>Результат.</b> ${nb(e.result)}</p></div>` : '') +
+    `<div class="dialog-actions"><button class="btn" type="button" data-lead="ev:${esc(e.id)}">${esc(e.cta || 'Записаться')} ${ic('i-arrow')}</button></div>`);
 }
 let openMod = 0;
 function programModal(id){
@@ -1473,41 +1512,148 @@ function programModal(id){
     `<div class="dialog-sec"><h3 class="r2">Программа курса</h3><div class="mods" data-mods="${id}">${mods}</div></div>` + extra +
     `<div class="dialog-actions"><button class="btn" type="button" data-lead="course:${id}">Записаться ${ic('i-arrow')}</button></div>`, true);
 }
-function docModal(key){
-  const titles = { oferta:['Документ','Договор-оферта'], policy:['Документ','Политика обработки персональных данных'] };
-  const html = $('#doc-' + key).innerHTML;
-  openModal(head(...titles[key]) + `<div class="doc">${html}</div>`, true);
+async function docModal(key){
+  const meta = DOCS.find(d => d.id === key) || { id:key, title:'Документ' };
+  const tpl = $('#doc-' + key);
+  openModal(head('Документ', meta.title) + `<div class="doc">${tpl ? tpl.innerHTML : '<p>Загружаем…</p>'}</div>`, true);
+  try {
+    const r = await fetch(API_BASE + '/api/public/doc/' + encodeURIComponent(key), { cache:'no-cache' }).then(x => { if (!x.ok) throw 0; return x.json(); });
+    if (modal.hidden) return;
+    const body = r.html || (r.file ? `<p><a href="${esc(r.file)}" target="_blank" rel="noopener">Открыть документ (PDF)</a></p>` : '');
+    if (body) $('.doc', mbody).innerHTML = body + (r.html && r.file ? `<p><a href="${esc(r.file)}" target="_blank" rel="noopener">Скачать файл</a></p>` : '');
+  } catch (e) { if (!tpl && !modal.hidden) $('.doc', mbody).innerHTML = '<p>Документ сейчас недоступен. Попробуйте позже.</p>'; }
+}
+function renderDocs(){
+  $('[data-docs-list]').innerHTML = DOCS.map(d => `<li><button class="linkish" type="button" data-doc="${esc(d.id)}">${esc(d.title)}</button></li>`).join('');
+  $('[data-docs-buttons]').innerHTML = DOCS.map(d => `<button class="btn btn-ghost btn-sm" type="button" data-doc="${esc(d.id)}">${ic('i-file')}${esc(d.title)}</button>`).join('');
 }
 
-/* ===== Запись: чат с клубом вместо формы ===== */
+/* ===== Запись: форма заявки (уходит в админку) + мессенджеры ===== */
 function leadInfo(kind){
-  const [type, arg] = kind.split(':');
-  if (type === 'event'){ const e = FREE[arg];
-    return { kicker:'Запись на бесплатную встречу', title:e.title, sum:[['Ближайшая', dm(e.d) + ', ' + e.time], ['Стоимость', 'Бесплатно']], msg:`Здравствуйте! Хочу записать ребёнка на ${e.title} ${dm(e.d)}.` }; }
-  if (type === 'int'){ const it = INTENSIVES[+arg];
-    return { kicker:'Предзапись на интенсив', title:it.t, sum:[['Дата', 'Сообщим, когда назначим'], ['Стоимость', '2 800 руб.']], msg:`Здравствуйте! Хочу на интенсив «${it.t}». Сообщите, пожалуйста, дату.` }; }
-  if (type === 'course'){ const c = COURSE[arg];
-    return { kicker:c.kicker, title:c.title, sum:[[c.kids ? 'Длительность' : 'Старт', c.kids ? '3 месяца, 12 занятий' : 'Идёт предзапись'], ['Стоимость', c.price]],
-      msg:`Здравствуйте! Хочу записа${c.kids ? 'ть ребёнка' : 'ться'} на курс «${c.title}».` }; }
-  if (type === 'corp') return { kicker:'Для бизнеса', title:'Обсудить обучение команды', sum:[['Первый шаг', 'Встреча-знакомство'], ['Стоимость и формат', 'После обсуждения']], msg:'Здравствуйте! Хотим обсудить обучение нейросетям для нашей команды.' };
-  if (type === 'kidsevents') return { kicker:'Детям 7–14 лет', title:'Мастер-классы, конкурсы и хакатоны', sum:[['Стоимость', '2 000 руб.'], ['Даты', 'Сообщим о ближайших']], msg:'Здравствуйте! Сообщите, пожалуйста, о ближайших мастер-классах для детей.' };
-  if (type === 'kidspick') return { kicker:'Детям 7–14 лет', title:'Подобрать курс для ребёнка', msg:'Здравствуйте! Помогите подобрать курс для ребёнка.' };
-  if (type === 'adultpick') return { kicker:'Для взрослых', title:'Подобрать программу', msg:'Здравствуйте! Помогите подобрать программу по нейросетям.' };
-  return { kicker:'Запись в клуб', title:'Записаться или подобрать программу', msg:'Здравствуйте! Хочу записаться в клуб ProНейро. Помогите подобрать программу.' };
+  let [type, arg] = kind.split(':');
+  if (type === 'event') type = 'ev';
+  if (type === 'kidsevents'){ type = 'ev'; arg = 'kids-mk'; }
+  if (type === 'ev'){
+    const e = EV_INDEX[arg];
+    if (!e) return leadInfo('general');
+    if (e.course_id && COURSE[e.course_id]) return leadInfo('course:' + e.course_id);
+    const sum = [['Когда', e.d ? dm(e.d) + (e.time && /\d:\d/.test(e.time) ? ', ' + e.time : '') : 'Сообщим, когда назначим']];
+    if (e.price) sum.push(['Стоимость', e.free ? 'Бесплатно' : e.price]);
+    return { kicker: e.free ? 'Запись на бесплатную встречу' : (e.d ? 'Запись' : 'Предзапись'), title:e.title, sum, interest:e.title + (e.d ? ', ' + dm(e.d) : ''), iid:'ev:' + e.id, kids: e.audience === 'k',
+      submit: e.free || e.d ? 'Записаться' : 'Оставить предзапись', msg:`Здравствуйте! Хочу записаться: ${e.title}${e.d ? ', ' + dm(e.d) : ''}.` };
+  }
+  if (type === 'course'){ const c = COURSE[arg]; if (!c) return leadInfo('general');
+    return { kicker:c.kicker, title:c.title, sum:[[c.kids ? 'Длительность' : 'Старт', c.kids ? (c.len || '') : 'Идёт предзапись'], ['Стоимость', c.price]],
+      interest:'Курс «' + c.title + '»', iid:'course:' + c.id, kids:c.kids, submit:'Оставить заявку', msg:`Здравствуйте! Хочу записа${c.kids ? 'ть ребёнка' : 'ться'} на курс «${c.title}».` }; }
+  if (type === 'corp') return { kicker:'Для бизнеса', title:'Обсудить обучение команды', sum:[['Первый шаг', 'Встреча-знакомство'], ['Стоимость и формат', 'После обсуждения']], interest:'Обучение для команды', iid:'corp', kids:false, company:true, submit:'Отправить запрос', msg:'Здравствуйте! Хотим обсудить обучение нейросетям для нашей команды.' };
+  if (type === 'kidspick') return { kicker:'Детям 7–14 лет', title:'Подобрать курс для ребёнка', interest:'Подобрать курс для ребёнка', iid:'kidspick', kids:true, submit:'Подобрать курс', msg:'Здравствуйте! Помогите подобрать курс для ребёнка.' };
+  if (type === 'adultpick') return { kicker:'Для взрослых', title:'Подобрать программу', interest:'Подобрать программу для взрослого', iid:'adultpick', kids:false, submit:'Подобрать программу', msg:'Здравствуйте! Помогите подобрать программу по нейросетям.' };
+  return { kicker:'Запись в клуб', title:'Записаться или подобрать программу', choose:true, submit:'Отправить заявку', msg:'Здравствуйте! Хочу записаться в клуб ProНейро. Помогите подобрать программу.' };
+}
+function interestOptions(){
+  const o = [['pick', 'Пока не знаю – помогите подобрать', false]];
+  KIDS.forEach(c => o.push(['course:' + c.id, 'Детям: курс «' + c.title + '»', true]));
+  ADULT.forEach(c => o.push(['course:' + c.id, 'Взрослым: курс «' + c.title + '»', false]));
+  allEvents().filter(e => e.kind !== 'prereg').forEach(e => o.push(['ev:' + e.id, (e.audience === 'k' ? 'Детям: ' : e.audience === 'b' ? 'Бизнесу: ' : 'Взрослым: ') + e.title + (e.d ? ', ' + dm(e.d) : ''), e.audience === 'k']));
+  o.push(['corp', 'Обучение для команды', false]);
+  return o;
 }
 function contactHtml(msg){
   // Пока ник/ссылка не вписаны в CONTACTS, кнопка показывается, но никуда не ведёт.
   const tg = CONTACTS.telegram ? ` href="https://t.me/${encodeURIComponent(CONTACTS.telegram)}?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener"` : ' role="link" aria-disabled="true"';
   const mx = CONTACTS.max ? ` href="${esc(CONTACTS.max)}" target="_blank" rel="noopener" data-copy="${esc(msg)}"` : ' role="link" aria-disabled="true"';
-  return `<div class="contact"><p>Напишите нам – ответим на&nbsp;вопросы и&nbsp;запишем.</p><div class="contact-btns">
-    <a class="btn"${tg}>${ic('i-send')}Написать в&nbsp;Telegram</a>
-    <a class="btn btn-ghost"${mx}>${ic('i-chat')}Написать в&nbsp;MAX</a>
-    <a class="btn btn-ghost" href="tel:+79040001213">${ic('i-phone')}Позвонить ${PHONE}</a>
-  </div><p class="copy-note" hidden>Текст сообщения скопирован – вставьте его в&nbsp;чат.</p></div>`;
+  return `<div class="contact-btns">
+    <a class="btn btn-ghost"${tg}>${ic('i-send')}Telegram</a>
+    <a class="btn btn-ghost"${mx}>${ic('i-chat')}MAX</a>
+    <a class="btn btn-ghost" href="tel:+79040001213">${ic('i-phone')}${PHONE}</a>
+  </div><p class="copy-note" hidden>Текст сообщения скопирован – вставьте его в&nbsp;чат.</p>`;
+}
+let formSeq = 0;
+function formHtml(kind){
+  const s = leadInfo(kind), id = 'lf' + (++formSeq);
+  const field = (name, label, attrs = '', hint = '') => `<div class="field"${name === 'child_age' ? ' data-age' + (s.kids ? '' : ' hidden') : ''}><label for="${id}-${name}">${label}${hint ? `<span class="hint">${hint}</span>` : ''}</label><input id="${id}-${name}" name="${name}" ${attrs} aria-describedby="${id}-${name}-err"><p class="err" id="${id}-${name}-err" hidden></p></div>`;
+  const choose = s.choose ? `<div class="field"><label for="${id}-int">Что вас интересует</label><select id="${id}-int" name="iid">${interestOptions().map(([v, l, k]) => `<option value="${esc(v)}" data-kids="${k ? 1 : 0}">${esc(l)}</option>`).join('')}</select></div>` : '';
+  return `<form class="form" novalidate data-lead-form="${esc(kind)}">
+    ${choose}
+    ${field('name', s.kids ? 'Имя родителя' : 'Ваше имя', 'type="text" autocomplete="name" required maxlength="100"')}
+    ${field('phone', 'Телефон', 'type="tel" inputmode="tel" autocomplete="tel" required placeholder="+7 900 000-00-00" maxlength="40"')}
+    ${field('child_age', 'Возраст ребёнка', 'type="text" inputmode="numeric" maxlength="2" placeholder="Например, 9"')}
+    ${s.company ? field('company', 'Компания', 'type="text" autocomplete="organization" maxlength="120"', ' (необязательно)') : ''}
+    <fieldset class="field"><legend>Как удобнее связаться</legend><div class="seg">
+      <label><input type="radio" name="contact_via" value="call" checked><span>Звонок</span></label>
+      <label><input type="radio" name="contact_via" value="telegram"><span>Telegram</span></label>
+      <label><input type="radio" name="contact_via" value="max"><span>MAX</span></label></div></fieldset>
+    <div class="field"><label for="${id}-comment">${s.company ? 'Задача команды' : 'Вопрос или пожелание'}<span class="hint"> (необязательно)</span></label><textarea id="${id}-comment" name="comment" maxlength="1500"></textarea></div>
+    <div class="hp" aria-hidden="true"><label>Сайт <input name="website" tabindex="-1" autocomplete="off"></label></div>
+    <label class="check"><input type="checkbox" name="consent"><span>Согласен(на) на&nbsp;обработку персональных данных в&nbsp;соответствии с&nbsp;<button class="linkish" type="button" data-doc="policy">Политикой</button></span></label>
+    <p class="err" data-consent-err hidden>Нужно согласие на&nbsp;обработку данных</p>
+    <p class="form-msg" data-form-msg hidden></p>
+    <button class="btn btn-block" type="submit">${esc(s.submit)} ${ic('i-arrow')}</button>
+    <div class="lead-alt"><p>Или напишите нам:</p>${contactHtml(s.msg)}</div>
+  </form>`;
 }
 function leadModal(kind){
   const s = leadInfo(kind);
-  openModal(head(s.kicker, s.title) + (s.sum ? facts(s.sum) : '') + contactHtml(s.msg));
+  openModal(head(s.kicker, s.title) + (s.sum ? facts(s.sum) : '') + formHtml(kind));
+}
+function setErr(form, name, msg){
+  const el = form.elements[name], er = el && $('#' + el.id + '-err');
+  if (!el || !er) return; el.setAttribute('aria-invalid', msg ? 'true' : 'false'); er.textContent = msg; er.hidden = !msg;
+}
+async function submitLead(form){
+  const f = form.elements, ageBox = $('[data-age]', form);
+  let first = null;
+  const name = f.name.value.trim(), phone = f.phone.value.trim(), digits = phone.replace(/\D/g, ''), age = f.child_age.value.trim();
+  setErr(form, 'name', name ? '' : 'Укажите имя'); if (!name) first = first || f.name;
+  const okPhone = /^[\d\s()+\-]+$/.test(phone) && digits.length >= 10 && digits.length <= 12;
+  setErr(form, 'phone', okPhone ? '' : 'Укажите телефон – от 10 цифр'); if (!okPhone) first = first || f.phone;
+  const needAge = !ageBox.hidden, okAge = !needAge || !age || (/^\d+$/.test(age) && +age >= 5 && +age <= 18);
+  setErr(form, 'child_age', okAge ? '' : 'Возраст – числом'); if (!okAge) first = first || f.child_age;
+  const cerr = $('[data-consent-err]', form); cerr.hidden = f.consent.checked; if (!f.consent.checked) first = first || f.consent;
+  if (first){ first.focus(); return; }
+  const kind = f.iid ? f.iid.value : form.dataset.leadForm, s = leadInfo(kind);
+  const comment = [f.company && f.company.value.trim() ? 'Компания: ' + f.company.value.trim() : '', f.comment.value.trim()].filter(Boolean).join('\n');
+  const data = { name, phone, child_age: needAge ? age : '', contact_via: (form.querySelector('[name=contact_via]:checked') || {}).value || 'call',
+    interest: s.interest || (f.iid ? f.iid.selectedOptions[0].textContent : ''), interest_id: s.iid || kind, comment, consent: true, website: f.website.value, page: location.hash || '#/' };
+  const btn = $('button[type=submit]', form), msg = $('[data-form-msg]', form); btn.disabled = true; msg.hidden = true;
+  try {
+    const ctrl = new AbortController(); const tm = setTimeout(() => ctrl.abort(), 12000);
+    const r = await fetch(API_BASE + '/api/public/lead', { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify(data), signal: ctrl.signal });
+    clearTimeout(tm);
+    const d = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(d.error || '');
+    const done = `<div class="success"><span class="ic">${ic('i-check')}</span><h2 class="r1"${form.closest('#modal') ? ' id="modal-title"' : ''}>Заявка принята</h2>
+      <p>Спасибо, ${esc(name)}! Мы свяжемся с&nbsp;вами в&nbsp;ближайшее время${data.contact_via === 'call' ? ' по&nbsp;телефону' : data.contact_via === 'telegram' ? ' в&nbsp;Telegram' : ' в&nbsp;MAX'}.</p>
+      ${form.closest('#modal') ? '<button class="btn" type="button" data-close>Хорошо</button>' : ''}</div>`;
+    if (form.closest('#modal')) mbody.innerHTML = done; else form.outerHTML = done;
+  } catch (e) {
+    msg.innerHTML = (e.message && e.message !== 'The user aborted a request.' ? esc(e.message) + '. ' : 'Не получилось отправить заявку. ') + 'Позвоните нам: <a href="tel:+79040001213">' + PHONE + '</a>.';
+    msg.hidden = false; btn.disabled = false;
+  }
+}
+document.addEventListener('submit', e => { const f = e.target.closest('[data-lead-form]'); if (f){ e.preventDefault(); submitLead(f); } });
+document.addEventListener('change', e => {
+  if (e.target.name === 'iid'){ const box = $('[data-age]', e.target.form); if (box) box.hidden = e.target.selectedOptions[0].dataset.kids !== '1'; }
+});
+
+/* ===== Данные из админки ===== */
+async function loadContent(){
+  try {
+    const ctrl = new AbortController(); const tm = setTimeout(() => ctrl.abort(), 4000);
+    const r = await fetch(API_BASE + '/api/public/content', { signal: ctrl.signal, cache:'no-cache' }); clearTimeout(tm);
+    if (!r.ok) return;
+    const d = await r.json();
+    if (Array.isArray(d.courses) && d.courses.length){
+      const cs = d.courses.map(courseFromApi);
+      KIDS.splice(0, KIDS.length, ...cs.filter(c => c.page === 'kids'));
+      ADULT.splice(0, ADULT.length, ...cs.filter(c => c.page !== 'kids'));
+      indexCourses();
+    }
+    if (Array.isArray(d.events)) EVENTS = d.events;
+    if (Array.isArray(d.docs) && d.docs.length) DOCS = d.docs;
+    renderFeeds(); renderCourses(); renderDocs();
+    const pick = $('[data-inline-form]'); if (pick && pick.querySelector('form') && !pick.querySelector('form').elements.name.value) pick.innerHTML = formHtml('pick');
+  } catch (e) { /* админка недоступна – остаются данные, зашитые в сайт */ }
 }
 
 /* ===== Маршруты ===== */
@@ -1554,10 +1700,10 @@ document.addEventListener('click', e => {
   if (d.copy !== undefined){ try { navigator.clipboard.writeText(d.copy); } catch (err) {} const n = t.closest('.contact') && $('.copy-note', t.closest('.contact')); if (n) n.hidden = false; return; }
   if (d.close !== undefined) return closeModal();
   if (d.lead) return leadModal(d.lead);
-  if (d.event) return eventModal(d.event);
+  if (d.event) return EV_INDEX[d.event] ? EV_INDEX[d.event].open() : leadModal('general');
   if (d.program){ openMod = 0; return programModal(d.program); }
   if (d.doc){ e.preventDefault(); return docModal(d.doc); }
-  if (d.ev) return EV_INDEX[d.ev].open();
+  if (d.ev) return EV_INDEX[d.ev] && EV_INDEX[d.ev].open();
   if (d.faqtab){ faqTab = d.faqtab; return renderFaq(); }
   if (d.mod !== undefined){ const box = t.parentElement, body = $('.mod-body', box), open = body.hidden; body.hidden = !open; box.classList.toggle('open', open); t.setAttribute('aria-expanded', open); return; }
   if (d.social) return openModal(head('Соцсети клуба', d.social) + `<p>Ссылку добавим перед запуском. А пока записаться и задать вопрос можно по телефону <a href="tel:+79040001213">${PHONE}</a>.</p>`);
@@ -1577,9 +1723,10 @@ document.addEventListener('keydown', e => {
 window.addEventListener('hashchange', route);
 
 /* ===== Старт ===== */
-$$('[data-next-sunday]').forEach(el => el.textContent = 'Ближайшее – ' + dm(FREE.sunday.d));
-$('[data-contact="pick"]').innerHTML = contactHtml(leadInfo('pick').msg);
-renderFeeds(); renderCourses(); renderFaq(); route();
+renderFeeds(); renderCourses(); renderFaq(); renderDocs();
+$('[data-inline-form]').innerHTML = formHtml('pick');
+route();
+loadContent();
 </script>
 </body>
 </html>
