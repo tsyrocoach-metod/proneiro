@@ -780,6 +780,22 @@ main > [data-page] > .section{padding-top:clamp(28px,4vw,48px);padding-bottom:cl
 .cp-status .icon{width:18px;height:18px;color:var(--cobalt)}
 .tch-grid.two.solo{grid-template-columns:minmax(0,620px)}
 .dark .seats,.fmt-dark .seats{color:var(--ice)}
+
+/* Обложка интенсива */
+.int-cover{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;padding:16px 18px;overflow:hidden;color:#fff;
+  background:radial-gradient(circle at 85% 12%,rgba(120,197,255,.45),transparent 48%),linear-gradient(140deg,var(--cobalt) 0%,#1E56D8 38%,#13213A 100%)}
+.int-cover::before{content:"";position:absolute;right:-30px;top:-30px;width:150px;height:150px;border-radius:50%;border:1px solid rgba(255,255,255,.18)}
+.int-cover-ic{position:absolute;right:16px;top:16px;width:52px;height:52px;border-radius:16px;display:grid;place-items:center;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22)}
+.int-cover-ic .icon{width:28px;height:28px;color:#fff}
+.int-cover-w{position:relative;font-weight:700;font-size:clamp(24px,2.4vw,34px);line-height:1.05;letter-spacing:-.03em;text-wrap:balance}
+.int-cover-k{position:relative;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ice)}
+.mc-ph .int-cover{padding:12px}
+.mc-ph .int-cover-ic{width:42px;height:42px;border-radius:12px;left:12px;right:auto;top:12px}
+.mc-ph .int-cover-ic .icon{width:24px;height:24px}
+.mc-ph .int-cover-w{font-size:20px;hyphens:auto}
+.mc-ph .int-cover-k{display:none}
+.ic-card .int-cover{position:relative;inset:auto;width:calc(100% + 44px);margin:-22px -22px 8px;aspect-ratio:16/10;border-radius:0}
+.ic-card{overflow:hidden}
 </style>
 </head>
 <body>
@@ -1729,16 +1745,33 @@ function evCard(e){
 }
 
 // Фото события: своё → фото курса → по умолчанию для детей/взрослых
+// Обложки курсов для афиши (квадратные, от Светы 23.10). Фото, заданное у события в админке, важнее.
+const COURSE_COVERS = { neurostart:'./img/covers/neurostart.webp', python:'./img/covers/python.webp', roblox:'./img/covers/roblox.webp', basic:'./img/covers/basic.webp', advanced:'./img/covers/advanced.webp' };
 function evPhoto(e){
-  const p = e.photo || (e.course_id && COURSE[e.course_id] && COURSE[e.course_id].photo) || (e.audience === 'k' ? './img/club/kids-sunday.jpg' : './img/club/zal.jpg');
+  const p = e.photo || (e.course_id && (COURSE_COVERS[e.course_id] || (COURSE[e.course_id] && COURSE[e.course_id].photo))) || (e.audience === 'k' ? './img/club/kids-sunday.jpg' : './img/club/zal.jpg');
   return p;
 }
+// Интенсивы: вместо фото – обложка в цветах сайта, крупно тема и иконка. Тема берётся из названия.
+const INT_TOPICS = [
+  [/сайт/i, 'Сайт', 'i-monitor'], [/педагог|урок/i, 'Педагогу', 'i-cap'], [/контент|редак/i, 'Контент', 'i-pen'],
+  [/ассистент/i, 'Ассистенту', 'i-brief'], [/beauty|бьюти|мастер/i, 'Beauty-мастеру', 'i-star'], [/риел|риэл/i, 'Риелтору', 'i-pin'],
+  [/помощник/i, 'Помощник', 'i-chat'],
+];
+function intTopic(e){
+  const t = INT_TOPICS.find(([re]) => re.test(e.title || ''));
+  return t ? { word:t[1], icon:t[2] } : { word:(e.title || '').split(/[:.–—]/)[0].trim(), icon:'i-bulb' };
+}
+function intCover(e){
+  const t = intTopic(e);
+  return `<div class="int-cover" aria-hidden="true"><span class="int-cover-ic">${ic(t.icon)}</span><span class="int-cover-w">${esc(t.word)}</span><span class="int-cover-k">Интенсив · 2 часа</span></div>`;
+}
+const evMedia = e => (e.kind === 'intensive' && !e.photo) ? intCover(e) : `<img src="${esc(evPhoto(e))}" alt="" loading="lazy">`;
 function photoCard(e, main){
   const aud = e.audience === 'k' ? 'Детям 7–14' : (AUD[e.audience] || '');
   const when = e.d ? `${WD[e.d.getDay()]}, ${dm(e.d)}${e.time && /\d:\d/.test(e.time) ? ' · ' + e.time.split('–')[0] : ''}` : (e.when_text || (e.label === NABOR ? NABOR : 'Скоро'));
   const meta = [aud ? `<span>${ic('i-users')}${esc(aud)}</span>` : '', e.time && !(e.d && /\d:\d/.test(e.time)) ? `<span>${ic('i-clock')}${esc(e.time)}</span>` : '', e.place ? `<span>${ic('i-pin')}${esc(e.place)}</span>` : ''].join('');
   return `<article class="pc reveal${main ? ' main' : ''}">
-    <div class="pc-ph"><img src="${esc(evPhoto(e))}" alt="" loading="lazy">${main ? '<span class="pill">Ближайшее</span>' : (e.free ? '<span class="pill">Бесплатно</span>' : isNabor(e) ? `<span class="pill">${NABOR}</span>` : '')}</div>
+    <div class="pc-ph">${evMedia(e)}${main ? '<span class="pill">Ближайшее</span>' : (e.free ? '<span class="pill">Бесплатно</span>' : isNabor(e) ? `<span class="pill">${NABOR}</span>` : '')}</div>
     <div class="pc-body"><p class="pc-when">${esc(when)}</p>
       <h3><button type="button" class="pc-name r2" data-ev="${esc(e.id)}">${nb(e.title)}</button></h3>
       ${main && e.description ? `<p class="pc-desc">${nb(e.description)}</p>` : ''}
@@ -1756,7 +1789,7 @@ function priceHtml(e){
 function intCard(e){
   const when = e.d ? `${WD[e.d.getDay()]}, ${dm(e.d)}` : (e.when_text || NABOR);
   return `<article class="ic-card">
-    <span class="ic-sq">${ic('i-bulb')}</span>
+    ${intCover(e)}
     <p class="pc-when">${esc(when)}</p>
     <h3><button type="button" class="pc-name r2" data-ev="${esc(e.id)}">${nb(e.title)}</button></h3>
     <p class="ic-meta">Интенсив · 2 часа · ${esc(e.price || '')}</p>${seatsHtml(true)}
@@ -1767,7 +1800,7 @@ function miniCard(e){
   const when = e.d ? `${WD[e.d.getDay()]}, ${dm(e.d)}${e.time && /\d:\d/.test(e.time) ? ' · ' + e.time.split('–')[0] : ''}` : (e.when_text || (e.label === NABOR ? NABOR : 'Скоро'));
   const aud = e.audience === 'k' ? 'детям 7–14' : (e.audience === 'b' ? 'командам' : 'взрослым');
   return `<article class="mc reveal">
-    <div class="mc-ph"><img src="${esc(evPhoto(e))}" alt="" loading="lazy"></div>
+    <div class="mc-ph">${evMedia(e)}</div>
     <div class="mc-body"><p class="pc-when">${esc(when)} · ${aud}</p>
       <h3><button type="button" class="pc-name r2" data-ev="${esc(e.id)}">${nb(e.title)}</button></h3>
       ${isNabor(e) ? seatsHtml(true) : ''}<div class="mc-foot">${priceHtml(e)}<button type="button" class="btn btn-sm${e.free ? '' : ' btn-ghost'}" data-lead="ev:${esc(e.id)}">${esc(ctaOf(e))}</button></div>
