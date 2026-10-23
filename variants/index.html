@@ -158,7 +158,7 @@ a{color:var(--cobalt)}
 
 /* ===== 6. Спикеры ===== */
 .sp-ph{background:linear-gradient(160deg,#EAF2FF 0%,#C9DBF7 100%)}
-.sp-ph img{object-fit:cover;object-position:center top;-webkit-mask-image:linear-gradient(180deg,#000 72%,transparent 100%);mask-image:linear-gradient(180deg,#000 72%,transparent 100%)}
+.sp-ph img{top:18px!important;height:calc(100% - 18px)!important;object-fit:cover;object-position:center top}
 .sp-a{overflow:hidden;display:flex;flex-direction:column}
 .sp-a .ph{aspect-ratio:4/3.6}
 .sp-a .in{padding:18px 20px 22px;display:grid;gap:6px;justify-items:start}
@@ -167,7 +167,7 @@ a{color:var(--cobalt)}
 .sp-b .in{padding:24px;display:grid;gap:8px;align-content:center;justify-items:start}
 .sp-c{padding:26px 22px;display:grid;justify-items:center;text-align:center;gap:8px}
 .sp-c .circle{width:150px;height:150px;border-radius:50%;overflow:hidden;position:relative;background:linear-gradient(160deg,#EAF2FF,#9EC8F5);box-shadow:0 0 0 6px #fff,0 0 0 7px var(--line-2)}
-.sp-c .circle img{position:absolute;left:50%;top:6px;width:140%;max-width:none;transform:translateX(-50%)}
+.sp-c .circle img{position:absolute;left:50%;top:10px;width:118%;max-width:none;transform:translateX(-50%)}
 .chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:4px}
 .sp-d{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);border-radius:var(--r-lg);overflow:hidden;background:linear-gradient(135deg,var(--midnight),#16284A);color:#C9D3E3}
 .sp-d .ph{min-height:380px;background:radial-gradient(circle at 50% 40%,#2A5BA8,#0E141D 75%)}
@@ -323,32 +323,32 @@ a{color:var(--cobalt)}
   </section>
 
   <!-- ============ 6. СПИКЕРЫ ============ -->
-  <section class="block" id="speakers"><h2>6. Преподаватели и спикеры</h2><p class="lead">На примере Светланы: фото без фона, на одинаковой голубой подложке – так все преподаватели будут выглядеть единообразно.</p>
+  <section class="block" id="speakers"><h2>6. Преподаватели и спикеры</h2><p class="lead">На примере Светланы: фото на прозрачном фоне – встаёт на подложку любого цвета, так все преподаватели будут выглядеть единообразно.</p>
     <div class="var"><div class="v-head"><span class="v-num">A</span><span class="v-title">Вертикальная карточка, фото на подложке</span></div>
       <p class="v-note">Ровная сетка по 4 – удобно для главной.</p>
       <div class="stage"><div class="g4">
-        <article class="card sp-a lift"><div class="ph sp-ph"><img src="../img/team/svetlana.png" alt=""></div><div class="in"><span class="pill">Взрослым</span><h3 class="r2">Светлана Цыро</h3><p>Методолог обучения, преподаватель курсов для&nbsp;взрослых</p></div></article>
-        <article class="card sp-a lift"><div class="ph sp-ph" style="display:grid;place-items:center;color:var(--cobalt)"><svg class="icon" style="width:56px;height:56px;position:static;stroke-width:1.2"><use href="#i-person"/></svg></div><div class="in"><span class="pill">Взрослым</span><h3 class="r2">Анастасия</h3><p>Преподаватель курсов для&nbsp;взрослых</p></div></article>
-        <article class="card sp-a lift"><div class="ph sp-ph" style="display:grid;place-items:center;color:var(--cobalt)"><svg class="icon" style="width:56px;height:56px;position:static;stroke-width:1.2"><use href="#i-person"/></svg></div><div class="in"><span class="pill k">Детям</span><h3 class="r2">Имя педагога</h3><p>Педагог курсов для&nbsp;детей</p></div></article>
-        <article class="card sp-a lift"><div class="ph sp-ph" style="display:grid;place-items:center;color:var(--cobalt)"><svg class="icon" style="width:56px;height:56px;position:static;stroke-width:1.2"><use href="#i-person"/></svg></div><div class="in"><span class="pill k">Детям</span><h3 class="r2">Имя педагога</h3><p>Педагог курсов для&nbsp;детей</p></div></article>
+        <article class="card sp-a lift"><div class="ph sp-ph" style="display:grid;place-items:center;color:var(--cobalt)"><svg class="icon" style="width:56px;height:56px;position:static;stroke-width:1.2"><use href="#i-person"/></svg></div><div class="in"><span class="pill">Взрослым</span><h3 class="r2">Анастасия Фамилия</h3><p>Преподаватель курсов для&nbsp;взрослых</p></div></article>
+        <article class="card sp-a lift"><div class="ph sp-ph"><img src="../img/team/svetlana.webp" alt=""></div><div class="in"><span class="pill">Взрослым</span><h3 class="r2">Светлана Цыро</h3><p>Методолог обучения, преподаватель курсов для&nbsp;взрослых</p></div></article>
+        <article class="card sp-a lift"><div class="ph sp-ph" style="display:grid;place-items:center;color:var(--cobalt)"><svg class="icon" style="width:56px;height:56px;position:static;stroke-width:1.2"><use href="#i-person"/></svg></div><div class="in"><span class="pill k">Детям</span><h3 class="r2">Имя Фамилия</h3><p>Педагог курсов для&nbsp;детей</p></div></article>
+        <article class="card sp-a lift"><div class="ph sp-ph" style="display:grid;place-items:center;color:var(--cobalt)"><svg class="icon" style="width:56px;height:56px;position:static;stroke-width:1.2"><use href="#i-person"/></svg></div><div class="in"><span class="pill k">Детям</span><h3 class="r2">Имя Фамилия</h3><p>Педагог курсов для&nbsp;детей</p></div></article>
       </div></div></div>
     <div class="var"><div class="v-head"><span class="v-num">B</span><span class="v-title">Горизонтальная карточка с описанием</span></div>
       <p class="v-note">Больше места для текста: 2–3 строки об опыте и чем человек поможет. Хорошо для страниц «Взрослым» и «Детям».</p>
       <div class="stage"><div class="g2">
-        <article class="card sp-b lift"><div class="ph sp-ph"><img src="../img/team/svetlana.png" alt=""></div><div class="in"><span class="pill">Взрослым</span><h3 class="r2">Светлана Цыро</h3><p>Методолог обучения. Помогает встроить нейросети в&nbsp;работу и&nbsp;своё дело – на&nbsp;ваших задачах, без сложных терминов.</p><span class="example">описание – пример</span></div></article>
-        <article class="card sp-b lift"><div class="ph sp-ph" style="display:grid;place-items:center;color:var(--cobalt)"><svg class="icon" style="width:56px;height:56px;position:static;stroke-width:1.2"><use href="#i-person"/></svg></div><div class="in"><span class="pill">Взрослым</span><h3 class="r2">Анастасия</h3><p>Преподаватель базового курса «Нейросети: с&nbsp;нуля к&nbsp;практике».</p></div></article>
+        <article class="card sp-b lift"><div class="ph sp-ph" style="display:grid;place-items:center;color:var(--cobalt)"><svg class="icon" style="width:56px;height:56px;position:static;stroke-width:1.2"><use href="#i-person"/></svg></div><div class="in"><span class="pill">Взрослым</span><h3 class="r2">Анастасия Фамилия</h3><p>Преподаватель базового курса «Нейросети: с&nbsp;нуля к&nbsp;практике».</p></div></article>
+        <article class="card sp-b lift"><div class="ph sp-ph"><img src="../img/team/svetlana.webp" alt=""></div><div class="in"><span class="pill">Взрослым</span><h3 class="r2">Светлана Цыро</h3><p>Методолог обучения. Помогает встроить нейросети в&nbsp;работу и&nbsp;своё дело – на&nbsp;ваших задачах, без сложных терминов.</p><span class="example">описание – пример</span></div></article>
       </div></div></div>
     <div class="var"><div class="v-head"><span class="v-num">C</span><span class="v-title">Круглое фото, по центру</span></div>
       <p class="v-note">Мягко и дружелюбно, хорошо смотрится, когда людей много. Под именем – темы, которые ведёт человек.</p>
       <div class="stage"><div class="g4">
-        <article class="card sp-c lift"><div class="circle"><img src="../img/team/svetlana.png" alt=""></div><h3 class="r2">Светлана Цыро</h3><p>Методолог, курсы для&nbsp;взрослых</p><div class="chips"><span class="pill">Помощники</span><span class="pill">Сайты</span><span class="pill">Методология</span></div></article>
-        <article class="card sp-c lift"><div class="circle" style="display:grid;place-items:center;color:var(--cobalt)"><svg class="icon" style="width:52px;height:52px;stroke-width:1.2"><use href="#i-person"/></svg></div><h3 class="r2">Анастасия</h3><p>Курсы для&nbsp;взрослых</p><div class="chips"><span class="pill">Базовый курс</span></div></article>
-        <article class="card sp-c lift"><div class="circle" style="display:grid;place-items:center;color:var(--cobalt)"><svg class="icon" style="width:52px;height:52px;stroke-width:1.2"><use href="#i-person"/></svg></div><h3 class="r2">Имя педагога</h3><p>Курсы для&nbsp;детей</p><div class="chips"><span class="pill k">Roblox</span><span class="pill k">Python</span></div></article>
-        <article class="card sp-c lift"><div class="circle" style="display:grid;place-items:center;color:var(--cobalt)"><svg class="icon" style="width:52px;height:52px;stroke-width:1.2"><use href="#i-person"/></svg></div><h3 class="r2">Имя педагога</h3><p>Курсы для&nbsp;детей</p><div class="chips"><span class="pill k">Дизайн</span><span class="pill k">Нейростарт</span></div></article>
+        <article class="card sp-c lift"><div class="circle" style="display:grid;place-items:center;color:var(--cobalt)"><svg class="icon" style="width:52px;height:52px;stroke-width:1.2"><use href="#i-person"/></svg></div><h3 class="r2">Анастасия Фамилия</h3><p>Курсы для&nbsp;взрослых</p><div class="chips"><span class="pill">Базовый курс</span></div></article>
+        <article class="card sp-c lift"><div class="circle"><img src="../img/team/svetlana.webp" alt=""></div><h3 class="r2">Светлана Цыро</h3><p>Методолог, курсы для&nbsp;взрослых</p><div class="chips"><span class="pill">Помощники</span><span class="pill">Сайты</span><span class="pill">Методология</span></div></article>
+        <article class="card sp-c lift"><div class="circle" style="display:grid;place-items:center;color:var(--cobalt)"><svg class="icon" style="width:52px;height:52px;stroke-width:1.2"><use href="#i-person"/></svg></div><h3 class="r2">Имя Фамилия</h3><p>Курсы для&nbsp;детей</p><div class="chips"><span class="pill k">Roblox</span><span class="pill k">Python</span></div></article>
+        <article class="card sp-c lift"><div class="circle" style="display:grid;place-items:center;color:var(--cobalt)"><svg class="icon" style="width:52px;height:52px;stroke-width:1.2"><use href="#i-person"/></svg></div><h3 class="r2">Имя Фамилия</h3><p>Курсы для&nbsp;детей</p><div class="chips"><span class="pill k">Дизайн</span><span class="pill k">Нейростарт</span></div></article>
       </div></div></div>
     <div class="var"><div class="v-head"><span class="v-num">D</span><span class="v-title">Большой портрет ведущего</span></div>
       <p class="v-note">Для страницы курса или интенсива: один человек крупно, на тёмном фоне, с тем, что он даст участникам.</p>
-      <div class="stage"><div class="sp-d"><div class="ph"><img src="../img/team/svetlana.png" alt=""></div><div class="in"><p class="r4">Ведущая курса</p><p class="big">Светлана Цыро</p><p>Методолог обучения. На&nbsp;курсе помогает:</p><ul><li>собрать своего ИИ-помощника под задачи вашего дела</li><li>сделать сайт или страницу услуги без программиста</li><li>выстроить систему работы с&nbsp;нейросетями</li></ul><span class="example" style="justify-self:start">описание – пример</span></div></div></div></div>
+      <div class="stage"><div class="sp-d"><div class="ph"><img src="../img/team/svetlana.webp" alt=""></div><div class="in"><p class="r4">Ведущая курса</p><p class="big">Светлана Цыро</p><p>Методолог обучения. На&nbsp;курсе помогает:</p><ul><li>собрать своего ИИ-помощника под задачи вашего дела</li><li>сделать сайт или страницу услуги без программиста</li><li>выстроить систему работы с&nbsp;нейросетями</li></ul><span class="example" style="justify-self:start">описание – пример</span></div></div></div></div>
   </section>
   <div style="height:80px"></div>
 </main>
