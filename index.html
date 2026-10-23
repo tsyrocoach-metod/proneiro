@@ -555,6 +555,7 @@ fieldset.field{border:0;padding:0;margin:0}
 .dir-text .btn{align-self:flex-end;margin-top:auto}
 .dir-list{margin-bottom:28px}
 .dir-media{height:clamp(190px,17vw,240px)!important}
+.teams-topics{margin:22px 0 18px}
 @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
 .reveal.in{opacity:1;transform:none}
@@ -619,7 +620,6 @@ fieldset.field{border:0;padding:0;margin:0}
     <nav class="nav" aria-label="Основная навигация">
       <a href="#/adults" data-nav="adults">Взрослым</a>
       <a href="#/kids" data-nav="kids">Детям</a>
-      <a href="#/business" data-nav="business">Бизнесу</a>
       <a href="#/events" data-nav="events">События</a>
       <a href="#/contacts" data-nav="contacts">Контакты</a>
     </nav>
@@ -633,7 +633,6 @@ fieldset.field{border:0;padding:0;margin:0}
   <a href="#/">Главная <svg class="icon"><use href="#i-arrow"/></svg></a>
   <a href="#/adults">Взрослым <svg class="icon"><use href="#i-arrow"/></svg></a>
   <a href="#/kids">Детям 7–14 лет <svg class="icon"><use href="#i-arrow"/></svg></a>
-  <a href="#/business">Бизнесу <svg class="icon"><use href="#i-arrow"/></svg></a>
   <a href="#/events">Ближайшие события <svg class="icon"><use href="#i-arrow"/></svg></a>
   <a href="#/contacts">Контакты <svg class="icon"><use href="#i-arrow"/></svg></a>
   <button class="btn" type="button" data-lead="general">Записаться</button>
@@ -715,25 +714,6 @@ fieldset.field{border:0;padding:0;margin:0}
           <a class="btn" href="#/kids">Подробнее <svg class="icon"><use href="#i-arrow"/></svg></a>
         </div>
       </article>
-      <article class="dir reveal">
-        <div class="dir-media"><img class="fm-blur" src="./img/business.jpg?v=2" alt="" aria-hidden="true" loading="lazy"><img class="fm-sharp" src="./img/business.jpg?v=2" alt="Команда на занятии" loading="lazy"></div>
-        <div class="dir-text">
-          <p class="r4">Для бизнеса</p>
-          <h3 class="r1">ИИ для вашей команды</h3>
-          <ul class="dir-list"><li><b>Вводная встреча</b> – разбираем задачи и&nbsp;текущий опыт команды</li><li><b>Практикум или программа</b> – на&nbsp;обезличенных примерах из&nbsp;вашей работы</li></ul>
-          <a class="btn" href="#/business">Подробнее <svg class="icon"><use href="#i-arrow"/></svg></a>
-        </div>
-      </article>
-      <article class="dir dir-help reveal">
-        <div class="dir-text">
-          <span class="ic"><svg class="icon"><use href="#i-compass"/></svg></span>
-          <p class="r4">Подбор программы</p>
-          <h3 class="r1">Не&nbsp;знаете, что выбрать?</h3>
-          <p>Свяжитесь с&nbsp;нами – подскажем, с&nbsp;чего начать вам или ребёнку.</p>
-          <div class="hero-actions"><button class="btn" type="button" data-lead="pick">Связаться с&nbsp;нами <svg class="icon"><use href="#i-arrow"/></svg></button><a class="btn btn-ghost" href="tel:+79040001213">8-904-000-12-13</a></div>
-        </div>
-      </article>
-
     </div>
   </section>
 
@@ -1028,51 +1008,23 @@ fieldset.field{border:0;padding:0;margin:0}
     <div class="courses two" data-courses="adults"></div>
   </section>
 
-  <section class="section wrap">
-    <div class="cta">
-      <div class="cta-left"><span class="ic"><svg class="icon"><use href="#i-rocket"/></svg></span><div><h2 class="r2">Не уверены, какой курс подойдёт?</h2><p>Расскажите о&nbsp;своих задачах – подскажем, с&nbsp;чего начать.</p></div></div>
-      <button class="btn btn-light" type="button" data-lead="adultpick">Подобрать программу <svg class="icon"><use href="#i-arrow"/></svg></button>
-    </div>
-  </section>
-</div>
-
-<!-- ============ БИЗНЕСУ ============ -->
-<div data-page="business" hidden>
-  <section class="fade-hero" aria-labelledby="biz-title">
-    <div class="fade-media"><img class="fm-blur" src="./img/business.jpg?v=2" alt="" aria-hidden="true" fetchpriority="high"><img class="fm-sharp" src="./img/business.jpg?v=2" alt="Команда на занятии" fetchpriority="high"></div>
-    <div class="wrap fade-inner">
-      <div class="hero-text">
-        <nav class="crumbs" aria-label="Навигация по сайту"><a href="#/">Главная</a><span aria-hidden="true">/</span><span>Бизнесу</span></nav>
-        <p class="r4">Для компаний · обучение под запрос</p>
-        <h1 class="r1" id="biz-title">ИИ под задачи вашей команды</h1>
-        <p class="hero-lead">Вы ставите перед нами задачу – мы предлагаем программу и&nbsp;формат и&nbsp;производим расчёт. Начинаем со&nbsp;встречи-знакомства.</p>
-        <div class="hero-actions"><button class="btn" type="button" data-lead="corp">Обсудить обучение <svg class="icon"><use href="#i-arrow"/></svg></button></div>
-      </div>
-    </div>
-  </section>
-  <section class="section wrap" aria-labelledby="corp-steps">
+  <section class="section wrap" id="teams" aria-labelledby="teams-title">
     <div class="panel">
-      <div class="head"><div class="head-text"><p class="r4">Как мы работаем</p><h2 class="r1" id="corp-steps">Три шага до&nbsp;программы для команды</h2></div></div>
+      <div class="head"><div class="head-text"><p class="r4">Для компаний · обучение под запрос</p><h2 class="r1" id="teams-title">Обучение для вашей команды</h2>
+        <p>Вы ставите задачу – мы предлагаем программу и&nbsp;формат и&nbsp;производим расчёт. Начинаем со&nbsp;встречи-знакомства.</p></div></div>
       <ol class="grid-3">
         <li class="step"><span class="n">1</span><p>Обсуждаем рабочие задачи, текущий опыт и&nbsp;желаемый результат.</p></li>
         <li class="step"><span class="n">2</span><p>Выбираем вводную встречу, практикум или последовательную программу.</p></li>
         <li class="step"><span class="n">3</span><p>Практикуемся на&nbsp;подходящих обезличенных учебных примерах.</p></li>
       </ol>
-    </div>
-  </section>
-  <section class="section wrap" aria-labelledby="corp-topics">
-    <div class="head"><div class="head-text"><p class="r4">Возможные темы</p><h2 class="r1" id="corp-topics">С чего обычно начинают команды</h2><p>Стоимость, длительность и&nbsp;место проведения согласуем после обсуждения.</p></div></div>
-    <div class="grid-2">
-      <div class="card card-row"><span class="ic"><svg class="icon"><use href="#i-file"/></svg></span><div><h3 class="r2">Документы и&nbsp;переписка</h3></div></div>
-      <div class="card card-row"><span class="ic"><svg class="icon"><use href="#i-image"/></svg></span><div><h3 class="r2">Контент и&nbsp;маркетинг</h3></div></div>
-      <div class="card card-row"><span class="ic"><svg class="icon"><use href="#i-layers"/></svg></span><div><h3 class="r2">Помощники для повторяющихся задач</h3></div></div>
-      <div class="card card-row"><span class="ic"><svg class="icon"><use href="#i-users"/></svg></span><div><h3 class="r2">ИИ для руководителя и&nbsp;команды</h3></div></div>
+      <p class="teams-topics"><b>С чего обычно начинают:</b> документы и&nbsp;переписка, контент и&nbsp;маркетинг, помощники для повторяющихся задач, ИИ для руководителя и&nbsp;команды. Стоимость, длительность и&nbsp;место согласуем после обсуждения.</p>
+      <div class="hero-actions"><button class="btn" type="button" data-lead="corp">Обсудить обучение <svg class="icon"><use href="#i-arrow"/></svg></button></div>
     </div>
   </section>
   <section class="section wrap">
     <div class="cta">
-      <div class="cta-left"><span class="ic"><svg class="icon"><use href="#i-brief"/></svg></span><div><h2 class="r2">Расскажите о&nbsp;задаче</h2><p>Предложим формат и&nbsp;рассчитаем стоимость.</p></div></div>
-      <button class="btn btn-light" type="button" data-lead="corp">Обсудить обучение <svg class="icon"><use href="#i-arrow"/></svg></button>
+      <div class="cta-left"><span class="ic"><svg class="icon"><use href="#i-rocket"/></svg></span><div><h2 class="r2">Не уверены, какой курс подойдёт?</h2><p>Расскажите о&nbsp;своих задачах – подскажем, с&nbsp;чего начать.</p></div></div>
+      <button class="btn btn-light" type="button" data-lead="adultpick">Подобрать программу <svg class="icon"><use href="#i-arrow"/></svg></button>
     </div>
   </section>
 </div>
@@ -1135,7 +1087,7 @@ fieldset.field{border:0;padding:0;margin:0}
       </div>
       <div>
         <p class="r4">Направления</p>
-        <ul><li><a href="#/adults">Для взрослых</a></li><li><a href="#/kids">Для детей 7–14 лет</a></li><li><a href="#/business">Для бизнеса</a></li><li><a href="#/events">Ближайшие события</a></li></ul>
+        <ul><li><a href="#/adults">Для взрослых</a></li><li><a href="#/kids">Для детей 7–14 лет</a></li><li><a href="#/events">Ближайшие события</a></li></ul>
       </div>
       <div>
         <p class="r4">Контакты</p>
@@ -1643,7 +1595,7 @@ function leadInfo(kind){
   if (type === 'course'){ const c = COURSE[arg]; if (!c) return leadInfo('general');
     return { kicker:c.kicker, title:c.title, sum:[[c.kids ? 'Длительность' : 'Старт', c.kids ? (c.len || '') : 'Идёт предзапись'], ['Стоимость', c.price]],
       interest:'Курс «' + c.title + '»', iid:'course:' + c.id, kids:c.kids, submit:'Оставить заявку', msg:`Здравствуйте! Хочу записа${c.kids ? 'ть ребёнка' : 'ться'} на курс «${c.title}».` }; }
-  if (type === 'corp') return { kicker:'Для бизнеса', title:'Обсудить обучение команды', sum:[['Первый шаг', 'Встреча-знакомство'], ['Стоимость и формат', 'После обсуждения']], interest:'Обучение для команды', iid:'corp', kids:false, company:true, submit:'Отправить запрос', msg:'Здравствуйте! Хотим обсудить обучение нейросетям для нашей команды.' };
+  if (type === 'corp') return { kicker:'Для компаний', title:'Обсудить обучение команды', sum:[['Первый шаг', 'Встреча-знакомство'], ['Стоимость и формат', 'После обсуждения']], interest:'Обучение для команды', iid:'corp', kids:false, company:true, submit:'Отправить запрос', msg:'Здравствуйте! Хотим обсудить обучение нейросетям для нашей команды.' };
   if (type === 'kidspick') return { kicker:'Детям 7–14 лет', title:'Подобрать курс для ребёнка', interest:'Подобрать курс для ребёнка', iid:'kidspick', kids:true, submit:'Подобрать курс', msg:'Здравствуйте! Помогите подобрать курс для ребёнка.' };
   if (type === 'adultpick') return { kicker:'Для взрослых', title:'Подобрать программу', interest:'Подобрать программу для взрослого', iid:'adultpick', kids:false, submit:'Подобрать программу', msg:'Здравствуйте! Помогите подобрать программу по нейросетям.' };
   return { kicker:'Запись в клуб', title:'Записаться или подобрать программу', choose:true, submit:'Отправить заявку', msg:'Здравствуйте! Хочу записаться в клуб ProНейро. Помогите подобрать программу.' };
@@ -1652,7 +1604,7 @@ function interestOptions(){
   const o = [['pick', 'Пока не знаю – помогите подобрать', false]];
   KIDS.forEach(c => o.push(['course:' + c.id, 'Детям: курс «' + c.title + '»', true]));
   ADULT.forEach(c => o.push(['course:' + c.id, 'Взрослым: курс «' + c.title + '»', false]));
-  allEvents().filter(e => e.kind !== 'prereg').forEach(e => o.push(['ev:' + e.id, (e.audience === 'k' ? 'Детям: ' : e.audience === 'b' ? 'Бизнесу: ' : 'Взрослым: ') + e.title + (e.d ? ', ' + dm(e.d) : ''), e.audience === 'k']));
+  allEvents().filter(e => e.kind !== 'prereg').forEach(e => o.push(['ev:' + e.id, (e.audience === 'k' ? 'Детям: ' : e.audience === 'b' ? 'Командам: ' : 'Взрослым: ') + e.title + (e.d ? ', ' + dm(e.d) : ''), e.audience === 'k']));
   o.push(['corp', 'Обучение для команды', false]);
   return o;
 }
@@ -1755,13 +1707,14 @@ async function loadContent(){
 }
 
 /* ===== Маршруты ===== */
-const PAGES = ['home','kids','adults','business','svedeniya'];
+const PAGES = ['home','kids','adults','svedeniya'];
 function route(){
   const h = (location.hash || '').replace(/^#\/?/, '');
   let page = PAGES.includes(h) ? h : 'home', anchor = null;
   if (['events','contacts','directions'].includes(h)){ page = 'home'; anchor = h; }
   if (h === 'kids-courses'){ page = 'kids'; anchor = h; }
-  if (['adult-courses','intensives'].includes(h)){ page = 'adults'; anchor = h; }
+  if (['adult-courses','intensives','teams'].includes(h)){ page = 'adults'; anchor = h; }
+  if (h === 'business'){ page = 'adults'; anchor = 'teams'; }
   $$('[data-page]').forEach(p => p.hidden = p.dataset.page !== page);
   $$('[data-nav]').forEach(a => { if (a.dataset.nav === (anchor || page)) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
   setMenu(false); if (!modal.hidden) closeModal();
