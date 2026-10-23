@@ -1,0 +1,1742 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>proнейро – клуб практического ИИ в Твери</title>
+<meta name="description" content="ProНейро – клуб практического искусственного интеллекта в центре Твери. Нейросети на практике для взрослых, детей 7–14 лет и бизнеса: курсы, мастер-классы и бесплатные встречи.">
+<link rel="icon" type="image/png" href="../img/emblem.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&display=swap&subset=cyrillic" rel="stylesheet">
+<style>
+/*
+  Шкала текста – ровно 4 роли (design-kits/МЕТОД.md, B2):
+  Р1 Заголовок   .r1        – Onest 600, один размер для всех заголовков разделов
+  Р2 Подзаголовок .r2       – Onest 600, 20px: заголовки карточек, строк аккордеона, цены
+  Р3 Текст        body      – Onest 400, 17px (16px на телефоне), один цвет --text
+  Р4 Метка        .r4       – 13px, капс с разрядкой, кобальт
+  Кнопки и поля – интерфейс, не текстовая роль. Инлайн-стилей в разметке нет.
+  Палитра – брендбук: Graphite #161A22, Midnight #0E141D, Cobalt #0066FF, Ice Blue #78C5FF, Silver #D4DAE3, White.
+*/
+:root{
+  --ink:#161A22; --midnight:#0E141D; --cobalt:#0066FF; --cobalt-d:#0052CC; --ice:#78C5FF; --silver:#D4DAE3;
+  --bg:#F3F7FD; --card:#FFFFFF; --text:#3D4555; --tint:#EAF2FF; --tint-2:#F5F9FF;
+  --line:rgba(22,26,34,.08); --line-2:rgba(22,26,34,.14);
+  --shadow:0 1px 2px rgba(14,20,29,.04),0 12px 32px rgba(14,20,29,.06);
+  --shadow-up:0 2px 4px rgba(14,20,29,.05),0 20px 44px rgba(0,102,255,.12);
+  --r-lg:28px; --r-md:20px; --r-sm:14px;
+  --pad:clamp(16px,4vw,40px);
+}
+*{box-sizing:border-box}
+html{scroll-padding-top:84px;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font:400 17px/1.55 'Onest',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(900px 600px at 92% -8%,rgba(120,197,255,.32),transparent 60%),
+             radial-gradient(700px 520px at -10% 30%,rgba(0,102,255,.07),transparent 60%),
+             radial-gradient(800px 600px at 80% 85%,rgba(120,197,255,.18),transparent 60%)}
+h1,h2,h3,h4,p,ul,ol,figure{margin:0}
+ul,ol{padding:0;list-style:none}
+img{display:block;max-width:100%}
+a{color:var(--cobalt);text-underline-offset:3px}
+button,input,textarea,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--cobalt);outline-offset:3px;border-radius:8px}
+[hidden]{display:none!important}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.icon{width:22px;height:22px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.icon-sm{width:18px;height:18px}
+
+/* Роли текста */
+.r1{font-weight:600;font-size:clamp(30px,3.9vw,52px);line-height:1.06;letter-spacing:-.035em;color:var(--ink);text-wrap:balance}
+.r1 .accent{color:var(--cobalt)}
+.r2{font-weight:600;font-size:20px;line-height:1.25;letter-spacing:-.015em;color:var(--ink)}
+.r4{font-weight:600;font-size:13px;line-height:1.3;letter-spacing:.08em;text-transform:uppercase;color:var(--cobalt)}
+b,strong{font-weight:600;color:var(--ink)}
+
+/* Каркас */
+.wrap{max-width:1280px;margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+.section{padding-top:clamp(28px,4vw,48px);padding-bottom:clamp(28px,4vw,48px)}
+.panel{background:rgba(255,255,255,.78);border:1px solid rgba(255,255,255,.9);border-radius:var(--r-lg);box-shadow:var(--shadow);padding:clamp(22px,3.4vw,44px);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px 32px;flex-wrap:wrap;margin-bottom:clamp(20px,2.6vw,32px)}
+.head-text{display:grid;gap:10px;max-width:820px;align-content:start}
+.link-arrow{display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:16px;color:var(--cobalt);background:none;border:0;padding:8px 0;text-decoration:none;white-space:nowrap}
+.link-arrow:hover{gap:10px}
+.link-arrow .icon{width:18px;height:18px;transition:transform .2s}
+
+/* Кнопки */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 26px;border-radius:999px;border:0;background:var(--cobalt);color:#fff;font-weight:600;font-size:16px;text-decoration:none;white-space:nowrap;transition:background .2s,transform .2s,box-shadow .2s;box-shadow:0 8px 20px rgba(0,102,255,.22)}
+a.btn{cursor:pointer}
+.btn:hover{background:var(--cobalt-d);transform:translateY(-1px)}
+.btn .icon{width:18px;height:18px}
+.btn-ghost{background:#fff;color:var(--cobalt);box-shadow:inset 0 0 0 1.5px var(--cobalt)}
+.btn-ghost:hover{background:var(--tint);color:var(--cobalt-d)}
+.btn-light{background:#fff;color:var(--cobalt);box-shadow:none}
+.btn-light:hover{background:var(--tint)}
+.btn-sm{min-height:44px;padding:0 18px;font-size:15px}
+.btn-block{width:100%}
+.round{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:var(--midnight);color:#fff;border:0;flex-shrink:0;transition:background .2s,transform .2s}
+.round .icon{width:20px;height:20px}
+
+/* Чипы и иконки */
+.chip{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 16px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:15px;font-weight:500;color:var(--ink);box-shadow:0 1px 2px rgba(14,20,29,.04)}
+.chip .icon{width:18px;height:18px;color:var(--cobalt)}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.ic{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:var(--tint);color:var(--cobalt);flex-shrink:0}
+.ic .icon{width:24px;height:24px}
+.ic-sq{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:var(--tint);color:var(--cobalt);flex-shrink:0}
+.ic-sq .icon{width:19px;height:19px}
+
+/* Шапка */
+.top{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:72px}
+.logo{display:flex;align-items:center;gap:10px;background:none;border:0;padding:0;min-height:48px;text-decoration:none}
+.logo .em{width:57px;height:38px}
+.logo .wm{width:142px;height:25px}
+.nav{display:flex;align-items:center;gap:2px}
+.nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border-radius:999px;font-weight:500;font-size:16px;color:var(--ink);text-decoration:none;white-space:nowrap;transition:background .2s,color .2s}
+.nav a:hover{background:var(--tint)}
+.nav a[aria-current="page"]{background:var(--tint);color:var(--cobalt)}
+.top-actions{display:flex;align-items:center;gap:10px}
+.burger{display:none;width:48px;height:48px;border-radius:50%;border:1px solid var(--line-2);background:#fff;place-items:center}
+.mnav{display:none}
+@media (max-width:1080px){
+  .nav,.top-actions .btn{display:none}
+  .burger{display:grid}
+  .mnav{display:block;position:fixed;top:72px;left:0;right:0;bottom:0;z-index:59;background:rgba(243,247,253,.98);padding:20px var(--pad) 32px;overflow:auto}
+  .mnav[hidden]{display:none!important}
+  .mnav a{display:flex;align-items:center;justify-content:space-between;min-height:58px;border-bottom:1px solid var(--line);font-weight:600;font-size:20px;color:var(--ink);text-decoration:none}
+  .mnav .btn{margin-top:24px;width:100%}
+  .mnav .mnav-phone{border:0;color:var(--cobalt);font-size:17px;margin-top:8px}
+}
+@media (max-width:560px){.logo .em{width:45px;height:30px}.logo .wm{width:118px;height:21px}}
+
+/* Первый экран */
+.hero{padding-top:clamp(20px,3vw,36px);padding-bottom:clamp(12px,2vw,24px)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:clamp(24px,4vw,56px);align-items:center}
+.hero-text{display:grid;gap:22px;align-content:center}
+.hero-lead{max-width:640px}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:4px}
+.hero-photo{position:relative;border-radius:var(--r-lg);overflow:hidden;aspect-ratio:4/3.4;box-shadow:var(--shadow-up);background:var(--silver)}
+.hero-photo img{width:100%;height:100%;object-fit:cover}
+.hero-photo.tall{aspect-ratio:4/4.2}
+.hero-note{position:absolute;left:16px;bottom:16px;right:16px;display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:16px;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);line-height:1.35;color:var(--ink);max-width:440px}
+.hero-note .ic-sq{background:var(--cobalt);color:#fff}
+.feats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.feat{display:flex;flex-direction:column;gap:12px;align-items:flex-start}
+.feat .r2{font-size:17px;margin-bottom:4px}
+
+@media (max-width:900px){
+  .hero-grid{grid-template-columns:1fr}
+  .hero-photo,.hero-photo.tall{aspect-ratio:4/3}
+  .feats{grid-template-columns:1fr}
+  .feat{flex-direction:row}
+}
+
+/* Плитки направлений */
+.tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.tile{position:relative;display:flex;flex-direction:column;border-radius:var(--r-md);overflow:hidden;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);text-decoration:none;color:inherit;transition:transform .25s,box-shadow .25s}
+.tile:hover{transform:translateY(-4px);box-shadow:var(--shadow-up)}
+.tile-img{aspect-ratio:16/10;overflow:hidden;background:var(--silver)}
+.tile-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.tile:hover .tile-img img{transform:scale(1.04)}
+.tile-body{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:20px 20px 22px;flex:1}
+.tile-body .round{align-self:flex-end}
+.tile-body > div{display:grid;gap:6px}
+.tile:hover .round{background:var(--cobalt)}
+@media (max-width:900px){.tiles{grid-template-columns:1fr}}
+
+/* Фильтры */
+.filters{display:flex;flex-wrap:wrap;gap:8px}
+.filters button{min-height:42px;padding:0 18px;border-radius:999px;border:1px solid var(--line-2);background:#fff;font-weight:500;font-size:15px;color:var(--ink);transition:all .2s}
+.filters button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+
+/* Карточки событий */
+/* Афиша списком: крупная дата слева */
+.events{display:grid;gap:12px}
+.ev{display:grid;grid-template-columns:110px minmax(0,1fr) auto;align-items:center;gap:22px;padding:14px 22px 14px 14px;border-radius:var(--r-md);background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);transition:box-shadow .25s,transform .25s,border-color .25s}
+.ev:hover{box-shadow:var(--shadow-up);transform:translateX(4px);border-color:rgba(0,102,255,.2)}
+.ev-date{height:104px;border-radius:16px;display:grid;place-items:center;align-content:center;gap:4px;background:linear-gradient(150deg,var(--cobalt),#1E56D8 60%,#123E9E);color:#fff;line-height:1;text-align:center}
+.ev-date b{font-size:38px;font-weight:700;letter-spacing:-.04em}
+.ev-date span{font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;opacity:.92}
+.ev-date.pre{background:var(--tint);color:var(--cobalt)}
+.ev-date.pre .icon{width:34px;height:34px}
+.ev-date.pre span{font-size:11px;padding:0 6px}
+.ev-mid{display:grid;gap:8px;justify-items:start}
+.ev-mid .pills{display:flex;flex-wrap:wrap;gap:6px}
+.ev-name{background:none;border:0;padding:0;text-align:left;cursor:pointer}
+.ev-name:hover{color:var(--cobalt)}
+.ev-right{display:grid;justify-items:end;gap:10px}
+.ev-right b{white-space:nowrap}
+@media (max-width:760px){
+  .ev{grid-template-columns:84px minmax(0,1fr);gap:14px;padding:12px 14px 14px 12px}
+  .ev:hover{transform:none}
+  .ev-date{height:84px}
+  .ev-date b{font-size:30px}
+  .ev-right{grid-column:1/-1;grid-template-columns:auto 1fr;align-items:center;justify-items:stretch;padding-top:12px;border-top:1px solid var(--line)}
+  .ev-right .btn{justify-self:end}
+}
+.pills{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:6px}
+.pill{display:inline-flex;align-items:center;min-height:28px;padding:0 12px;border-radius:999px;font-size:13px;font-weight:600;background:var(--tint);color:var(--cobalt-d);white-space:nowrap}
+.pill.k{background:#E9F6FF;color:#0A5E9E}
+.pill.b{background:#EEF0F3;color:var(--ink)}
+.pill.free{background:var(--cobalt);color:#fff}
+.ev-meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;font-size:15px;line-height:1.35}
+.ev-meta span{display:inline-flex;align-items:center;gap:6px}
+.ev-meta .icon{width:17px;height:17px;color:var(--cobalt)}
+.more{display:flex;justify-content:center;margin-top:24px}
+
+/* Сетки карточек-особенностей */
+.grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.grid-4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;margin-top:28px}
+@media (max-width:1080px){.grid-4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.grid-4{grid-template-columns:1fr}}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--r-md);padding:22px;box-shadow:var(--shadow)}
+.card-row{display:flex;gap:16px;align-items:flex-start}
+.card-row > div{display:grid;gap:6px}
+@media (max-width:900px){.grid-3{grid-template-columns:1fr}}
+@media (max-width:700px){.grid-2{grid-template-columns:1fr}}
+
+/* Боли */
+.pains{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:16px}
+.pain{grid-column:span 2;display:grid;gap:10px;align-content:start}
+.pain:nth-child(4),.pain:nth-child(5){grid-column:span 3}
+.pain .ic{width:46px;height:46px;margin-bottom:4px}
+@media (max-width:900px){.pains{grid-template-columns:1fr}.pain,.pain:nth-child(4),.pain:nth-child(5){grid-column:auto}}
+
+/* Тёмный блок «Почему» */
+.dark{background:linear-gradient(135deg,var(--midnight) 0%,#13213A 100%);color:#C9D3E3;border-radius:var(--r-lg);padding:clamp(24px,4vw,52px);position:relative;overflow:hidden}
+.dark::after{content:"";position:absolute;right:-120px;top:-120px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(120,197,255,.28),transparent 65%);pointer-events:none}
+.dark .r1,.dark .r2,.dark b{color:#fff}
+.dark .r4{color:var(--ice)}
+.dark-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(24px,4vw,56px);position:relative;z-index:1}
+.not-list{display:grid;gap:10px;margin-top:22px}
+.not-list li{display:flex;align-items:center;gap:12px;color:#fff}
+.not-list .x{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.08);color:var(--ice)}
+.not-list .x .icon{width:16px;height:16px}
+.not-list li.yes .x{background:var(--cobalt);color:#fff}
+.pillars{display:grid;gap:14px;align-content:center}
+.pillar{display:flex;gap:16px;padding:20px;border-radius:var(--r-md);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1)}
+.pillar .ic{background:rgba(120,197,255,.14);color:var(--ice)}
+.pillar > div{display:grid;gap:6px}
+@media (max-width:900px){.dark-grid{grid-template-columns:1fr}}
+
+/* Путь */
+.steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;counter-reset:s}
+.step{position:relative;display:grid;gap:10px;align-content:start;padding:20px;border-radius:var(--r-md);background:#fff;border:1px solid var(--line)}
+.step .n{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--cobalt);color:#fff;font-weight:700;font-size:15px}
+
+@media (max-width:1080px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.steps{grid-template-columns:1fr}}
+
+/* Курсы */
+.courses{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.courses.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.course{display:flex;flex-direction:column;border-radius:var(--r-md);overflow:hidden;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);transition:transform .25s,box-shadow .25s}
+.course:hover{transform:translateY(-4px);box-shadow:var(--shadow-up)}
+.course-img{aspect-ratio:4/3;overflow:hidden;background:var(--silver)}
+.course-img img{width:100%;height:100%;object-fit:cover}
+.course-body{display:flex;flex-direction:column;gap:10px;padding:20px;flex:1}
+.course-points{display:grid;gap:10px;margin-top:6px;flex:1;align-content:start}
+.course-points li{display:flex;gap:10px;align-items:flex-start;line-height:1.4}
+.course-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:10px;padding-top:16px;border-top:1px solid var(--line)}
+.course-foot > div{display:grid;gap:2px}
+
+.course-actions{display:flex;gap:8px;margin-top:4px}
+.course-actions .btn{flex:1 1 0;min-width:0;padding:0 12px}
+.course .round:hover{background:var(--cobalt)}
+@media (max-width:1180px){.courses{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.courses,.courses.two{grid-template-columns:1fr}}
+
+/* Большая карточка курса (взрослые) */
+.bigc{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;padding:26px;border-radius:var(--r-md);background:#fff;border:1px solid var(--line);box-shadow:var(--shadow)}
+.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.fact{padding:12px 14px;border-radius:var(--r-sm);background:var(--tint-2);border:1px solid var(--line);display:grid;gap:2px}
+
+.fact b{font-size:16px;line-height:1.3}
+
+/* Карточки событий детской страницы */
+.kev{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.kev-card{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);border-radius:var(--r-md);overflow:hidden;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow)}
+.kev-card.stack{grid-template-columns:minmax(0,1fr);grid-template-rows:240px auto}
+.kev-card.stack .kev-img{min-height:0}
+.kev-img{background:var(--silver);min-height:220px}
+.kev-img img{width:100%;height:100%;object-fit:cover}
+.kev-body{display:flex;flex-direction:column;gap:12px;padding:22px}
+.kev-row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.kev-body .ev-meta{margin-top:auto}
+@media (max-width:1000px){.kev{grid-template-columns:1fr}}
+@media (max-width:560px){.kev-card{grid-template-columns:1fr}.kev-img{min-height:0;aspect-ratio:16/10}}
+
+/* Баннер призыва */
+.cta{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;padding:clamp(22px,3vw,32px) clamp(22px,3.4vw,40px);border-radius:var(--r-lg);background:linear-gradient(120deg,var(--cobalt) 0%,#1E56D8 55%,#123E9E 100%);color:#DCE8FF;box-shadow:0 18px 40px rgba(0,102,255,.25)}
+.cta .r2{color:#fff;font-size:24px}
+.cta-left{display:flex;align-items:center;gap:18px}
+.cta .ic{background:rgba(255,255,255,.14);color:#fff;width:56px;height:56px}
+.cta > .cta-left > div{display:grid;gap:4px}
+
+/* Галерея */
+.gallery{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:180px;gap:12px}
+.gallery figure{border-radius:var(--r-sm);overflow:hidden;background:var(--silver)}
+.gallery figure.big{grid-column:span 2;grid-row:span 2}
+.gallery img{width:100%;height:100%;object-fit:cover}
+@media (max-width:800px){.gallery{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:150px}}
+.reviews{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+
+/* Спикеры */
+.team{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.person{display:flex;align-items:center;gap:16px}
+.ph{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--tint),var(--silver));display:grid;place-items:center;color:var(--cobalt);flex-shrink:0}
+.ph .icon{width:28px;height:28px}
+.person > div{display:grid;gap:4px}
+@media (max-width:900px){.team{grid-template-columns:1fr}}
+
+/* FAQ */
+.faq{display:grid;gap:10px}
+.faq details{background:#fff;border:1px solid var(--line);border-radius:var(--r-sm);transition:border-color .2s}
+.faq details[open]{border-color:rgba(0,102,255,.3)}
+.faq summary{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:60px;padding:14px 20px;cursor:pointer;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .pm{width:32px;height:32px;border-radius:50%;background:var(--tint);color:var(--cobalt);display:grid;place-items:center;flex-shrink:0;transition:transform .25s}
+.faq details[open] summary .pm{transform:rotate(45deg)}
+.faq .ans{padding:0 20px 18px}
+
+/* Форма-блок */
+.lead{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:clamp(24px,4vw,56px);align-items:start}
+.lead-text{display:grid;gap:16px}
+.contact-lines{display:grid;gap:10px;margin-top:8px}
+.contact-lines a,.contact-lines span{display:inline-flex;align-items:center;gap:10px;color:var(--ink);font-weight:500;text-decoration:none}
+.contact-lines .icon{color:var(--cobalt)}
+@media (max-width:900px){.lead{grid-template-columns:1fr}}
+
+/* Поля формы */
+.form{display:grid;gap:16px}
+.field{display:grid;gap:6px}
+.field label,.field legend{font-weight:500;font-size:15px;color:var(--ink)}
+.field .hint{font-weight:400;color:var(--text)}
+.field input,.field textarea{width:100%;min-height:52px;padding:12px 16px;border-radius:var(--r-sm);border:1.5px solid var(--line-2);background:#fff;font-size:16px;transition:border-color .2s,box-shadow .2s}
+.field textarea{min-height:96px;resize:vertical}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--cobalt);box-shadow:0 0 0 4px rgba(0,102,255,.12)}
+.field [aria-invalid="true"]{border-color:#B3261E}
+.err{color:#B3261E;font-size:14px;line-height:1.35}
+fieldset.field{border:0;padding:0;margin:0}
+.seg{display:flex;flex-wrap:wrap;gap:8px}
+.seg label{position:relative}
+.seg input{position:absolute;opacity:0;width:1px;height:1px}
+.seg span{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border-radius:999px;border:1.5px solid var(--line-2);background:#fff;font-weight:500;font-size:15px;color:var(--ink);cursor:pointer;transition:all .2s}
+.seg input:checked + span{border-color:var(--cobalt);background:var(--tint);color:var(--cobalt-d)}
+.seg input:focus-visible + span{outline:3px solid var(--cobalt);outline-offset:2px}
+.check{display:flex;gap:12px;align-items:flex-start;line-height:1.45;cursor:pointer}
+.check input{width:22px;height:22px;margin:1px 0 0;accent-color:var(--cobalt);flex-shrink:0}
+.demo-note{display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border-radius:var(--r-sm);background:#FFF8E6;border:1px solid #F3DFA8;line-height:1.45;color:#5C4500}
+.demo-note .icon{width:18px;height:18px;color:#8A6100;margin-top:1px}
+.form-card{background:#fff;border:1px solid var(--line);border-radius:var(--r-md);padding:clamp(20px,3vw,32px);box-shadow:var(--shadow)}
+.linkish{display:inline;background:none;border:0;padding:0;margin:0;color:var(--cobalt);text-decoration:underline;text-underline-offset:3px;font:inherit;text-align:left;line-height:inherit}
+
+/* Как нас найти */
+.find{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(20px,3vw,40px);align-items:stretch}
+.find-photo{border-radius:var(--r-md);overflow:hidden;min-height:320px;background:var(--silver)}
+.find-photo img{width:100%;height:100%;object-fit:cover}
+.find-info{display:grid;gap:18px;align-content:start}
+.info-row{display:flex;gap:14px;align-items:flex-start}
+.info-row > div{display:grid;gap:2px}
+.find-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
+.club-facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+@media (max-width:900px){.find{grid-template-columns:1fr}.find-photo{min-height:240px;aspect-ratio:4/3}}
+
+/* Внутренние страницы */
+.crumbs{display:flex;align-items:center;gap:8px;font-size:15px;margin-bottom:6px}
+.crumbs a{color:var(--text);text-decoration:none}
+.crumbs a:hover{color:var(--cobalt)}
+.ticks{display:grid;gap:12px}
+.ticks li{display:flex;gap:12px;align-items:flex-start}
+.ticks .ic-sq{width:30px;height:30px;border-radius:50%;background:var(--cobalt);color:#fff}
+.ticks .ic-sq .icon{width:16px;height:16px}
+.then-now{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:24px}
+.then-now .card{display:grid;gap:10px}
+.then-now .card.now{background:var(--tint-2);border-color:rgba(0,102,255,.2)}
+@media (max-width:700px){.then-now{grid-template-columns:1fr}}
+.int-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+@media (max-width:1080px){.int-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.int-grid{grid-template-columns:1fr}}
+.sved{display:grid;gap:14px}
+.sved .card{display:grid;gap:12px}
+.kv{display:grid;grid-template-columns:minmax(0,260px) minmax(0,1fr);gap:8px 24px}
+.kv dt{font-weight:500;color:var(--ink)}
+.kv dd{margin:0}
+@media (max-width:700px){.kv{grid-template-columns:1fr}.kv dd{margin-bottom:8px}}
+.badge-wait{display:inline-flex;align-items:center;gap:8px;min-height:32px;padding:0 14px;border-radius:999px;background:#FFF8E6;border:1px solid #F3DFA8;color:#5C4500;font-size:14px;font-weight:600;width:fit-content}
+
+/* Подвал */
+.foot{margin-top:clamp(24px,4vw,48px);background:var(--midnight);color:#AEB8C8;padding-top:clamp(36px,5vw,56px);padding-bottom:28px}
+.foot-grid{display:grid;grid-template-columns:minmax(0,1.3fr) repeat(3,minmax(0,1fr));gap:32px}
+.foot .r4{color:var(--ice);margin-bottom:14px}
+.foot ul{display:grid;gap:8px}
+.foot a,.foot button.linkish{color:#E3E9F3;text-decoration:none}
+.foot a:hover,.foot button.linkish:hover{color:#fff;text-decoration:underline}
+
+.foot .logo .wm{width:150px;height:27px}
+.socials{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap}
+.socials button{min-height:40px;padding:0 16px;border-radius:999px;border:1px solid rgba(255,255,255,.16);background:transparent;color:#E3E9F3;font-size:14px;font-weight:500}
+.socials button:hover{background:rgba(255,255,255,.08)}
+.foot-bottom{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:36px;padding-top:20px;border-top:1px solid rgba(255,255,255,.1);font-size:14px}
+@media (max-width:1000px){.foot-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:600px){.foot-grid{grid-template-columns:1fr}}
+
+/* Окна */
+.modal{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:24px 16px;background:rgba(14,20,29,.55);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.dialog{position:relative;width:100%;max-width:720px;max-height:88vh;overflow:auto;background:#fff;border-radius:24px;box-shadow:0 30px 80px rgba(14,20,29,.35);padding:clamp(22px,3.4vw,36px);animation:rise .28s ease-out}
+.dialog.wide{max-width:860px}
+.dialog-head{display:grid;gap:8px;padding-right:48px;margin-bottom:18px}
+.x-btn{position:absolute;top:14px;right:14px;width:44px;height:44px;border-radius:50%;border:0;background:var(--tint-2);color:var(--ink);display:grid;place-items:center}
+.x-btn:hover{background:var(--tint)}
+.dialog .facts{margin-bottom:18px}
+.dialog-sec{display:grid;gap:10px;margin-top:22px}
+.dialog-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.mods{display:grid;gap:10px}
+.mod{border:1px solid var(--line);border-radius:var(--r-sm);overflow:hidden}
+.mod > button{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;background:var(--tint-2);border:0;text-align:left}
+.mod > button > span:first-child{display:grid;gap:4px}
+.mod .pm{width:30px;height:30px;border-radius:50%;background:#fff;color:var(--cobalt);display:grid;place-items:center;flex-shrink:0;transition:transform .25s}
+.mod.open .pm{transform:rotate(45deg)}
+.mod-body{padding:16px 18px;display:grid;gap:12px}
+.lesson{display:grid;gap:4px}
+.lesson .r2{font-size:17px}
+.mod-res{padding:12px 14px;border-radius:12px;background:var(--tint)}
+.doc{display:grid;gap:12px}
+.doc h3{font-weight:600;font-size:17px;line-height:1.3;color:var(--ink);margin-top:10px}
+.doc-table{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r-sm)}
+.doc-table table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.45}
+.doc-table th,.doc-table td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--line)}
+.doc-table th{background:var(--tint-2);color:var(--ink);font-weight:600}
+@media (max-width:640px){
+  .modal{align-items:flex-end;padding:0}
+  .dialog{border-radius:22px 22px 0 0;max-height:92vh}
+  .facts{grid-template-columns:1fr}
+  .doc-table thead{display:none}
+  .doc-table tr{display:grid;padding:8px 0;border-bottom:1px solid var(--line)}
+  .doc-table td{border:0;padding:4px 12px}
+  .doc-table td::before{content:attr(data-label);display:block;font-weight:600;color:var(--ink)}
+}
+.success{display:grid;justify-items:start;gap:14px}
+.success .ic{width:60px;height:60px;background:var(--cobalt);color:#fff}
+
+/* Cookies */
+.cookie{position:fixed;left:16px;right:16px;bottom:16px;z-index:90;max-width:560px;margin-left:auto;display:grid;gap:14px;padding:18px 20px;border-radius:20px;background:#fff;border:1px solid var(--line);box-shadow:0 20px 50px rgba(14,20,29,.18);animation:rise .35s ease-out}
+.cookie-actions{display:flex;flex-wrap:wrap;gap:8px}
+
+
+/* Фото, которое растворяется в фоне через размытие */
+.fade-hero{position:relative;overflow:hidden;min-height:clamp(540px,76vh,740px);display:flex;align-items:center}
+.fade-media{position:absolute;top:0;right:0;bottom:0;width:min(54vw,960px);pointer-events:none;overflow:hidden}
+.dir-media::after{content:"";position:absolute;inset:0}
+.dir-media::after{background:linear-gradient(90deg,#fff 0%,#fff 6%,rgba(255,255,255,.75) 22%,rgba(255,255,255,.25) 40%,rgba(255,255,255,0) 55%)}
+.fade-media img,.dir-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.fm-blur{filter:blur(18px) saturate(1.05);transform:scale(1.06);-webkit-mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.55) 18%,#000 36%,#000 46%,transparent 66%);mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.55) 18%,#000 36%,#000 46%,transparent 66%)}
+.fm-sharp{-webkit-mask-image:linear-gradient(90deg,transparent 22%,#000 55%);mask-image:linear-gradient(90deg,transparent 22%,#000 55%)}
+.fade-inner{position:relative;z-index:1;width:100%}
+.fade-hero .hero-text{max-width:min(600px,46vw);padding-top:clamp(32px,5vw,64px);padding-bottom:clamp(32px,5vw,64px)}
+.dirs{display:grid;gap:18px}
+.dir{position:relative;overflow:hidden;min-height:400px;display:flex;align-items:center;border-radius:var(--r-lg);background:#fff;border:1px solid var(--line);box-shadow:var(--shadow)}
+.dir-media{position:absolute;top:0;right:0;bottom:0;width:62%;pointer-events:none;overflow:hidden}
+.dir-text{position:relative;z-index:1;width:min(560px,52%);display:grid;gap:14px;padding:clamp(24px,3.4vw,44px)}
+.dir-meta{font-weight:600;color:var(--ink)}
+.dir .btn{justify-self:start;margin-top:4px}
+@media (max-width:900px){
+  .fade-hero{display:block;min-height:0}
+  .fade-media{position:relative;width:100%;height:clamp(260px,70vw,440px)}
+  .fm-blur,.dir-media .fm-blur{-webkit-mask-image:linear-gradient(180deg,transparent 40%,#000 70%,transparent 100%);mask-image:linear-gradient(180deg,transparent 40%,#000 70%,transparent 100%)}
+  .fm-sharp,.dir-media .fm-sharp{-webkit-mask-image:linear-gradient(180deg,#000 45%,transparent 92%);mask-image:linear-gradient(180deg,#000 45%,transparent 92%)}
+  .fade-hero .hero-text{max-width:none;padding-top:0;margin-top:-28px}
+  .dir-media::after{background:linear-gradient(180deg,rgba(255,255,255,0) 55%,#fff 100%)}
+  .dir{display:block;min-height:0}
+  .dir-media{position:relative;width:100%;height:240px}
+  .dir-text{width:100%;margin-top:-24px}
+}
+/* Узнаёте себя – компактно */
+.pain-panel{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.6fr);gap:20px clamp(24px,4vw,56px)}
+.pain-list{display:grid;gap:14px}
+.pain-list li{display:flex;gap:14px;align-items:flex-start}
+.pain-end{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:20px;border-top:1px solid var(--line)}
+@media (max-width:900px){.pain-panel{grid-template-columns:1fr}}
+.facts-dark{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+.facts-dark li{display:inline-flex;align-items:center;gap:8px;min-height:38px;padding:0 14px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:#fff;font-size:15px}
+.facts-dark .icon{width:17px;height:17px;color:var(--ice)}
+/* Связь вместо формы */
+.contact{display:grid;gap:16px}
+.contact-btns{display:grid;gap:10px}
+.copy-note{color:var(--cobalt-d);font-weight:500}
+.lead-alt{display:grid;gap:12px;margin-top:22px;padding-top:18px;border-top:1px solid var(--line)}
+.lead-alt .contact-btns{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+.hp{position:absolute!important;left:-10000px!important;width:1px;height:1px;overflow:hidden}
+.field select{width:100%;min-height:52px;padding:12px 16px;border-radius:var(--r-sm);border:1.5px solid var(--line-2);background:#fff;font-size:16px}
+.form-msg{padding:14px 16px;border-radius:var(--r-sm);background:#FDECEA;border:1px solid #F2B8B5;color:#7A1C16}
+
+.facts-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}.facts-row li{display:inline-flex;align-items:center;gap:8px;min-height:38px;padding:0 14px;border-radius:999px;background:var(--tint-2);border:1px solid var(--line);color:var(--ink);font-size:15px;font-weight:500}.facts-row .icon{width:17px;height:17px;color:var(--cobalt)}
+.who2{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(24px,4vw,64px);align-items:start}
+.who2-side{position:sticky;top:96px;display:grid;gap:14px}
+.who2-photo{border-radius:var(--r-md);overflow:hidden;aspect-ratio:4/3.2;margin-top:10px;box-shadow:var(--shadow)}
+.who2-photo img{width:100%;height:100%;object-fit:cover}
+.who2-list{display:grid}
+.who2-list li{display:grid;grid-template-columns:72px minmax(0,1fr);gap:16px;padding:22px 0;border-bottom:1px solid var(--line-2)}
+.who2-list li:first-child{padding-top:0}
+.who2-list .num{font-weight:700;font-size:44px;line-height:.9;letter-spacing:-.05em;color:var(--cobalt)}
+.who2-list li > div{display:grid;gap:6px}
+.who2-end{grid-template-columns:1fr!important;display:flex!important;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;border-bottom:0!important}
+@media (max-width:900px){.who2{grid-template-columns:1fr}.who2-side{position:static}.who2-list li{grid-template-columns:52px minmax(0,1fr)}.who2-list .num{font-size:32px}}
+.why2-top{display:grid;gap:12px;max-width:760px;position:relative;z-index:1}
+.why2-lead{font-size:20px;line-height:1.5;color:#DCE5F2}
+.why2{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:36px;position:relative;z-index:1}
+.why2-col{display:grid;gap:10px;align-content:start;padding:0 28px;border-left:1px solid rgba(255,255,255,.14)}
+.why2-col:first-child{padding-left:0;border-left:0}
+.why2-col .ic{background:rgba(120,197,255,.14);color:var(--ice);width:46px;height:46px}
+@media (max-width:900px){.why2{grid-template-columns:1fr;gap:24px}.why2-col{padding:0;border-left:0}}
+.fade-hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:70px;background:linear-gradient(180deg,rgba(243,247,253,0),var(--bg));pointer-events:none}
+.variant-tag{position:fixed;left:12px;bottom:12px;z-index:95;margin:0;padding:6px 12px;border-radius:999px;background:var(--ink);color:#fff;font-size:13px;font-weight:600;opacity:.9}.variant-tag a{color:var(--ice)}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}
+@media (max-width:640px){body{font-size:16px}.r2{font-size:19px}.btn{white-space:normal;text-align:center;line-height:1.25;padding-top:10px;padding-bottom:10px}}
+</style>
+</head>
+<body>
+
+<!-- Иконки: линейные, в стиле брендбука, без «мозгов» и роботов -->
+<svg width="0" height="0" class="sr-only" aria-hidden="true">
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="17" rx="3"/><path d="M16 2.5v4M8 2.5v4M3 10h18"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M12 7v5l3.5 2"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M19.5 10c0 5.5-7.5 11.5-7.5 11.5S4.5 15.5 4.5 10a7.5 7.5 0 0 1 15 0Z"/><circle cx="12" cy="10" r="2.7"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M21.5 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 1.6 4.2 2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L7.6 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2.5" y="4.5" width="19" height="15" rx="3"/><path d="m3 7 9 6 9-6"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></symbol>
+  <symbol id="i-cap" viewBox="0 0 24 24"><path d="M22 9.5 12 4.5 2 9.5l10 5 10-5Z"/><path d="M6 11.5v5c3.3 3 8.7 3 12 0v-5M22 9.5v6"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 2.8 2.9 5.9 6.4.9-4.6 4.5 1.1 6.4L12 17.5l-5.8 3 1.1-6.4-4.6-4.5 6.4-.9L12 2.8Z"/></symbol>
+  <symbol id="i-bars" viewBox="0 0 24 24"><path d="M4 20V13M10 20V9M16 20V5M22 20H2"/></symbol>
+  <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9 18h6M10 21.5h4M12 2.5a6.8 6.8 0 0 0-4 12.3V16.5h8v-1.7a6.8 6.8 0 0 0-4-12.3Z"/></symbol>
+  <symbol id="i-ask" viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 0 1-12.4 7.6L3 21l1.9-5.6A8.5 8.5 0 1 1 21 11.5Z"/><path d="M9.8 9.2a2.3 2.3 0 0 1 4.4.8c0 1.6-2.2 2.1-2.2 2.1M12 15h.01"/></symbol>
+  <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></symbol>
+  <symbol id="i-pen" viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></symbol>
+  <symbol id="i-smile" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></symbol>
+  <symbol id="i-game" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="5"/><path d="M6 12h4M8 10v4M15 11h.01M18 13h.01"/></symbol>
+  <symbol id="i-cube" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4a2 2 0 0 0 1-1.7Z"/><path d="M3.3 7 12 12l8.7-5M12 22V12"/></symbol>
+  <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4ZM17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></symbol>
+  <symbol id="i-code" viewBox="0 0 24 24"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-4.6A8 8 0 1 1 21 12Z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-rocket" viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.8.7-2.1-.1-2.9a2.2 2.2 0 0 0-2.9-.1Z"/><path d="m12 15-3-3a22 22 0 0 1 2-4A12.9 12.9 0 0 1 22 2c0 2.7-.8 7.5-6 11a22.4 22.4 0 0 1-4 2Z"/><path d="M9 12H4s.6-3 2-4c1.6-1.1 5 0 5 0M12 15v5s3-.6 4-2c1.1-1.6 0-5 0-5"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 21.5s8-4 8-10V5l-8-3-8 3v6.5c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="m16.2 7.8-2.1 6.3-6.3 2.1 2.1-6.3 6.3-2.1Z"/></symbol>
+  <symbol id="i-trend" viewBox="0 0 24 24"><path d="m22 7-8.5 8.5-5-5L2 17"/><path d="M16 7h6v6"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-2.6-6.4L21 8"/><path d="M21 3v5h-5"/></symbol>
+  <symbol id="i-hourglass" viewBox="0 0 24 24"><path d="M5 22h14M5 2h14M17 22v-4.2a2 2 0 0 0-.6-1.4L12 12l-4.4 4.4a2 2 0 0 0-.6 1.4V22M7 2v4.2a2 2 0 0 0 .6 1.4L12 12l4.4-4.4a2 2 0 0 0 .6-1.4V2"/></symbol>
+  <symbol id="i-brief" viewBox="0 0 24 24"><rect x="2.5" y="7" width="19" height="13.5" rx="2.5"/><path d="M16 20.5V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v15.5"/></symbol>
+  <symbol id="i-gift" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7M7.5 8a2.5 2.5 0 0 1 0-5C9 3 12 8 12 8s3-5 4.5-5a2.5 2.5 0 0 1 0 5"/></symbol>
+  <symbol id="i-monitor" viewBox="0 0 24 24"><rect x="2.5" y="3.5" width="19" height="13" rx="2.5"/><path d="M8 21h8M12 16.5V21"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2.5H6.5a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V8Z"/><path d="M14 2.5V8h5.5M15.5 13h-7M15.5 17h-7"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 2.5-10 5 10 5 10-5-10-5Z"/><path d="m2 16.5 10 5 10-5M2 12l10 5 10-5"/></symbol>
+  <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+  <symbol id="i-ext" viewBox="0 0 24 24"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7Z"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M12 16v-4M12 8h.01"/></symbol>
+</svg>
+
+<a class="sr-only" href="#main">Перейти к содержанию</a>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#/" aria-label="proнейро, клуб практического ИИ – на главную">
+      <img class="em" src="../img/emblem.png" alt="" width="57" height="38">
+      <img class="wm" src="../img/wordmark-light.svg" alt="proнейро" width="142" height="25">
+    </a>
+    <nav class="nav" aria-label="Основная навигация">
+      <a href="#/adults" data-nav="adults">Взрослым</a>
+      <a href="#/kids" data-nav="kids">Детям</a>
+      <a href="#/business" data-nav="business">Бизнесу</a>
+      <a href="#/events" data-nav="events">События</a>
+      <a href="#/contacts" data-nav="contacts">Контакты</a>
+    </nav>
+    <div class="top-actions">
+      <button class="btn btn-sm" type="button" data-lead="general">Записаться <svg class="icon"><use href="#i-arrow"/></svg></button>
+      <button class="burger" type="button" aria-expanded="false" aria-controls="mnav" aria-label="Открыть меню"><svg class="icon"><use href="#i-menu"/></svg></button>
+    </div>
+  </div>
+</header>
+<nav class="mnav" id="mnav" hidden aria-label="Меню">
+  <a href="#/">Главная <svg class="icon"><use href="#i-arrow"/></svg></a>
+  <a href="#/adults">Взрослым <svg class="icon"><use href="#i-arrow"/></svg></a>
+  <a href="#/kids">Детям 7–14 лет <svg class="icon"><use href="#i-arrow"/></svg></a>
+  <a href="#/business">Бизнесу <svg class="icon"><use href="#i-arrow"/></svg></a>
+  <a href="#/events">Ближайшие события <svg class="icon"><use href="#i-arrow"/></svg></a>
+  <a href="#/contacts">Контакты <svg class="icon"><use href="#i-arrow"/></svg></a>
+  <button class="btn" type="button" data-lead="general">Записаться</button>
+  <a class="mnav-phone" href="tel:+79040001213">Позвонить: 8-904-000-12-13</a>
+</nav>
+
+<main id="main">
+
+<!-- ============ ГЛАВНАЯ ============ -->
+<!-- Порядок: первый экран → узнаёте себя → направления → события → почему мы → как устроено → доверие → вопросы → запись -->
+<div data-page="home">
+
+  <section class="fade-hero" aria-labelledby="home-title">
+    <div class="fade-media"><img class="fm-blur" src="../img/club/zal.jpg" alt="" aria-hidden="true" fetchpriority="high"><img class="fm-sharp" src="../img/club/zal.jpg" alt="Студия клуба ProНейро: девять рабочих мест и демо-экран" fetchpriority="high"></div>
+    <div class="wrap fade-inner">
+      <div class="hero-text">
+        <p class="r4">Первый в&nbsp;Твери клуб практического ИИ</p>
+        <h1 class="r1" id="home-title">Нейросети на&nbsp;практике для&nbsp;себя, работы и&nbsp;бизнеса</h1>
+        <p class="hero-lead">ProНейро – клуб в&nbsp;центре Твери, где взрослые, дети и&nbsp;предприниматели осваивают нейросети на&nbsp;своих задачах: без сложной теории, с&nbsp;живым общением и&nbsp;поддержкой.</p>
+        <div class="hero-actions">
+          <a class="btn" href="#/directions">Подобрать программу <svg class="icon"><use href="#i-arrow"/></svg></a>
+          <a class="btn btn-ghost" href="#/events">Ближайшие события</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap" aria-labelledby="pain-title">
+    <div class="who2">
+      <div class="who2-side">
+        <p class="r4">Для кого</p>
+        <h2 class="r1" id="pain-title">Для кого клуб ProНейро</h2>
+        <figure class="who2-photo"><img src="../img/adults.jpg?v=2" alt="Взрослые на занятии в клубе" loading="lazy"></figure>
+      </div>
+      <ol class="who2-list">
+        <li class="reveal"><span class="num">01</span><div><h3 class="r2">Не&nbsp;знаете, как подойти к&nbsp;нейросетям?</h3><p>Не получилось зарегистрироваться или результат разочаровал.</p></div></li>
+        <li class="reveal"><span class="num">02</span><div><h3 class="r2">Уже пользуетесь ИИ, но&nbsp;хотите большего?</h3><p>Чувствуете, что можно быстрее, качественнее и&nbsp;даже то, о&nbsp;чём вы не&nbsp;догадывались.</p></div></li>
+        <li class="reveal"><span class="num">03</span><div><h3 class="r2">Хотите первыми осваивать обновления?</h3><p>Мир ИИ меняется молниеносно – хочется раньше других узнавать о&nbsp;новых функциях.</p></div></li>
+        <li class="reveal"><span class="num">04</span><div><h3 class="r2">Хотите отдать рутину ИИ?</h3><p>У каждого специалиста есть то, что можно автоматизировать и&nbsp;освободить время для&nbsp;важного.</p></div></li>
+        <li class="reveal"><span class="num">05</span><div><h3 class="r2">Хотите преимущество на&nbsp;рынке труда?</h3><p>Работодатели выбирают тех, кто умеет встроить ИИ в&nbsp;рабочие процессы.</p></div></li>
+        <li class="who2-end"><p><b>Хотя бы один пункт про&nbsp;вас?</b> Тогда вам к&nbsp;нам.</p><a class="btn" href="#/directions">Выбрать направление <svg class="icon"><use href="#i-arrow"/></svg></a></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section wrap" id="directions" aria-labelledby="dir-title">
+    <div class="head">
+      <div class="head-text">
+        <p class="r4">Направления</p>
+        <h2 class="r1" id="dir-title">Выберите, с&nbsp;чего начать</h2>
+      </div>
+    </div>
+    <div class="dirs">
+      <article class="dir reveal">
+        <div class="dir-media"><img class="fm-blur" src="../img/adults.jpg?v=2" alt="" aria-hidden="true" loading="lazy"><img class="fm-sharp" src="../img/adults.jpg?v=2" alt="Взрослые на занятии в клубе" loading="lazy"></div>
+        <div class="dir-text">
+          <p class="r4">Для взрослых</p>
+          <h3 class="r1">ИИ для&nbsp;работы и&nbsp;своего дела</h3>
+          <p>Без сложных терминов и&nbsp;долгих лекций: шаг за&nbsp;шагом на&nbsp;практике, на&nbsp;ваших задачах.</p>
+          <ul class="ticks"><li><span class="ic-sq"><svg class="icon"><use href="#i-check"/></svg></span>Базовый курс «Нейросети: с&nbsp;нуля к&nbsp;практике»</li><li><span class="ic-sq"><svg class="icon"><use href="#i-check"/></svg></span>Продвинутый курс «ИИ-система для вашего дела»</li><li><span class="ic-sq"><svg class="icon"><use href="#i-check"/></svg></span>Интенсивы на&nbsp;2&nbsp;часа – одна тема за&nbsp;вечер</li></ul>
+          <p class="dir-meta">Курсы – 19&nbsp;200 руб./мес. · интенсив – 2&nbsp;800 руб.</p>
+          <a class="btn" href="#/adults">Курсы и&nbsp;интенсивы <svg class="icon"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+
+      <article class="dir reveal">
+        <div class="dir-media"><img class="fm-blur" src="../img/club/kids-hero.webp" alt="" aria-hidden="true" loading="lazy"><img class="fm-sharp" src="../img/club/kids-hero.webp" alt="Дети на занятии в клубе" loading="lazy"></div>
+        <div class="dir-text">
+          <p class="r4">Для детей 7–14 лет</p>
+          <h3 class="r1">Свои игры, комиксы, сайты и&nbsp;программы</h3>
+          <p>Нейросети – помощник для идей ребёнка, а&nbsp;не&nbsp;замена мышлению. Опыт программирования не&nbsp;нужен.</p>
+          <ul class="ticks"><li><span class="ic-sq"><svg class="icon"><use href="#i-check"/></svg></span>4 курса: Нейростарт, Нейродизайнер, Roblox, Python&nbsp;+&nbsp;ИИ</li><li><span class="ic-sq"><svg class="icon"><use href="#i-check"/></svg></span>Бесплатное Нейро-воскресенье для знакомства</li><li><span class="ic-sq"><svg class="icon"><use href="#i-check"/></svg></span>Мастер-классы, конкурсы и&nbsp;хакатоны</li></ul>
+          <p class="dir-meta">Курсы – 6&nbsp;600 руб./мес., 12 занятий</p>
+          <a class="btn" href="#/kids">Курсы для детей <svg class="icon"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+
+      <article class="dir reveal">
+        <div class="dir-media"><img class="fm-blur" src="../img/business.jpg?v=2" alt="" aria-hidden="true" loading="lazy"><img class="fm-sharp" src="../img/business.jpg?v=2" alt="Команда на занятии" loading="lazy"></div>
+        <div class="dir-text">
+          <p class="r4">Для бизнеса</p>
+          <h3 class="r1">Обучение команды под&nbsp;ваши задачи</h3>
+          <p>Вы ставите задачу – мы предлагаем программу и&nbsp;формат и&nbsp;производим расчёт.</p>
+          <ul class="ticks"><li><span class="ic-sq"><svg class="icon"><use href="#i-check"/></svg></span>Документы и&nbsp;переписка</li><li><span class="ic-sq"><svg class="icon"><use href="#i-check"/></svg></span>Контент и&nbsp;маркетинг</li><li><span class="ic-sq"><svg class="icon"><use href="#i-check"/></svg></span>ИИ для руководителя и&nbsp;команды</li></ul>
+          <p class="dir-meta">Стоимость – расчёт под&nbsp;задачу</p>
+          <a class="btn" href="#/business">Обсудить обучение <svg class="icon"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section class="section wrap" id="events" aria-labelledby="ev-title">
+    <div class="panel">
+      <div class="head">
+        <div class="head-text">
+          <p class="r4">Афиша клуба</p>
+          <h2 class="r1" id="ev-title">Ближайшие события</h2>
+        </div>
+      </div>
+      <div class="events" data-feed="home"></div>
+    </div>
+  </section>
+
+  <section class="section wrap" aria-labelledby="why-home-title">
+    <div class="dark">
+      <div class="why2-top">
+        <p class="r4">Почему ProНейро</p>
+        <h2 class="r1" id="why-home-title">Клуб, а&nbsp;не&nbsp;курсы</h2>
+        <p class="why2-lead">Мы создали не&nbsp;курсы по&nbsp;нейросетям, а&nbsp;сообщество, где искусственный интеллект становится понятным, полезным и&nbsp;применимым в&nbsp;жизни.</p>
+      </div>
+      <div class="why2">
+        <div class="why2-col"><span class="ic"><svg class="icon"><use href="#i-users"/></svg></span><h3 class="r2">Люди важнее инструментов</h3><p>Модель нейросети может завтра поменяться. Среда и&nbsp;навык думать остаются.</p></div>
+        <div class="why2-col"><span class="ic"><svg class="icon"><use href="#i-layers"/></svg></span><h3 class="r2">Практика прежде теории</h3><p>Сначала решаем задачу, потом объясняем механику. Уходите с&nbsp;готовым инструментом и&nbsp;пониманием следующего шага.</p></div>
+        <div class="why2-col"><span class="ic"><svg class="icon"><use href="#i-ask"/></svg></span><h3 class="r2">Любопытство без снобизма</h3><p>Вопросы приветствуются, а&nbsp;незнание терминов – не&nbsp;противопоказание.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap" aria-labelledby="path-title">
+    <div class="head">
+      <div class="head-text">
+        <p class="r4">Как всё устроено</p>
+        <h2 class="r1" id="path-title">От первого знакомства до&nbsp;навыка в&nbsp;работе</h2>
+      </div>
+    </div>
+    <ol class="steps">
+      <li class="step reveal"><span class="n">1</span><h3 class="r2">Выбираете направление</h3><p>Для себя, для ребёнка или для команды.</p></li>
+      <li class="step reveal"><span class="n">2</span><h3 class="r2">Знакомитесь с&nbsp;клубом</h3><p>На бесплатной встрече или в&nbsp;разговоре о&nbsp;программе.</p></li>
+      <li class="step reveal"><span class="n">3</span><h3 class="r2">Приходите на&nbsp;занятия</h3><p>Очно в&nbsp;студии, а&nbsp;в&nbsp;курсах для взрослых – ещё и&nbsp;онлайн.</p></li>
+      <li class="step reveal"><span class="n">4</span><h3 class="r2">Работаете на&nbsp;практике</h3><p>Каждая встреча – реальная задача и&nbsp;видимый результат.</p></li>
+      <li class="step reveal"><span class="n">5</span><h3 class="r2">Применяете навык</h3><p>В работе, учёбе и&nbsp;своём деле – и&nbsp;остаётесь в&nbsp;сообществе.</p></li>
+    </ol>
+  </section>
+
+  <section class="section wrap" aria-labelledby="life-title">
+    <div class="panel">
+      <div class="head">
+        <div class="head-text">
+          <p class="r4">Жизнь клуба</p>
+          <h2 class="r1" id="life-title">Так проходят занятия в&nbsp;ProНейро</h2>
+          <p>Камерная студия в&nbsp;центре Твери – каждый работает за&nbsp;своим компьютером.</p>
+          <ul class="facts-row" aria-label="Студия клуба"><li><svg class="icon"><use href="#i-users"/></svg>9 рабочих мест</li><li><svg class="icon"><use href="#i-monitor"/></svg>Новые компьютеры и&nbsp;ПО для нейросетей</li><li><svg class="icon"><use href="#i-star"/></svg>Демо-экран с&nbsp;профессиональным звуком</li></ul>
+        </div>
+      </div>
+      <div class="gallery">
+        <figure class="big"><img src="../img/club/kids-teacher.jpg" alt="Преподаватель ведёт занятие, дети за компьютерами" loading="lazy"></figure>
+        <figure><img src="../img/club/kids-elephant.jpg" alt="Преподаватель помогает ученику с картинкой, созданной нейросетью" loading="lazy"></figure>
+        <figure><img src="../img/club/kids-glasses.jpg" alt="Ученица смотрит на экран на занятии" loading="lazy"></figure>
+        <figure><img src="../img/club/kids-class.jpg" alt="Дети работают за компьютерами в студии" loading="lazy"></figure>
+        <figure><img src="../img/club/kids-sunday.jpg" alt="Дети на интерактивном мастер-классе" loading="lazy"></figure>
+      </div>
+      <div class="reviews">
+        <a class="btn btn-ghost" href="https://yandex.ru/maps/?text=%D0%9F%D1%80%D0%BE%D0%9D%D0%B5%D0%B9%D1%80%D0%BE%20%D0%A2%D0%B2%D0%B5%D1%80%D1%8C%20%D0%9D%D0%BE%D0%B2%D0%BE%D1%82%D0%BE%D1%80%D0%B6%D1%81%D0%BA%D0%B0%D1%8F%2018" target="_blank" rel="noopener"><svg class="icon"><use href="#i-star"/></svg>Отзывы в&nbsp;Яндекс Картах</a>
+        <a class="btn btn-ghost" href="https://2gis.ru/tver/search/%D0%9F%D1%80%D0%BE%D0%9D%D0%B5%D0%B9%D1%80%D0%BE" target="_blank" rel="noopener"><svg class="icon"><use href="#i-star"/></svg>Отзывы в&nbsp;2ГИС</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap" aria-labelledby="team-title">
+    <div class="head">
+      <div class="head-text">
+        <p class="r4">Люди ProНейро</p>
+        <h2 class="r1" id="team-title">Наши спикеры</h2>
+        <p>Профессионалы с&nbsp;опытом работы в&nbsp;IT-индустрии и&nbsp;педагогике, которые помогут взглянуть на&nbsp;задачи под новым углом.</p>
+      </div>
+    </div>
+    <div class="team">
+      <div class="card person"><span class="ph"><svg class="icon"><use href="#i-person"/></svg></span><div><h3 class="r2">Имя спикера</h3><p>Фото и описание добавим перед запуском</p></div></div>
+      <div class="card person"><span class="ph"><svg class="icon"><use href="#i-person"/></svg></span><div><h3 class="r2">Имя спикера</h3><p>Фото и описание добавим перед запуском</p></div></div>
+      <div class="card person"><span class="ph"><svg class="icon"><use href="#i-person"/></svg></span><div><h3 class="r2">Имя спикера</h3><p>Фото и описание добавим перед запуском</p></div></div>
+    </div>
+  </section>
+
+  <section class="section wrap" aria-labelledby="faq-title">
+    <div class="head">
+      <div class="head-text">
+        <p class="r4">Вопросы и ответы</p>
+        <h2 class="r1" id="faq-title">Частые вопросы</h2>
+      </div>
+      <div class="filters" role="group" aria-label="Чьи вопросы показать" data-faq-tabs></div>
+    </div>
+    <div class="faq" data-faq="home"></div>
+  </section>
+
+  <section class="section wrap" aria-labelledby="lead-title">
+    <div class="panel lead">
+      <div class="lead-text">
+        <p class="r4">Запись и подбор программы</p>
+        <h2 class="r1" id="lead-title">Не&nbsp;знаете, с&nbsp;чего начать? Подскажем</h2>
+        <p>Оставьте телефон – перезвоним, ответим на&nbsp;вопросы, расскажем о&nbsp;ближайших встречах и&nbsp;поможем выбрать программу под вашу задачу или интересы ребёнка.</p>
+      </div>
+      <div class="form-card" data-inline-form></div>
+    </div>
+  </section>
+
+  <section class="section wrap" id="contacts" aria-labelledby="find-title">
+    <div class="panel">
+      <div class="find">
+        <figure class="find-photo"><img src="../img/zal-1200.jpg" alt="Студия ProНейро" loading="lazy" width="1200" height="900"></figure>
+        <div class="find-info">
+          <p class="r4">Контакты</p>
+          <h2 class="r1" id="find-title">Как нас найти</h2>
+          <div class="info-row"><span class="ic-sq"><svg class="icon"><use href="#i-pin"/></svg></span><div><b>170100, г.&nbsp;Тверь, ул.&nbsp;Новоторжская, д.&nbsp;18, корп.&nbsp;1, пом.&nbsp;48</b><p>БЦ «Аврора», отдельный вход по&nbsp;правому фасаду</p></div></div>
+          <div class="info-row"><span class="ic-sq"><svg class="icon"><use href="#i-phone"/></svg></span><div><b><a href="tel:+79040001213">8-904-000-12-13</a></b><p>Телефон клуба</p></div></div>
+          <div class="info-row"><span class="ic-sq"><svg class="icon"><use href="#i-mail"/></svg></span><div><b><a href="mailto:Grand.tver@mail.ru">Grand.tver@mail.ru</a></b><p>Электронная почта</p></div></div>
+          <div class="find-actions">
+            <a class="btn" href="https://yandex.ru/maps/?text=%D0%A2%D0%B2%D0%B5%D1%80%D1%8C%2C%20%D1%83%D0%BB.%20%D0%9D%D0%BE%D0%B2%D0%BE%D1%82%D0%BE%D1%80%D0%B6%D1%81%D0%BA%D0%B0%D1%8F%2C%2018%D0%BA1" target="_blank" rel="noopener">Открыть в&nbsp;Яндекс Картах <svg class="icon"><use href="#i-ext"/></svg></a>
+            <a class="btn btn-ghost" href="tel:+79040001213">Позвонить</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ ДЕТЯМ ============ -->
+<div data-page="kids" hidden>
+  <section class="fade-hero" aria-labelledby="kids-title">
+    <div class="fade-media"><img class="fm-blur" src="../img/club/kids-hero.webp" alt="" aria-hidden="true" fetchpriority="high"><img class="fm-sharp" src="../img/club/kids-hero.webp" alt="Дети на занятии в клубе ProНейро" fetchpriority="high"></div>
+    <div class="wrap fade-inner">
+      <div class="hero-text">
+        <nav class="crumbs" aria-label="Навигация по сайту"><a href="#/">Главная</a><span aria-hidden="true">/</span><span>Детям</span></nav>
+        <p class="r4">Клуб технологий для детей 7–14 лет</p>
+        <h1 class="r1" id="kids-title">Свои игры, комиксы и&nbsp;сайты – <span class="accent">с&nbsp;нейросетями и&nbsp;наставником</span></h1>
+        <p class="hero-lead">В ProНейро дети 7–14 лет учатся работать с&nbsp;искусственным интеллектом, создавать собственные игры, сайты, мультфильмы и&nbsp;программы.</p>
+        <div class="feats">
+          <div class="feat"><span class="ic"><svg class="icon"><use href="#i-ask"/></svg></span><div><h3 class="r2">Думают и&nbsp;задают вопросы</h3><p>Проверяют информацию и&nbsp;находят решения</p></div></div>
+          <div class="feat"><span class="ic"><svg class="icon"><use href="#i-bulb"/></svg></span><div><h3 class="r2">Создают реальные проекты</h3><p>Игры, дизайн, сайты, мультфильмы и&nbsp;программы</p></div></div>
+          <div class="feat"><span class="ic"><svg class="icon"><use href="#i-bars"/></svg></span><div><h3 class="r2">Развиваются в&nbsp;своём темпе</h3><p>Поддержка преподавателей и&nbsp;небольшие группы</p></div></div>
+        </div>
+        <ul class="chips" aria-label="Коротко">
+          <li class="chip"><svg class="icon"><use href="#i-users"/></svg>Для детей 7–14 лет</li>
+          <li class="chip"><svg class="icon"><use href="#i-cap"/></svg>Начинаем с&nbsp;нуля</li>
+          <li class="chip"><svg class="icon"><use href="#i-star"/></svg>Опыт программирования не&nbsp;требуется</li>
+        </ul>
+        <div class="hero-actions">
+          <a class="btn" href="#/kids-courses">Выбрать курс <svg class="icon"><use href="#i-arrow"/></svg></a>
+          <button class="btn btn-ghost" type="button" data-event="sunday">Бесплатное Нейро-воскресенье</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap" aria-labelledby="kwhy-title">
+    <div class="panel">
+        <div class="head-text">
+          <p class="r4">Почему ProНейро</p>
+          <h2 class="r1" id="kwhy-title">Нейросети – помощник для идей ребёнка, а&nbsp;не&nbsp;замена мышлению</h2>
+          <p>Мы объединяем современные технологии, практические проекты и&nbsp;поддержку преподавателей. Ребёнок учится ясно формулировать идеи, проверять ответы ИИ и&nbsp;доводить замысел до&nbsp;законченного проекта, а&nbsp;не&nbsp;просто нажимать кнопки. Автор работы – всегда он&nbsp;сам.</p>
+        </div>
+        <div class="grid-4">
+          <div class="card-row"><span class="ic"><svg class="icon"><use href="#i-users"/></svg></span><div><h3 class="r2">Небольшие группы</h3><p>Индивидуальное внимание и&nbsp;поддержка на&nbsp;каждом этапе</p></div></div>
+          <div class="card-row"><span class="ic"><svg class="icon"><use href="#i-cap"/></svg></span><div><h3 class="r2">Практические проекты</h3><p>Реальные работы и&nbsp;портфолио уже во&nbsp;время обучения</p></div></div>
+          <div class="card-row"><span class="ic"><svg class="icon"><use href="#i-star"/></svg></span><div><h3 class="r2">Опытные преподаватели</h3><p>Объясняем сложные темы простым языком</p></div></div>
+          <div class="card-row"><span class="ic"><svg class="icon"><use href="#i-bars"/></svg></span><div><h3 class="r2">Навыки для будущего</h3><p>Творчество, логика, цифровая грамотность и&nbsp;умение решать задачи</p></div></div>
+        </div>
+    </div>
+  </section>
+
+  <section class="section wrap" aria-labelledby="kev-title">
+    <div class="head">
+      <div class="head-text">
+        <p class="r4">События ProНейро</p>
+        <h2 class="r1" id="kev-title">Начните с&nbsp;интересного</h2>
+        <p>Приходите познакомиться с&nbsp;технологиями, пробовать новое и&nbsp;находить единомышленников.</p>
+      </div>
+    </div>
+    <div class="kev">
+      <article class="kev-card stack">
+        <div class="kev-img"><img src="../img/club/kids-sunday.jpg" alt="Дети на интерактивном мастер-классе" loading="lazy"></div>
+        <div class="kev-body">
+          <div class="kev-row"><p class="r4">Бесплатное знакомство</p><span class="pill free">0 руб.</span></div>
+          <h3 class="r2">Нейро-воскресенье</h3>
+          <p>Интерактивный мастер-класс для детей и&nbsp;родителей. В&nbsp;игровой форме познакомим с&nbsp;возможностями нейросетей, покажем, как проходят занятия в&nbsp;клубе, и&nbsp;подготовим подарки для всех участников.</p>
+          <div class="ev-meta"><span><svg class="icon"><use href="#i-cal"/></svg><span data-next-sunday>Последнее воскресенье месяца</span></span><span><svg class="icon"><use href="#i-clock"/></svg>14:00–15:30</span></div>
+          <button class="btn" type="button" data-lead="event:sunday">Записаться бесплатно <svg class="icon"><use href="#i-arrow"/></svg></button>
+        </div>
+      </article>
+      <article class="kev-card stack">
+        <div class="kev-img"><img src="../img/club/kids-teacher.jpg" alt="Занятие в клубе: преподаватель и дети" loading="lazy"></div>
+        <div class="kev-body">
+          <div class="kev-row"><p class="r4">Технологические события</p><span class="pill">2&nbsp;000 руб.</span></div>
+          <h3 class="r2">Мастер-классы, конкурсы и&nbsp;хакатоны</h3>
+          <p>Новые темы, творческие задания и&nbsp;командные соревнования. Дети пробуют современные инструменты, решают интересные задачи и&nbsp;создают собственные проекты.</p>
+          <div class="ev-meta"><span><svg class="icon"><use href="#i-cal"/></svg>Даты – в&nbsp;анонсах клуба</span></div>
+          <button class="btn btn-ghost" type="button" data-lead="kidsevents">Узнать о&nbsp;ближайших <svg class="icon"><use href="#i-arrow"/></svg></button>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section wrap" id="kids-courses" aria-labelledby="kc-title">
+    <div class="panel">
+      <div class="head">
+        <div class="head-text">
+          <p class="r4">Наши курсы · 12 занятий · 3 месяца</p>
+          <h2 class="r1" id="kc-title">Выберите направление, которое вдохновляет</h2>
+        </div>
+      </div>
+      <div class="courses" data-courses="kids"></div>
+    </div>
+  </section>
+
+  <section class="section wrap" aria-labelledby="kfaq-title">
+    <div class="grid-2">
+      <div class="head-text">
+        <p class="r4">Для родителей</p>
+        <h2 class="r1" id="kfaq-title">Что важно знать родителям</h2>
+        <p>Заявку оставляет родитель или законный представитель. Условия доступа к&nbsp;сервисам расскажем заранее, до&nbsp;старта группы. На&nbsp;занятиях отдельно разбираем безопасную работу с&nbsp;личной информацией.</p>
+      </div>
+      <div class="faq" data-faq="kids"></div>
+    </div>
+  </section>
+
+  <section class="section wrap">
+    <div class="cta">
+      <div class="cta-left"><span class="ic"><svg class="icon"><use href="#i-rocket"/></svg></span><div><h2 class="r2">Готовы выбрать курс?</h2><p>Поможем подобрать направление под интересы и&nbsp;задачи вашего ребёнка.</p></div></div>
+      <button class="btn btn-light" type="button" data-lead="kidspick">Подобрать курс <svg class="icon"><use href="#i-arrow"/></svg></button>
+    </div>
+  </section>
+</div>
+
+<!-- ============ ВЗРОСЛЫМ ============ -->
+<div data-page="adults" hidden>
+  <section class="fade-hero" aria-labelledby="ad-title">
+    <div class="fade-media"><img class="fm-blur" src="../img/adults.jpg?v=2" alt="" aria-hidden="true" fetchpriority="high"><img class="fm-sharp" src="../img/adults.jpg?v=2" alt="Взрослые на занятии в клубе" fetchpriority="high"></div>
+    <div class="wrap fade-inner">
+      <div class="hero-text">
+        <nav class="crumbs" aria-label="Навигация по сайту"><a href="#/">Главная</a><span aria-hidden="true">/</span><span>Взрослым</span></nav>
+        <p class="r4">Для взрослых</p>
+        <h1 class="r1" id="ad-title">Освоить ИИ для&nbsp;работы и&nbsp;своего дела</h1>
+        <p class="hero-lead">Здесь не&nbsp;нужно разбираться в&nbsp;сложных терминах, иметь техническое образование и&nbsp;долго слушать лекции. Шаг за&nbsp;шагом на&nbsp;практике покажем, как с&nbsp;помощью нейросетей:</p>
+        <ul class="ticks">
+          <li><span class="ic-sq"><svg class="icon"><use href="#i-check"/></svg></span>решать свои реальные рабочие задачи;</li>
+          <li><span class="ic-sq"><svg class="icon"><use href="#i-check"/></svg></span>экономить время и&nbsp;упрощать привычные процессы;</li>
+          <li><span class="ic-sq"><svg class="icon"><use href="#i-check"/></svg></span>находить новые идеи для бизнеса и&nbsp;развития;</li>
+          <li><span class="ic-sq"><svg class="icon"><use href="#i-check"/></svg></span>открывать новые возможности для заработка;</li>
+          <li><span class="ic-sq"><svg class="icon"><use href="#i-check"/></svg></span>общаться с&nbsp;людьми, которым тоже интересно осваивать новое.</li>
+        </ul>
+        <div class="hero-actions">
+          <a class="btn" href="#/adult-courses">Смотреть курсы <svg class="icon"><use href="#i-arrow"/></svg></a>
+          <a class="btn btn-ghost" href="#/intensives">Интенсивы</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap" aria-labelledby="can-title">
+      <div class="card">
+        <p class="r4">В ProНейро можно</p>
+        <h2 class="r2" id="can-title">Задавать любые вопросы, пробовать, ошибаться и&nbsp;получать поддержку</h2>
+        <p>В спокойной дружелюбной атмосфере вы освоите навык, который останется полезным независимо от&nbsp;того, какая нейросеть станет популярной завтра.</p>
+        <div class="then-now">
+          <div class="card"><p class="r4">Тогда · компьютерная грамотность</p><p>Набрать документ, найти нужное в&nbsp;интернете, общаться по&nbsp;почте.</p></div>
+          <div class="card now"><p class="r4">Сейчас · грамотность в&nbsp;ИИ</p><p>Ставить нейросети понятную задачу, проверять ответы и&nbsp;думать самостоятельно, бережно обращаться с&nbsp;данными.</p></div>
+        </div>
+      </div>
+  </section>
+
+  <section class="section wrap" id="intensives" aria-labelledby="int-title">
+    <div class="panel">
+      <div class="head">
+        <div class="head-text">
+          <p class="r4">Интенсивы · 2 часа · 2&nbsp;800 руб.</p>
+          <h2 class="r1" id="int-title">Одна тема – один вечер – готовый инструмент</h2>
+          <p>Тематические встречи в&nbsp;кругу единомышленников: актуальные темы, живое общение, практические задания и&nbsp;инструменты, которые можно использовать сразу после встречи. Минимум теории – максимум практики.</p>
+        </div>
+      </div>
+      <div class="events" data-feed="intensives"></div>
+    </div>
+  </section>
+
+  <section class="section wrap" id="adult-courses" aria-labelledby="ac-title">
+    <div class="head">
+      <div class="head-text">
+        <p class="r4">Курсы · 2 месяца · 16 занятий</p>
+        <h2 class="r1" id="ac-title">Базовый и&nbsp;продвинутый курсы</h2>
+        <p>Авторские программы с&nbsp;упором на&nbsp;практику: одно занятие онлайн и&nbsp;одно очно каждую неделю.</p>
+      </div>
+    </div>
+    <div class="courses two" data-courses="adults"></div>
+  </section>
+
+  <section class="section wrap">
+    <div class="cta">
+      <div class="cta-left"><span class="ic"><svg class="icon"><use href="#i-rocket"/></svg></span><div><h2 class="r2">Не уверены, какой курс подойдёт?</h2><p>Расскажите о&nbsp;своих задачах – подскажем, с&nbsp;чего начать.</p></div></div>
+      <button class="btn btn-light" type="button" data-lead="adultpick">Подобрать программу <svg class="icon"><use href="#i-arrow"/></svg></button>
+    </div>
+  </section>
+</div>
+
+<!-- ============ БИЗНЕСУ ============ -->
+<div data-page="business" hidden>
+  <section class="fade-hero" aria-labelledby="biz-title">
+    <div class="fade-media"><img class="fm-blur" src="../img/business.jpg?v=2" alt="" aria-hidden="true" fetchpriority="high"><img class="fm-sharp" src="../img/business.jpg?v=2" alt="Команда на занятии" fetchpriority="high"></div>
+    <div class="wrap fade-inner">
+      <div class="hero-text">
+        <nav class="crumbs" aria-label="Навигация по сайту"><a href="#/">Главная</a><span aria-hidden="true">/</span><span>Бизнесу</span></nav>
+        <p class="r4">Для компаний · обучение под запрос</p>
+        <h1 class="r1" id="biz-title">ИИ под задачи вашей команды</h1>
+        <p class="hero-lead">Вы ставите перед нами задачу – мы предлагаем программу и&nbsp;формат и&nbsp;производим расчёт. Начинаем со&nbsp;встречи-знакомства.</p>
+        <div class="hero-actions"><button class="btn" type="button" data-lead="corp">Обсудить обучение <svg class="icon"><use href="#i-arrow"/></svg></button></div>
+      </div>
+    </div>
+  </section>
+  <section class="section wrap" aria-labelledby="corp-steps">
+    <div class="panel">
+      <div class="head"><div class="head-text"><p class="r4">Как мы работаем</p><h2 class="r1" id="corp-steps">Три шага до&nbsp;программы для команды</h2></div></div>
+      <ol class="grid-3">
+        <li class="step"><span class="n">1</span><p>Обсуждаем рабочие задачи, текущий опыт и&nbsp;желаемый результат.</p></li>
+        <li class="step"><span class="n">2</span><p>Выбираем вводную встречу, практикум или последовательную программу.</p></li>
+        <li class="step"><span class="n">3</span><p>Практикуемся на&nbsp;подходящих обезличенных учебных примерах.</p></li>
+      </ol>
+    </div>
+  </section>
+  <section class="section wrap" aria-labelledby="corp-topics">
+    <div class="head"><div class="head-text"><p class="r4">Возможные темы</p><h2 class="r1" id="corp-topics">С чего обычно начинают команды</h2><p>Стоимость, длительность и&nbsp;место проведения согласуем после обсуждения.</p></div></div>
+    <div class="grid-2">
+      <div class="card card-row"><span class="ic"><svg class="icon"><use href="#i-file"/></svg></span><div><h3 class="r2">Документы и&nbsp;переписка</h3></div></div>
+      <div class="card card-row"><span class="ic"><svg class="icon"><use href="#i-image"/></svg></span><div><h3 class="r2">Контент и&nbsp;маркетинг</h3></div></div>
+      <div class="card card-row"><span class="ic"><svg class="icon"><use href="#i-layers"/></svg></span><div><h3 class="r2">Помощники для повторяющихся задач</h3></div></div>
+      <div class="card card-row"><span class="ic"><svg class="icon"><use href="#i-users"/></svg></span><div><h3 class="r2">ИИ для руководителя и&nbsp;команды</h3></div></div>
+    </div>
+  </section>
+  <section class="section wrap">
+    <div class="cta">
+      <div class="cta-left"><span class="ic"><svg class="icon"><use href="#i-brief"/></svg></span><div><h2 class="r2">Расскажите о&nbsp;задаче</h2><p>Предложим формат и&nbsp;рассчитаем стоимость.</p></div></div>
+      <button class="btn btn-light" type="button" data-lead="corp">Обсудить обучение <svg class="icon"><use href="#i-arrow"/></svg></button>
+    </div>
+  </section>
+</div>
+
+<!-- ============ СВЕДЕНИЯ ОБ ОБРАЗОВАТЕЛЬНОЙ ОРГАНИЗАЦИИ ============ -->
+<div data-page="svedeniya" hidden>
+  <section class="hero wrap" aria-labelledby="sv-title">
+    <nav class="crumbs" aria-label="Навигация по сайту"><a href="#/">Главная</a><span aria-hidden="true">/</span><span>Сведения</span></nav>
+    <div class="head-text">
+      <p class="r4">Раздел для родителей и слушателей</p>
+      <h1 class="r1" id="sv-title">Сведения об&nbsp;образовательной организации</h1>
+      <p>Раздел заполняется. Сведения о&nbsp;лицензии, образовательных программах и&nbsp;документах об&nbsp;обучении появятся после получения лицензии на&nbsp;образовательную деятельность.</p>
+    </div>
+  </section>
+  <section class="section wrap">
+    <div class="sved">
+      <div class="card">
+        <h2 class="r2">Основные сведения</h2>
+        <dl class="kv">
+          <dt>Наименование</dt><dd>Индивидуальный предприниматель Федорова Наталья Петровна</dd>
+          <dt>ОГРНИП / ИНН</dt><dd>325690000038512 / 691601798260</dd>
+          <dt>Место осуществления деятельности</dt><dd>170100, г.&nbsp;Тверь, ул.&nbsp;Новоторжская, д.&nbsp;18, корп.&nbsp;1, пом.&nbsp;48</dd>
+          <dt>Телефон</dt><dd><a href="tel:+79040001213">8-904-000-12-13</a></dd>
+          <dt>Электронная почта</dt><dd><a href="mailto:Grand.tver@mail.ru">Grand.tver@mail.ru</a></dd>
+        </dl>
+      </div>
+      <div class="card">
+        <h2 class="r2">Лицензия на&nbsp;образовательную деятельность</h2>
+        <span class="badge-wait"><svg class="icon icon-sm"><use href="#i-clock"/></svg>Сведения появятся после получения лицензии</span>
+      </div>
+      <div class="card">
+        <h2 class="r2">Документы</h2>
+        <div class="find-actions" data-docs-buttons>
+          <button class="btn btn-ghost btn-sm" type="button" data-doc="oferta"><svg class="icon"><use href="#i-file"/></svg>Договор-оферта</button>
+          <button class="btn btn-ghost btn-sm" type="button" data-doc="policy"><svg class="icon"><use href="#i-file"/></svg>Политика обработки персональных данных</button>
+        </div>
+        <p>Порядок выдачи документов об&nbsp;обучении будет опубликован после получения лицензии.</p>
+      </div>
+      <div class="card">
+        <h2 class="r2">Материально-техническое обеспечение</h2>
+        <p>Студия на&nbsp;9 рабочих мест в&nbsp;центре Твери: новые компьютеры, демо-экран с&nbsp;профессиональным звуком и&nbsp;специализированное программное обеспечение для работы с&nbsp;нейросетями. Онлайн-занятия курсов проходят на&nbsp;платформе Skillspace.</p>
+      </div>
+      <div class="card">
+        <h2 class="r2">Образовательные программы и&nbsp;платные услуги</h2>
+        <span class="badge-wait"><svg class="icon icon-sm"><use href="#i-clock"/></svg>Раздел будет заполнен после получения лицензии</span>
+      </div>
+    </div>
+  </section>
+</div>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="logo" href="#/" aria-label="proнейро – на главную"><img class="em" src="../img/emblem.png" alt="" width="57" height="38"><img class="wm" src="../img/wordmark-dark.svg" alt="proнейро" width="150" height="27"></a>
+        <p>ProНейро – твоё пространство новых возможностей. Встречи, интенсивы и&nbsp;курсы по&nbsp;практическому применению ИИ для взрослых, детей и&nbsp;команд.</p>
+        <div class="socials"><button type="button" data-social="Telegram">Telegram</button><button type="button" data-social="ВКонтакте">ВКонтакте</button><button type="button" data-social="Max">Max</button></div>
+      </div>
+      <div>
+        <p class="r4">Направления</p>
+        <ul><li><a href="#/adults">Для взрослых</a></li><li><a href="#/kids">Для детей 7–14 лет</a></li><li><a href="#/business">Для бизнеса</a></li><li><a href="#/events">Ближайшие события</a></li></ul>
+      </div>
+      <div>
+        <p class="r4">Контакты</p>
+        <ul>
+          <li><a href="tel:+79040001213">8-904-000-12-13</a></li>
+          <li><a href="mailto:Grand.tver@mail.ru">Grand.tver@mail.ru</a></li>
+          <li><p>170100, г.&nbsp;Тверь, ул.&nbsp;Новоторжская, д.&nbsp;18, корп.&nbsp;1, пом.&nbsp;48, БЦ «Аврора»</p></li>
+        </ul>
+      </div>
+      <div>
+        <p class="r4">Документы</p>
+        <ul>
+          <li><a href="#/svedeniya">Сведения об&nbsp;образовательной организации</a></li>
+        </ul>
+        <ul data-docs-list>
+          <li><button class="linkish" type="button" data-doc="oferta">Договор-оферта</button></li>
+          <li><button class="linkish" type="button" data-doc="policy">Политика обработки персональных данных</button></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <p>ИП Федорова Наталья Петровна · ИНН 691601798260 · ОГРНИП 325690000038512</p>
+      <p>© 2026 ProНейро</p>
+    </div>
+  </div>
+</footer>
+
+<div class="modal" id="modal" hidden>
+  <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="modal-title" tabindex="-1">
+    <button class="x-btn" type="button" data-close aria-label="Закрыть"><svg class="icon"><use href="#i-x"/></svg></button>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<div class="cookie" id="cookie" role="region" aria-label="Cookies" hidden>
+  <p>Мы используем cookies, чтобы сайт работал корректно. Аналитику включим только с&nbsp;вашего согласия. Подробнее – в&nbsp;<button class="linkish" type="button" data-doc="policy">Политике обработки персональных данных</button>.</p>
+  <div class="cookie-actions"><button class="btn btn-sm" type="button" data-cookie="all">Принять</button><button class="btn btn-ghost btn-sm" type="button" data-cookie="needed">Только необходимые</button></div>
+</div>
+
+<template id="doc-oferta"><p>ПУБЛИЧНАЯ ОФЕРТА</p>
+<p>О заключении договора оказания клубных услуг</p>
+<p>и платных образовательных услуг с применением электронного обучения</p>
+<p>и дистанционных образовательных технологий</p>
+<p>(после получения лицензии и соответствующих правовых оснований)</p>
+<p>Сайт: https://proneiroclub.ru | Редакция от 24 октября 2026 года</p>
+<p>Исполнитель: Индивидуальный предприниматель Федорова Наталья Петровна, ИНН 691601798260, ОГРНИП 325690000038512; адрес регистрации: 170039, Россия, г. Тверь, ул. Хромова, д. 23, корп. 1, кв. 235; адрес клуба: 170100, г. Тверь, ул. Новоторжская, д. 18, корп. 1, пом. 48; электронная почта для обращений по персональным данным: Grand.tver@mail.ru; телефон: 8-904-000-12-13.</p>
+<h3>1. Термины, сфера действия и заключение договора</h3>
+<p>1.1. Настоящий документ адресован физическим лицам – потребителям (Заказчикам), в том числе законным представителям несовершеннолетних участников (Обучающихся). Для заказов юридических лиц и ИП условия согласовываются отдельно.</p>
+<p>1.2. Услуга – конкретное мероприятие либо курс, выбранные на сайте. Карточка услуги – опубликованное до оплаты описание с названием, содержанием, возрастом участников, форматом, датами/сроками, стоимостью, порядком оплаты и иными обязательными характеристиками. Карточка услуги, подтверждение заказа и согласованный график платежей составляют условия соответствующего договора. Заказчик до оплаты получает возможность ознакомиться с офертой и карточкой услуги.</p>
+<p>1.3. Акцепт – полная оплата или первый платеж, если предусмотрена оплата этапами. При бесплатной регистрации договор о платных услугах не заключается; условия бесплатного участия сообщаются отдельно.</p>
+<p>1.4. При оформлении заказа на сайте Заказчик подтверждает ознакомление с офертой отдельным активным действием; согласие на рекламу и иные согласия, когда они требуются, не включаются в обязательную отметку об оферте.</p>
+<p>1.5. Исполнитель сохраняет подтверждение версии оферты, условий заказа, даты акцепта и оплаты. Изменения опубликованной оферты действуют для новых заказов и не изменяют заключённые договоры без предусмотренного законом основания или согласия сторон.</p>
+<p>1.6. При расхождении общих и индивидуальных параметров услуги преимущество имеют согласованные индивидуальные параметры, если они не ухудшают обязательные права потребителя.</p>
+<h3>2. Виды услуг и лицензирование</h3>
+<p>2.1. Клубные услуги: разовые очные тематические встречи, игры, практикумы, интенсивы и иные досуговые/консультационные мероприятия для взрослых и детей. Конкретный характер мероприятия определяется его фактическим содержанием, а не названием.</p>
+<p>2.2. Образовательные услуги: реализация конкретных образовательных программ, указанных в карточках курсов, в том числе с применением электронного обучения и дистанционных образовательных технологий, с использованием Skillspace. Такие услуги предлагаются и оказываются только при наличии необходимого правового основания, включая действующую лицензию в случаях, когда она обязательна.</p>
+<p>2.3. До подтверждения соответствующей лицензии Исполнитель не заявляет о её наличии, не использует фиктивный номер лицензии и не принимает оплату за программы, реализация которых требует отсутствующей лицензии. После получения лицензии на сайте указываются проверяемые сведения о записи в реестре и предусмотренная законом информация об образовательной деятельности.</p>
+<p>2.4. Курс может включать видеозаписи, материалы и ответы преподавателя в чате. Точный состав, программа, продолжительность, сроки доступа, срок и регламент сопровождения указываются в карточке курса. Если отдельная услуга не входит в карточку, она не обещается.</p>
+<p>2.5. Исполнитель вправе привлекать преподавателей и иных специалистов, сохраняя ответственность перед Заказчиком в пределах законодательства. Не гарантируются доход, трудоустройство и иной результат, зависящий от действий обучающегося; при этом гарантируются согласованный объём и качество услуг.</p>
+<h3>3. Клубные мероприятия и участие несовершеннолетних</h3>
+<p>3.1. Карточка мероприятия содержит адрес, дату, время начала и окончания, продолжительность, возрастные ограничения, стоимость, условия участия и информацию о необходимых материалах. Основное место очных мероприятий: 170100, г. Тверь, ул. Новоторжская, д. 18, корп. 1, пом. 48, если карточкой не указан иной адрес.</p>
+<p>3.2. Заказ на участие ребёнка оформляет его родитель или иной законный представитель; он сообщает достоверные контактные сведения и подтверждает полномочия. Передача ребёнка сотруднику клуба и получение после мероприятия осуществляются по отдельным Правилам участия детей (Приложение 2).</p>
+<p>3.3. Самостоятельный уход ребёнка допускается только при наличии предварительного отдельного письменного разрешения законного представителя с указанием применимых условий; такое разрешение не освобождает Исполнителя от установленной законом ответственности.</p>
+<p>3.4. Участник соблюдает разумные правила безопасности и поведения. При непосредственной угрозе безопасности Исполнитель вправе принять соразмерные меры, включая прекращение участия в конкретной активности; финансовые последствия определяются законом и обстоятельствами случая.</p>
+<p>3.5. При отмене или существенном изменении оплаченного мероприятия по инициативе Исполнителя Заказчику предлагается согласованный перенос либо возврат за неоказанную услугу; право на иные законные требования сохраняется. Замена ведущего допустима, если не меняет существенные обещанные характеристики.</p>
+<h3>4. Онлайн-курсы и платформа Skillspace</h3>
+<p>4.1. Для курсов применяется платформа Skillspace. Заказчик получает инструкцию по входу на адрес электронной почты, указанный в заказе, либо иным согласованным способом. Конкретный срок выдачи доступа к курсу – в день проведения вводной очной встречи.</p>
+<p>4.2. Доступ к записанным урокам предоставляется последовательно – два урока в неделю. Дата начала и окончания доступа, срок сопровождения и дата прекращения доступа указываются до оплаты.</p>
+<p>4.3. Сопровождение – ответы преподавателя на вопросы по содержанию курса в «Учебном чате» ВКонтакте в период с понедельника по пятницу с 10.00 до 16.00. Сопровождение не включает проверку домашних заданий, индивидуальные созвоны и консультации по посторонним вопросам, если это прямо не обещано в карточке.</p>
+<p>4.4. Заказчик самостоятельно обеспечивает совместимое устройство и интернет, указанные в карточке технические требования и соблюдение правил платформы. При технической неисправности на стороне Исполнителя или выбранной им платформы Исполнитель принимает разумные меры к восстановлению доступа и предоставляет соразмерное продление или иное законное решение, если услуга не могла предоставляться.</p>
+<p>4.5. Доступ персональный. Передача логина и пароля третьим лицам запрещена; при подозрении на компрометацию данных Заказчик уведомляет Исполнителя. Ограничение доступа допускается при подтверждённом существенном нарушении с соблюдением прав потребителя и порядка уведомления.</p>
+<p>4.6. Факт выдачи доступа, доступность материалов и обращения в чат могут подтверждаться техническими журналами платформы и перепиской; такие сведения оцениваются вместе с другими доказательствами и сами по себе не означают автоматического оказания всего курса.</p>
+<p>4.7. Если предусмотрена поэтапная оплата, карточка курса точно определяет этапы, суммы, сроки платежей и состав оплачиваемых услуг. Просрочка оплаты может повлечь непредоставление будущего неоплаченного этапа после уведомления; уже оплаченные права сохраняются в установленном законом объёме.</p>
+<h3>5. Цена, расчёты и подтверждение оплаты</h3>
+<p>5.1. Цена, валюта (рубли РФ), содержание тарифа и условия оплаты указываются до акцепта в карточке услуги. Клубное мероприятие оплачивается полностью; курс – полностью или по согласованному графику этапов.</p>
+<p>5.2. Оплата производится предусмотренными на сайте законными способами, в том числе банковской картой через подключённый платёжный сервис, либо иным способом, согласованным с Исполнителем. Кассовые чеки выдаются в предусмотренных законом случаях и порядке.</p>
+<p>5.3. Автоматическое списание и продление платных услуг не применяются, если Заказчик не оформил отдельное законное согласие на конкретные условия такой услуги. Банковская рассрочка или кредит регулируются отдельными документами банка при их использовании.</p>
+<p>5.4. Расходы на сторонние платные ИИ-сервисы несёт сторона, прямо указанная в карточке; необходимые платные подписки и возрастные/территориальные ограничения раскрываются до оплаты.</p>
+<h3>6. Отказ, возврат и недостатки услуг</h3>
+<p>6.1. Потребитель вправе отказаться от договора в любое время на условиях статьи 32 Закона РФ «О защите прав потребителей» и применимых норм ГК РФ. При отказе учитываются фактически оказанные услуги и фактически понесённые Исполнителем расходы, непосредственно связанные с исполнением конкретного договора, без двойного удержания одних и тех же сумм.</p>
+<p>6.2. Для курса с записями и сопровождением расчёт производится по объективным и заранее раскрытым параметрам карточки курса: составу и стоимости этапов/компонентов, срокам и фактически исполненным обязательствам. Открытие доступа ко всем урокам само по себе не доказывает, что весь курс оказан. Повышенные цены задним числом не применяются.</p>
+<p>6.3. Для разового мероприятия при отказе до его проведения Исполнитель рассчитывает возврат с учётом доказанных связанных расходов. Неявка сама по себе не означает безусловного права удержать 100% оплаты; правовые последствия зависят от фактического оказания услуги и обстоятельств.</p>
+<p>6.4. Заявление об отказе или претензия направляются на Grand.tver@mail.ru, по почтовому адресу Исполнителя либо иным согласованным способом. Достаточно однозначного сообщения, позволяющего идентифицировать договор и волеизъявление; обязательная специальная форма заявления не устанавливается.</p>
+<p>6.5. Исполнитель предоставляет мотивированный расчёт удержаний и подтверждения расходов по запросу. Возврат производится в применимый установленный законом срок; договор не устанавливает более длительный срок. Способ возврата согласуется с учётом законодательства и правил платёжной системы.</p>
+<p>6.6. При недостатках услуг, нарушении сроков и других нарушениях Исполнителя Заказчик вправе предъявлять требования, предусмотренные законодательством о защите прав потребителей. Условия добровольного отказа не ограничивают такие требования.</p>
+<p>6.7. При отказе Исполнителя от договора применяются требования законодательства, включая положения о возмещении убытков в предусмотренных законом случаях.</p>
+<h3>7. Сторонние цифровые сервисы и результаты ИИ</h3>
+<p>7.1. На занятиях могут демонстрироваться сторонние нейросети. Исполнитель сообщает о необходимых условиях доступа, возрастных ограничениях и платных функциях. Для детей используются только допустимые по правилам сервиса и законодательству сценарии, в том числе демонстрация преподавателем, когда самостоятельная регистрация ребёнка недопустима.</p>
+<p>7.2. При изменении стороннего сервиса Исполнитель может предложить функционально сопоставимую замену без ухудшения существенных согласованных характеристик услуги; при невозможности – согласовать иное решение с Заказчиком с сохранением законных прав.</p>
+<p>7.3. Выводы генеративного ИИ могут быть ошибочными; Заказчику рекомендуется проверять сведения перед использованием. Это не исключает ответственности Исполнителя за ненадлежащее оказание обещанной услуги.</p>
+<h3>8. Материалы, права и изображения</h3>
+<p>8.1. Учебные записи, тексты, презентации и шаблоны предоставляются для личного использования в пределах согласованного доступа, если не указано иное. Не допускаются незаконное распространение, перепродажа и предоставление третьим лицам; установленные законом исключения сохраняются.</p>
+<p>8.2. Права на собственные творческие работы участников не переходят Исполнителю автоматически. Публикация работ, фото или видео с изображением участника осуществляется при наличии необходимого правового основания и отдельного согласия, если оно требуется; для детей – с учётом полномочий законного представителя.</p>
+<p>8.3. Фото- и видеосъёмка в рекламных целях не является условием получения платной услуги.</p>
+<h3>9. Персональные данные и сообщения</h3>
+<p>9.1. Исполнитель обрабатывает данные, необходимые для заключения и исполнения договора, в соответствии с законодательством РФ и опубликованной Политикой обработки персональных данных. Сведения о получателях, порученной обработке, сроках и целях должны соответствовать фактическим процессам, включая работу сайта, платёжных сервисов и Skillspace.</p>
+<p>9.2. Когда обработка основана на согласии, оно оформляется отдельно от настоящей оферты. Рекламные сообщения направляются при наличии требуемого законом предварительного согласия. Сервисные сообщения по заказу могут направляться по указанным контактам.</p>
+<p>9.3. До запуска необходимо проверить локализацию, договор поручения обработки данных с платформой и другими подрядчиками, уведомления регулятору и трансграничные передачи – по фактической архитектуре сервисов.</p>
+<h3>10. Ответственность и разрешение споров</h3>
+<p>10.1. Стороны отвечают в соответствии с законодательством РФ. Ни одно условие оферты не ограничивает обязательные права потребителя и законную ответственность за безопасность несовершеннолетних.</p>
+<p>10.2. Вред имуществу возмещается при наличии установленных законом оснований. Чрезвычайные и непредотвратимые обстоятельства оцениваются по правилам законодательства, а не признаются форс-мажором автоматически.</p>
+<p>10.3. Претензии принимаются по контактам Исполнителя. Переговоры не устанавливают обязательного досудебного порядка там, где он не предусмотрен законом; выбор суда осуществляется по действующим правилам подсудности, включая права потребителя.</p>
+<h3>11. Срок действия и реквизиты</h3>
+<p>11.1. Договор действует с акцепта до исполнения обязательств либо законного прекращения. Положения о расчётах, ответственности и интеллектуальных правах применяются после прекращения в необходимых пределах.</p>
+<p>ИП Федорова Наталья Петровна · ИНН 691601798260 · ОГРНИП 325690000038512</p>
+<p>Адрес регистрации: 170039, РФ, г. Тверь, ул. Хромова, д. 23, корп. 1, кв. 235.</p>
+<p>Место проведения клубных мероприятий: 170100, г. Тверь, ул. Новоторжская, д. 18, корп. 1, пом. 48.</p>
+<p>Банк: АО «АЛЬФА-БАНК», г. Москва · БИК 044525593 · корр. счёт 30101810200000000593 · расчётный счёт 40802810302220016752.</p>
+<p>Телефон: 8-904-000-12-13 · E-mail: Grand.tver@mail.ru · Сайт: https://proneiroclub.ru</p>
+<h3>Приложение 1. Обязательная карточка услуги (заполняется до продажи)</h3>
+<p>• Название и правовая категория: [клубное мероприятие / образовательная программа]; возраст: [ ]; описание, программа и планируемый результат: [ ].</p>
+<p>• Формат и место / платформа: [ ]; даты и длительность: [ ]; дата выдачи доступа: [ ]; окончание доступа: [ ].</p>
+<p>• Для курса: количество записанных уроков [ ]; открываются все сразу [да/нет]; срок сопровождения [ ]; канал чата [ ]; рабочие дни и часы [ ]; срок ответа [ ].</p>
+<p>• Стоимость всего [ ]; стоимость компонентов/этапов и правила расчёта фактически оказанного [ ]; график платежей [ ]; включённые сторонние подписки [ ].</p>
+<p>• При необходимости: сведения о лицензии и образовательной программе, документы об обучении, условия зачисления и завершения обучения: [ ].</p>
+<p>• Для детского мероприятия: возраст [ ]; порядок передачи ребёнка [ ]; контакт для экстренной связи [ ]; правила самостоятельного ухода [ ].</p>
+<h3>Приложение 2. Правила участия детей в очных мероприятиях</h3>
+<p>1. Регистрацию оформляет законный представитель; до первого посещения указываются контактные данные представителя и экстренный телефон. Сведения о здоровье собираются только при наличии действительной необходимости и законного основания.</p>
+<p>2. Представитель передаёт ребёнка назначенному сотруднику в согласованном месте и забирает после окончания в согласованное время. Сотрудник не передаёт ребёнка посторонним без надлежащего подтверждения полномочий.</p>
+<p>3. Самостоятельный уход допускается только по отдельному письменному разрешению законного представителя; возрастные и иные ограничения определяются с учётом закона и реальной организации безопасности.</p>
+<p>4. При опоздании представителя сотрудник связывается по указанным контактам и действует по утверждённому внутреннему алгоритму безопасности. Нельзя оставлять ребёнка без необходимого присмотра.</p>
+<p>5. При травме, ухудшении самочувствия или иной угрозе сотрудник вызывает необходимую помощь, уведомляет законного представителя и фиксирует обстоятельства.</p>
+<p>6. Участники соблюдают инструкции ведущего, правила обращения с оборудованием и уважительного общения. Меры реагирования должны быть соразмерными и безопасными.</p>
+<h3>Приложение 3. Правила онлайн-доступа и сопровождения</h3>
+<p>1. Исполнитель выдаёт персональный доступ к Skillspace по согласованным контактам и обеспечивает наличие обещанных материалов в согласованный период.</p>
+<p>2. Записанные уроки по умолчанию доступны сразу; конкретные сроки доступа, программа и особенности тарифа указываются в карточке курса.</p>
+<p>3. Преподаватель отвечает в согласованном чате в установленные в карточке рабочие дни и сроки; проверка домашних заданий и личные консультации включаются только при прямом указании.</p>
+<p>4. Заказчик не передаёт доступ третьим лицам и сообщает о проблемах с входом; Исполнитель предоставляет контакт технической поддержки: [УКАЗАТЬ].</p>
+<p>5. При сбое Исполнитель регистрирует обращение, проверяет причину и предлагает восстановление, продление или иной законный способ урегулирования.</p>
+<p>6. При отказе от курса стороны определяют объём исполненного по условиям карточки и подтверждаемым обстоятельствам; статистика входов – лишь одно из доказательств.</p>
+</template>
+<template id="doc-policy"><p>ПОЛИТИКА В ОТНОШЕНИИ ОБРАБОТКИ ПЕРСОНАЛЬНЫХ ДАННЫХ</p>
+<p>Сайт: https://proneiroclub.ru | Редакция от 24 октября 2026 года</p>
+<p>Оператор – Индивидуальный предприниматель Федорова Наталья Петровна, ИНН 691601798260, ОГРНИП 325690000038512; адрес регистрации: 170039, Россия, г. Тверь, ул. Хромова, д. 23, корп. 1, кв. 235; адрес клуба: 170100, г. Тверь, ул. Новоторжская, д. 18, корп. 1, пом. 48; электронная почта для обращений по персональным данным: Grand.tver@mail.ru; телефон: 8-904-000-12-13.</p>
+<h3>1. Сфера применения</h3>
+<p>1.1. Политика распространяется на обработку данных посетителей сайта, заявителей, клиентов и участников мероприятий и курсов, а также законных представителей несовершеннолетних, в связи с деятельностью ProНейрo. Она не заменяет согласия, требуемые законом для отдельных операций.</p>
+<p>1.2. Правовая основа: Федеральный закон от 27.07.2006 № 152-ФЗ «О персональных данных», Гражданский кодекс РФ, применимые нормы законодательства о бухгалтерском и налоговом учёте и о рекламе.</p>
+<h3>2. Принципы, состав данных и способы обработки</h3>
+<p>2.1. Оператор обрабатывает только данные, необходимые для конкретной законной цели; обеспечивает их точность и не допускает несовместимого использования. Сбор и обработка могут осуществляться автоматизированно и без автоматизации.</p>
+<p>2.2. В зависимости от цели выполняются сбор, запись, систематизация, накопление, хранение, уточнение, извлечение, использование, предоставление доступа, передача в установленных случаях, блокирование, удаление и уничтожение.</p>
+<p>2.3. Сайт предусматривает формы «Заявка на курс или мероприятие» и «Обратный звонок / задать вопрос». Состав фактически запрашиваемых полей ограничивается необходимым для обработки обращения. Данные о состоянии здоровья, паспортные данные и иные специальные категории данных через обычные формы сайта не запрашиваются.</p>
+<h3>3. Цели, категории субъектов, основания и сроки</h3>
+<div class="doc-table"><table><thead><tr><th>Цель и субъекты</th><th>Данные</th><th>Основание и срок</th></tr></thead><tbody><tr><td data-label="Цель и субъекты">Обработка заявки, ответ на вопрос, обратный звонок.<br>Посетители, заявители</td><td data-label="Данные">Имя (если указано), телефон и/или e-mail, содержание обращения, дата и история коммуникации</td><td data-label="Основание и срок">Действия по инициативе субъекта до заключения договора; согласие – если оно требуется для отдельной операции Срок: До завершения обращения и необходимого урегулирования связанных вопросов; далее – при наличии самостоятельного законного основания</td></tr><tr><td data-label="Цель и субъекты">Оформление и исполнение заказа, участие в мероприятии иликурсе.<br>Заказчики и совершеннолетние участники</td><td data-label="Данные">ФИО/имя, контакты, сведения о заказе, расписании, посещении, оплате и взаимодействии</td><td data-label="Основание и срок">Заключение и исполнение договора; исполнение обязанностей по закону Срок: На время исполнения договора; документы, обязательные к хранению, – в установленные законом сроки</td></tr><tr><td data-label="Цель и субъекты">Организация участия несовершеннолетнего.<br>Дети и законные представители.</td><td data-label="Данные">Имя ребёнка, возраст или возрастная группа при необходимости, сведения об участии; имя и контакты представителя.</td><td data-label="Основание и срок">Исполнение договора с представителем / в интересах ребёнка при наличии применимого основания; согласие в случаях, когда оно необходимо.<br>Срок: на период участия и урегулирования связанных обязательств; далее – только при наличии законного основания.</td></tr><tr><td data-label="Цель и субъекты">Предоставление записанного курса и сопровождение в Skillspace.<br>Совершеннолетние слушатели.</td><td data-label="Данные">Имя, контакт для доступа, сведения о предоставленном доступе, ходе просмотра и вопросы в чате – в объёме фактически используемых функций.</td><td data-label="Основание и срок">Исполнение договора; поручение обработки – при наличии соответствующих отношений с поставщиком.<br>Срок: на период доступа и исполнения обязательств; затем по применимому основанию и срокам.</td></tr><tr><td data-label="Цель и субъекты">Приём и учёт платежей.<br>Плательщики, заказчики.</td><td data-label="Данные">Идентификатор заказа, сумма, статус платежа, сведения, необходимые для чека, возврата и учёта.</td><td data-label="Основание и срок">Исполнение договора и требований законодательства о расчётах, бухгалтерском и налоговом учёте.<br>Срок: в пределах установленных законом сроков хранения документов и необходимых расчётов.</td></tr><tr><td data-label="Цель и субъекты">Рекламные рассылки о курсах и мероприятиях.<br>Лица, отдельно согласившиеся на рекламу.</td><td data-label="Данные">Контактный канал, данные о согласии и его отзыве.</td><td data-label="Основание и срок">Предварительное согласие адресата на рекламу; при необходимости – отдельное согласие на обработку данных.<br>Срок: до отзыва согласия или прекращения цели, если нет другого законного основания.</td></tr><tr><td data-label="Цель и субъекты">Анализ посещаемости и эффективности рекламы.<br>Посетители сайта</td><td data-label="Данные">Cookie, IP-адрес, идентифика-торы браузера/устройства, события посещения и взаимодействия, если собираются соответствующими инструментами.</td><td data-label="Основание и срок">Применимое законное основание; согласие для необязательных технологий, когда оно требуется.<br>По срокам, установленным для соответствующих технологий и настроек, с учётом минимизации.</td></tr><tr><td data-label="Цель и субъекты">Публикация изображений участников.<br>Участники, в том числе дети.</td><td data-label="Данные">Фото- и видеоматериалы, имя при отдельно согласованном использовании.</td><td data-label="Основание и срок">Отдельное согласие на использование изображения и, когда применимо, на распространение персональных данных.<br>Срок: в пределах объёма и срока соответствующих согласий и закона.</td></tr></tbody></table></div>
+<p>3.1. Сроки обработки и хранения определяются целью, условиями договора, применимыми сроками обязательного хранения и наступлением оснований для прекращения обработки. Конкретные периоды хранения в информационных системах устанавливаются оператором с учётом этих требований. Не допускается бессрочное хранение данных только «на всякий случай».</p>
+<h3>4. Дети и представители</h3>
+<p>4.1. При записи ребёнка необходимые сведения сообщает законный представитель или иное лицо с надлежащим правовым основанием. Оператор вправе уточнить полномочия представителя в соразмерном объёме. Данные детей не используются для самостоятельных рекламных рассылок.</p>
+<p>4.2. Преподаватели получают доступ только к сведениям, необходимым для проведения занятий и коммуникации по курсу. Публикация изображения ребёнка не следует из факта посещения занятий и оформляется отдельно.</p>
+<h3>5. Сайт, CRM, платежи, Skillspace и технические средства</h3>
+<p>5.1. Заявки поступают в административную панель сайта и CRM. Для исполнения заявок и договоров доступ к данным может предоставляться уполномоченным сотрудникам и привлечённым исполнителям при наличии надлежащих оснований и соблюдении требований конфиденциальности.</p>
+<p>5.2. Оплата на сайте предусмотрена через банковский эквайринг. Платёжный провайдер обрабатывает данные, необходимые для проведения операции, в рамках своей правовой роли и применимых условий. Оператор не заявляет, что получает полные реквизиты банковской карты: фактический состав передаваемых сведений определяется интеграцией.</p>
+<p>5.3. Для записанных курсов используется платформа Skillspace. Порядок создания учётной записи и предоставления доступа ещё не определён; персональные данные передаются платформе только в объёме, необходимом для фактически выбранной модели подключения и на соответствующем правовом основании.</p>
+<p>5.4. На сайте предусмотрено использование Яндекс Метрики и рекламных пикселей VK. Такие инструменты могут получать технические идентификаторы и сведения о действиях посетителя. Необязательные аналитические и рекламные технологии должны включаться только после надлежащего информирования и получения согласия там, где оно требуется; посетителю должна предоставляться возможность отказаться от необязательных технологий. Фактический перечень cookie и получателей определяется установленными скриптами и настройками.</p>
+<p>5.5. При сборе данных граждан Российской Федерации соблюдаются требования части 5 статьи 18 закона № 152-ФЗ о базах данных на территории Российской Федерации. Фактическое местонахождение и потоки данных должны быть подтверждены оператором по договорам и техническим сведениям. Трансграничная передача, если возникает, осуществляется при соблюдении применимых требований закона.</p>
+<h3>6. Реклама, организационные сообщения и изображения</h3>
+<p>6.1. Уведомления о заявке, записи, оплате, расписании и доступе к приобретённому курсу направляются в связи с обращением или исполнением договора. Реклама новых курсов и мероприятий направляется только при наличии необходимого предварительного согласия адресата; отказ от рекламы не препятствует получению приобретённых услуг.</p>
+<p>6.2. Фото и видео участников могут размещаться на сайте, в сообществах и рекламных материалах только при наличии применимых правовых оснований, включая согласие на использование изображения по статье 152.1 ГК РФ и отдельное согласие по статье 10.1 закона № 152-ФЗ, если осуществляется распространение персональных данных. Для детей необходимые согласия оформляются через законных представителей с учётом закона.</p>
+<h3>7. Хранение, прекращение обработки и уничтожение</h3>
+<p>7.1. По достижении цели обработки или утрате необходимости в ней данные удаляются или уничтожаются в сроки, установленные статьёй 21 закона № 152-ФЗ, если сохранение не требуется по закону либо иному применимому основанию. При отзыве согласия оператор прекращает обработку на основании согласия, кроме случаев, когда закон допускает продолжение обработки.</p>
+<p>7.2. Требование о прекращении обработки рассматривается с применением предусмотренного законом срока – 10 рабочих дней, с возможностью мотивированного продления не более чем на 5 рабочих дней в предусмотренных случаях. Сроки уничтожения и блокирования различаются в зависимости от основания, предусмотренного статьёй 21 закона № 152-ФЗ.</p>
+<p>7.3. Уничтожение данных проводится способами, исключающими их восстановление, с оформлением подтверждающих документов в случаях, предусмотренных обязательными требованиями.</p>
+<h3>8. Права субъектов и обращения</h3>
+<p>8.1. Субъект вправе получить предусмотренную законом информацию об обработке своих данных, требовать уточнения, блокирования, прекращения обработки или уничтожения при наличии оснований, отзывать согласие и обжаловать действия оператора в Роскомнадзор либо суд.</p>
+<p>8.2. Обращения направляются на Grand.tver@mail.ru либо по адресу регистрации оператора, указанному в разделе 1. Для исполнения запроса оператор вправе запросить сведения, необходимые для установления личности заявителя и его полномочий, в пределах статьи 14 закона № 152-ФЗ.</p>
+<p>8.3. Сведения по надлежащему запросу субъекта предоставляются в течение 10 рабочих дней; при направлении мотивированного уведомления срок может быть продлён не более чем на 5 рабочих дней. Иные обращения рассматриваются в сроки, предусмотренные применимыми нормами.</p>
+<h3>9. Конфиденциальность и меры защиты</h3>
+<p>9.1. По сведениям оператора, доступ к клиентским данным ограничен кругом сотрудников, у преподавателей используются отдельные учётные записи, действуют правила хранения и удаления данных. Доступ предоставляется по необходимости выполнения служебных задач.</p>
+<p>9.2. Оператор принимает необходимые правовые, организационные и технические меры защиты данных, включая ограничение доступа и обеспечение конфиденциальности. Конкретные меры в отношении сайта, CRM и внешних платформ определяются фактической конфигурацией информационных систем и требованиями статьи 19 закона № 152-ФЗ.</p>
+<p>9.3. При выявлении неправомерного доступа или иных инцидентов оператор принимает меры, предусмотренные законом, включая уведомление уполномоченного органа в случаях и сроки, установленные законом.</p>
+<h3>10. Заключительные положения</h3>
+<p>10.1. Политика размещается в открытом доступе на сайте https://proneiroclub.ru. Новая редакция применяется с даты её опубликования; ранее возникшие отношения и права субъектов регулируются применимым законодательством.</p>
+<p>10.2. В случае изменения состава форм, CRM, эквайринга, платформы обучения или аналитических инструментов оператор актуализирует сведения о целях и условиях обработки персональных данных и выполняет необходимые юридические действия.</p>
+</template>
+
+<script>
+/* ===== Настройки ===== */
+// Куда пишут желающие записаться. Сайт сам заявки не собирает – кнопки открывают чат с клубом.
+// telegram – ник без @ (например, proneiro_club); max – ссылка на профиль или канал в MAX.
+// Пока поле пустое, кнопка не показывается и остаётся «Позвонить».
+const CONTACTS = { telegram:'', max:'' };
+// Админка клуба (заявки, афиша, курсы, документы) живёт на том же сервере: /api и /admin.
+// При проверке на своём компьютере сайт обращается к админке, запущенной рядом.
+const API_BASE = /^(localhost|127\.0\.0\.1)$/.test(location.hostname) ? 'http://localhost:8091' : '';
+const PHONE = '8\u2011904\u2011000\u201112\u201113'; // неразрывные дефисы, чтобы номер не рвался
+
+/* ===== Данные ===== */
+const MONTHS = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+const MON = ['янв','фев','мар','апр','мая','июн','июл','авг','сен','окт','ноя','дек'];
+const WD = ['вс','пн','вт','ср','чт','пт','сб'];
+const today = () => { const n = new Date(); return new Date(n.getFullYear(), n.getMonth(), n.getDate()); };
+// Ближайшая последняя суббота (6) или последнее воскресенье (0) месяца
+function nextLastWeekday(w){ const t = today();
+  for (let k = 0; k < 3; k++){ const last = new Date(t.getFullYear(), t.getMonth()+k+1, 0);
+    const d = new Date(last.getFullYear(), last.getMonth(), last.getDate() - ((last.getDay()-w+7)%7)); if (d >= t) return d; } }
+const dm = d => d.getDate() + ' ' + MONTHS[d.getMonth()];
+const AUD = { a:'Взрослым', k:'Детям', b:'Бизнесу' };
+
+const FREE = {
+  sunday: { aud:'k', title:'Нейро-воскресенье', who:'для детей и родителей', time:'14:00–15:30', rule:'каждое последнее воскресенье месяца', d: nextLastWeekday(0),
+    desc:'Интерактивный мастер-класс для детей и родителей. В игровой форме познакомим с возможностями нейросетей, покажем, как проходят занятия в клубе, и подготовим подарки для всех участников.',
+    result:'Ребёнок попробует нейросети сам, а вы увидите, как устроены занятия.' },
+};
+
+// Даты интенсивов пока не объявлены – везде предзапись. Когда дата появится, добавить d:new Date(ГГГГ, месяц-1, день).
+const INTENSIVES = [
+  { t:'Свой сайт с нейросетями: от идеи до публикации' },
+  { t:'Личный помощник на базе нейросети' },
+  { t:'Нейросети для педагога: интересные уроки и экономия времени' },
+  { t:'Контент за 2 часа: AI-редакция для вашего бизнеса' },
+  { t:'Нейроассистент для ассистента руководителя' },
+  { t:'Соцсети beauty-мастера без SMM-специалиста' },
+  { t:'Нейросети для риелтора' },
+];
+const INT_DESC = 'Тематическая встреча в кругу единомышленников: актуальные темы, живое общение, практические задания и полезные инструменты, которые можно использовать сразу после встречи. Минимум теории – максимум практики, вдохновения и новых идей.';
+
+const KIDS = [
+  { id:'neurostart', tag:'Нейросети и творчество', title:'Нейростарт – дети', sub:'От первого запроса к ИИ до собственного цифрового проекта', cs:'От первого запроса к ИИ до своего проекта', img:'kids-elephant',
+    points:[['i-image','Создаёт изображения, комиксы, видео и сайты'],['i-bulb','Учится задавать вопросы и проверять ответы'],['i-star','Готовит собственный проект и презентацию']],
+    lesson:'1,5 часа',
+    intro:'Ваш ребёнок научится использовать нейросети не только для развлечения, но и для учёбы и творчества: создавать изображения, комиксы, видео, презентации и сайты. Каждый этап курса – конкретная задача и видимый результат. Главное – научиться ясно формулировать идеи, проверять ответы ИИ и превращать замысел в законченный проект, а не просто нажимать кнопки.',
+    modules:[
+      { r:'1–2', t:'Учимся понимать искусственный интеллект', l:[['Знакомимся с ИИ','Разбираемся, где встречаются нейросети и что они умеют. Пробуем отличать возможности ИИ от его ошибок.'],['Учимся задавать вопросы','Составляем понятные запросы, уточняем ответы и проверяем полученную информацию.']], why:'учится формулировать задачу, критически оценивать ответы и искать полезную информацию для учёбы.' },
+      { r:'3–4', t:'Создаём изображения и собственных персонажей', l:[['Рисуем словами','Описываем идею, выбираем стиль, цвет и детали; создаём иллюстрации с помощью ИИ.'],['Герой и стикеры','Придумываем персонажа и делаем набор стикеров с разными эмоциями.']], why:'учится превращать идею в изображение и оформлять творческие и школьные проекты.' },
+      { r:'5–6', t:'Придумываем истории и оживляем героев', l:[['Создаём комикс','Придумываем сюжет, персонажей и диалоги; собираем историю в нескольких кадрах.'],['Оживляем иллюстрации','Знакомимся с анимацией и создаём короткую сцену с собственным героем.']], why:'учится выстраивать последовательность событий, рассказывать истории и выражать идеи наглядно.' },
+      { r:'7–8', t:'Создаём мультфильмы и видео с ИИ', l:[['Звук и движение','Пробуем озвучивать персонажей, подбирать музыку и соединять элементы будущего ролика.'],['Собственный видеопроект','Собираем мини-мультфильм и знакомимся с созданием ролика с виртуальным ведущим.']], why:'получает опыт создания видео для творческих и учебных проектов и знакомится с медиатехнологиями.' },
+      { r:'9–11', t:'Делаем презентации и сайты', l:[['Презентация идеи','Учимся выделять главное, выстраивать материал и подбирать изображения для понятного рассказа.'],['Первый сайт','Разбираемся, из чего состоит веб-страница, и собираем её из готовых блоков.'],['Дорабатываем сайт','Создаём тексты и визуальные элементы с помощью ИИ, проверяем удобство и понятность страницы.']], why:'навыки пригодятся для школьных докладов, защиты проектов и первых цифровых работ.' },
+      { r:'12', t:'Создаём и защищаем проект «Город будущего»', l:[['Командный проект','Придумываем город будущего, объединяем изображения, истории и презентационные материалы; показываем результат и объясняем свои решения.']], why:'учится сотрудничать, планировать работу и представлять собственные идеи другим.' }],
+    creates:['Собственные иллюстрации, персонажа и набор стикеров','Комикс, анимированную сцену и мини-мультфильм','Презентацию и собственную веб-страницу','Командный проект «Город будущего»'],
+    future:'Ребёнок учится понятно ставить задачи, проверять информацию, оформлять школьные проекты, создавать цифровые материалы и представлять результаты. Нейросети помогают искать решения и воплощать идеи, но автором работы и человеком, который оценивает результат, остаётся ребёнок.' },
+  { id:'designer', tag:'Дизайн и визуальные проекты', title:'Нейродизайнер', sub:'От идеи до собственного бренда', img:'kids-girl',
+    points:[['i-pen','Создаёт логотип, постер и фирменный стиль'],['i-smile','Осваивает Figma и использует нейросети'],['i-grid','Готовит мини-брендбук и презентацию проекта']],
+    intro:'Ваш ребёнок любит придумывать, рисовать и создавать что-то своё? На курсе он научится превращать идеи в понятный и привлекательный дизайн: придумает собственный проект, создаст логотип, подберёт цвета и шрифты, оформит афишу и представит готовый мини-брендбук. Главное – не просто «сделать красиво», а понять, для кого создаётся дизайн, какую задачу он решает и как улучшить результат.',
+    modules:[
+      { r:'1–2', t:'Придумываем свой бренд: от идеи до первого образа', l:[['Находим идею','Выбираем тему: школьный клуб, игровая команда или творческий проект. Определяем, кому и зачем он нужен.'],['Ищем визуальное решение','Собираем примеры, сравниваем стили, создаём подборку вдохновения. Используем ИИ для генерации вариантов и самостоятельно выбираем лучшие.']], why:'учится замечать задачи, сравнивать идеи и обосновывать свой выбор – это пригодится в учёбе и собственных проектах.' },
+      { r:'3–5', t:'Осваиваем инструменты цифрового дизайнера', l:[['Первые шаги в Figma','Знакомимся с рабочим пространством, создаём простую композицию.'],['Формы и композиция','Работаем с фигурами, размерами, расположением элементов и визуальным порядком.'],['Рисуем свои элементы','Осваиваем линии и инструмент «Перо», создаём графический знак для будущего проекта.']], why:'получает основу для оформления презентаций, плакатов и других цифровых материалов.' },
+      { r:'6–9', t:'Создаём стиль, который передаёт идею', l:[['Логотип','Разрабатываем несколько эскизов и выбираем понятный, узнаваемый вариант.'],['Цвета','Собираем палитру, которая подходит теме и настроению проекта.'],['Шрифты и постер','Подбираем читаемые шрифты и создаём постер с понятным главным сообщением.'],['Дизайн для своей аудитории','Проверяем, кому адресован постер, что зритель замечает первым и понятна ли информация. Улучшаем макет после обратной связи.']], why:'учится передавать смысл изображением, выделять главное и делать информацию удобной для восприятия.' },
+      { r:'10–12', t:'От отдельных работ – к готовому проекту', l:[['Применяем фирменный стиль','Создаём афишу школьного события или обложку проекта с собственным логотипом, цветами и шрифтами.'],['Собираем и проверяем мини-брендбук','Объединяем элементы стиля, проверяем читаемость и единообразие. Используем ИИ для обсуждения идей, но решение принимаем сами.'],['Представляем свой проект','Готовим показ работ, объясняем дизайнерские решения и получаем обратную связь.']], why:'получает опыт полного цикла: постановка задачи, создание, проверка, доработка и презентация результата.' }],
+    creates:['Собственный логотип и палитру цветов','Шрифтовой постер и афишу или обложку','Мини-брендбук с единым стилем','Презентацию своего дизайнерского проекта'],
+    future:'Ребёнок учится оформлять школьные доклады и творческие работы, понятно доносить идеи, пользоваться цифровыми инструментами, учитывать интересы аудитории и аргументировать свои решения. Нейросети здесь – помощник для поиска и обсуждения идей. Автором и главным дизайнером остаётся ребёнок.' },
+  { id:'roblox', tag:'Игровая разработка', title:'Roblox: из игрока в создателя', sub:'От первых построек до собственной мини-игры с программированием и ИИ', cs:'Из игрока – в создателя собственных миров', img:'kids-boy',
+    points:[['i-game','Создаёт игровые локации, персонажей и задания'],['i-cube','Осваивает Roblox Studio и основы программирования'],['i-trophy','Делает собственную мини-игру и представляет её']],
+    lesson:'1,5 часа',
+    intro:'На курсе ребёнок перейдёт от игры в Roblox к созданию собственных игровых миров. Он освоит Roblox Studio, научится строить локации, задавать правила объектам, программировать игровые события и использовать ИИ как помощника при поиске решений. Это не дополнительные часы игры, а первый опыт разработки: от замысла и простых скриптов до работающей мини-игры, которую ребёнок протестирует и представит другим.',
+    modules:[
+      { r:'1–3', t:'От игрока к разработчику: создаём первую игру', l:[['Знакомство с Roblox Studio','Изучаем рабочее пространство, создаём первую игровую локацию и размещаем объекты.'],['Полоса препятствий','Строим маршрут для игрока, меняем свойства деталей и проверяем прохождение.'],['Первые правила игры','Знакомимся с простыми скриптами, задаём поведение объектам и учимся использовать подсказки ИИ, проверяя их на практике.']], why:'учится разбивать задачу на небольшие шаги, понимать последовательность действий и искать решения – навыки полезны в математике и информатике.' },
+      { r:'4–6', t:'Строим свой мир: от идеи до работающих механизмов', l:[['Создаём игровую локацию','Продумываем устройство мира, располагаем объекты и оформляем пространство.'],['Двери, ловушки и предметы','Добавляем интерактивные объекты и задаём им действия с помощью простых скриптов.'],['Персонажи и диалоги','Придумываем героев, создаём игровые ситуации и связываем их с действиями игрока.']], why:'развивает умение планировать работу, видеть связь между командой и результатом и превращать идеи в действующие цифровые объекты.' },
+      { r:'7–9', t:'Оживляем игру: персонажи, задания и события', l:[['Поведение персонажей','Настраиваем действия игровых героев и реакции на события.'],['Квесты и мини-игры','Создаём задания и игровые правила, добавляем звуки и эффекты.'],['Ищем и исправляем ошибки','Проверяем игровые сценарии, разбираем неполадки в коде и оцениваем подсказки преподавателя и ИИ.']], why:'учится анализировать ошибки, проверять гипотезы и улучшать результат, даже если задача не решилась с первого раза.' },
+      { r:'10–12', t:'Моя первая игра: создаём, проверяем, представляем', l:[['Идея собственной мини-игры','Выбираем концепцию, определяем цель игрока, основные правила и план разработки.'],['Собираем и тестируем','Объединяем игровые механики, проверяем прохождение и исправляем найденные ошибки.'],['Представляем свою игру','Демонстрируем готовый проект, объясняем его идею и рассказываем о принятых решениях.']], why:'получает опыт полного цикла разработки – от планирования до тестирования и публичного представления собственного проекта.' }],
+    creates:['Первую игровую локацию и полосу препятствий в Roblox Studio','Интерактивные объекты: двери, ловушки, предметы и игровые события','Персонажей, задания и элементы квеста с простыми скриптами','Собственную работающую мини-игру и её презентацию'],
+    future:'Создание игр помогает ребёнку освоить основы программирования и проектного мышления: поставить задачу, придумать правила, проверить их и улучшить результат. ИИ на курсе – помощник для объяснения кода и поиска ошибок, но не замена самостоятельному мышлению: ребёнок учится понимать и проверять предложенные решения.' },
+  { id:'python', tag:'Программирование и ИИ', title:'Код будущего: Python + ИИ', sub:'От первой команды до собственной игры и чат-бота с искусственным интеллектом', cs:'От первой команды до своей игры и чат-бота', img:'kids-typing',
+    points:[['i-code','Пишет код на Python и создаёт компьютерную игру'],['i-chat','Разрабатывает чат-бота и подключает нейросеть'],['i-bars','Учится находить ошибки и доводить проект до результата']],
+    lesson:'1,5 часа',
+    intro:'Ваш ребёнок научится не только пользоваться готовыми приложениями, но и создавать собственные: писать код на Python, разрабатывать компьютерную игру и программировать чат-бота. Главное – научиться превращать задачу в последовательность действий, находить и исправлять ошибки и понимать, как готовая нейросеть может работать внутри созданной программы.',
+    modules:[
+      { r:'1–4', t:'Учим компьютер выполнять наши команды', l:[['Первые команды Python','Знакомимся с языком программирования, запускаем простые программы и выводим текст на экран.'],['Числа и текст','Учимся работать с данными и создавать программы, которые принимают и обрабатывают простую информацию.'],['Условия и игра «Угадай число»','Программируем выбор действий в зависимости от ответа пользователя.'],['Повторения и рисунки кодом','Осваиваем циклы и создаём изображения с помощью последовательности команд.']], why:'учится разбивать сложные задачи на шаги, замечать закономерности и проверять решения – навыки полезны в математике, информатике и других предметах.' },
+      { r:'5–8', t:'Создаём компьютерную игру по своим правилам', l:[['Основа игры','Создаём игровое окно и персонажа, программируем его движение.'],['Задания и очки','Добавляем предметы, которые нужно собирать, и систему подсчёта результатов.'],['Усложняем игру','Программируем врагов, таймер и игровые события; добавляем звуки и анимацию.'],['Проверяем и улучшаем','Ищем ошибки, тестируем правила и доводим игру до рабочего состояния.']], why:'понимает, как создаются компьютерные игры, учится искать причины ошибок и доводить собственный проект до результата.' },
+      { r:'9–10', t:'Программируем помощника для простых задач', l:[['Первые ответы чат-бота','Создаём бота, который принимает сообщения и отвечает по заданным правилам.'],['Команды и кнопки','Добавляем управление действиями бота через команды и кнопки, проверяем разные сценарии.']], why:'узнаёт, как автоматизировать повторяющиеся действия и создавать полезные цифровые инструменты.' },
+      { r:'11–12', t:'Добавляем искусственный интеллект в свою программу', l:[['Подключаем готовую нейросеть','Знакомимся с принципом взаимодействия программы с ИИ: отправляем запрос и получаем ответ внутри чат-бота.'],['Проверяем и представляем ИИ-помощника','Тестируем ответы, исправляем ошибки в работе программы и показываем итоговый проект.']], why:'получает первый опыт интеграции готового ИИ в собственную программу и учится проверять, насколько корректно работает цифровой помощник.' }],
+    creates:['Первые программы на Python, включая игру «Угадай число» и рисунки кодом','Собственную компьютерную игру с персонажем, очками и игровыми событиями','Чат-бота, который реагирует на сообщения, команды и кнопки','Итогового чат-бота с подключённой готовой нейросетью'],
+    future:'Программирование развивает логическое и алгоритмическое мышление: ребёнок учится формулировать задачу, последовательно искать решение, тестировать его и исправлять ошибки. При этом он не обучает собственную нейросеть с нуля, а учится подключать готовую модель и осмысленно использовать её возможности.' },
+];
+KIDS.forEach(c => { c.price = '6 600 руб./мес.'; c.len = '12 занятий · 3 месяца'; c.kids = true; c.aud = 'k'; c.kicker = 'Курс для детей 7–14 лет'; });
+
+const ADULT = [
+  { id:'basic', tag:'Базовый уровень', title:'Нейросети: с нуля к практике', sub:'От первого запроса до своей системы работы с ИИ', img:'adults.jpg?v=2',
+    points:[['i-chat','ChatGPT как рабочий помощник: письма, документы, планы'],['i-bars','Таблицы, исследования рынка и презентации за час'],['i-layers','Свой AI-помощник и план внедрения ИИ на 30 дней']],
+    modules:[
+      { r:'01–04', t:'Основа работы с ИИ', res:'Вы начинаете уверенно использовать ChatGPT как рабочего помощника.', l:[['ИИ без страха: мой первый помощник','Разберёмся, что действительно умеет ИИ, где он ошибается и как начать использовать ChatGPT в своих задачах.'],['Как получать от ИИ то, что вам действительно нужно','Учимся правильно ставить задачи, давать контекст и получать качественный результат вместо случайных ответов.'],['GPT – мой секретарь','Письма, ответы клиентам, планы, списки задач, деловая переписка, голосовые заметки и организация рабочего дня.'],['Документы: 30 страниц за 5 минут','Учимся быстро анализировать большие документы, находить главное, риски, противоречия и превращать текст в конкретные действия.']] },
+      { r:'05–08', t:'ИИ для рабочих задач', res:'Вы начинаете экономить часы на ежедневных рабочих задачах.', l:[['Совещание закончилось. Что дальше?','Превращаем записи и расшифровку встречи в протокол, решения, задачи, сроки и готовый follow-up для команды.'],['Поиск, рынок, конкуренты и мини-исследования','Учимся быстро искать и сравнивать информацию, проверять факты, исследовать рынок, конкурентов и целевую аудиторию.'],['Таблицы, цифры и выводы','Работаем с Excel и таблицами без страха: находим закономерности, ошибки, отклонения и превращаем цифры в понятные выводы.'],['Презентация за час','Из большого объёма информации собираем структуру презентации, тезисы, аргументы, слайды и речь для выступления.']] },
+      { r:'09–12', t:'ИИ для бизнеса, продаж и контента', res:'У вас появляется AI-помощник для маркетинга, продаж, контента и визуальных задач.', l:[['ИИ-маркетолог: рынок, клиенты и идеи','Анализируем конкурентов, аудиторию, сегменты клиентов и позиционирование. Ищем идеи для продвижения.'],['ИИ помогает продавать','Создаём офферы, коммерческие предложения, скрипты, ответы на возражения и персонализированные предложения для клиентов.'],['Контент без ежедневного ступора','Учимся создавать посты, статьи, рассылки, описания услуг, сценарии видео и контент-планы.'],['Изображения, дизайн и видео с ИИ','Создаём рекламные визуалы, баннеры, карточки, изображения, дизайн-концепции и простые AI-видео.']] },
+      { r:'13–16', t:'ИИ как система', res:'Создаём персональный план внедрения ИИ на следующие 30 дней.', l:[['ИИ для руководителя и команды','Используем ИИ для планирования, анализа отчётов, постановки задач, делегирования, подготовки встреч и работы с командой.'],['Мой личный AI-помощник','Создаём собственного помощника под вашу профессию и реальные задачи.'],['Что можно перестать делать руками','Проводим AI-аудит рабочего дня и находим процессы, которые можно ускорить, упростить или частично передать ИИ.'],['Моя система работы с ИИ','Собираем свои промпты, шаблоны, AI-помощников и рабочие сценарии в единую систему.']] }] },
+  { id:'advanced', tag:'Продвинутый уровень', title:'ИИ-система для вашего дела', sub:'Помощники, сайт, документы и повторные продажи – в одной системе', img:'business.jpg?v=2',
+    points:[['i-chat','Помощник со своей базой знаний отвечает клиентам'],['i-monitor','Свой сайт и инструмент продаж – опубликованы'],['i-trend','Итоговый эффект в часах и рублях и план на 90 дней']],
+    modules:[
+      { r:'01–04', t:'Старт и клиенты', res:'Работающий помощник со своей базой знаний. Заявки и ответы клиентам идут через ИИ, есть первый замер эффекта.', l:[['Очно. Первый помощник за одно занятие','Сверяем карты процессов и выбираем, что делаем в каждом спринте. Собираем первого помощника по шаблону: загружаем базу знаний своего дела (услуги, цены, частые вопросы, примеры хороших ответов) и настраиваем инструкцию.'],['Онлайн. Проверка на 20 реальных случаях','Прогоняем помощника через 20 случаев из своего дела, включая неудобные. Находим ошибки, дорабатываем базу знаний и инструкцию.'],['Очно. Помощник для клиентов','Распаковщик описывает процесс работы с заявками. Подключаем помощника к каналу, куда пишут клиенты: Telegram-бот или виджет. Настраиваем, когда он передаёт разговор человеку.'],['Онлайн. Заявка без ручной работы','Собираем связку без программиста: пришла заявка → помощник её обработал → данные легли в таблицу → вам пришло уведомление. Делаем первый замер: сколько времени это занимало раньше и сколько теперь.']] },
+      { r:'05–06', t:'Документы и деньги', res:'Документы, отчёты и задачи после встреч собираются с помощью ИИ.', l:[['Очно. Коммерческие предложения и договоры из ваших данных','Распаковщик описывает, как у вас готовятся документы. Собираем шаблоны, по которым помощник делает коммерческое предложение или договор из данных заявки. Человек только проверяет и отправляет.'],['Онлайн. Отчёты и встречи без ручного сведения','Еженедельный отчёт по заявкам и деньгам собирается из таблицы сам, с выводами. Запись встречи превращается в протокол, решения и задачи с ответственными и сроками.']] },
+      { r:'07–10', t:'Сайт и инструмент', res:'Свой сайт опубликован и связан с системой заявок. Работает инструмент, который помогает продавать или ускоряет работу.', l:[['Очно. Свой сайт за одно занятие','Распаковщик в режиме «для сайта» собирает всё о вашем деле. Из этого получаются структура и тексты. Собираем сайт с помощью ИИ: описываете словами, что нужно, нейросеть верстает.'],['Онлайн. Публикация сайта','Публикуем сайт по своему адресу. Подключаем форму заявки к связке из спринта 1. Добавляем обязательное: политика конфиденциальности, согласие на обработку данных, счётчик посещений.'],['Очно. Инструмент, который влияет на продажи','Калькулятор на сайте, продукт для клиентов (тест, подбор услуги, бот-консультант) или внутренний рабочий инструмент – собираем один под своё дело.'],['Онлайн. Проверка на живых людях','Показываем инструмент 3–5 клиентам или коллегам, собираем замечания, дорабатываем и встраиваем в сайт или рабочий процесс.']] },
+      { r:'11–12', t:'Контент и повторные продажи', res:'Контент делается из ваших материалов, клиенты возвращаются по настроенной цепочке.', l:[['Очно. Контент из своих материалов','Помощник на базе знаний вашего дела готовит контент-план, посты и рассылки вашим голосом. Вы только правите.'],['Онлайн. Напоминания, повторные продажи, отзывы','Связки, которые возвращают клиентов: напоминание о записи, предложение повторной покупки, просьба об отзыве после услуги.']] },
+      { r:'13–16', t:'Система и команда', res:'Всё работает как одна система, есть регламент, посчитан итоговый эффект и план на 90 дней.', l:[['Очно. Одна система вместо отдельных помощников','Связываем всё, что собрали: помощники, сайт, инструмент, связки. Общая база знаний дела и единые правила.'],['Онлайн. Правила работы с ИИ','Для команды – кто за что отвечает и что сотрудникам можно и нельзя. Для соло-предпринимателя – как система работает, когда вас нет на связи.'],['Онлайн. Итоговый эффект и план на случай сбоя','Сводим замеры всех спринтов: сколько часов и рублей освободилось, сколько стоят сервисы в месяц. Составляем план на случай, если сервис сломался или изменил условия.'],['Очно. Защита проекта и план на 90 дней','Каждый показывает свою систему, сайт и инструмент: как было, как стало, что посчитано. Составляем план на 90 дней.']] }] },
+];
+ADULT.forEach(c => { c.price = '19 200 руб./мес.'; c.len = '16 занятий · 2 месяца'; c.aud = 'a'; c.kicker = 'Курс для взрослых · ' + c.tag.toLowerCase(); c.format = '1 онлайн + 1 очно в неделю'; });
+KIDS.forEach(c => { c.page = 'kids'; c.photo = '../img/club/' + c.img + '.jpg'; });
+ADULT.forEach(c => { c.page = 'adults'; c.photo = '../img/' + c.img; });
+const COURSE = {};
+function finishCourse(c){
+  c.kids = c.page === 'kids'; c.aud = c.kids ? 'k' : 'a';
+  c.kicker = c.kids ? 'Курс для детей 7–14 лет' : 'Курс для взрослых' + (c.tag ? ' · ' + c.tag.toLowerCase() : '');
+  return c;
+}
+function indexCourses(){ Object.keys(COURSE).forEach(k => delete COURSE[k]); [...KIDS, ...ADULT].forEach(c => { finishCourse(c); COURSE[c.id] = c; }); }
+indexCourses();
+const courseFromApi = c => ({ id:c.id, page:c.page, tag:c.tag || '', title:c.title, sub:c.sub || '', cs:c.card_sub || '', photo:c.photo || '', points:c.points || [],
+  price:c.price || '', len:c.length || '', format:c.format || '', lesson:c.lesson || '', intro:c.intro || '', modules:c.modules || [], creates:c.creates || [], future:c.future || '' });
+
+// События по умолчанию – то же, что лежит в админке при запуске. Если админка ответила, берём её данные.
+const S0 = FREE.sunday;
+let EVENTS = [
+  { id:'sunday', title:S0.title, audience:'k', kind:'event', date:'', repeat:'last-0', time:S0.time, place:'Новоторжская, 18', price:'0 руб.', free:true, description:S0.desc, result:S0.result, course_id:'', show_home:true, cta:'Записаться' },
+  ...ADULT.map(c => ({ id:'pre-' + c.id, title:'Курс «' + c.title + '»', audience:'a', kind:'prereg', time:'2 месяца · ' + c.format, price:c.price, course_id:c.id, show_home:c.id === 'basic', cta:'Предзапись' })),
+  ...KIDS.map(c => ({ id:'pre-' + c.id, title:'Курс «' + c.title + '»', audience:'k', kind:'prereg', time:'3 месяца · очно, 1 раз в неделю', price:c.price, course_id:c.id, show_home:c.id === 'neurostart', cta:'Предзапись' })),
+  ...INTENSIVES.map((it, i) => ({ id:'int-' + (i + 1), title:it.t, audience:'a', kind:'intensive', time:'Интенсив · 2 часа', price:'2 800 руб.', description:INT_DESC, cta:'Предзапись' })),
+  { id:'kids-mk', title:'Мастер-классы, конкурсы и хакатоны для детей', audience:'k', kind:'event', time:'Даты – в анонсах клуба', price:'2 000 руб.', description:'Новые темы, творческие задания и командные соревнования. Дети пробуют современные инструменты, решают интересные задачи и создают собственные проекты.', cta:'Узнать' },
+];
+let DOCS = [{ id:'oferta', title:'Договор-оферта' }, { id:'policy', title:'Политика обработки персональных данных' }];
+const WD_LAST = ['каждое последнее воскресенье','каждый последний понедельник','каждый последний вторник','каждую последнюю среду','каждый последний четверг','каждую последнюю пятницу','каждую последнюю субботу'];
+const KIND_RU = { event:'Событие', prereg:'Предзапись на курс', intensive:'Интенсив · 2 часа' };
+
+const FAQ = {
+  a: [
+    ['Нужно ли разбираться в компьютерах?','Нет. Здесь не нужно разбираться в сложных терминах и иметь техническое образование. Шаг за шагом на практике покажем, как работать с нейросетями на ваших задачах.'],
+    ['Подойдёт ли обучение новичкам?','Да. Базовый курс «Нейросети: с нуля к практике» начинается с основ: что умеет ИИ, где он ошибается и как поставить ему задачу. Если вы уже уверенно пользуетесь ИИ, посмотрите продвинутый курс «ИИ-система для вашего дела».'],
+    ['Что нужно для занятий?','Очные занятия проходят в студии клуба: там есть компьютеры, демо-экран и программы для работы с нейросетями. Для онлайн-занятий курса понадобится свой компьютер и интернет.'],
+    ['Как организована практика?','Минимум теории – максимум практики: на каждом занятии решаем реальные задачи – письма, документы, таблицы, контент. Вопросы можно задавать в любой момент.'],
+    ['Как выбрать программу?','Напишите нам или позвоните – расскажите, какие задачи хотите решать, и мы подскажем, с чего начать: с интенсива, базового или продвинутого курса.'],
+    ['Как записаться?','Нажмите «Записаться» у курса или события и оставьте телефон – мы перезвоним. Или напишите нам в Telegram, MAX, позвоните по телефону ' + PHONE + '.'] ],
+  k: [
+    ['Нужен ли ребёнку опыт программирования?','Нет. Начинаем с нуля, опыт программирования не требуется.'],
+    ['Для какого возраста курсы?','Для детей 7–14 лет.'],
+    ['Безопасно ли детям работать с нейросетями?','Для детей используем только сервисы и сценарии, допустимые по их правилам и по закону. Если ребёнку нельзя регистрироваться в сервисе самостоятельно, нейросеть показывает преподаватель.'],
+    ['Как проходят занятия?','Очно в студии клуба, по 1,5 часа. Каждый работает за своим компьютером, у каждого этапа – конкретная задача и видимый результат.'],
+    ['Кто приводит и забирает ребёнка?','Родитель передаёт ребёнка сотруднику клуба и забирает после занятия в согласованное время. Уйти самостоятельно ребёнок может только по отдельному письменному разрешению родителя.'],
+    ['С чего начать?','С бесплатного Нейро-воскресенья – последнее воскресенье месяца, 14:00–15:30. Ребёнок попробует нейросети, а вы увидите, как проходят занятия.'] ],
+};
+
+/* ===== Помощники ===== */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+// Неразрывный пробел после коротких слов – чтобы предлоги не висели в конце строки
+const nb = s => esc(s).replace(/(^|[\s(«])(в|во|с|со|и|а|на|по|не|ни|до|за|от|из|к|о|об|у|для|что|как|без|при|или|его|её) /gi, '$1$2 ');
+const ic = (id, cls = 'icon') => `<svg class="${cls}"><use href="#${id}"/></svg>`;
+
+/* ===== Лента событий ===== */
+function evDate(e){
+  if (e.repeat) return nextLastWeekday(+String(e.repeat).split('-')[1]);
+  if (e.date) return new Date(e.date + 'T00:00:00');
+  return null;
+}
+function evIcon(e){
+  if (e.kind === 'intensive') return 'i-bulb';
+  if (e.kind === 'prereg') return e.audience === 'k' ? 'i-rocket' : 'i-cap';
+  return e.audience === 'b' ? 'i-brief' : e.audience === 'k' ? 'i-trophy' : 'i-cal';
+}
+function allEvents(){
+  const t = today();
+  const list = EVENTS.map((e, i) => ({ ...e, i, d: evDate(e), icon: evIcon(e), label: (e.kind === 'prereg' || e.kind === 'intensive') ? 'Предзапись' : 'Скоро',
+    open: () => (e.course_id && COURSE[e.course_id]) ? programModal(e.course_id) : eventModal(e.id) }))
+    .filter(e => !(e.d && e.d < t));
+  return list.sort((a, b) => (a.d && b.d) ? a.d - b.d : a.d ? -1 : b.d ? 1 : a.i - b.i);
+}
+function evCard(e){
+  const date = e.d
+    ? `<div class="ev-date" aria-hidden="true"><b>${e.d.getDate()}</b><span>${MON[e.d.getMonth()]} · ${WD[e.d.getDay()]}</span></div>`
+    : `<div class="ev-date pre" aria-hidden="true">${ic(e.icon)}<span>${esc(e.label)}</span></div>`;
+  const aud = e.audience === 'k' ? 'Детям 7–14' : (AUD[e.audience] || '');
+  const pills = (aud ? `<span class="pill ${e.audience === 'a' ? '' : e.audience}">${aud}</span>` : '') + (e.free ? '<span class="pill">Бесплатно</span>' : '');
+  const when = e.d ? `<span class="sr-only">${dm(e.d)}, ${WD[e.d.getDay()]}. </span>` : '';
+  return `<article class="ev reveal">
+    ${date}
+    <div class="ev-mid">
+      <div class="pills">${pills}</div>
+      <h3><button type="button" class="ev-name r2" data-ev="${esc(e.id)}">${when}${nb(e.title)}</button></h3>
+      <div class="ev-meta">${e.time ? `<span>${ic('i-clock')}${esc(e.time)}</span>` : ''}${e.place ? `<span>${ic('i-pin')}${esc(e.place)}</span>` : ''}</div>
+    </div>
+    <div class="ev-right"><b>${esc(e.price || '')}</b><button type="button" class="btn btn-sm${e.free ? '' : ' btn-ghost'}" data-lead="ev:${esc(e.id)}">${esc(e.cta || 'Записаться')}${e.free ? ' ' + ic('i-arrow') : ''}</button></div>
+  </article>`;
+}
+let EV_INDEX = {};
+function renderFeeds(){
+  const all = allEvents(); EV_INDEX = Object.fromEntries(all.map(e => [e.id, e]));
+  $('[data-feed="home"]').innerHTML = all.filter(e => e.show_home).map(evCard).join('');
+  $('[data-feed="intensives"]').innerHTML = all.filter(e => e.kind === 'intensive').map(evCard).join('');
+  const sun = EV_INDEX.sunday; $$('[data-next-sunday]').forEach(el => el.textContent = sun && sun.d ? 'Ближайшее – ' + dm(sun.d) : 'Последнее воскресенье месяца');
+  observeReveal();
+}
+
+/* ===== Курсы ===== */
+function courseCard(c){
+  const img = esc(c.photo || '');
+  return `<article class="course reveal">
+    <div class="course-img"><img src="${img}" alt="" loading="lazy"></div>
+    <div class="course-body">
+      <p class="r4">${esc(c.tag)}</p>
+      <h3 class="r2">${nb(c.title)}</h3>
+      <p>${nb(c.cs || c.sub)}</p>
+      <ul class="course-points">${c.points.map(([i, t]) => `<li><span class="ic-sq">${ic(i)}</span><span>${nb(t)}</span></li>`).join('')}</ul>
+      <div class="course-foot">
+        <div><span class="r2">${esc(c.price)}</span><p>${esc(c.len)}${c.d ? ' · старт ' + dm(c.d) : ''}</p></div>
+      </div>
+      <div class="course-actions"><button class="btn btn-sm" type="button" data-lead="course:${c.id}">Записаться</button><button class="btn btn-ghost btn-sm" type="button" data-program="${c.id}">Программа</button></div>
+    </div>
+  </article>`;
+}
+function renderCourses(){
+  $('[data-courses="kids"]').innerHTML = KIDS.map(courseCard).join('');
+  $('[data-courses="adults"]').innerHTML = ADULT.map(courseCard).join('');
+}
+
+/* ===== FAQ ===== */
+let faqTab = 'a';
+function faqHtml(items){ return items.map(([q, a]) => `<details><summary><span class="r2">${nb(q)}</span><span class="pm">${ic('i-plus','icon icon-sm')}</span></summary><div class="ans"><p>${nb(a)}</p></div></details>`).join(''); }
+function renderFaq(){
+  $('[data-faq-tabs]').innerHTML = [['a','Взрослым'],['k','Родителям']].map(([k, l]) => `<button type="button" data-faqtab="${k}" aria-pressed="${faqTab === k}">${l}</button>`).join('');
+  $('[data-faq="home"]').innerHTML = faqHtml(FAQ[faqTab]);
+  $('[data-faq="kids"]').innerHTML = faqHtml(FAQ.k);
+}
+
+/* ===== Окна ===== */
+const modal = $('#modal'), mbody = $('#modal-body'), dialog = $('.dialog', modal);
+let lastFocus = null;
+function openModal(html, wide){
+  if (modal.hidden) lastFocus = document.activeElement;
+  mbody.innerHTML = html; dialog.classList.toggle('wide', !!wide);
+  modal.hidden = false; document.body.style.overflow = 'hidden'; dialog.scrollTop = 0;
+  setTimeout(() => (mbody.querySelector('input,textarea') || $('.x-btn', dialog)).focus(), 40);
+}
+function closeModal(){
+  modal.hidden = true; document.body.style.overflow = '';
+  if (lastFocus && document.contains(lastFocus)) lastFocus.focus(); lastFocus = null;
+}
+const head = (kicker, title) => `<div class="dialog-head"><p class="r4">${esc(kicker)}</p><h2 class="r1" id="modal-title">${nb(title)}</h2></div>`;
+const facts = arr => `<div class="facts">${arr.map(([k, v]) => `<div class="fact"><span>${esc(k)}</span><b>${esc(v)}</b></div>`).join('')}</div>`;
+
+function eventModal(id){
+  const e = EV_INDEX[id];
+  if (!e) return leadModal('general');
+  const aud = e.audience === 'k' ? 'для детей' : e.audience === 'b' ? 'для бизнеса' : 'для взрослых';
+  const rows = [];
+  rows.push(['Когда', e.d ? dm(e.d) + (e.time && /\d:\d/.test(e.time) ? ', ' + e.time : '') : (e.label === 'Предзапись' ? 'Сообщим, когда назначим' : (e.time || 'Скоро'))]);
+  if (e.repeat) rows.push(['Повторяется', WD_LAST[+String(e.repeat).split('-')[1]] + ' месяца']);
+  else if (e.time && !(e.d && /\d:\d/.test(e.time))) rows.push(['Формат', e.time]);
+  if (e.place) rows.push(['Где', 'Студия клуба, ' + e.place]);
+  if (e.price) rows.push(['Стоимость', e.free ? 'Бесплатно' : e.price]);
+  openModal(head((e.free ? 'Бесплатная встреча' : (KIND_RU[e.kind] || 'Событие')) + ' · ' + aud, e.title) + facts(rows) +
+    (e.description ? `<p>${nb(e.description)}</p>` : '') + (e.result ? `<div class="dialog-sec"><p><b>Результат.</b> ${nb(e.result)}</p></div>` : '') +
+    `<div class="dialog-actions"><button class="btn" type="button" data-lead="ev:${esc(e.id)}">${esc(e.cta || 'Записаться')} ${ic('i-arrow')}</button></div>`);
+}
+let openMod = 0;
+function programModal(id){
+  const c = COURSE[id];
+  const sum = c.kids
+    ? [['Для кого', 'Дети 7–14 лет'], ['Длительность', '3 месяца, 12 занятий'], ['Формат', 'Очно в студии клуба' + (c.lesson ? ', по ' + c.lesson : '')], ['Стоимость', c.price]]
+    : [['Старт', c.d ? dm(c.d) : 'Идёт предзапись'], ['Длительность', '2 месяца, 16 занятий'], ['Формат', c.format], ['Стоимость', c.price]];
+  const mods = c.modules.map((m, i) => `<div class="mod${i === openMod ? ' open' : ''}">
+      <button type="button" aria-expanded="${i === openMod}" data-mod="${i}"><span><span class="r4">Модуль ${i + 1} · занятия ${esc(m.r)}</span><span class="r2">${nb(m.t)}</span></span><span class="pm">${ic('i-plus','icon icon-sm')}</span></button>
+      <div class="mod-body"${i === openMod ? '' : ' hidden'}>
+        ${m.l.map(([t, d]) => `<div class="lesson"><h4 class="r2">${nb(t)}</h4><p>${nb(d)}</p></div>`).join('')}
+        ${m.why ? `<p class="mod-res"><b>Зачем это ребёнку:</b> ${nb(m.why)}</p>` : ''}${m.res ? `<p class="mod-res"><b>Результат модуля:</b> ${nb(m.res)}</p>` : ''}
+      </div></div>`).join('');
+  const extra = c.kids ? `<div class="dialog-sec"><h3 class="r2">Что ребёнок создаст</h3><ul class="ticks">${c.creates.map(t => `<li><span class="ic-sq">${ic('i-check')}</span>${nb(t)}</li>`).join('')}</ul></div>
+    <div class="dialog-sec"><h3 class="r2">Как это пригодится в&nbsp;будущем</h3><p>${nb(c.future)}</p></div>` : '';
+  openModal(head(c.kicker, c.title) + facts(sum) + (c.intro ? `<p>${nb(c.intro)}</p>` : `<p>${nb(c.sub)}</p>`) +
+    `<div class="dialog-sec"><h3 class="r2">Программа курса</h3><div class="mods" data-mods="${id}">${mods}</div></div>` + extra +
+    `<div class="dialog-actions"><button class="btn" type="button" data-lead="course:${id}">Записаться ${ic('i-arrow')}</button></div>`, true);
+}
+async function docModal(key){
+  const meta = DOCS.find(d => d.id === key) || { id:key, title:'Документ' };
+  const tpl = $('#doc-' + key);
+  openModal(head('Документ', meta.title) + `<div class="doc">${tpl ? tpl.innerHTML : '<p>Загружаем…</p>'}</div>`, true);
+  try {
+    const r = await fetch(API_BASE + '/api/public/doc/' + encodeURIComponent(key), { cache:'no-cache' }).then(x => { if (!x.ok) throw 0; return x.json(); });
+    if (modal.hidden) return;
+    const body = r.html || (r.file ? `<p><a href="${esc(r.file)}" target="_blank" rel="noopener">Открыть документ (PDF)</a></p>` : '');
+    if (body) $('.doc', mbody).innerHTML = body + (r.html && r.file ? `<p><a href="${esc(r.file)}" target="_blank" rel="noopener">Скачать файл</a></p>` : '');
+  } catch (e) { if (!tpl && !modal.hidden) $('.doc', mbody).innerHTML = '<p>Документ сейчас недоступен. Попробуйте позже.</p>'; }
+}
+function renderDocs(){
+  $('[data-docs-list]').innerHTML = DOCS.map(d => `<li><button class="linkish" type="button" data-doc="${esc(d.id)}">${esc(d.title)}</button></li>`).join('');
+  $('[data-docs-buttons]').innerHTML = DOCS.map(d => `<button class="btn btn-ghost btn-sm" type="button" data-doc="${esc(d.id)}">${ic('i-file')}${esc(d.title)}</button>`).join('');
+}
+
+/* ===== Запись: форма заявки (уходит в админку) + мессенджеры ===== */
+function leadInfo(kind){
+  let [type, arg] = kind.split(':');
+  if (type === 'event') type = 'ev';
+  if (type === 'kidsevents'){ type = 'ev'; arg = 'kids-mk'; }
+  if (type === 'ev'){
+    const e = EV_INDEX[arg];
+    if (!e) return leadInfo('general');
+    if (e.course_id && COURSE[e.course_id]) return leadInfo('course:' + e.course_id);
+    const sum = [['Когда', e.d ? dm(e.d) + (e.time && /\d:\d/.test(e.time) ? ', ' + e.time : '') : 'Сообщим, когда назначим']];
+    if (e.price) sum.push(['Стоимость', e.free ? 'Бесплатно' : e.price]);
+    return { kicker: e.free ? 'Запись на бесплатную встречу' : (e.d ? 'Запись' : 'Предзапись'), title:e.title, sum, interest:e.title + (e.d ? ', ' + dm(e.d) : ''), iid:'ev:' + e.id, kids: e.audience === 'k',
+      submit: e.free || e.d ? 'Записаться' : 'Оставить предзапись', msg:`Здравствуйте! Хочу записаться: ${e.title}${e.d ? ', ' + dm(e.d) : ''}.` };
+  }
+  if (type === 'course'){ const c = COURSE[arg]; if (!c) return leadInfo('general');
+    return { kicker:c.kicker, title:c.title, sum:[[c.kids ? 'Длительность' : 'Старт', c.kids ? (c.len || '') : 'Идёт предзапись'], ['Стоимость', c.price]],
+      interest:'Курс «' + c.title + '»', iid:'course:' + c.id, kids:c.kids, submit:'Оставить заявку', msg:`Здравствуйте! Хочу записа${c.kids ? 'ть ребёнка' : 'ться'} на курс «${c.title}».` }; }
+  if (type === 'corp') return { kicker:'Для бизнеса', title:'Обсудить обучение команды', sum:[['Первый шаг', 'Встреча-знакомство'], ['Стоимость и формат', 'После обсуждения']], interest:'Обучение для команды', iid:'corp', kids:false, company:true, submit:'Отправить запрос', msg:'Здравствуйте! Хотим обсудить обучение нейросетям для нашей команды.' };
+  if (type === 'kidspick') return { kicker:'Детям 7–14 лет', title:'Подобрать курс для ребёнка', interest:'Подобрать курс для ребёнка', iid:'kidspick', kids:true, submit:'Подобрать курс', msg:'Здравствуйте! Помогите подобрать курс для ребёнка.' };
+  if (type === 'adultpick') return { kicker:'Для взрослых', title:'Подобрать программу', interest:'Подобрать программу для взрослого', iid:'adultpick', kids:false, submit:'Подобрать программу', msg:'Здравствуйте! Помогите подобрать программу по нейросетям.' };
+  return { kicker:'Запись в клуб', title:'Записаться или подобрать программу', choose:true, submit:'Отправить заявку', msg:'Здравствуйте! Хочу записаться в клуб ProНейро. Помогите подобрать программу.' };
+}
+function interestOptions(){
+  const o = [['pick', 'Пока не знаю – помогите подобрать', false]];
+  KIDS.forEach(c => o.push(['course:' + c.id, 'Детям: курс «' + c.title + '»', true]));
+  ADULT.forEach(c => o.push(['course:' + c.id, 'Взрослым: курс «' + c.title + '»', false]));
+  allEvents().filter(e => e.kind !== 'prereg').forEach(e => o.push(['ev:' + e.id, (e.audience === 'k' ? 'Детям: ' : e.audience === 'b' ? 'Бизнесу: ' : 'Взрослым: ') + e.title + (e.d ? ', ' + dm(e.d) : ''), e.audience === 'k']));
+  o.push(['corp', 'Обучение для команды', false]);
+  return o;
+}
+function contactHtml(msg){
+  // Пока ник/ссылка не вписаны в CONTACTS, кнопка показывается, но никуда не ведёт.
+  const tg = CONTACTS.telegram ? ` href="https://t.me/${encodeURIComponent(CONTACTS.telegram)}?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener"` : ' role="link" aria-disabled="true"';
+  const mx = CONTACTS.max ? ` href="${esc(CONTACTS.max)}" target="_blank" rel="noopener" data-copy="${esc(msg)}"` : ' role="link" aria-disabled="true"';
+  return `<div class="contact-btns">
+    <a class="btn btn-ghost"${tg}>${ic('i-send')}Telegram</a>
+    <a class="btn btn-ghost"${mx}>${ic('i-chat')}MAX</a>
+    <a class="btn btn-ghost" href="tel:+79040001213">${ic('i-phone')}${PHONE}</a>
+  </div><p class="copy-note" hidden>Текст сообщения скопирован – вставьте его в&nbsp;чат.</p>`;
+}
+let formSeq = 0;
+function formHtml(kind){
+  const s = leadInfo(kind), id = 'lf' + (++formSeq);
+  const field = (name, label, attrs = '', hint = '') => `<div class="field"${name === 'child_age' ? ' data-age' + (s.kids ? '' : ' hidden') : ''}><label for="${id}-${name}">${label}${hint ? `<span class="hint">${hint}</span>` : ''}</label><input id="${id}-${name}" name="${name}" ${attrs} aria-describedby="${id}-${name}-err"><p class="err" id="${id}-${name}-err" hidden></p></div>`;
+  const choose = s.choose ? `<div class="field"><label for="${id}-int">Что вас интересует</label><select id="${id}-int" name="iid">${interestOptions().map(([v, l, k]) => `<option value="${esc(v)}" data-kids="${k ? 1 : 0}">${esc(l)}</option>`).join('')}</select></div>` : '';
+  return `<form class="form" novalidate data-lead-form="${esc(kind)}">
+    ${choose}
+    ${field('name', s.kids ? 'Имя родителя' : 'Ваше имя', 'type="text" autocomplete="name" required maxlength="100"')}
+    ${field('phone', 'Телефон', 'type="tel" inputmode="tel" autocomplete="tel" required placeholder="+7 900 000-00-00" maxlength="40"')}
+    ${field('child_age', 'Возраст ребёнка', 'type="text" inputmode="numeric" maxlength="2" placeholder="Например, 9"')}
+    ${s.company ? field('company', 'Компания', 'type="text" autocomplete="organization" maxlength="120"', ' (необязательно)') : ''}
+    <fieldset class="field"><legend>Как удобнее связаться</legend><div class="seg">
+      <label><input type="radio" name="contact_via" value="call" checked><span>Звонок</span></label>
+      <label><input type="radio" name="contact_via" value="telegram"><span>Telegram</span></label>
+      <label><input type="radio" name="contact_via" value="max"><span>MAX</span></label></div></fieldset>
+    <div class="field"><label for="${id}-comment">${s.company ? 'Задача команды' : 'Вопрос или пожелание'}<span class="hint"> (необязательно)</span></label><textarea id="${id}-comment" name="comment" maxlength="1500"></textarea></div>
+    <div class="hp" aria-hidden="true"><label>Сайт <input name="website" tabindex="-1" autocomplete="off"></label></div>
+    <label class="check"><input type="checkbox" name="consent"><span>Согласен(на) на&nbsp;обработку персональных данных в&nbsp;соответствии с&nbsp;<button class="linkish" type="button" data-doc="policy">Политикой</button></span></label>
+    <p class="err" data-consent-err hidden>Нужно согласие на&nbsp;обработку данных</p>
+    <p class="form-msg" data-form-msg hidden></p>
+    <button class="btn btn-block" type="submit">${esc(s.submit)} ${ic('i-arrow')}</button>
+    <div class="lead-alt"><p>Или напишите нам:</p>${contactHtml(s.msg)}</div>
+  </form>`;
+}
+function leadModal(kind){
+  const s = leadInfo(kind);
+  openModal(head(s.kicker, s.title) + (s.sum ? facts(s.sum) : '') + formHtml(kind));
+}
+function setErr(form, name, msg){
+  const el = form.elements[name], er = el && $('#' + el.id + '-err');
+  if (!el || !er) return; el.setAttribute('aria-invalid', msg ? 'true' : 'false'); er.textContent = msg; er.hidden = !msg;
+}
+async function submitLead(form){
+  const f = form.elements, ageBox = $('[data-age]', form);
+  let first = null;
+  const name = f.name.value.trim(), phone = f.phone.value.trim(), digits = phone.replace(/\D/g, ''), age = f.child_age.value.trim();
+  setErr(form, 'name', name ? '' : 'Укажите имя'); if (!name) first = first || f.name;
+  const okPhone = /^[\d\s()+\-]+$/.test(phone) && digits.length >= 10 && digits.length <= 12;
+  setErr(form, 'phone', okPhone ? '' : 'Укажите телефон – от 10 цифр'); if (!okPhone) first = first || f.phone;
+  const needAge = !ageBox.hidden, okAge = !needAge || !age || (/^\d+$/.test(age) && +age >= 5 && +age <= 18);
+  setErr(form, 'child_age', okAge ? '' : 'Возраст – числом'); if (!okAge) first = first || f.child_age;
+  const cerr = $('[data-consent-err]', form); cerr.hidden = f.consent.checked; if (!f.consent.checked) first = first || f.consent;
+  if (first){ first.focus(); return; }
+  const kind = f.iid ? f.iid.value : form.dataset.leadForm, s = leadInfo(kind);
+  const comment = [f.company && f.company.value.trim() ? 'Компания: ' + f.company.value.trim() : '', f.comment.value.trim()].filter(Boolean).join('\n');
+  const data = { name, phone, child_age: needAge ? age : '', contact_via: (form.querySelector('[name=contact_via]:checked') || {}).value || 'call',
+    interest: s.interest || (f.iid ? f.iid.selectedOptions[0].textContent : ''), interest_id: s.iid || kind, comment, consent: true, website: f.website.value, page: location.hash || '#/' };
+  const btn = $('button[type=submit]', form), msg = $('[data-form-msg]', form); btn.disabled = true; msg.hidden = true;
+  try {
+    const ctrl = new AbortController(); const tm = setTimeout(() => ctrl.abort(), 12000);
+    const r = await fetch(API_BASE + '/api/public/lead', { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify(data), signal: ctrl.signal });
+    clearTimeout(tm);
+    const d = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(d.error || '');
+    const done = `<div class="success"><span class="ic">${ic('i-check')}</span><h2 class="r1"${form.closest('#modal') ? ' id="modal-title"' : ''}>Заявка принята</h2>
+      <p>Спасибо, ${esc(name)}! Мы свяжемся с&nbsp;вами в&nbsp;ближайшее время${data.contact_via === 'call' ? ' по&nbsp;телефону' : data.contact_via === 'telegram' ? ' в&nbsp;Telegram' : ' в&nbsp;MAX'}.</p>
+      ${form.closest('#modal') ? '<button class="btn" type="button" data-close>Хорошо</button>' : ''}</div>`;
+    if (form.closest('#modal')) mbody.innerHTML = done; else form.outerHTML = done;
+  } catch (e) {
+    msg.innerHTML = (e.message && e.message !== 'The user aborted a request.' ? esc(e.message) + '. ' : 'Не получилось отправить заявку. ') + 'Позвоните нам: <a href="tel:+79040001213">' + PHONE + '</a>.';
+    msg.hidden = false; btn.disabled = false;
+  }
+}
+document.addEventListener('submit', e => { const f = e.target.closest('[data-lead-form]'); if (f){ e.preventDefault(); submitLead(f); } });
+document.addEventListener('change', e => {
+  if (e.target.name === 'iid'){ const box = $('[data-age]', e.target.form); if (box) box.hidden = e.target.selectedOptions[0].dataset.kids !== '1'; }
+});
+
+/* ===== Данные из админки ===== */
+async function loadContent(){
+  try {
+    const ctrl = new AbortController(); const tm = setTimeout(() => ctrl.abort(), 4000);
+    const r = await fetch(API_BASE + '/api/public/content', { signal: ctrl.signal, cache:'no-cache' }); clearTimeout(tm);
+    if (!r.ok) return;
+    const d = await r.json();
+    if (Array.isArray(d.courses) && d.courses.length){
+      const cs = d.courses.map(courseFromApi);
+      KIDS.splice(0, KIDS.length, ...cs.filter(c => c.page === 'kids'));
+      ADULT.splice(0, ADULT.length, ...cs.filter(c => c.page !== 'kids'));
+      indexCourses();
+    }
+    if (Array.isArray(d.events)) EVENTS = d.events;
+    if (Array.isArray(d.docs) && d.docs.length) DOCS = d.docs;
+    renderFeeds(); renderCourses(); renderDocs();
+    const pick = $('[data-inline-form]'); if (pick && pick.querySelector('form') && !pick.querySelector('form').elements.name.value) pick.innerHTML = formHtml('pick');
+  } catch (e) { /* админка недоступна – остаются данные, зашитые в сайт */ }
+}
+
+/* ===== Маршруты ===== */
+const PAGES = ['home','kids','adults','business','svedeniya'];
+function route(){
+  const h = (location.hash || '').replace(/^#\/?/, '');
+  let page = PAGES.includes(h) ? h : 'home', anchor = null;
+  if (['events','contacts','directions'].includes(h)){ page = 'home'; anchor = h; }
+  if (h === 'kids-courses'){ page = 'kids'; anchor = h; }
+  if (['adult-courses','intensives'].includes(h)){ page = 'adults'; anchor = h; }
+  $$('[data-page]').forEach(p => p.hidden = p.dataset.page !== page);
+  $$('[data-nav]').forEach(a => { if (a.dataset.nav === (anchor || page)) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
+  setMenu(false); if (!modal.hidden) closeModal();
+  const titles = { home:'proнейро – клуб практического ИИ в Твери', kids:'Курсы для детей 7–14 лет – proнейро', adults:'Нейросети для взрослых – proнейро', business:'Обучение ИИ для команд – proнейро', svedeniya:'Сведения об образовательной организации – proнейро' };
+  document.title = titles[page];
+  requestAnimationFrame(() => {
+    const el = anchor && document.getElementById(anchor);
+    window.scrollTo({ top: el ? el.getBoundingClientRect().top + window.scrollY - 76 : 0, behavior:'auto' });
+    observeReveal();
+  });
+}
+
+/* ===== Меню, cookies, появление ===== */
+const burger = $('.burger'), mnav = $('#mnav');
+function setMenu(open){ mnav.hidden = !open; burger.setAttribute('aria-expanded', open); burger.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню'); burger.innerHTML = ic(open ? 'i-x' : 'i-menu'); document.body.style.overflow = open ? 'hidden' : ''; }
+burger.addEventListener('click', () => setMenu(mnav.hidden));
+
+const COOKIE_KEY = 'proneiro_cookies';
+function cookieChoice(){ try { return localStorage.getItem(COOKIE_KEY); } catch (e) { return null; } }
+window.PN_ANALYTICS_ALLOWED = () => cookieChoice() === 'all'; // для будущей Яндекс Метрики
+if (!cookieChoice()) setTimeout(() => { $('#cookie').hidden = false; }, 900);
+
+let io;
+function observeReveal(){
+  if (!('IntersectionObserver' in window)) { $$('.reveal').forEach(el => el.classList.add('in')); return; }
+  io = io || new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin:'0px 0px -40px 0px' });
+  $$('.reveal:not(.in)').forEach(el => io.observe(el));
+}
+
+/* ===== Клики ===== */
+document.addEventListener('click', e => {
+  const t = e.target.closest('button,a'); if (!t) return;
+  const d = t.dataset;
+  if (d.copy !== undefined){ try { navigator.clipboard.writeText(d.copy); } catch (err) {} const n = t.closest('.contact') && $('.copy-note', t.closest('.contact')); if (n) n.hidden = false; return; }
+  if (d.close !== undefined) return closeModal();
+  if (d.lead) return leadModal(d.lead);
+  if (d.event) return EV_INDEX[d.event] ? EV_INDEX[d.event].open() : leadModal('general');
+  if (d.program){ openMod = 0; return programModal(d.program); }
+  if (d.doc){ e.preventDefault(); return docModal(d.doc); }
+  if (d.ev) return EV_INDEX[d.ev] && EV_INDEX[d.ev].open();
+  if (d.faqtab){ faqTab = d.faqtab; return renderFaq(); }
+  if (d.mod !== undefined){ const box = t.parentElement, body = $('.mod-body', box), open = body.hidden; body.hidden = !open; box.classList.toggle('open', open); t.setAttribute('aria-expanded', open); return; }
+  if (d.social) return openModal(head('Соцсети клуба', d.social) + `<p>Ссылку добавим перед запуском. А пока записаться и задать вопрос можно по телефону <a href="tel:+79040001213">${PHONE}</a>.</p>`);
+  if (d.cookie){ try { localStorage.setItem(COOKIE_KEY, d.cookie); } catch (err) {} $('#cookie').hidden = true; return; }
+  if (t.matches('a[href^="#/"]') && t.getAttribute('href') === location.hash) { route(); }
+});
+modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape'){ if (!modal.hidden) closeModal(); else if (!mnav.hidden) setMenu(false); }
+  if (e.key === 'Tab' && !modal.hidden){
+    const f = $$('button,a[href],input,textarea,[tabindex="0"]', dialog).filter(x => !x.disabled && x.offsetParent !== null);
+    if (!f.length) return; const first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+  }
+});
+window.addEventListener('hashchange', route);
+
+/* ===== Старт ===== */
+renderFeeds(); renderCourses(); renderFaq(); renderDocs();
+$('[data-inline-form]').innerHTML = formHtml('pick');
+route();
+loadContent();
+</script>
+<p class="variant-tag">Вариант 2 – журнальный · <a href="../v1/">1</a> · <a href="../v2/">2</a> · <a href="../cards/">карточки</a></p>
+</body>
+</html>
