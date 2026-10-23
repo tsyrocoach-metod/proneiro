@@ -430,14 +430,14 @@ fieldset.field{border:0;padding:0;margin:0}
 
 /* Фото, которое растворяется в фоне через размытие */
 .fade-hero{position:relative;overflow:hidden;min-height:clamp(540px,76vh,740px);display:flex;align-items:center}
-.fade-media{position:absolute;top:0;right:0;bottom:0;width:min(54vw,960px);pointer-events:none;overflow:hidden}
+.fade-media{position:absolute;top:0;right:0;bottom:0;width:min(36vw,680px);pointer-events:none;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 38%),linear-gradient(180deg,#000 80%,transparent 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent 0%,#000 38%),linear-gradient(180deg,#000 80%,transparent 100%);mask-composite:intersect}
 .dir-media::after{content:"";position:absolute;inset:0}
 .dir-media::after{background:linear-gradient(90deg,#fff 0%,#fff 6%,rgba(255,255,255,.75) 22%,rgba(255,255,255,.25) 40%,rgba(255,255,255,0) 55%)}
 .fade-media img,.dir-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .fm-blur{filter:blur(18px) saturate(1.05);transform:scale(1.06);-webkit-mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.55) 18%,#000 36%,#000 46%,transparent 66%);mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.55) 18%,#000 36%,#000 46%,transparent 66%)}
 .fm-sharp{-webkit-mask-image:linear-gradient(90deg,transparent 22%,#000 55%);mask-image:linear-gradient(90deg,transparent 22%,#000 55%)}
 .fade-inner{position:relative;z-index:1;width:100%}
-.fade-hero .hero-text{max-width:min(600px,46vw);padding-top:clamp(32px,5vw,64px);padding-bottom:clamp(32px,5vw,64px)}
+.fade-hero .hero-text{max-width:min(720px,58vw);padding-top:clamp(32px,5vw,64px);padding-bottom:clamp(32px,5vw,64px)}
 .dirs{display:grid;gap:18px}
 .dir{position:relative;overflow:hidden;min-height:400px;display:flex;align-items:center;border-radius:var(--r-lg);background:#fff;border:1px solid var(--line);box-shadow:var(--shadow)}
 .dir-media{position:absolute;top:0;right:0;bottom:0;width:62%;pointer-events:none;overflow:hidden}
@@ -446,7 +446,7 @@ fieldset.field{border:0;padding:0;margin:0}
 .dir .btn{justify-self:start;margin-top:4px}
 @media (max-width:900px){
   .fade-hero{display:block;min-height:0}
-  .fade-media{position:relative;width:100%;height:clamp(260px,70vw,440px)}
+  .fade-media{position:relative;width:100%;height:clamp(260px,70vw,440px);-webkit-mask-image:none;mask-image:none}
   .fm-blur,.dir-media .fm-blur{-webkit-mask-image:linear-gradient(180deg,transparent 40%,#000 70%,transparent 100%);mask-image:linear-gradient(180deg,transparent 40%,#000 70%,transparent 100%)}
   .fm-sharp,.dir-media .fm-sharp{-webkit-mask-image:linear-gradient(180deg,#000 45%,transparent 92%);mask-image:linear-gradient(180deg,#000 45%,transparent 92%)}
   .fade-hero .hero-text{max-width:none;padding-top:0;margin-top:-28px}
@@ -510,7 +510,6 @@ fieldset.field{border:0;padding:0;margin:0}
 .pc-desc{margin:0}
 @media (max-width:1100px){.events.photo{grid-template-columns:repeat(2,minmax(0,1fr))}.pc.main{grid-column:1/-1}}
 @media (max-width:640px){.events.photo{grid-template-columns:1fr}}
-.fade-hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:70px;background:linear-gradient(180deg,rgba(243,247,253,0),var(--bg));pointer-events:none}
 .variant-tag{position:fixed;left:12px;bottom:12px;z-index:95;margin:0;padding:6px 12px;border-radius:999px;background:var(--ink);color:#fff;font-size:13px;font-weight:600;opacity:.9}.variant-tag a{color:var(--ice)}
 /* Направления по две в ряд: фото сверху уходит в белое через размытие */
 .dirs{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -553,7 +552,7 @@ fieldset.field{border:0;padding:0;margin:0}
 .dir-list{display:grid;gap:10px}
 .dir-list li{padding-left:16px;border-left:3px solid var(--tint)}
 .dir-list b{color:var(--ink)}
-.dir .link-arrow{margin-top:auto;padding:4px 0 0;font-size:16px}
+.dir-text .btn{align-self:flex-start;margin-top:auto}
 .dir-media{height:clamp(190px,17vw,240px)!important}
 @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
@@ -709,7 +708,7 @@ fieldset.field{border:0;padding:0;margin:0}
           <p class="r4">Для взрослых</p>
           <h3 class="r1">ИИ для&nbsp;работы и&nbsp;своего дела</h3>
           <ul class="dir-list"><li><b>Курсы</b> – 2 месяца: базовый «с&nbsp;нуля» и&nbsp;продвинутый «система для дела»</li><li><b>Интенсивы</b> – 2 часа: одна тема и&nbsp;готовый инструмент за&nbsp;вечер</li></ul>
-          <a class="link-arrow" href="#/adults">Подробнее <svg class="icon"><use href="#i-arrow"/></svg></a>
+          <a class="btn" href="#/adults">Подробнее <svg class="icon"><use href="#i-arrow"/></svg></a>
         </div>
       </article>
       <article class="dir reveal">
@@ -718,7 +717,7 @@ fieldset.field{border:0;padding:0;margin:0}
           <p class="r4">Для детей 7–14 лет</p>
           <h3 class="r1">Свои игры, сайты и&nbsp;комиксы с&nbsp;ИИ</h3>
           <ul class="dir-list"><li><b>Курсы</b> – 3 месяца: нейросети и&nbsp;творчество, дизайн, Roblox, Python</li><li><b>Мастер-классы</b> – конкурсы и&nbsp;хакатоны по&nbsp;новым темам</li><li><b>Знакомство</b> – бесплатное Нейро-воскресенье для детей и&nbsp;родителей</li></ul>
-          <a class="link-arrow" href="#/kids">Подробнее <svg class="icon"><use href="#i-arrow"/></svg></a>
+          <a class="btn" href="#/kids">Подробнее <svg class="icon"><use href="#i-arrow"/></svg></a>
         </div>
       </article>
       <article class="dir reveal">
@@ -727,7 +726,7 @@ fieldset.field{border:0;padding:0;margin:0}
           <p class="r4">Для бизнеса</p>
           <h3 class="r1">ИИ для вашей команды</h3>
           <ul class="dir-list"><li><b>Вводная встреча</b> – разбираем задачи и&nbsp;текущий опыт команды</li><li><b>Практикум или программа</b> – на&nbsp;обезличенных примерах из&nbsp;вашей работы</li></ul>
-          <a class="link-arrow" href="#/business">Подробнее <svg class="icon"><use href="#i-arrow"/></svg></a>
+          <a class="btn" href="#/business">Подробнее <svg class="icon"><use href="#i-arrow"/></svg></a>
         </div>
       </article>
       <article class="dir dir-help reveal">
