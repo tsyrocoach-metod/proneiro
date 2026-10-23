@@ -566,6 +566,10 @@ fieldset.field{border:0;padding:0;margin:0}
 .dir-list{margin-bottom:28px}
 .dir-media{height:clamp(190px,17vw,240px)!important}
 .teams-topics{margin:22px 0 18px}
+.find-map{position:relative;min-height:380px}
+.find-map iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.map-note{position:absolute;left:12px;right:12px;top:12px;display:flex;align-items:center;gap:8px;width:fit-content;max-width:calc(100% - 24px);padding:10px 14px;border-radius:12px;background:#fff;box-shadow:0 6px 18px rgba(14,20,29,.16);font-weight:600;color:var(--ink)}
+.map-note .icon{width:18px;height:18px;color:var(--cobalt)}
 @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
 .reveal.in{opacity:1;transform:none}
@@ -833,7 +837,7 @@ fieldset.field{border:0;padding:0;margin:0}
   <section class="section wrap" id="contacts" aria-labelledby="find-title">
     <div class="panel">
       <div class="find">
-        <figure class="find-photo"><img src="./img/zal-1200.jpg" alt="Студия ProНейро" loading="lazy" width="1200" height="900"></figure>
+        <figure class="find-photo find-map"><iframe src="https://yandex.ru/map-widget/v1/?ll=35.913046%2C56.858169&amp;z=17&amp;pt=35.913046%2C56.858169%2Cpm2blm&amp;l=map" title="ProНейро на Яндекс Картах: Тверь, Новоторжская, 18, корпус 1" allowfullscreen></iframe><figcaption class="map-note"><svg class="icon"><use href="#i-pin"/></svg>Вход с&nbsp;правой стороны здания, БЦ «Аврора»</figcaption></figure>
         <div class="find-info">
           <p class="r4">Контакты</p>
           <h2 class="r1" id="find-title">Как нас найти</h2>
@@ -841,7 +845,7 @@ fieldset.field{border:0;padding:0;margin:0}
           <div class="info-row"><span class="ic-sq"><svg class="icon"><use href="#i-phone"/></svg></span><div><b><a href="tel:+79040001213">8-904-000-12-13</a></b><p>Телефон клуба</p></div></div>
           <div class="info-row"><span class="ic-sq"><svg class="icon"><use href="#i-mail"/></svg></span><div><b><a href="mailto:Grand.tver@mail.ru">Grand.tver@mail.ru</a></b><p>Электронная почта</p></div></div>
           <div class="find-actions">
-            <a class="btn" href="https://yandex.ru/maps/?text=%D0%A2%D0%B2%D0%B5%D1%80%D1%8C%2C%20%D1%83%D0%BB.%20%D0%9D%D0%BE%D0%B2%D0%BE%D1%82%D0%BE%D1%80%D0%B6%D1%81%D0%BA%D0%B0%D1%8F%2C%2018%D0%BA1" target="_blank" rel="noopener">Открыть в&nbsp;Яндекс Картах <svg class="icon"><use href="#i-ext"/></svg></a>
+            <a class="btn" href="https://yandex.ru/maps/-/CXRhV-9n" target="_blank" rel="noopener">Открыть в&nbsp;Яндекс Картах <svg class="icon"><use href="#i-ext"/></svg></a>
             <a class="btn btn-ghost" href="tel:+79040001213">Позвонить</a>
           </div>
         </div>
