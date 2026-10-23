@@ -598,10 +598,10 @@ fieldset.field{border:0;padding:0;margin:0}
 .dir-title{margin:0;font-weight:600;font-size:clamp(24px,2.1vw,30px);line-height:1.15;letter-spacing:-.025em;color:var(--ink)}
 .dir-cover + .dir-text .dir-list{margin-bottom:16px;gap:8px}
 /* Главная: фото на правые 60%, переход заканчивается к середине экрана */
-[data-page="home"] .fade-media{width:60vw;-webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 7%),linear-gradient(180deg,#000 82%,transparent 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent 0%,#000 7%),linear-gradient(180deg,#000 82%,transparent 100%);mask-composite:intersect}
-[data-page="home"] .fm-blur{-webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 8%,#000 14%,transparent 26%);mask-image:linear-gradient(90deg,transparent 0%,#000 8%,#000 14%,transparent 26%)}
-[data-page="home"] .fm-sharp{-webkit-mask-image:linear-gradient(90deg,transparent 3%,#000 24%);mask-image:linear-gradient(90deg,transparent 3%,#000 24%)}
-[data-page="home"] .fade-hero .hero-text{max-width:min(500px,34vw);padding-top:clamp(48px,7vw,96px);padding-bottom:clamp(48px,7vw,96px)}
+[data-page="home"] .fade-media{width:40vw;-webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 7%),linear-gradient(180deg,#000 82%,transparent 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent 0%,#000 7%),linear-gradient(180deg,#000 82%,transparent 100%);mask-composite:intersect}
+[data-page="home"] .fm-blur{-webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 10%,#000 18%,transparent 32%);mask-image:linear-gradient(90deg,transparent 0%,#000 10%,#000 18%,transparent 32%)}
+[data-page="home"] .fm-sharp{-webkit-mask-image:linear-gradient(90deg,transparent 3%,#000 30%);mask-image:linear-gradient(90deg,transparent 3%,#000 30%)}
+[data-page="home"] .fade-hero .hero-text{max-width:min(700px,50vw);padding-top:clamp(48px,7vw,96px);padding-bottom:clamp(48px,7vw,96px)}
 @media (max-width:900px){[data-page="home"] .fade-media{width:100%;-webkit-mask-image:none;mask-image:none}[data-page="home"] .fade-hero .hero-text{max-width:none}}
 /* «Узнаёте себя?»: карточки появляются по очереди, оживают при наведении, черта переливается */
 .wq{transition:transform .3s ease,box-shadow .3s ease}
