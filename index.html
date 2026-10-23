@@ -668,6 +668,30 @@ main > [data-page] > .section{padding-top:clamp(28px,4vw,48px);padding-bottom:cl
 @media (max-width:1080px){.cando-grid,.fmt-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:760px){.courses.one .course{grid-template-columns:1fr}.courses.one .course-img{aspect-ratio:4/3}}
 @media (max-width:560px){.cando-grid,.fmt-grid{grid-template-columns:1fr}}
+/* Преподаватели */
+.tch-grid{display:grid;gap:18px}
+.tch-grid.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+.tch-grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.tch{display:flex;flex-direction:column;border-radius:var(--r-md);overflow:hidden;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);transition:transform .25s,box-shadow .25s}
+.tch:hover{transform:translateY(-4px);box-shadow:var(--shadow-up)}
+.tch-ph{aspect-ratio:4/3.4;display:grid;place-items:center;align-content:center;gap:8px;background:linear-gradient(150deg,var(--tint),#DCE7FA);color:var(--cobalt)}
+.tch-ph .icon{width:56px;height:56px;stroke-width:1.2}
+.tch-ph span{font-size:14px;font-weight:600}
+.tch-body{display:grid;gap:6px;padding:18px 20px 22px;justify-items:start}
+.tch-note{font-size:14px;color:var(--text);opacity:.75}
+.tch-grid.two .tch{display:grid;grid-template-columns:200px minmax(0,1fr)}
+.tch-grid.two .tch-ph{aspect-ratio:auto;min-height:200px}
+.tch-grid.two .tch-body{align-content:center}
+@media (max-width:1080px){.tch-grid.four{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:760px){.tch-grid.two{grid-template-columns:1fr}}
+@media (max-width:520px){.tch-grid.four{grid-template-columns:1fr}.tch-grid.two .tch{grid-template-columns:120px minmax(0,1fr)}.tch-grid.two .tch-ph{min-height:140px}}
+/* Детские курсы – плиткой 2×2 */
+[data-courses="kids"]{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+[data-courses="kids"] .course{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr)}
+[data-courses="kids"] .course-img{aspect-ratio:auto;min-height:100%}
+[data-courses="kids"] .course-body{padding:24px 26px 26px}
+@media (max-width:1100px){[data-courses="kids"] .course{grid-template-columns:1fr}[data-courses="kids"] .course-img{aspect-ratio:16/9;min-height:0}}
+@media (max-width:700px){[data-courses="kids"]{grid-template-columns:1fr}}
 @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
 .shot .reveal{opacity:1;transform:none;transition:none}
@@ -903,18 +927,8 @@ main > [data-page] > .section{padding-top:clamp(28px,4vw,48px);padding-bottom:cl
   </section>
 
   <section class="section wrap" aria-labelledby="team-title">
-    <div class="head">
-      <div class="head-text">
-        <p class="r4">Люди ProНейро</p>
-        <h2 class="r1" id="team-title">Наши спикеры</h2>
-        <p>Профессионалы с&nbsp;опытом работы в&nbsp;IT-индустрии и&nbsp;педагогике, которые помогут взглянуть на&nbsp;задачи под новым углом.</p>
-      </div>
-    </div>
-    <div class="team">
-      <div class="card person"><span class="ph"><svg class="icon"><use href="#i-person"/></svg></span><div><h3 class="r2">Имя спикера</h3><p>Фото и описание добавим перед запуском</p></div></div>
-      <div class="card person"><span class="ph"><svg class="icon"><use href="#i-person"/></svg></span><div><h3 class="r2">Имя спикера</h3><p>Фото и описание добавим перед запуском</p></div></div>
-      <div class="card person"><span class="ph"><svg class="icon"><use href="#i-person"/></svg></span><div><h3 class="r2">Имя спикера</h3><p>Фото и описание добавим перед запуском</p></div></div>
-    </div>
+    <div class="head"><div class="head-text"><p class="r4">Люди ProНейро</p><h2 class="r1" id="team-title">Наши преподаватели</h2><p>Практики, которые объясняют сложное простым языком и&nbsp;работают с&nbsp;вами на&nbsp;ваших задачах.</p></div></div>
+    <div class="tch-grid four"><article class="tch reveal"><div class="tch-ph"><svg class="icon"><use href="#i-person"/></svg><span>Фото скоро</span></div><div class="tch-body"><span class="pill">Взрослым</span><h3 class="r2">Анастасия</h3><p>Преподаватель курсов для взрослых</p><p class="tch-note">Описание опыта добавим скоро</p></div></article><article class="tch reveal"><div class="tch-ph"><svg class="icon"><use href="#i-person"/></svg><span>Фото скоро</span></div><div class="tch-body"><span class="pill">Взрослым</span><h3 class="r2">Светлана</h3><p>Преподаватель курсов для взрослых</p><p class="tch-note">Описание опыта добавим скоро</p></div></article><article class="tch reveal"><div class="tch-ph"><svg class="icon"><use href="#i-person"/></svg><span>Фото скоро</span></div><div class="tch-body"><span class="pill k">Детям</span><h3 class="r2">Имя педагога</h3><p>Педагог курсов для детей</p><p class="tch-note">Описание опыта добавим скоро</p></div></article><article class="tch reveal"><div class="tch-ph"><svg class="icon"><use href="#i-person"/></svg><span>Фото скоро</span></div><div class="tch-body"><span class="pill k">Детям</span><h3 class="r2">Имя педагога</h3><p>Педагог курсов для детей</p><p class="tch-note">Описание опыта добавим скоро</p></div></article></div>
   </section>
 
   <section class="section wrap" aria-labelledby="faq-title">
@@ -1054,6 +1068,10 @@ main > [data-page] > .section{padding-top:clamp(28px,4vw,48px);padding-bottom:cl
     </div>
   </section>
 
+  <section class="section wrap" aria-labelledby="kid-team-title">
+    <div class="head"><div class="head-text"><p class="r4">Педагоги</p><h2 class="r1" id="kid-team-title">Кто занимается с&nbsp;детьми</h2><p>Педагоги, которые помогают ребёнку довести идею до&nbsp;готового проекта.</p></div></div>
+    <div class="tch-grid two"><article class="tch reveal"><div class="tch-ph"><svg class="icon"><use href="#i-person"/></svg><span>Фото скоро</span></div><div class="tch-body"><span class="pill k">Детям</span><h3 class="r2">Имя педагога</h3><p>Педагог курсов для детей</p><p class="tch-note">Описание опыта добавим скоро</p></div></article><article class="tch reveal"><div class="tch-ph"><svg class="icon"><use href="#i-person"/></svg><span>Фото скоро</span></div><div class="tch-body"><span class="pill k">Детям</span><h3 class="r2">Имя педагога</h3><p>Педагог курсов для детей</p><p class="tch-note">Описание опыта добавим скоро</p></div></article></div>
+  </section>
   <section class="section wrap" aria-labelledby="kfaq-title">
     <div class="grid-2">
       <div class="head-text">
@@ -1136,6 +1154,10 @@ main > [data-page] > .section{padding-top:clamp(28px,4vw,48px);padding-bottom:cl
     <div class="courses one" data-courses="adults"></div>
   </section>
 
+  <section class="section wrap" aria-labelledby="ad-team-title">
+    <div class="head"><div class="head-text"><p class="r4">Преподаватели</p><h2 class="r1" id="ad-team-title">Кто ведёт занятия для взрослых</h2><p>Помогут разобраться в&nbsp;нейросетях на&nbsp;ваших рабочих задачах.</p></div></div>
+    <div class="tch-grid two"><article class="tch reveal"><div class="tch-ph"><svg class="icon"><use href="#i-person"/></svg><span>Фото скоро</span></div><div class="tch-body"><span class="pill">Взрослым</span><h3 class="r2">Анастасия</h3><p>Преподаватель курсов для взрослых</p><p class="tch-note">Описание опыта добавим скоро</p></div></article><article class="tch reveal"><div class="tch-ph"><svg class="icon"><use href="#i-person"/></svg><span>Фото скоро</span></div><div class="tch-body"><span class="pill">Взрослым</span><h3 class="r2">Светлана</h3><p>Преподаватель курсов для взрослых</p><p class="tch-note">Описание опыта добавим скоро</p></div></article></div>
+  </section>
   <section class="section wrap" id="teams" aria-labelledby="teams-title">
     <div class="panel">
       <div class="head"><div class="head-text"><p class="r4">Формат 4 · Для команды · под запрос</p><h2 class="r1" id="teams-title">Обучение для вашей команды</h2>
