@@ -589,6 +589,14 @@ fieldset.field{border:0;padding:0;margin:0}
 .afisha-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
 @media (max-width:900px){.afisha-grid{grid-template-columns:1fr}}
 .af-empty{padding:30px;text-align:center;border-radius:var(--r-md);background:#fff;border:1px dashed var(--line-2)}
+/* Направления: компактная карточка, обложка сверху */
+.dir-cover{height:auto!important;aspect-ratio:16/6.2;margin:12px 12px 0;width:auto!important;border-radius:var(--r-md);overflow:hidden}
+.dir-cover::after{display:none}
+.dir-cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.dir:hover .dir-cover img{transform:scale(1.03)}
+.dir-cover + .dir-text{margin-top:0;padding:22px 28px 26px;gap:12px}
+.dir-title{margin:0;font-weight:600;font-size:clamp(24px,2.1vw,30px);line-height:1.15;letter-spacing:-.025em;color:var(--ink)}
+.dir-cover + .dir-text .dir-list{margin-bottom:16px;gap:8px}
 @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
 .shot .reveal{opacity:1;transform:none;transition:none}
@@ -730,19 +738,19 @@ fieldset.field{border:0;padding:0;margin:0}
     </div>
     <div class="dirs">
       <article class="dir reveal">
-        <div class="dir-media"><img class="fm-blur" src="./img/adults.jpg?v=2" alt="" aria-hidden="true" loading="lazy"><img class="fm-sharp" src="./img/adults.jpg?v=2" alt="Взрослые на занятии в клубе" loading="lazy"></div>
+        <div class="dir-media dir-cover"><img src="./img/club/dir-adults.webp" alt="Рабочий стол: планы, графики и ноутбук" loading="lazy"></div>
         <div class="dir-text">
           <p class="r4">Для взрослых</p>
-          <h3 class="r1">ИИ для&nbsp;работы и&nbsp;своего дела</h3>
+          <h3 class="dir-title">ИИ для&nbsp;работы и&nbsp;своего дела</h3>
           <ul class="dir-list"><li><b>Курсы</b> – 2 месяца: базовый «с&nbsp;нуля» и&nbsp;продвинутый «система для дела»</li><li><b>Интенсивы</b> – 2 часа: одна тема и&nbsp;готовый инструмент за&nbsp;вечер</li></ul>
           <a class="btn" href="#/adults">Подробнее <svg class="icon"><use href="#i-arrow"/></svg></a>
         </div>
       </article>
       <article class="dir reveal">
-        <div class="dir-media"><img class="fm-blur" src="./img/club/kids-hero.webp" alt="" aria-hidden="true" loading="lazy"><img class="fm-sharp" src="./img/club/kids-hero.webp" alt="Дети на занятии в клубе" loading="lazy"></div>
+        <div class="dir-media dir-cover"><img src="./img/club/dir-kids.webp" alt="Игра в Roblox Studio на экране, конструктор и геймпад" loading="lazy"></div>
         <div class="dir-text">
           <p class="r4">Для детей 7–14 лет</p>
-          <h3 class="r1">Свои игры, сайты и&nbsp;комиксы с&nbsp;ИИ</h3>
+          <h3 class="dir-title">Свои игры, сайты и&nbsp;комиксы с&nbsp;ИИ</h3>
           <ul class="dir-list"><li><b>Курсы</b> – 3 месяца: нейросети и&nbsp;творчество, дизайн, Roblox, Python</li><li><b>Мастер-классы</b> – конкурсы и&nbsp;хакатоны по&nbsp;новым темам</li><li><b>Знакомство</b> – бесплатное Нейро-воскресенье для детей и&nbsp;родителей</li></ul>
           <a class="btn" href="#/kids">Подробнее <svg class="icon"><use href="#i-arrow"/></svg></a>
         </div>
