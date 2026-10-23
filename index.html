@@ -570,6 +570,16 @@ fieldset.field{border:0;padding:0;margin:0}
 .find-map iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .map-note{position:absolute;left:12px;right:12px;top:12px;display:flex;align-items:center;gap:8px;width:fit-content;max-width:calc(100% - 24px);padding:10px 14px;border-radius:12px;background:#fff;box-shadow:0 6px 18px rgba(14,20,29,.16);font-weight:600;color:var(--ink)}
 .map-note .icon{width:18px;height:18px;color:var(--cobalt)}
+/* «Нейрограмотность»: мягкое переливание в углу */
+.nl::before{content:"";position:absolute;left:-140px;bottom:-160px;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(120,197,255,.28),transparent 65%);pointer-events:none;animation:nl-drift-b 11s ease-in-out infinite alternate}
+.nl::after{animation:nl-drift 8s ease-in-out infinite alternate}
+@keyframes nl-drift{0%{transform:translate(0,0) scale(1);opacity:.75}50%{transform:translate(-60px,40px) scale(1.25);opacity:1}100%{transform:translate(-20px,90px) scale(.95);opacity:.8}}
+@keyframes nl-drift-b{0%{transform:translate(0,0) scale(1);opacity:.5}100%{transform:translate(90px,-50px) scale(1.2);opacity:.9}}
+/* Вся афиша */
+.feed-more{display:flex;justify-content:flex-end;margin-top:18px}
+.afisha-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media (max-width:900px){.afisha-grid{grid-template-columns:1fr}}
+.af-empty{padding:30px;text-align:center;border-radius:var(--r-md);background:#fff;border:1px dashed var(--line-2)}
 @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
 .reveal.in{opacity:1;transform:none}
@@ -740,6 +750,7 @@ fieldset.field{border:0;padding:0;margin:0}
         </div>
       </div>
       <div class="events photo" data-feed="home"></div>
+      <div class="feed-more" data-feed-more></div>
     </div>
   </section>
 
@@ -1040,6 +1051,19 @@ fieldset.field{border:0;padding:0;margin:0}
       <div class="cta-left"><span class="ic"><svg class="icon"><use href="#i-rocket"/></svg></span><div><h2 class="r2">Не уверены, какой курс подойдёт?</h2><p>Расскажите о&nbsp;своих задачах – подскажем, с&nbsp;чего начать.</p></div></div>
       <button class="btn btn-light" type="button" data-lead="adultpick">Подобрать программу <svg class="icon"><use href="#i-arrow"/></svg></button>
     </div>
+  </section>
+</div>
+
+<!-- ============ АФИША ============ -->
+<div data-page="afisha" hidden>
+  <section class="section wrap" aria-labelledby="af-title">
+    <nav class="crumbs" aria-label="Навигация по сайту"><a href="#/">Главная</a><span aria-hidden="true">/</span><span>Афиша</span></nav>
+    <div class="head">
+      <div class="head-text"><p class="r4">Афиша клуба</p><h1 class="r1" id="af-title">Все события ProНейро</h1>
+        <p>Бесплатные встречи, мастер-классы, интенсивы и&nbsp;предзапись на&nbsp;курсы – для взрослых и&nbsp;детей.</p></div>
+      <div class="filters" role="group" aria-label="Для кого" data-af-filters></div>
+    </div>
+    <div class="afisha-grid" data-afisha></div>
   </section>
 </div>
 
@@ -1498,11 +1522,22 @@ function miniCard(e){
       <div class="mc-foot"><b>${esc(e.free ? 'Бесплатно' : (e.price || ''))}</b><button type="button" class="btn btn-sm${e.free ? '' : ' btn-ghost'}" data-lead="ev:${esc(e.id)}">${esc(e.cta || 'Записаться')}</button></div>
     </div></article>`;
 }
+const plural = (n, one, few, many) => { const a = n % 10, b = n % 100; return a === 1 && b !== 11 ? one : a >= 2 && a <= 4 && (b < 12 || b > 14) ? few : many; };
+let afFilter = 'all';
+function renderAfisha(all){
+  const box = $('[data-afisha]'); if (!box) return;
+  const list = (all || allEvents()).filter(e => afFilter === 'all' || e.audience === afFilter);
+  $('[data-af-filters]').innerHTML = [['all','Все'],['a','Взрослым'],['k','Детям']].map(([k, l]) => `<button type="button" data-af="${k}" aria-pressed="${afFilter === k}">${l}</button>`).join('');
+  box.innerHTML = list.length ? list.map(miniCard).join('') : '<p class="af-empty">Здесь пока нет событий. Загляните позже или оставьте заявку – сообщим о&nbsp;ближайших.</p>';
+  observeReveal();
+}
 let EV_INDEX = {};
 function renderFeeds(){
   const all = allEvents(); EV_INDEX = Object.fromEntries(all.map(e => [e.id, e]));
   const home = all.filter(e => e.show_home);
-  $('[data-feed="home"]').innerHTML = home.length ? photoCard(home[0], true) + (home.length > 1 ? `<div class="ev-side">${home.slice(1).map(miniCard).join('')}</div>` : '') : '';
+  $('[data-feed="home"]').innerHTML = home.length ? photoCard(home[0], true) + (home.length > 1 ? `<div class="ev-side">${home.slice(1, 4).map(miniCard).join('')}</div>` : '') : '';
+  $('[data-feed-more]').innerHTML = all.length > Math.min(home.length, 4) ? `<a class="btn btn-ghost" href="#/afisha">Вся афиша · ${all.length} ${plural(all.length, 'событие', 'события', 'событий')} ${ic('i-arrow')}</a>` : '';
+  renderAfisha(all);
   $('[data-feed="intensives"]').innerHTML = all.filter(e => e.kind === 'intensive').map(evCard).join('');
   const sun = EV_INDEX.sunday; $$('[data-next-sunday]').forEach(el => el.textContent = sun && sun.d ? 'Ближайшее – ' + dm(sun.d) : 'Последнее воскресенье месяца');
   observeReveal();
@@ -1732,7 +1767,7 @@ async function loadContent(){
 }
 
 /* ===== Маршруты ===== */
-const PAGES = ['home','kids','adults','svedeniya'];
+const PAGES = ['home','kids','adults','afisha','svedeniya'];
 function route(){
   const h = (location.hash || '').replace(/^#\/?/, '');
   let page = PAGES.includes(h) ? h : 'home', anchor = null;
@@ -1743,7 +1778,7 @@ function route(){
   $$('[data-page]').forEach(p => p.hidden = p.dataset.page !== page);
   $$('[data-nav]').forEach(a => { if (a.dataset.nav === (anchor || page)) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
   setMenu(false); if (!modal.hidden) closeModal();
-  const titles = { home:'proнейро – клуб практического ИИ в Твери', kids:'Курсы для детей 7–14 лет – proнейро', adults:'Нейросети для взрослых – proнейро', business:'Обучение ИИ для команд – proнейро', svedeniya:'Сведения об образовательной организации – proнейро' };
+  const titles = { afisha:'Афиша клуба – proнейро', home:'proнейро – клуб практического ИИ в Твери', kids:'Курсы для детей 7–14 лет – proнейро', adults:'Нейросети для взрослых – proнейро', business:'Обучение ИИ для команд – proнейро', svedeniya:'Сведения об образовательной организации – proнейро' };
   document.title = titles[page];
   requestAnimationFrame(() => {
     const el = anchor && document.getElementById(anchor);
@@ -1781,6 +1816,7 @@ document.addEventListener('click', e => {
   if (d.doc){ e.preventDefault(); return docModal(d.doc); }
   if (d.ev) return EV_INDEX[d.ev] && EV_INDEX[d.ev].open();
   if (d.faqtab){ faqTab = d.faqtab; return renderFaq(); }
+  if (d.af){ afFilter = d.af; return renderAfisha(); }
   if (d.mod !== undefined){ const box = t.parentElement, body = $('.mod-body', box), open = body.hidden; body.hidden = !open; box.classList.toggle('open', open); t.setAttribute('aria-expanded', open); return; }
   if (d.social) return openModal(head('Соцсети клуба', d.social) + `<p>Ссылку добавим перед запуском. А пока записаться и задать вопрос можно по телефону <a href="tel:+79040001213">${PHONE}</a>.</p>`);
   if (d.cookie){ try { localStorage.setItem(COOKIE_KEY, d.cookie); } catch (err) {} $('#cookie').hidden = true; return; }
