@@ -726,6 +726,24 @@ main > [data-page] > .section{padding-top:clamp(28px,4vw,48px);padding-bottom:cl
 @media (max-width:900px){.int-scroll{grid-auto-columns:75%}.int-scroll.all{grid-template-columns:1fr}}
 .tch-ph.has{position:relative;display:block;overflow:hidden}
 .tch-ph.has img{position:absolute;left:0;right:0;bottom:0;top:18px;width:100%;height:calc(100% - 18px);object-fit:cover;object-position:center top}
+/* Подписка на соцсети – яркий отдельный блок */
+.sub{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:space-between;gap:24px 48px;flex-wrap:wrap;padding:clamp(24px,3.4vw,44px);border-radius:var(--r-lg);background:linear-gradient(120deg,var(--cobalt) 0%,#1E56D8 55%,#123E9E 100%);color:#DCE8FF;box-shadow:0 18px 40px rgba(0,102,255,.25)}
+.sub::after{content:"";position:absolute;right:-80px;top:-90px;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(150,210,255,.5),transparent 65%);pointer-events:none;animation:nl-drift 8s ease-in-out infinite alternate}
+.sub-text{position:relative;z-index:1;display:grid;gap:10px;max-width:640px}
+.sub .r4{color:var(--ice)}
+.sub-title{margin:0;font-weight:600;font-size:clamp(26px,2.8vw,36px);line-height:1.1;letter-spacing:-.025em;color:#fff}
+.sub-btns{position:relative;z-index:1;display:flex;gap:12px;flex-wrap:wrap}
+.sub-btn{display:inline-flex;align-items:center;gap:12px;min-height:64px;padding:10px 22px 10px 16px;border-radius:18px;background:#fff;color:var(--ink);text-decoration:none;box-shadow:0 8px 20px rgba(14,20,29,.15);transition:transform .2s,box-shadow .2s}
+.sub-btn:hover{transform:translateY(-3px);box-shadow:0 14px 28px rgba(14,20,29,.22)}
+.sub-btn .icon{width:26px;height:26px;color:var(--cobalt)}
+.sub-btn span{display:grid;line-height:1.25}.sub-btn small{font-size:13px;color:var(--text)}
+@media (max-width:560px){.sub-btns{width:100%}.sub-btn{flex:1 1 100%}}
+/* Карта на телефоне не шире блока */
+@media (max-width:900px){.find-map{aspect-ratio:auto!important;width:100%;min-height:0;height:300px}}
+.lead-steps{display:grid;gap:14px;margin-top:14px;padding-top:22px;border-top:1px solid var(--line)}
+.lead-steps li{display:flex;align-items:flex-start;gap:14px}
+.lead-steps span{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;flex-shrink:0;background:var(--tint);color:var(--cobalt);font-weight:700;font-size:15px}
+@media (max-width:640px){.lead-steps{display:none}}
 @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
 .shot .reveal{opacity:1;transform:none;transition:none}
@@ -1134,15 +1152,27 @@ main > [data-page] > .section{padding-top:clamp(28px,4vw,48px);padding-bottom:cl
         <p class="r4">Запись и подбор программы</p>
         <h2 class="r1" id="lead-title">Не&nbsp;знаете, с&nbsp;чего начать? Подскажем</h2>
         <p>Оставьте телефон – перезвоним, ответим на&nbsp;вопросы, расскажем о&nbsp;ближайших встречах и&nbsp;поможем выбрать программу под вашу задачу или интересы ребёнка.</p>
-        <div class="lead-side">
-          <p class="r4">Написать нам</p>
-          <div class="lead-row"><a class="btn btn-ghost" role="link" aria-disabled="true"><svg class="icon"><use href="#i-chat"/></svg>MAX</a><a class="btn btn-ghost" role="link" aria-disabled="true"><svg class="icon"><use href="#i-send"/></svg>Telegram</a></div>
-          <p class="r4">Подписаться на&nbsp;клуб</p>
-          <p>Анонсы встреч, новые курсы и&nbsp;полезное про нейросети.</p>
-          <div class="lead-row"><a class="btn btn-ghost" role="link" aria-disabled="true">Канал в&nbsp;Telegram</a><a class="btn btn-ghost" role="link" aria-disabled="true">Канал в&nbsp;MAX</a><a class="btn btn-ghost" role="link" aria-disabled="true">ВКонтакте</a></div>
-        </div>
+        <ol class="lead-steps">
+          <li><span>1</span>Оставляете заявку – это минута</li>
+          <li><span>2</span>Связываемся с&nbsp;вами удобным способом: звонок, Telegram или MAX</li>
+          <li><span>3</span>Подбираем программу и&nbsp;записываем на&nbsp;ближайшую встречу</li>
+        </ol>
       </div>
       <div class="form-card" data-inline-form></div>
+    </div>
+  </section>
+
+  <section class="section wrap" aria-labelledby="sub-title">
+    <div class="sub">
+      <div class="sub-text">
+        <p class="r4">Подписывайтесь</p>
+        <h2 class="sub-title" id="sub-title">Будьте в&nbsp;курсе жизни клуба</h2>
+        <p>Анонсы встреч и&nbsp;интенсивов, старты курсов и&nbsp;полезное про нейросети – в&nbsp;наших соцсетях.</p>
+      </div>
+      <div class="sub-btns">
+        <a class="sub-btn" role="link" aria-disabled="true"><svg class="icon"><use href="#i-send"/></svg><span><b>Telegram</b><small>Канал клуба</small></span></a>
+        <a class="sub-btn" role="link" aria-disabled="true"><svg class="icon"><use href="#i-users"/></svg><span><b>ВКонтакте</b><small>Сообщество клуба</small></span></a>
+      </div>
     </div>
   </section>
 
@@ -1457,7 +1487,7 @@ main > [data-page] > .section{padding-top:clamp(28px,4vw,48px);padding-bottom:cl
       <div>
         <a class="logo" href="#/" aria-label="proнейро – на главную"><img class="em" src="./img/emblem.png" alt="" width="57" height="38"><img class="wm" src="./img/wordmark-dark.svg" alt="proнейро" width="150" height="27"></a>
         <p>ProНейро – твоё пространство новых возможностей. Встречи, интенсивы и&nbsp;курсы по&nbsp;практическому применению ИИ для взрослых, детей и&nbsp;команд.</p>
-        <div class="socials"><button type="button" data-social="Telegram">Telegram</button><button type="button" data-social="ВКонтакте">ВКонтакте</button><button type="button" data-social="Max">Max</button></div>
+        <div class="socials"><button type="button" data-social="Telegram">Telegram</button><button type="button" data-social="ВКонтакте">ВКонтакте</button></div>
       </div>
       <div>
         <p class="r4">Направления</p>
@@ -2268,7 +2298,7 @@ function formHtml(kind, opts = {}){
     <p class="err" data-consent-err hidden>Нужно согласие на&nbsp;обработку данных</p>
     <p class="form-msg" data-form-msg hidden></p>
     <button class="btn btn-block" type="submit">${esc(s.submit)} ${ic('i-arrow')}</button>
-    ${opts.inline ? '' : `<div class="lead-alt"><p>Или напишите нам в&nbsp;мессенджер:</p>${contactHtml(s.msg)}</div>`}
+
   </form>`;
 }
 function leadModal(kind){
