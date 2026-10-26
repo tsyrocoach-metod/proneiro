@@ -817,6 +817,70 @@ main > [data-page] > .section{padding-top:clamp(28px,4vw,48px);padding-bottom:cl
 .person-body{display:grid;gap:10px;justify-items:start}
 @media (max-width:900px){.team-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.founder{grid-template-columns:1fr}.founder-ph{min-height:0;aspect-ratio:4/4.2}}
 @media (max-width:600px){.team-grid{grid-template-columns:1fr}.person{grid-template-columns:1fr}.person .tch-ph{max-width:260px}}
+
+/* ===== Телефон (до 700px): короче прокрутка ===== */
+.m-dots,.wg-tabs,.cp-mod-pm,.add-comment{display:none}
+@media (max-width:700px){
+  /* первый экран: сначала текст и кнопки, фото ниже – чёткой карточкой */
+  .fade-hero,[data-page="home"] .fade-hero{display:flex;flex-direction:column;align-items:stretch;min-height:0}
+  .fade-hero .fade-inner{order:1}
+  .fade-hero .fade-media,[data-page="home"] .fade-hero .fade-media{order:2;position:relative;width:auto;height:auto;aspect-ratio:4/3;margin:4px var(--pad) 0;border-radius:var(--r-lg);overflow:hidden;-webkit-mask-image:none;mask-image:none;box-shadow:var(--shadow)}
+  .fade-hero .fm-blur{display:none}
+  .fade-hero .fm-sharp,[data-page="home"] .fade-hero .fm-sharp{-webkit-mask-image:none;mask-image:none;object-position:center 35%}
+  .fade-hero .hero-text,[data-page="home"] .fade-hero .hero-text{margin-top:0;padding-top:22px;padding-bottom:18px}
+  /* ленты вправо-влево */
+  .m-swipe{display:flex !important;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;gap:12px;padding:4px 2px 10px;margin:0 -2px;scrollbar-width:none}
+  .m-swipe::-webkit-scrollbar{display:none}
+  .m-swipe > *{flex:0 0 84%;min-width:0;scroll-snap-align:start}
+  .m-swipe.tch-grid > *{flex-basis:74%}
+  .m-swipe.gallery > *{flex-basis:86%;aspect-ratio:4/3;grid-column:auto;grid-row:auto}
+  .m-swipe.dirs > .dir{min-height:0}
+  .m-swipe .course-actions .btn{padding:0 10px;font-size:14px;white-space:nowrap}
+  .m-swipe .course-body{padding:18px}
+  .m-swipe .kev-body .btn{white-space:nowrap}
+  .m-swipe .reveal{opacity:1;transform:none}
+  .m-dots{display:flex;justify-content:center;gap:6px;margin-top:6px}
+  .m-dots[hidden]{display:none}
+  .m-dots i{width:6px;height:6px;border-radius:3px;background:var(--silver);transition:width .2s,background .2s}
+  .m-dots i.on{width:18px;background:var(--cobalt)}
+  .dark .m-dots i{background:rgba(255,255,255,.25)} .dark .m-dots i.on{background:var(--ice)}
+  /* «Для кого» – вкладками */
+  .wg-tabs{display:flex;gap:8px;overflow-x:auto;margin:0 0 14px;padding-bottom:2px;scrollbar-width:none}
+  .wg-tabs::-webkit-scrollbar{display:none}
+  .wg-tabs button{flex:0 0 auto;min-height:40px;padding:0 16px;border-radius:999px;border:1px solid var(--line-2);background:#fff;font:inherit;font-weight:600;font-size:15px;color:var(--ink)}
+  .wg-tabs button[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+  .wgs{display:block}
+  .wgs .wg{display:none}
+  .wgs .wg.on{display:grid;grid-template-rows:none;gap:12px}
+  .wgs .wg-title{display:none}
+  .wgs .wq{padding:22px 20px}
+  /* программа курса гармошкой */
+  .cp-mod{gap:0}
+  .cp-mod-head{position:relative;padding-right:44px;cursor:pointer}
+  .cp-mod-pm{display:grid;place-items:center;position:absolute;right:0;top:0;width:34px;height:34px;border-radius:50%;background:var(--tint);color:var(--cobalt);transition:transform .25s}
+  .cp-mod:not(.shut) .cp-mod-pm{transform:rotate(45deg)}
+  .cp-mod:not(.shut) .cp-lessons{margin-top:16px}
+  .cp-mod.shut .cp-lessons{display:none}
+  /* форма записи: сначала мессенджеры, потом короткая форма, подписка в конце */
+  .lead{display:flex;flex-direction:column;gap:14px}
+  .lead-text,.lead-side{display:contents}
+  .lead-side > :nth-child(-n+2){order:2}
+  .lead .form-card{order:3}
+  .lead-side > :nth-child(n+3){order:4}
+  .lead-side > .lead-row{margin-bottom:0}
+  .add-comment{display:inline;justify-self:start;font-weight:600;text-decoration:none}
+  .form:not(.has-comment) .field-comment{display:none}
+  /* форматы для взрослых – 2 × 2 */
+  .fmt-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .fmt{padding:16px}
+  .fmt .r2{font-size:17px}
+  .fmt .r4{font-size:11.5px;letter-spacing:.06em}
+  .fmt .fmt-meta{font-size:14px}
+  .fmt .ic-sq{width:34px;height:34px}
+  /* ближайшее событие – описание короче */
+  .pc.main .pc-desc{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+}
+@media (min-width:701px){.cp-mod-head{cursor:default}}
 </style>
 </head>
 <body>
@@ -1927,7 +1991,7 @@ function renderCoursePage(id){
     let n = parseInt(String(m.r || '').replace(/^0+/, ''), 10) || 1;
     const lessons = (m.l || []).map(([t, d]) => `<div class="cp-lesson"><span class="n" aria-hidden="true">${String(n++).padStart(2, '0')}</span><h4 class="r2">${nb(t)}</h4><p>${nb(d)}</p></div>`).join('');
     const plates = (m.why ? `<p class="cp-plate"><b>Зачем это ребёнку:</b> ${nb(m.why)}</p>` : '') + (m.res ? `<p class="cp-plate"><b>Результат модуля:</b> ${nb(m.res)}</p>` : '') + (m.safe ? `<p class="cp-plate"><b>Безопасность:</b> ${nb(m.safe)}</p>` : '');
-    return `<article class="cp-mod reveal"><div class="cp-mod-head"><p class="r4">Модуль ${i + 1} · ${/–/.test(m.r) ? 'занятия' : 'занятие'} ${esc(m.r)}</p><h3 class="r2">${nb(m.t)}</h3></div>
+    return `<article class="cp-mod reveal${i ? ' shut' : ''}"><div class="cp-mod-head" data-cpmod role="button" tabindex="0" aria-expanded="${!i}"><p class="r4">Модуль ${i + 1} · ${/–/.test(m.r) ? 'занятия' : 'занятие'} ${esc(m.r)}</p><h3 class="r2">${nb(m.t)}</h3><span class="cp-mod-pm" aria-hidden="true">${ic('i-plus','icon icon-sm')}</span></div>
       <div class="cp-lessons">${lessons}${plates ? `<div class="cp-lesson">${plates}</div>` : ''}</div></article>`;
   }).join('');
   const creates = (c.creates || []).length ? `<div class="panel"><p class="r4">Результат курса</p><h2 class="r1" style="font-size:clamp(26px,2.6vw,36px)">${k ? 'Что ребёнок создаст' : 'Что у вас будет'}</h2><ul class="ticks">${c.creates.map(t => `<li><span class="ic-sq">${ic('i-check')}</span><span>${nb(t)}</span></li>`).join('')}</ul></div>` : '';
@@ -2032,6 +2096,40 @@ function renderTeam(){
 function personModal(id){
   const p = TEAM.find(x => x.id === id); if (!p) return;
   openModal(`<div class="person">${personPh(p)}<div class="person-body">${dirPill(p)}<h2 class="r1" id="modal-title">${esc(p.name)}</h2><p class="r4">${esc(p.role)}</p>${p.bio.map(t => `<p>${nb(t)}</p>`).join('')}</div></div>`, true);
+}
+
+
+/* ===== Телефон: ленты вправо-влево, вкладки, гармошка ===== */
+const MOBILE = matchMedia('(max-width:700px)');
+const SWIPE_SEL = '[data-team="home"], [data-courses="kids"], [data-page="course"] .courses, .why3, .cando-grid, .gallery, .kev, .dirs';
+function markDot(el){
+  const d = el.nextElementSibling; if (!d || !d.classList.contains('m-dots')) return;
+  const x = el.getBoundingClientRect().left; let best = 0, bd = 1e9;
+  [...el.children].forEach((k, i) => { const dd = Math.abs(k.getBoundingClientRect().left - x); if (dd < bd){ bd = dd; best = i; } });
+  [...d.children].forEach((t, i) => t.classList.toggle('on', i === best));
+}
+function syncSwipes(){
+  $$(SWIPE_SEL).forEach(el => {
+    el.classList.add('m-swipe');
+    let dots = el.nextElementSibling && el.nextElementSibling.classList.contains('m-dots') ? el.nextElementSibling : null;
+    if (!dots){ dots = document.createElement('div'); dots.className = 'm-dots'; dots.setAttribute('aria-hidden', 'true'); el.after(dots);
+      el.addEventListener('scroll', () => markDot(el), { passive:true }); }
+    const n = el.children.length;
+    if (dots.children.length !== n) dots.innerHTML = '<i></i>'.repeat(n);
+    dots.hidden = n < 2; markDot(el);
+  });
+}
+function initWgTabs(){
+  const box = $('.wgs'); if (!box || $('.wg-tabs')) return;
+  const wgs = $$('.wg', box);
+  const tabs = document.createElement('div'); tabs.className = 'wg-tabs'; tabs.setAttribute('role', 'tablist'); tabs.setAttribute('aria-label', 'Для кого');
+  tabs.innerHTML = wgs.map((w, i) => `<button type="button" role="tab" data-wgtab="${i}" aria-selected="${i === 0}">${$('.wg-title', w).innerHTML}</button>`).join('');
+  box.before(tabs); wgs.forEach((w, i) => w.classList.toggle('on', i === 0));
+}
+function toggleMod(h){
+  if (!MOBILE.matches) return;
+  const m = h.closest('.cp-mod'), open = m.classList.contains('shut');
+  m.classList.toggle('shut', !open); h.setAttribute('aria-expanded', open);
 }
 
 /* ===== FAQ ===== */
@@ -2163,7 +2261,8 @@ function formHtml(kind, opts = {}){
       <label><input type="radio" name="contact_via" value="call" checked><span>Перезвонить</span></label>
       <label><input type="radio" name="contact_via" value="telegram"><span>Telegram</span></label>
       <label><input type="radio" name="contact_via" value="max"><span>MAX</span></label></div></fieldset>
-    <div class="field"><label for="${id}-comment">${s.company ? 'Задача команды' : 'Вопрос или пожелание'}<span class="hint"> (необязательно)</span></label><textarea id="${id}-comment" name="comment" maxlength="1500"></textarea></div>
+    <button class="linkish add-comment" type="button" data-addcomment>+ Добавить вопрос или пожелание</button>
+    <div class="field field-comment"><label for="${id}-comment">${s.company ? 'Задача команды' : 'Вопрос или пожелание'}<span class="hint"> (необязательно)</span></label><textarea id="${id}-comment" name="comment" maxlength="1500"></textarea></div>
     <div class="hp" aria-hidden="true"><label>Сайт <input name="website" tabindex="-1" autocomplete="off"></label></div>
     <label class="check"><input type="checkbox" name="consent"><span>Согласен(на) на&nbsp;обработку персональных данных в&nbsp;соответствии с&nbsp;<button class="linkish" type="button" data-doc="policy">Политикой</button></span></label>
     <p class="err" data-consent-err hidden>Нужно согласие на&nbsp;обработку данных</p>
@@ -2253,6 +2352,7 @@ async function loadContent(){
     if (Array.isArray(d.docs) && d.docs.length) DOCS = d.docs;
     renderFeeds(); renderCourses(); renderDocs();
     if (curCourse && !renderCoursePage(curCourse)) route(); else if (curCourse) observeReveal();
+    syncSwipes();
     const pick = $('[data-inline-form]'); if (pick && pick.querySelector('form') && !pick.querySelector('form').elements.name.value) pick.innerHTML = formHtml('pick', { inline:true });
   } catch (e) { /* админка недоступна – остаются данные, зашитые в сайт */ }
 }
@@ -2276,7 +2376,7 @@ function route(){
   requestAnimationFrame(() => {
     const el = anchor && document.getElementById(anchor);
     window.scrollTo({ top: el ? el.getBoundingClientRect().top + window.scrollY - 76 : 0, behavior:'auto' });
-    observeReveal();
+    syncSwipes(); observeReveal();
   });
 }
 
@@ -2300,7 +2400,8 @@ function observeReveal(){
 /* ===== Клики ===== */
 document.addEventListener('click', e => {
   const t = e.target.closest('button,a');
-  if (!t){ const pc = e.target.closest('[data-person]'); if (pc) personModal(pc.dataset.person); return; }
+  if (!t){ const cm = e.target.closest('[data-cpmod]'); if (cm) return toggleMod(cm);
+    const pc = e.target.closest('[data-person]'); if (pc) personModal(pc.dataset.person); return; }
   const d = t.dataset;
   if (d.copy !== undefined){ try { navigator.clipboard.writeText(d.copy); } catch (err) {} const n = t.closest('.contact') && $('.copy-note', t.closest('.contact')); if (n) n.hidden = false; return; }
   if (d.close !== undefined) return closeModal();
@@ -2310,6 +2411,8 @@ document.addEventListener('click', e => {
   if (d.goto){ const el = document.getElementById(d.goto); if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 76, behavior:'smooth' }); return; }
   if (d.doc){ e.preventDefault(); return docModal(d.doc); }
   if (d.person) return personModal(d.person);
+  if (d.wgtab !== undefined){ const i = +d.wgtab; $$('.wgs .wg').forEach((w, k) => w.classList.toggle('on', k === i)); $$('.wg-tabs button').forEach((b, k) => b.setAttribute('aria-selected', k === i)); return; }
+  if (d.addcomment !== undefined){ const f = t.closest('form'); f.classList.add('has-comment'); t.hidden = true; const ta = f.elements.comment; if (ta) ta.focus(); return; }
   if (d.ev) return EV_INDEX[d.ev] && EV_INDEX[d.ev].open();
   if (d.intNav){ const sc = $('[data-feed="intensives"]'); sc.scrollBy({ left: (+d.intNav) * (sc.clientWidth * .8), behavior:'smooth' }); return; }
   if (d.intAll !== undefined){ const sc = $('[data-feed="intensives"]'); const on = sc.classList.toggle('all'); t.textContent = on ? 'Свернуть' : 'Показать все'; $$('.int-nav').forEach(b => b.hidden = on); return; }
@@ -2322,6 +2425,7 @@ document.addEventListener('click', e => {
 });
 modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
 document.addEventListener('keydown', e => {
+  if ((e.key === 'Enter' || e.key === ' ') && e.target.matches && e.target.matches('[data-cpmod]')){ e.preventDefault(); toggleMod(e.target); return; }
   if (e.key === 'Escape'){ if (!modal.hidden) closeModal(); else if (!mnav.hidden) setMenu(false); }
   if (e.key === 'Tab' && !modal.hidden){
     const f = $$('button,a[href],input,textarea,[tabindex="0"]', dialog).filter(x => !x.disabled && x.offsetParent !== null);
@@ -2333,7 +2437,7 @@ document.addEventListener('keydown', e => {
 window.addEventListener('hashchange', route);
 
 /* ===== Старт ===== */
-renderTeam(); renderFeeds(); renderCourses(); renderFaq(); renderDocs();
+renderTeam(); renderFeeds(); renderCourses(); renderFaq(); renderDocs(); initWgTabs();
 $('[data-inline-form]').innerHTML = formHtml('pick', { inline:true });
 route();
 loadContent();
