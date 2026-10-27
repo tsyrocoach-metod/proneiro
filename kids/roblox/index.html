@@ -16,8 +16,10 @@
 <meta property="og:url" content="https://proneiroclub.ru/kids/roblox/">
 <meta property="og:image" content="https://proneiroclub.ru/img/club/zal.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "EducationalOrganization", "name": "ProНейро – клуб практического ИИ", "alternateName": "proнейро", "url": "https://proneiroclub.ru/", "logo": "https://proneiroclub.ru/img/emblem.png", "image": "https://proneiroclub.ru/img/club/zal.jpg", "telephone": "+7-904-000-12-13", "email": "Grand.tver@mail.ru", "address": {"@type": "PostalAddress", "streetAddress": "ул. Новоторжская, д. 18, корп. 1, пом. 48", "addressLocality": "Тверь", "postalCode": "170100", "addressCountry": "RU"}, "geo": {"@type": "GeoCoordinates", "latitude": 56.858341, "longitude": 35.912965}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "EducationalOrganization", "name": "ProНейро – клуб практического ИИ", "alternateName": "proнейро", "url": "https://proneiroclub.ru/", "logo": "https://proneiroclub.ru/img/emblem.png", "image": "https://proneiroclub.ru/img/club/zal.jpg", "telephone": "+7-904-000-12-13", "email": "Grand.tver@mail.ru", "sameAs": ["https://vk.ru/club241086009"], "address": {"@type": "PostalAddress", "streetAddress": "ул. Новоторжская, д. 18, корп. 1, пом. 48", "addressLocality": "Тверь", "postalCode": "170100", "addressCountry": "RU"}, "geo": {"@type": "GeoCoordinates", "latitude": 56.858341, "longitude": 35.912965}}</script>
 <!--/SEO-->
+
+
 
 
 
@@ -405,8 +407,9 @@ fieldset.field{border:0;padding:0;margin:0}
 
 .foot .logo .wm{width:150px;height:27px}
 .socials{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap}
-.socials button{min-height:40px;padding:0 16px;border-radius:999px;border:1px solid rgba(255,255,255,.16);background:transparent;color:#E3E9F3;font-size:14px;font-weight:500}
-.socials button:hover{background:rgba(255,255,255,.08)}
+.socials a{display:inline-flex;align-items:center;text-decoration:none}
+.socials button,.socials a{min-height:40px;padding:0 16px;border-radius:999px;border:1px solid rgba(255,255,255,.16);background:transparent;color:#E3E9F3;font-size:14px;font-weight:500}
+.socials button:hover,.socials a:hover{background:rgba(255,255,255,.08)}
 .foot-bottom{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:36px;padding-top:20px;border-top:1px solid rgba(255,255,255,.1);font-size:14px}
 @media (max-width:1000px){.foot-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:600px){.foot-grid{grid-template-columns:1fr}}
@@ -1223,17 +1226,17 @@ main > [data-page] > .section{padding-top:clamp(28px,4vw,48px);padding-bottom:cl
     </div>
   </section>
 
-  <!-- Подписка на соцсети скрыта по просьбе Светланы (26.10); вернуть – убрать hidden -->
-  <section class="section wrap" aria-labelledby="sub-title" hidden>
+  <!-- Подписка: группа ВКонтакте (27.10). Telegram-канала пока нет – кнопка скрыта, вернуть: убрать hidden и вписать ссылку -->
+  <section class="section wrap" aria-labelledby="sub-title">
     <div class="sub">
       <div class="sub-text">
         <p class="r4">Подписывайтесь</p>
         <h2 class="sub-title" id="sub-title">Будьте в&nbsp;курсе жизни клуба</h2>
-        <p>Анонсы встреч и&nbsp;интенсивов, старты курсов и&nbsp;полезное про нейросети – в&nbsp;наших соцсетях.</p>
+        <p>Анонсы встреч и&nbsp;интенсивов, старты курсов и&nbsp;полезное про нейросети – в&nbsp;нашей группе ВКонтакте.</p>
       </div>
       <div class="sub-btns">
-        <a class="sub-btn" role="link" aria-disabled="true"><svg class="icon"><use href="#i-send"/></svg><span><b>Telegram</b><small>Канал клуба</small></span></a>
-        <a class="sub-btn" role="link" aria-disabled="true"><svg class="icon"><use href="#i-users"/></svg><span><b>ВКонтакте</b><small>Сообщество клуба</small></span></a>
+        <a class="sub-btn" role="link" aria-disabled="true" hidden><svg class="icon"><use href="#i-send"/></svg><span><b>Telegram</b><small>Канал клуба</small></span></a>
+        <a class="sub-btn" href="https://vk.ru/club241086009" target="_blank" rel="noopener"><svg class="icon"><use href="#i-users"/></svg><span><b>ВКонтакте</b><small>Группа клуба</small></span></a>
       </div>
     </div>
   </section>
@@ -1558,8 +1561,7 @@ main > [data-page] > .section{padding-top:clamp(28px,4vw,48px);padding-bottom:cl
       <div>
         <a class="logo" href="/" aria-label="proнейро – на главную"><img class="em" src="./img/emblem.png" alt="" width="57" height="38"><img class="wm" src="./img/wordmark-dark.svg" alt="proнейро" width="150" height="27"></a>
         <p>ProНейро – твоё пространство новых возможностей. Встречи, интенсивы и&nbsp;курсы по&nbsp;практическому применению ИИ для взрослых, детей и&nbsp;команд.</p>
-        <!-- Соцсети скрыты до появления ссылок (27.10) – вернуть: убрать hidden -->
-        <div class="socials" hidden><button type="button" data-social="Telegram">Telegram</button><button type="button" data-social="ВКонтакте">ВКонтакте</button></div>
+        <div class="socials"><a href="https://vk.ru/club241086009" target="_blank" rel="noopener">ВКонтакте</a></div>
       </div>
       <div>
         <p class="r4">Направления</p>

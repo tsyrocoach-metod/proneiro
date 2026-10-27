@@ -35,7 +35,7 @@ def head_block(title, desc, url):
         "@context": "https://schema.org", "@type": "EducationalOrganization",
         "name": "ProНейро – клуб практического ИИ", "alternateName": "proнейро",
         "url": SITE + '/', "logo": SITE + '/img/emblem.png', "image": OG_IMG,
-        "telephone": "+7-904-000-12-13", "email": "Grand.tver@mail.ru",
+        "telephone": "+7-904-000-12-13", "email": "Grand.tver@mail.ru", "sameAs": ["https://vk.ru/club241086009"],
         "address": {"@type": "PostalAddress", "streetAddress": "ул. Новоторжская, д. 18, корп. 1, пом. 48",
                     "addressLocality": "Тверь", "postalCode": "170100", "addressCountry": "RU"},
         "geo": {"@type": "GeoCoordinates", "latitude": 56.858341, "longitude": 35.912965},
