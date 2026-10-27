@@ -29,6 +29,7 @@
 
 
 
+
 <link rel="icon" type="image/png" href="./img/emblem.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -493,7 +494,10 @@ fieldset.field{border:0;padding:0;margin:0}
 .contact-btns{display:grid;gap:10px}
 .copy-note{color:var(--cobalt-d);font-weight:500}
 .lead-alt{display:grid;gap:12px;margin-top:22px;padding-top:18px;border-top:1px solid var(--line)}
-.lead-alt .contact-btns{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+.lead-alt .contact-btns{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.contact-btns .btn{white-space:nowrap}
+.lead-contact{display:grid;gap:12px;margin-top:22px;padding-top:22px;border-top:1px solid var(--line)}
+.lead-contact .contact-btns{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
 .hp{position:absolute!important;left:-10000px!important;width:1px;height:1px;overflow:hidden}
 .field select{width:100%;min-height:52px;padding:12px 16px;border-radius:var(--r-sm);border:1.5px solid var(--line-2);background:#fff;font-size:16px}
 .form-msg{padding:14px 16px;border-radius:var(--r-sm);background:#FDECEA;border:1px solid #F2B8B5;color:#7A1C16}
@@ -789,7 +793,7 @@ main > [data-page] > .section{padding-top:clamp(28px,4vw,48px);padding-bottom:cl
 .lead-steps{display:grid;gap:14px;margin-top:14px;padding-top:22px;border-top:1px solid var(--line)}
 .lead-steps li{display:flex;align-items:flex-start;gap:14px}
 .lead-steps span{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;flex-shrink:0;background:var(--tint);color:var(--cobalt);font-weight:700;font-size:15px}
-@media (max-width:640px){.lead-steps{display:none}}
+@media (max-width:640px){.lead-steps{display:none}.lead-contact{border-top:0;padding-top:0}}
 .af-filters{display:flex;flex-wrap:wrap;align-items:center;gap:12px 28px;margin:0 0 clamp(24px,3vw,36px)}
 .af-group{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
 .af-group .r4{margin-right:4px}
@@ -1209,9 +1213,10 @@ main > [data-page] > .section{padding-top:clamp(28px,4vw,48px);padding-bottom:cl
         <p>Оставьте телефон – перезвоним, ответим на&nbsp;вопросы, расскажем о&nbsp;ближайших встречах и&nbsp;поможем выбрать программу под вашу задачу или интересы ребёнка.</p>
         <ol class="lead-steps">
           <li><span>1</span>Оставляете заявку – это минута</li>
-          <li><span>2</span>Связываемся с&nbsp;вами удобным способом: звонок, Telegram или MAX</li>
+          <li><span>2</span>Связываемся с&nbsp;вами удобным способом: звонок или MAX</li>
           <li><span>3</span>Подбираем программу и&nbsp;записываем на&nbsp;ближайшую встречу</li>
         </ol>
+        <div class="lead-contact contact" data-lead-contact><p class="r4">Или напишите нам сами</p></div>
       </div>
       <div class="form-card" data-inline-form></div>
     </div>
@@ -1242,6 +1247,7 @@ main > [data-page] > .section{padding-top:clamp(28px,4vw,48px);padding-bottom:cl
           <div class="info-row"><span class="ic-sq"><svg class="icon"><use href="#i-pin"/></svg></span><div><b>170100, г.&nbsp;Тверь, ул.&nbsp;Новоторжская, д.&nbsp;18, корп.&nbsp;1, пом.&nbsp;48</b><p>БЦ «Аврора», отдельный вход по&nbsp;правому фасаду</p></div></div>
           <div class="info-row"><span class="ic-sq"><svg class="icon"><use href="#i-phone"/></svg></span><div><b><a href="tel:+79040001213">8-904-000-12-13</a></b><p>Телефон клуба</p></div></div>
           <div class="info-row"><span class="ic-sq"><svg class="icon"><use href="#i-mail"/></svg></span><div><b><a href="mailto:Grand.tver@mail.ru">Grand.tver@mail.ru</a></b><p>Электронная почта</p></div></div>
+          <div class="info-row"><span class="ic-sq"><svg class="icon"><use href="#i-chat"/></svg></span><div><b><a href="https://max.ru/u/f9LHodD0cOLcKLWQTQrtN0UUEUASA7FvTGgoE-n2U_a8W1g8XH5RTMm6iRs" target="_blank" rel="noopener">Написать в&nbsp;MAX</a></b><p>Ответим на&nbsp;вопросы и&nbsp;запишем</p></div></div>
           <div class="find-actions">
             <a class="btn" href="https://yandex.ru/maps/-/CXRhb66v" target="_blank" rel="noopener">Открыть в&nbsp;Яндекс Картах <svg class="icon"><use href="#i-ext"/></svg></a>
             <button class="btn btn-ghost" type="button" data-lead="pick">Связаться с&nbsp;нами</button>
@@ -1563,6 +1569,7 @@ main > [data-page] > .section{padding-top:clamp(28px,4vw,48px);padding-bottom:cl
         <ul>
           <li><a href="tel:+79040001213">8-904-000-12-13</a></li>
           <li><a href="mailto:Grand.tver@mail.ru">Grand.tver@mail.ru</a></li>
+          <li><a href="https://max.ru/u/f9LHodD0cOLcKLWQTQrtN0UUEUASA7FvTGgoE-n2U_a8W1g8XH5RTMm6iRs" target="_blank" rel="noopener">Написать в&nbsp;MAX</a></li>
           <li><p>170100, г.&nbsp;Тверь, ул.&nbsp;Новоторжская, д.&nbsp;18, корп.&nbsp;1, пом.&nbsp;48, БЦ «Аврора»</p></li>
         </ul>
       </div>
@@ -1735,7 +1742,7 @@ main > [data-page] > .section{padding-top:clamp(28px,4vw,48px);padding-bottom:cl
 // Куда пишут желающие записаться. Сайт сам заявки не собирает – кнопки открывают чат с клубом.
 // telegram – ник без @ (например, proneiro_club); max – ссылка на профиль или канал в MAX.
 // Пока поле пустое, кнопка показывается, но никуда не ведёт.
-const CONTACTS = { telegram:'', max:'' };
+const CONTACTS = { telegram:'', max:'https://max.ru/u/f9LHodD0cOLcKLWQTQrtN0UUEUASA7FvTGgoE-n2U_a8W1g8XH5RTMm6iRs', mail:'Grand.tver@mail.ru' };
 // Админка клуба (заявки, афиша, курсы, документы) живёт на том же сервере: /api и /admin.
 // При проверке на своём компьютере сайт обращается к админке, запущенной рядом.
 const API_BASES = /^(localhost|127\.0\.0\.1)$/.test(location.hostname) ? ['http://localhost:8091'] : ['', 'https://api.proneiroclub.ru'];
@@ -1892,7 +1899,7 @@ const FAQ = {
     ['Что нужно для занятий?','Очные занятия проходят в студии клуба: там есть компьютеры, демо-экран и программы для работы с нейросетями. Для онлайн-занятий курса понадобится свой компьютер и интернет.'],
     ['Как организована практика?','Минимум теории – максимум практики: на каждом занятии решаем реальные задачи – письма, документы, таблицы, контент. Вопросы можно задавать в любой момент.'],
     ['Как выбрать программу?','Напишите нам или позвоните – расскажите, какие задачи хотите решать, и мы подскажем, с чего начать: с интенсива, базового или продвинутого курса.'],
-    ['Как записаться?','Нажмите «Записаться» у курса или события и оставьте телефон – мы перезвоним. Или напишите нам в Telegram, MAX, позвоните по телефону ' + PHONE + '.'] ],
+    ['Как записаться?','Нажмите «Записаться» у курса или события и оставьте телефон – мы перезвоним. Или напишите нам в MAX, на почту Grand.tver@mail.ru, позвоните по телефону ' + PHONE + '.'] ],
   k: [
     ['Нужен ли ребёнку опыт программирования?','Нет. Начинаем с нуля, опыт программирования не требуется.'],
     ['Для какого возраста курсы?','Для детей 7–14 лет.'],
@@ -2351,13 +2358,13 @@ function interestOptions(){
   return o;
 }
 function contactHtml(msg){
-  // Пока ник/ссылка не вписаны в CONTACTS, кнопка показывается, но никуда не ведёт.
-  const tg = CONTACTS.telegram ? ` href="https://t.me/${encodeURIComponent(CONTACTS.telegram)}?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener"` : ' role="link" aria-disabled="true"';
-  const mx = CONTACTS.max ? ` href="${esc(CONTACTS.max)}" target="_blank" rel="noopener" data-copy="${esc(msg)}"` : ' role="link" aria-disabled="true"';
+  // Написать в MAX (текст заявки копируется, чтобы вставить в чат), на почту – с готовой темой и текстом, или позвонить
+  const mail = `mailto:${CONTACTS.mail}?subject=${encodeURIComponent('Запись в клуб ProНейро')}&body=${encodeURIComponent(msg || '')}`;
   return `<div class="contact-btns">
-    <a class="btn btn-ghost"${mx}>${ic('i-chat')}Написать в&nbsp;MAX</a>
-    <a class="btn btn-ghost"${tg}>${ic('i-send')}Написать в&nbsp;Telegram</a>
-  </div><p class="copy-note" hidden>Текст сообщения скопирован – вставьте его в&nbsp;чат.</p>`;
+    <a class="btn btn-ghost" href="${esc(CONTACTS.max)}" target="_blank" rel="noopener"${msg ? ` data-copy="${esc(msg)}"` : ''}>${ic('i-chat')}Написать в&nbsp;MAX</a>
+    <a class="btn btn-ghost" href="${esc(mail)}">${ic('i-mail')}Написать на&nbsp;почту</a>
+    <a class="btn btn-ghost" href="tel:+79040001213">${ic('i-phone')}Позвонить</a>
+  </div>${msg ? '<p class="copy-note" hidden>Текст сообщения скопирован – вставьте его в&nbsp;чат.</p>' : ''}`;
 }
 let formSeq = 0;
 function formHtml(kind, opts = {}){
@@ -2381,7 +2388,7 @@ function formHtml(kind, opts = {}){
     <p class="err" data-consent-err hidden>Нужно согласие на&nbsp;обработку данных</p>
     <p class="form-msg" data-form-msg hidden></p>
     <button class="btn btn-block" type="submit">${esc(s.submit)} ${ic('i-arrow')}</button>
-
+    ${opts.inline ? '' : `<div class="lead-alt contact"><p>Или напишите нам сами – ответим на&nbsp;вопросы и&nbsp;запишем:</p>${contactHtml(s.msg)}</div>`}
   </form>`;
 }
 function leadModal(kind){
@@ -2572,6 +2579,7 @@ window.addEventListener('hashchange', () => { if (/^#\//.test(location.hash)) ro
 /* ===== Старт ===== */
 renderTeam(); renderFeeds(); renderCourses(); renderFaq(); renderDocs(); initWgTabs();
 $('[data-inline-form]').innerHTML = formHtml('pick', { inline:true });
+{ const lc = $('[data-lead-contact]'); if (lc) lc.insertAdjacentHTML('beforeend', contactHtml('Здравствуйте! Хочу записаться в клуб ProНейро. Помогите подобрать программу.')); }
 route();
 loadContent();
 </script>
