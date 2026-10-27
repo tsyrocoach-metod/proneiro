@@ -20,6 +20,7 @@
 <!--/SEO-->
 
 
+
 <link rel="icon" type="image/png" href="./img/emblem.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -758,6 +759,7 @@ main > [data-page] > .section{padding-top:clamp(28px,4vw,48px);padding-bottom:cl
 .lead-steps li{display:flex;align-items:flex-start;gap:14px}
 .lead-steps span{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;flex-shrink:0;background:var(--tint);color:var(--cobalt);font-weight:700;font-size:15px}
 @media (max-width:640px){.lead-steps{display:none}}
+.af-h{margin:0 0 16px;font-weight:600;font-size:clamp(22px,2.2vw,28px);letter-spacing:-.02em;color:var(--ink)}
 @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
 .shot .reveal{opacity:1;transform:none;transition:none}
@@ -1441,10 +1443,18 @@ main > [data-page] > .section{padding-top:clamp(28px,4vw,48px);padding-bottom:cl
     <nav class="crumbs" aria-label="Навигация по сайту"><a href="/">Главная</a><span aria-hidden="true">/</span><span>Афиша</span></nav>
     <div class="head">
       <div class="head-text"><p class="r4">Афиша клуба</p><h1 class="r1" id="af-title">Все события ProНейро</h1>
-        <p>Бесплатные встречи, мастер-классы, интенсивы и&nbsp;набор на&nbsp;курсы – для взрослых и&nbsp;детей.</p></div>
+        <p>Встречи и&nbsp;мастер-классы с&nbsp;датами, а&nbsp;ниже – курсы и&nbsp;интенсивы, на&nbsp;которые идёт предзапись.</p></div>
       <div class="filters" role="group" aria-label="Для кого" data-af-filters></div>
     </div>
+    <h2 class="af-h" id="af-dated">Ближайшие события</h2>
     <div class="afisha-grid" data-afisha></div>
+  </section>
+  <section class="section wrap" aria-labelledby="af-pre-title">
+    <div class="panel">
+      <div class="head"><div class="head-text"><p class="r4">Даты скоро объявим</p><h2 class="r1" id="af-pre-title">Идёт предзапись</h2>
+        <p>Курсы и&nbsp;интенсивы, на&nbsp;которые уже можно записаться. Сообщим дату старта первыми тем, кто оставит заявку.</p></div></div>
+      <div class="afisha-grid" data-afisha-pre></div>
+    </div>
   </section>
 </div>
 
@@ -1962,10 +1972,12 @@ function miniCard(e){
 const plural = (n, one, few, many) => { const a = n % 10, b = n % 100; return a === 1 && b !== 11 ? one : a >= 2 && a <= 4 && (b < 12 || b > 14) ? few : many; };
 let afFilter = 'all';
 function renderAfisha(all){
-  const box = $('[data-afisha]'); if (!box) return;
+  const box = $('[data-afisha]'), pre = $('[data-afisha-pre]'); if (!box) return;
   const list = (all || allEvents()).filter(e => afFilter === 'all' || e.audience === afFilter);
   $('[data-af-filters]').innerHTML = [['all','Все'],['a','Взрослым'],['k','Детям']].map(([k, l]) => `<button type="button" data-af="${k}" aria-pressed="${afFilter === k}">${l}</button>`).join('');
-  box.innerHTML = list.length ? list.map(miniCard).join('') : '<p class="af-empty">Здесь пока нет событий. Загляните позже или оставьте заявку – сообщим о&nbsp;ближайших.</p>';
+  const dated = list.filter(e => e.d), undated = list.filter(e => !e.d);
+  box.innerHTML = dated.length ? dated.map(miniCard).join('') : '<p class="af-empty">Ближайших встреч с&nbsp;датой пока нет. Загляните позже или оставьте заявку – сообщим первыми.</p>';
+  if (pre){ pre.innerHTML = undated.map(miniCard).join(''); pre.closest('section').hidden = !undated.length; }
   observeReveal();
 }
 let EV_INDEX = {};
