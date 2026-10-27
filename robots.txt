@@ -1,0 +1,15 @@
+User-agent: *
+Disallow: /admin
+Disallow: /api/
+Disallow: /1/
+Disallow: /2/
+Disallow: /3/
+Disallow: /v1/
+Disallow: /v2/
+Disallow: /v3/
+Disallow: /cards/
+Disallow: /variants/
+Disallow: /who-test/
+Disallow: /afisha-v/
+
+Sitemap: https://proneiroclub.ru/sitemap.xml
