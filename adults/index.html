@@ -35,6 +35,7 @@
 
 
 
+
 <link rel="icon" type="image/png" href="./img/emblem.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -727,6 +728,7 @@ main > [data-page] > .section{padding-top:clamp(28px,4vw,48px);padding-bottom:cl
 /* Преподаватели */
 .tch-grid{display:grid;gap:18px}
 .tch-grid.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+.tch-grid.four.three{grid-template-columns:repeat(3,minmax(0,1fr))}
 .tch-grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
 .tch{display:flex;flex-direction:column;border-radius:var(--r-md);overflow:hidden;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);transition:transform .25s,box-shadow .25s}
 .tch:hover{transform:translateY(-4px);box-shadow:var(--shadow-up)}
@@ -738,9 +740,9 @@ main > [data-page] > .section{padding-top:clamp(28px,4vw,48px);padding-bottom:cl
 .tch-grid.two .tch{display:grid;grid-template-columns:200px minmax(0,1fr)}
 .tch-grid.two .tch-ph{aspect-ratio:auto;min-height:200px}
 .tch-grid.two .tch-body{align-content:center}
-@media (max-width:1080px){.tch-grid.four{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:1080px){.tch-grid.four,.tch-grid.four.three{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:760px){.tch-grid.two{grid-template-columns:1fr}}
-@media (max-width:520px){.tch-grid.four{grid-template-columns:1fr}.tch-grid.two .tch{grid-template-columns:120px minmax(0,1fr)}.tch-grid.two .tch-ph{min-height:140px}}
+@media (max-width:520px){.tch-grid.four,.tch-grid.four.three{grid-template-columns:1fr}.tch-grid.two .tch{grid-template-columns:120px minmax(0,1fr)}.tch-grid.two .tch-ph{min-height:140px}}
 /* Детские курсы – плиткой 2×2 */
 [data-courses="kids"]{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
 [data-courses="kids"] .course{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr)}
@@ -1197,8 +1199,8 @@ main > [data-page] > .section{padding-top:clamp(28px,4vw,48px);padding-bottom:cl
   </section>
 
   <section class="section wrap" aria-labelledby="team-title">
-    <div class="head"><div class="head-text"><p class="r4">Люди ProНейро</p><h2 class="r1" id="team-title">Команда клуба</h2><p>Основатель клуба и&nbsp;преподаватели – практики, которые объясняют сложное простым языком.</p></div></div>
-    <div class="tch-grid four" data-team="home"></div>
+    <div class="head"><div class="head-text"><p class="r4">Люди ProНейро</p><h2 class="r1" id="team-title">Команда клуба</h2><p>Преподаватели клуба – практики, которые объясняют сложное простым языком.</p></div></div>
+    <div class="tch-grid four three" data-team="home"></div>
     <div class="team-more"><a class="btn btn-ghost" href="/team/">Вся команда <svg class="icon"><use href="#i-arrow"/></svg></a></div>
   </section>
 
@@ -1475,7 +1477,7 @@ main > [data-page] > .section{padding-top:clamp(28px,4vw,48px);padding-bottom:cl
 <div data-page="team" hidden>
   <section class="section wrap" aria-labelledby="tm-title">
     <nav class="crumbs" aria-label="Навигация по сайту"><a href="/">Главная</a><span aria-hidden="true">/</span><span>Команда</span></nav>
-    <div class="head"><div class="head-text"><p class="r4">Люди ProНейро</p><h1 class="r1" id="tm-title">Команда клуба</h1><p>Те, кто придумал ProНейро и&nbsp;ведёт занятия для взрослых и&nbsp;детей.</p></div></div>
+    <div class="head"><div class="head-text"><p class="r4">Люди ProНейро</p><h1 class="r1" id="tm-title">Команда клуба</h1><p>Те, кто ведёт занятия для взрослых и&nbsp;детей.</p></div></div>
     <!-- блок основателя убран по просьбе Светы 02.11.2026; вернуть: <div data-founder></div> -->
   </section>
   <section class="section wrap" aria-labelledby="tm-t-title">
@@ -2217,7 +2219,7 @@ function tchCard(p){
 }
 function renderTeam(){
   const put = (key, list) => { const el = $(`[data-team="${key}"]`); if (!el) return; el.innerHTML = list.map(tchCard).join(''); el.classList.toggle('solo', list.length === 1); };
-  put('home', TEAM); put('all', TEAM.filter(p => !p.founder));
+  put('home', TEAM.filter(p => !p.founder)); // Наталья убрана с главной по просьбе Светы 02.11.2026 put('all', TEAM.filter(p => !p.founder));
   put('kids', TEAM.filter(p => p.dir === 'k')); put('adults', TEAM.filter(p => p.dir === 'a'));
   const f = TEAM.find(p => p.founder), box = $('[data-founder]');
   if (f && box) box.innerHTML = `<article class="founder${f.photo ? '' : ' no-ph'}">${f.photo ? `<div class="founder-ph"><img src="${esc(f.photo)}" alt="${esc(f.name)}"></div>` : ''}
