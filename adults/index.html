@@ -36,6 +36,7 @@
 
 
 
+
 <link rel="icon" type="image/png" href="./img/emblem.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1119,7 +1120,7 @@ main > [data-page] > .section{padding-top:clamp(28px,4vw,48px);padding-bottom:cl
         <div class="dir-text">
           <p class="r4">Для детей 7–14 лет</p>
           <h3 class="dir-title">Свои игры, сайты и&nbsp;комиксы с&nbsp;ИИ</h3>
-          <ul class="dir-list"><li><b>Курсы</b> – 3 месяца: нейросети и&nbsp;творчество, дизайн, Roblox, Python</li><li><b>Мастер-классы</b> – конкурсы и&nbsp;хакатоны по&nbsp;новым темам</li><li><b>Знакомство</b> – бесплатное Нейро-воскресенье для детей и&nbsp;родителей</li></ul>
+          <ul class="dir-list"><li><b>Курсы</b> – 3 месяца: нейросети и&nbsp;творчество, Roblox, Python</li><li><b>Мастер-классы</b> – конкурсы и&nbsp;хакатоны по&nbsp;новым темам</li><li><b>Знакомство</b> – бесплатное Нейро-воскресенье для детей и&nbsp;родителей</li></ul>
           <a class="btn" href="/kids/">Подробнее <svg class="icon"><use href="#i-arrow"/></svg></a>
         </div>
       </article>
@@ -1876,6 +1877,11 @@ const ADULT = [
       { r:'13–16', t:'Система и команда', res:'Всё работает как одна система, есть регламент, посчитан итоговый эффект и план на 90 дней.', l:[['Очно. Одна система вместо отдельных помощников','Связываем всё, что собрали: помощники, сайт, инструмент, связки. Общая база знаний дела и единые правила.'],['Онлайн. Правила работы с ИИ','Для команды – кто за что отвечает и что сотрудникам можно и нельзя. Для соло-предпринимателя – как система работает, когда вас нет на связи.'],['Онлайн. Итоговый эффект и план на случай сбоя','Сводим замеры всех спринтов: сколько часов и рублей освободилось, сколько стоят сервисы в месяц. Составляем план на случай, если сервис сломался или изменил условия.'],['Очно. Защита проекта и план на 90 дней','Каждый показывает свою систему, сайт и инструмент: как было, как стало, что посчитано. Составляем план на 90 дней.']] }] },
 ];
 ADULT.forEach(c => { c.price = '19 200 руб./мес.'; c.len = '16 занятий · 2 месяца'; c.aud = 'a'; c.kicker = 'Курс для взрослых · ' + c.tag.toLowerCase(); c.format = '1 онлайн + 1 очно в неделю'; });
+// Скрытые курсы: не показываются нигде на сайте, даже если админка их отдаёт. Нейродизайнер скрыт по просьбе Светы 02.11.2026.
+const HIDDEN_COURSES = ['designer'];
+const shownCourse = c => !HIDDEN_COURSES.includes(c.id);
+const shownEvent = e => !HIDDEN_COURSES.includes(e.course_id);
+KIDS.splice(0, KIDS.length, ...KIDS.filter(shownCourse));
 KIDS.forEach(c => { c.page = 'kids'; c.photo = './img/club/' + c.img + '.jpg'; });
 ADULT.forEach(c => { c.page = 'adults'; c.photo = './img/' + c.img; });
 const COURSE = {};
@@ -2475,12 +2481,12 @@ async function loadContent(){
     if (!r.ok) return;
     const d = await r.json();
     if (Array.isArray(d.courses) && d.courses.length){
-      const cs = d.courses.map(courseFromApi);
+      const cs = d.courses.map(courseFromApi).filter(shownCourse);
       KIDS.splice(0, KIDS.length, ...cs.filter(c => c.page === 'kids'));
       ADULT.splice(0, ADULT.length, ...cs.filter(c => c.page !== 'kids'));
       indexCourses();
     }
-    if (Array.isArray(d.events)) EVENTS = d.events;
+    if (Array.isArray(d.events)) EVENTS = d.events.filter(shownEvent);
     if (Array.isArray(d.docs) && d.docs.length) DOCS = d.docs;
     renderFeeds(); renderCourses(); renderDocs();
     if (curCourse && !renderCoursePage(curCourse)) route(); else if (curCourse) observeReveal();
