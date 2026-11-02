@@ -33,6 +33,7 @@
 
 
 
+
 <link rel="icon" type="image/png" href="./img/emblem.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -891,6 +892,8 @@ main > [data-page] > .section{padding-top:clamp(28px,4vw,48px);padding-bottom:cl
 .team-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
 .founder{display:grid;grid-template-columns:minmax(0,.75fr) minmax(0,1.25fr);border-radius:var(--r-lg);overflow:hidden;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow)}
 .founder-ph{position:relative;min-height:420px}
+.founder.no-ph{grid-template-columns:1fr}.founder.no-ph .founder-body{max-width:860px}
+.tch-ph .ini{font-size:clamp(40px,5vw,56px);font-weight:600;letter-spacing:.02em}
 .founder-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 25%}
 .founder-body{display:grid;gap:14px;align-content:center;padding:clamp(24px,4vw,52px)}
 .person{display:grid;grid-template-columns:240px minmax(0,1fr);gap:24px;align-items:start}
@@ -2177,7 +2180,7 @@ function renderCoursePage(id){
 /* ===== Команда ===== */
 // Порядок: основатель первым, дальше преподаватели. dir: a – взрослым, k – детям. bio – полный текст (абзацы).
 const TEAM = [
-  { id:'natalya', founder:true, name:'Наталья Федорова', role:'Основатель и руководитель клуба', photo:'./img/team/natalya.webp',
+  { id:'natalya', founder:true, name:'Наталья Федорова', role:'Основатель и руководитель клуба', photo:'', // фото скрыто по просьбе (02.11.2026); вернуть: './img/team/natalya.webp'
     short:'Более 17 лет в собственном бизнесе. Окончила СПбГУ по специальности «Социальная психология» и Международную школу дизайна.',
     bio:['Более 17 лет занимаюсь собственным бизнесом. За это время прошла путь от создания компании до её развития и управления. Компания успешно работает и сегодня.',
       'Окончила Санкт-Петербургский государственный университет по специальности «Социальная психология» и Международную школу дизайна по направлению «Дизайн интерьера».',
@@ -2203,7 +2206,10 @@ const TEAM = [
       'Консультирую экспертов и предпринимателей: помогаю собрать удобную рабочую систему, в которой рутину берёт на себя ИИ.'] },
 ];
 const dirPill = p => p.founder ? '<span class="pill b">Основатель</span>' : p.dir === 'k' ? '<span class="pill k">Детям</span>' : '<span class="pill">Взрослым</span>';
-const personPh = p => `<div class="tch-ph ${p.cutout ? 'has' : 'photo'}"><img src="${esc(p.photo)}" alt="${esc(p.name)}" loading="lazy"></div>`;
+// Без фото – плашка с инициалами
+const initials = p => p.name.split(' ').map(w => w[0]).join('').slice(0, 2);
+const personPh = p => p.photo ? `<div class="tch-ph ${p.cutout ? 'has' : 'photo'}"><img src="${esc(p.photo)}" alt="${esc(p.name)}" loading="lazy"></div>`
+  : `<div class="tch-ph" aria-hidden="true"><span class="ini">${esc(initials(p))}</span></div>`;
 function tchCard(p){
   const more = p.bio.length ? `<button class="linkish tch-more" type="button" data-person="${p.id}">Подробнее ${ic('i-arrow','icon icon-sm')}</button>` : `<p class="tch-note">Описание опыта добавим скоро</p>`;
   return `<article class="tch reveal${p.bio.length ? ' clickable' : ''}"${p.bio.length ? ` data-person="${p.id}"` : ''}>${personPh(p)}<div class="tch-body">${dirPill(p)}<h3 class="r2">${esc(p.name)}</h3><p>${esc(p.role)}</p>${p.short ? `<p class="tch-note">${nb(p.short)}</p>` : ''}${more}</div></article>`;
@@ -2213,7 +2219,7 @@ function renderTeam(){
   put('home', TEAM); put('all', TEAM.filter(p => !p.founder));
   put('kids', TEAM.filter(p => p.dir === 'k')); put('adults', TEAM.filter(p => p.dir === 'a'));
   const f = TEAM.find(p => p.founder), box = $('[data-founder]');
-  if (f && box) box.innerHTML = `<article class="founder"><div class="founder-ph"><img src="${esc(f.photo)}" alt="${esc(f.name)}"></div>
+  if (f && box) box.innerHTML = `<article class="founder${f.photo ? '' : ' no-ph'}">${f.photo ? `<div class="founder-ph"><img src="${esc(f.photo)}" alt="${esc(f.name)}"></div>` : ''}
     <div class="founder-body"><p class="r4">${esc(f.role)}</p><h2 class="r1">${esc(f.name)}</h2>${f.bio.map(t => `<p>${nb(t)}</p>`).join('')}</div></article>`;
 }
 function personModal(id){
