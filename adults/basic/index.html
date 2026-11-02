@@ -37,6 +37,8 @@
 
 
 
+
+
 <link rel="icon" type="image/png" href="./img/emblem.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2225,7 +2227,8 @@ function tchCard(p){
 }
 function renderTeam(){
   const put = (key, list) => { const el = $(`[data-team="${key}"]`); if (!el) return; el.innerHTML = list.map(tchCard).join(''); el.classList.toggle('solo', list.length === 1); };
-  put('home', TEAM.filter(p => !p.founder)); // Наталья убрана с главной по просьбе Светы 02.11.2026 put('all', TEAM.filter(p => !p.founder));
+  // Наталья (founder) убрана с главной и со страницы «Команда» по просьбе Светы 02.11.2026
+  put('home', TEAM.filter(p => !p.founder)); put('all', TEAM.filter(p => !p.founder));
   put('kids', TEAM.filter(p => p.dir === 'k')); put('adults', TEAM.filter(p => p.dir === 'a'));
   const f = TEAM.find(p => p.founder), box = $('[data-founder]');
   if (f && box) box.innerHTML = `<article class="founder${f.photo ? '' : ' no-ph'}">${f.photo ? `<div class="founder-ph"><img src="${esc(f.photo)}" alt="${esc(f.name)}"></div>` : ''}
