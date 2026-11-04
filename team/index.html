@@ -39,6 +39,7 @@
 
 
 
+
 <link rel="icon" type="image/png" href="./img/emblem.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1786,6 +1787,7 @@ function courseStart(c){ const e = EVENTS.find(x => x.course_id === c.id && x.wh
 const MONTHS = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
 const MON = ['янв','фев','мар','апр','мая','июн','июл','авг','сен','окт','ноя','дек'];
 const WD = ['вс','пн','вт','ср','чт','пт','сб'];
+const WD_ACC = ['воскресенье','понедельник','вторник','среду','четверг','пятницу','субботу'];
 const today = () => { const n = new Date(); return new Date(n.getFullYear(), n.getMonth(), n.getDate()); };
 // Ближайшая последняя суббота (6) или последнее воскресенье (0) месяца
 function nextLastWeekday(w){ const t = today();
@@ -2358,7 +2360,7 @@ function leadInfo(kind){
     if (e.course_id && COURSE[e.course_id]) return leadInfo('course:' + e.course_id);
     const sum = [['Когда', e.d ? dm(e.d) + (e.time && /\d:\d/.test(e.time) ? ', ' + e.time : '') : 'Сообщим, когда назначим']];
     if (e.price) sum.push(['Стоимость', e.free ? 'Бесплатно' : e.price]);
-    return { kicker: e.free ? 'Запись на бесплатную встречу' : (e.d ? 'Запись' : NABOR), title:e.title, sum, interest:e.title + (e.d ? ', ' + dm(e.d) : ''), iid:'ev:' + e.id, kids: e.audience === 'k',
+    return { kicker: e.free ? 'Запись на бесплатную встречу' : (e.d ? 'Запись' : NABOR), title:e.title, sum, interest:e.title + (e.d ? ', ' + dm(e.d) : ''), iid:'ev:' + e.id, kids: e.audience === 'k', ev:e,
       submit: e.free ? 'Записаться' : isNabor(e) ? TAKE : 'Записаться', msg:`Здравствуйте! Хочу записаться: ${e.title}${e.d ? ', ' + dm(e.d) : ''}.` };
   }
   if (type === 'course'){ const c = COURSE[arg]; if (!c) return leadInfo('general');
@@ -2454,7 +2456,7 @@ async function submitLead(form){
   const kind = f.iid ? f.iid.value : form.dataset.leadForm, s = leadInfo(kind);
   const comment = [f.company && f.company.value.trim() ? 'Компания: ' + f.company.value.trim() : '', f.comment.value.trim()].filter(Boolean).join('\n');
   const data = { name, phone, child_age: needAge ? age : '', contact_via: (form.querySelector('[name=contact_via]:checked') || {}).value || 'call',
-    interest: s.interest || (f.iid ? f.iid.selectedOptions[0].textContent : ''), interest_id: s.iid || kind, comment, consent: true, website: f.website.value, page: location.pathname + location.hash };
+    interest: s.interest || (f.iid ? f.iid.selectedOptions[0].textContent : ''), interest_id: s.iid || kind, comment, consent: true, website: f.website.value, page: location.pathname + location.search + location.hash };
   const btn = $('button[type=submit]', form), msg = $('[data-form-msg]', form); btn.disabled = true; msg.hidden = true;
   try {
     const ctrl = new AbortController(); const tm = setTimeout(() => ctrl.abort(), 12000);
@@ -2462,8 +2464,13 @@ async function submitLead(form){
     clearTimeout(tm);
     const d = await r.json().catch(() => ({}));
     if (!r.ok) throw new Error(d.error || '');
-    const done = `<div class="success"><span class="ic">${ic('i-check')}</span><h2 class="r1"${form.closest('#modal') ? ' id="modal-title"' : ''}>Заявка принята</h2>
-      <p>Спасибо, ${esc(name)}! Мы свяжемся с&nbsp;вами в&nbsp;ближайшее время${data.contact_via === 'telegram' ? ' в&nbsp;Telegram' : data.contact_via === 'max' ? ' в&nbsp;MAX' : ' по&nbsp;телефону'}.</p>
+    const ev = s.ev, waitUs = ev && ev.free && ev.d;
+    const text = waitUs
+      ? `<p>Спасибо, ${esc(name)}! Вы записаны: ${esc(ev.title)}. Ждём вас в&nbsp;${WD_ACC[ev.d.getDay()]}, ${dm(ev.d)}${ev.time && /\d:\d/.test(ev.time) ? ', ' + esc(ev.time) : ''}${ev.place ? ', ' + esc(ev.place) : ''}.</p>
+         <p>По&nbsp;вопросам напишите нам:</p>${contactHtml(s.msg)}`
+      : `<p>Спасибо, ${esc(name)}! Мы свяжемся с&nbsp;вами в&nbsp;ближайшее время${data.contact_via === 'telegram' ? ' в&nbsp;Telegram' : data.contact_via === 'max' ? ' в&nbsp;MAX' : ' по&nbsp;телефону'}.</p>`;
+    const done = `<div class="success"><span class="ic">${ic('i-check')}</span><h2 class="r1"${form.closest('#modal') ? ' id="modal-title"' : ''}>${waitUs ? 'Вы записаны' : 'Заявка принята'}</h2>
+      ${text}
       ${form.closest('#modal') ? '<button class="btn" type="button" data-close>Хорошо</button>' : ''}</div>`;
     if (form.closest('#modal')) mbody.innerHTML = done; else form.outerHTML = done;
   } catch (e) {
@@ -2602,7 +2609,13 @@ renderTeam(); renderFeeds(); renderCourses(); renderFaq(); renderDocs(); initWgT
 $('[data-inline-form]').innerHTML = formHtml('pick', { inline:true });
 { const lc = $('[data-lead-contact]'); if (lc) lc.insertAdjacentHTML('beforeend', contactHtml('Здравствуйте! Хочу записаться в клуб ProНейро. Помогите подобрать программу.')); }
 route();
-loadContent();
+// Прямая ссылка на запись: /afisha/?zapis=<id события> (можно добавить &ot=vk – откуда пришли, попадёт в заявку).
+// Прошедшее или скрытое событие – открывается общая форма.
+function openFromLink(){
+  const id = new URLSearchParams(location.search).get('zapis');
+  if (id) leadModal(EV_INDEX[id] ? 'ev:' + id : 'general');
+}
+loadContent().finally(openFromLink);
 </script>
 </body>
 </html>
