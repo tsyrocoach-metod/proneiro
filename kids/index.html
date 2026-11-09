@@ -40,6 +40,10 @@
 
 
 
+
+
+
+
 <link rel="icon" type="image/png" href="./img/emblem.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -816,6 +820,11 @@ main > [data-page] > .section{padding-top:clamp(28px,4vw,48px);padding-bottom:cl
 @media (max-width:600px){.af-filters{gap:12px}.af-group{width:100%}.af-group .r4{width:100%}}
 .af-h{margin:0 0 16px;font-weight:600;font-size:clamp(22px,2.2vw,28px);letter-spacing:-.02em;color:var(--ink)}
 @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.ev-slots{display:flex;gap:6px;align-items:flex-start;margin:6px 0 0;font-weight:600;color:var(--cobalt)}.ev-slots .icon{flex:none;margin-top:3px}
+.ev-slot.full{color:var(--muted);text-decoration:line-through}.ev-pick{margin:2px 0 0;font-size:14px;color:var(--muted)}
+.slots-pick{display:grid;gap:8px}.slot-opt{display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border:1.5px solid var(--line);border-radius:var(--r-sm);cursor:pointer}
+.slot-opt:has(input:checked){border-color:var(--cobalt);background:var(--tint)}.slot-opt input{margin-top:4px}.slot-opt span{display:grid;gap:2px}.slot-opt small{color:var(--muted)}
+.slot-opt.full{opacity:.55;cursor:not-allowed}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
 .shot .reveal{opacity:1;transform:none;transition:none}
 .reveal.in{opacity:1;transform:none}
@@ -1788,6 +1797,7 @@ const MONTHS = ['января','февраля','марта','апреля','м�
 const MON = ['янв','фев','мар','апр','мая','июн','июл','авг','сен','окт','ноя','дек'];
 const WD = ['вс','пн','вт','ср','чт','пт','сб'];
 const WD_ACC = ['воскресенье','понедельник','вторник','среду','четверг','пятницу','субботу'];
+const WD_NOM = ['Воскресенье','Понедельник','Вторник','Среда','Четверг','Пятница','Суббота'];
 const today = () => { const n = new Date(); return new Date(n.getFullYear(), n.getMonth(), n.getDate()); };
 // Ближайшая последняя суббота (6) или последнее воскресенье (0) месяца
 function nextLastWeekday(w){ const t = today();
@@ -1947,13 +1957,23 @@ function evIcon(e){
   if (e.kind === 'prereg') return e.audience === 'k' ? 'i-rocket' : 'i-cap';
   return e.audience === 'b' ? 'i-brief' : e.audience === 'k' ? 'i-trophy' : 'i-cal';
 }
+// Несколько дат с записью (slots из админки): в карточке – ближайшая дата и список остальных, в форме – выбор даты.
+const slotD = x => new Date(x.date + 'T00:00:00');
+const slotText = x => `${dm(slotD(x))}, ${WD[slotD(x).getDay()]}${x.time ? ', ' + x.time.split(/\s*[–-]\s*/)[0] : ''}`;
+function withSlots(e){
+  if (!Array.isArray(e.slots) || !e.slots.length) return e;
+  const t = today(), fs = e.slots.filter(x => slotD(x) >= t);
+  if (!fs.length) return null;
+  return { ...e, slots: fs, d: slotD(fs[0]), time: fs[0].time || e.time, multi: fs.length > 1, full: fs.every(x => x.left === 0) };
+}
 function allEvents(){
   const t = today();
-  const list = EVENTS.map((e, i) => ({ ...e, i, d: evDate(e), icon: evIcon(e), label: isNabor(e) ? NABOR : 'Скоро',
+  const list = EVENTS.map((e, i) => withSlots({ ...e, i, d: evDate(e), icon: evIcon(e), label: isNabor(e) ? NABOR : 'Скоро',
     open: () => (e.course_id && COURSE[e.course_id]) ? go(courseUrl(COURSE[e.course_id])) : eventModal(e.id) }))
-    .filter(e => !(e.d && e.d < t));
+    .filter(e => e && !(e.d && e.d < t));
   return list.sort((a, b) => (a.d && b.d) ? a.d - b.d : a.d ? -1 : b.d ? 1 : a.i - b.i);
 }
+const slotsLine = e => e.multi ? `<p class="ev-slots">${ic('i-cal')}<span>${e.slots.map(x => `<span class="ev-slot${x.left === 0 ? ' full' : ''}">${esc(slotText(x))}${x.left === 0 ? ' – мест нет' : ''}</span>`).join(' · ')}</span></p><p class="ev-pick">Выберите удобную дату</p>` : '';
 function evCard(e){
   const date = e.d
     ? `<div class="ev-date" aria-hidden="true"><b>${e.d.getDate()}</b><span>${MON[e.d.getMonth()]} · ${WD[e.d.getDay()]}</span></div>`
@@ -1966,7 +1986,7 @@ function evCard(e){
     <div class="ev-mid">
       <div class="pills">${pills}</div>
       <h3><button type="button" class="ev-name r2" data-ev="${esc(e.id)}">${when}${nb(e.title)}</button></h3>
-      <div class="ev-meta">${e.time ? `<span>${ic('i-clock')}${esc(e.time)}</span>` : ''}${e.place ? `<span>${ic('i-pin')}${esc(e.place)}</span>` : ''}</div>
+      ${slotsLine(e)}<div class="ev-meta">${e.time && !e.multi ? `<span>${ic('i-clock')}${esc(e.time)}</span>` : ''}${e.place ? `<span>${ic('i-pin')}${esc(e.place)}</span>` : ''}</div>
     </div>
     <div class="ev-right"><b>${esc(e.price || '')}</b><button type="button" class="btn btn-sm${e.free ? '' : ' btn-ghost'}" data-lead="ev:${esc(e.id)}">${esc(ctaOf(e))}${e.free ? ' ' + ic('i-arrow') : ''}</button></div>
   </article>`;
@@ -2000,7 +2020,7 @@ function photoCard(e, main){
   const meta = [aud ? `<span>${ic('i-users')}${esc(aud)}</span>` : '', e.time && !(e.d && /\d:\d/.test(e.time)) ? `<span>${ic('i-clock')}${esc(e.time)}</span>` : '', e.place ? `<span>${ic('i-pin')}${esc(e.place)}</span>` : ''].join('');
   return `<article class="pc reveal${main ? ' main' : ''}">
     <div class="pc-ph">${evMedia(e)}${main ? '<span class="pill">Ближайшее</span>' : (e.free ? '<span class="pill">Бесплатно</span>' : isNabor(e) ? `<span class="pill">${NABOR}</span>` : '')}</div>
-    <div class="pc-body"><p class="pc-when">${esc(when)}</p>
+    <div class="pc-body">${e.multi ? `<p class="pc-when">${e.slots.length} ${plural(e.slots.length, 'дата', 'даты', 'дат')} – выберите удобную</p>${slotsLine(e).replace(/<p class="ev-pick">.*?<\/p>/, '')}` : `<p class="pc-when">${esc(when)}</p>`}
       <h3><button type="button" class="pc-name r2" data-ev="${esc(e.id)}">${nb(e.title)}</button></h3>
       ${main && e.description ? `<p class="pc-desc">${nb(e.description)}</p>` : ''}
       <div class="ev-meta">${meta}</div>${isNabor(e) ? seatsHtml() : ''}
@@ -2029,7 +2049,7 @@ function miniCard(e){
   const aud = e.audience === 'k' ? 'детям 7–14' : (e.audience === 'b' ? 'командам' : 'взрослым');
   return `<article class="mc reveal">
     <div class="mc-ph">${evMedia(e)}</div>
-    <div class="mc-body"><p class="pc-when">${esc(when)} · ${aud}</p>
+    <div class="mc-body"><p class="pc-when">${e.multi ? esc(e.slots.map(x => slotText(x) + (x.left === 0 ? ' (мест нет)' : '')).join(' · ')) + ' – выберите удобную дату' : esc(when)} · ${aud}</p>
       <h3><button type="button" class="pc-name r2" data-ev="${esc(e.id)}">${nb(e.title)}</button></h3>
       ${isNabor(e) ? seatsHtml(true) : ''}<div class="mc-foot">${priceHtml(e)}<button type="button" class="btn btn-sm${e.free ? '' : ' btn-ghost'}" data-lead="ev:${esc(e.id)}">${esc(ctaOf(e))}</button></div>
     </div></article>`;
@@ -2305,7 +2325,9 @@ function eventModal(id){
   if (!e) return leadModal('general');
   const aud = e.audience === 'k' ? 'для детей' : e.audience === 'b' ? 'для бизнеса' : 'для взрослых';
   const rows = [];
-  rows.push(['Когда', e.d ? dm(e.d) + (e.time && /\d:\d/.test(e.time) ? ', ' + e.time : '') : (e.label === NABOR ? 'Сообщим, когда назначим' : (e.time || 'Скоро'))]);
+  if (e.multi) rows.push(['Даты', e.slots.map(x => slotText(x) + (x.left === 0 ? ' – мест нет' : '')).join('; ') + '. Выберите удобную при записи']);
+  else rows.push(['Когда', e.d ? dm(e.d) + (e.time && /\d:\d/.test(e.time) ? ', ' + e.time : '') : (e.label === NABOR ? 'Сообщим, когда назначим' : (e.time || 'Скоро'))]);
+  if (e.slots && !e.multi && e.slots[0].left !== undefined) rows.push(['Места', e.slots[0].left ? 'Осталось ' + e.slots[0].left : 'Мест нет']);
   if (e.repeat) rows.push(['Повторяется', WD_LAST[+String(e.repeat).split('-')[1]] + ' месяца']);
   else if (e.time && !(e.d && /\d:\d/.test(e.time))) rows.push(['Формат', e.time]);
   if (e.place) rows.push(['Где', 'Студия клуба, ' + e.place]);
@@ -2358,7 +2380,7 @@ function leadInfo(kind){
     const e = EV_INDEX[arg];
     if (!e) return leadInfo('general');
     if (e.course_id && COURSE[e.course_id]) return leadInfo('course:' + e.course_id);
-    const sum = [['Когда', e.d ? dm(e.d) + (e.time && /\d:\d/.test(e.time) ? ', ' + e.time : '') : 'Сообщим, когда назначим']];
+    const sum = e.slots ? [] : [['Когда', e.d ? dm(e.d) + (e.time && /\d:\d/.test(e.time) ? ', ' + e.time : '') : 'Сообщим, когда назначим']];
     if (e.price) sum.push(['Стоимость', e.free ? 'Бесплатно' : e.price]);
     return { kicker: e.free ? 'Запись на бесплатную встречу' : (e.d ? 'Запись' : NABOR), title:e.title, sum, interest:e.title + (e.d ? ', ' + dm(e.d) : ''), iid:'ev:' + e.id, kids: e.audience === 'k', ev:e,
       submit: e.free ? 'Записаться' : isNabor(e) ? TAKE : 'Записаться', msg:`Здравствуйте! Хочу записаться: ${e.title}${e.d ? ', ' + dm(e.d) : ''}.` };
@@ -2394,8 +2416,14 @@ function formHtml(kind, opts = {}){
   const s = leadInfo(kind), id = 'lf' + (++formSeq);
   const field = (name, label, attrs = '', hint = '') => `<div class="field"${name === 'child_age' ? ' data-age' + (s.kids ? '' : ' hidden') : ''}><label for="${id}-${name}">${label}${hint ? `<span class="hint">${hint}</span>` : ''}</label><input id="${id}-${name}" name="${name}" ${attrs} aria-describedby="${id}-${name}-err"><p class="err" id="${id}-${name}-err" hidden></p></div>`;
   const choose = s.choose ? `<div class="field"><label for="${id}-int">Что вас интересует</label><select id="${id}-int" name="iid">${interestOptions().map(([v, l, k]) => `<option value="${esc(v)}" data-kids="${k ? 1 : 0}">${esc(l)}</option>`).join('')}</select></div>` : '';
+  const ev = s.ev && s.ev.slots ? s.ev : null, pre = new URLSearchParams(location.search).get('data');
+  if (ev && ev.full) return `<div class="form"><p class="form-msg">На ${ev.slots.length > 1 ? 'все ближайшие даты' : 'эту дату'} мест уже нет. Напишите нам – сообщим о&nbsp;следующей встрече:</p>${contactHtml(s.msg)}</div>`;
+  const firstFree = ev && (ev.slots.find(x => x.left !== 0 && x.date === pre) || ev.slots.find(x => x.left !== 0));
+  const slotsBox = ev ? `<fieldset class="field slots-pick"><legend>${ev.slots.length > 1 ? 'Выберите удобную дату' : 'Дата'}</legend>
+      ${ev.slots.map(x => `<label class="slot-opt${x.left === 0 ? ' full' : ''}"><input type="radio" name="slot" value="${esc(x.date)}"${x.left === 0 ? ' disabled' : ''}${x === firstFree ? ' checked' : ''}><span><b>${WD_NOM[slotD(x).getDay()]}, ${dm(slotD(x))}${x.time ? ', ' + esc(x.time) : ''}</b><small>${x.left === 0 ? 'Мест нет – выберите другую дату' : x.left !== undefined ? 'Осталось ' + x.left + ' ' + plural(x.left, 'место', 'места', 'мест') : ''}</small></span></label>`).join('')}
+      <p class="err" data-slot-err hidden>Выберите дату</p></fieldset>` : '';
   return `<form class="form" novalidate data-lead-form="${esc(kind)}">
-    ${choose}
+    ${choose}${slotsBox}
     ${field('name', s.kids ? 'Имя родителя' : 'Ваше имя', 'type="text" autocomplete="name" required maxlength="100"')}
     ${field('phone', 'Телефон', 'type="tel" inputmode="tel" autocomplete="tel" required placeholder="+7 (900) 000-00-00" maxlength="18" data-phone')}
     ${field('child_age', 'Возраст ребёнка', 'type="text" inputmode="numeric" maxlength="2" placeholder="Например, 9"')}
@@ -2454,19 +2482,22 @@ async function submitLead(form){
   const cerr = $('[data-consent-err]', form); cerr.hidden = f.consent.checked; if (!f.consent.checked) first = first || f.consent;
   if (first){ first.focus(); return; }
   const kind = f.iid ? f.iid.value : form.dataset.leadForm, s = leadInfo(kind);
+  const slotIn = form.querySelector('[name=slot]:checked'), slot = s.ev && s.ev.slots ? s.ev.slots.find(x => slotIn && x.date === slotIn.value) : null;
+  if (s.ev && s.ev.slots){ const se = $('[data-slot-err]', form); se.hidden = !!slot; if (!slot){ (form.querySelector('[name=slot]:not(:disabled)') || f.name).focus(); return; } }
   const comment = [f.company && f.company.value.trim() ? 'Компания: ' + f.company.value.trim() : '', f.comment.value.trim()].filter(Boolean).join('\n');
   const data = { name, phone, child_age: needAge ? age : '', contact_via: (form.querySelector('[name=contact_via]:checked') || {}).value || 'call',
-    interest: s.interest || (f.iid ? f.iid.selectedOptions[0].textContent : ''), interest_id: s.iid || kind, comment, consent: true, website: f.website.value, page: location.pathname + location.search + location.hash };
+    interest: slot ? s.ev.title + ', ' + dm(slotD(slot)) + (slot.time ? ', ' + slot.time : '') : s.interest || (f.iid ? f.iid.selectedOptions[0].textContent : ''), interest_id: slot ? s.iid + '@' + slot.date : s.iid || kind, comment, consent: true, website: f.website.value, page: location.pathname + location.search + location.hash };
   const btn = $('button[type=submit]', form), msg = $('[data-form-msg]', form); btn.disabled = true; msg.hidden = true;
   try {
     const ctrl = new AbortController(); const tm = setTimeout(() => ctrl.abort(), 12000);
     const r = await apiFetch('/api/public/lead', { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify(data) });
     clearTimeout(tm);
     const d = await r.json().catch(() => ({}));
+    if (r.status === 409){ loadContent(); }
     if (!r.ok) throw new Error(d.error || '');
-    const ev = s.ev, waitUs = ev && ev.free && ev.d;
+    const ev = slot ? { ...s.ev, d: slotD(slot), time: slot.time || s.ev.time } : s.ev, waitUs = ev && ev.free && ev.d;
     const text = waitUs
-      ? `<p>Спасибо, ${esc(name)}! Вы записаны: ${esc(ev.title)}. Ждём вас в&nbsp;${WD_ACC[ev.d.getDay()]}, ${dm(ev.d)}${ev.time && /\d:\d/.test(ev.time) ? ', ' + esc(ev.time) : ''}${ev.place ? ', ' + esc(ev.place) : ''}.</p>
+      ? `<p>Спасибо, ${esc(name)}! Вы записаны: ${esc(ev.title)}. Ждём вас ${ev.d.getDay() === 2 ? 'во' : 'в'}&nbsp;${WD_ACC[ev.d.getDay()]}, ${dm(ev.d)}${ev.time && /\d:\d/.test(ev.time) ? ', ' + esc(ev.time) : ''}${ev.place ? ', ' + esc(ev.place) : ''}.</p>
          <p>По&nbsp;вопросам напишите нам:</p>${contactHtml(s.msg)}`
       : `<p>Спасибо, ${esc(name)}! Мы свяжемся с&nbsp;вами в&nbsp;ближайшее время${data.contact_via === 'telegram' ? ' в&nbsp;Telegram' : data.contact_via === 'max' ? ' в&nbsp;MAX' : ' по&nbsp;телефону'}.</p>`;
     const done = `<div class="success"><span class="ic">${ic('i-check')}</span><h2 class="r1"${form.closest('#modal') ? ' id="modal-title"' : ''}>${waitUs ? 'Вы записаны' : 'Заявка принята'}</h2>
