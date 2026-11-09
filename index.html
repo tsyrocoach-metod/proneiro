@@ -43,6 +43,7 @@
 
 
 
+
 <link rel="icon" type="image/png" href="./img/emblem.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1426,9 +1427,9 @@ main > [data-page] > .section{padding-top:clamp(28px,4vw,48px);padding-bottom:cl
     <div class="panel sat">
       <div class="head-text"><p class="r4">Знакомство · бесплатно</p><h2 class="r1" id="sat-title">Нейро-суббота</h2>
         <p>Бесплатный мастер-класс для тех, кто хочет чувствовать себя уверенно в&nbsp;новом мире, познакомиться с&nbsp;возможностями нейросетей и&nbsp;работой клуба. К&nbsp;концу встречи – готовый инструмент и&nbsp;понимание следующего шага.</p>
-        <div class="ev-meta"><span><svg class="icon"><use href="#i-cal"/></svg>Последняя суббота месяца</span><span><svg class="icon"><use href="#i-clock"/></svg>15:00–16:30</span><span><svg class="icon"><use href="#i-pin"/></svg>Новоторжская, 18</span></div>
+        <div class="ev-meta" data-sat-meta><span><svg class="icon"><use href="#i-cal"/></svg>Ближайшие даты – в&nbsp;афише</span><span><svg class="icon"><use href="#i-clock"/></svg>1,5 часа</span><span><svg class="icon"><use href="#i-pin"/></svg>Новоторжская, 18</span></div>
       </div>
-      <button class="btn" type="button" data-lead="saturday">Записаться бесплатно <svg class="icon"><use href="#i-arrow"/></svg></button>
+      <button class="btn" type="button" data-lead="saturday" data-sat-btn>Записаться бесплатно <svg class="icon"><use href="#i-arrow"/></svg></button>
     </div>
   </section>
 
@@ -1893,7 +1894,9 @@ ADULT.forEach(c => { c.price = '19 200 руб./мес.'; c.len = '16 занят�
 // Скрытые курсы: не показываются нигде на сайте, даже если админка их отдаёт. Нейродизайнер скрыт по просьбе Светы 02.11.2026.
 const HIDDEN_COURSES = ['designer'];
 const shownCourse = c => !HIDDEN_COURSES.includes(c.id);
-const shownEvent = e => !HIDDEN_COURSES.includes(e.course_id);
+// Скрытые события: старая повторяющаяся Нейро-суббота (последняя суббота месяца) убрана по просьбе Светы 09.11.2026 – теперь даты у события neyro-subbota.
+const HIDDEN_EVENTS = ['saturday'];
+const shownEvent = e => !HIDDEN_COURSES.includes(e.course_id) && !HIDDEN_EVENTS.includes(e.id);
 KIDS.splice(0, KIDS.length, ...KIDS.filter(shownCourse));
 KIDS.forEach(c => { c.page = 'kids'; c.photo = './img/club/' + c.img + '.jpg'; });
 ADULT.forEach(c => { c.page = 'adults'; c.photo = './img/' + c.img; });
@@ -1917,6 +1920,7 @@ let EVENTS = [
   ...INTENSIVES.map((it, i) => ({ id:'int-' + (i + 1), title:it.t, audience:'a', kind:'intensive', time:'Интенсив · 2 часа', price:'2 800 руб.', description:INT_DESC, cta:TAKE })),
   { id:'kids-mk', title:'Мастер-классы, конкурсы и хакатоны для детей', audience:'k', kind:'event', time:'Даты – в анонсах клуба', price:'2 000 руб.', description:'Новые темы, творческие задания и командные соревнования. Дети пробуют современные инструменты, решают интересные задачи и создают собственные проекты.', cta:'Узнать' },
 ];
+EVENTS = EVENTS.filter(shownEvent);
 let DOCS = [{ id:'oferta', title:'Договор-оферта' }, { id:'policy', title:'Политика обработки персональных данных' }];
 const WD_LAST = ['каждое последнее воскресенье','каждый последний понедельник','каждый последний вторник','каждую последнюю среду','каждый последний четверг','каждую последнюю пятницу','каждую последнюю субботу'];
 const KIND_RU = { event:'Событие', prereg:'Набор на курс', intensive:'Интенсив · 2 часа' };
@@ -2081,8 +2085,17 @@ function renderAfisha(all){
   observeReveal();
 }
 let EV_INDEX = {};
+// Блок «Нейро-суббота» на странице «Взрослым»: даты и запись – из ближайшего события с таким названием в афише
+function renderSaturday(all){
+  const meta = $('[data-sat-meta]'), btn = $('[data-sat-btn]'), e = all.find(x => /нейро-суббот/i.test(x.title) && x.d);
+  if (!meta || !btn || !e) return;
+  const when = e.multi ? e.slots.map(x => slotText(x) + (x.left === 0 ? ' (мест нет)' : '')).join(' · ') : `${dm(e.d)}, ${WD[e.d.getDay()]}${e.time ? ', ' + e.time : ''}`;
+  meta.innerHTML = `<span>${ic('i-cal')}${esc(when)}</span>${e.place ? `<span>${ic('i-pin')}${esc(e.place)}</span>` : ''}`;
+  btn.dataset.lead = 'ev:' + e.id;
+  btn.innerHTML = (e.multi ? 'Выбрать дату и записаться' : 'Записаться бесплатно') + ' ' + ic('i-arrow');
+}
 function renderFeeds(){
-  const all = allEvents(); EV_INDEX = Object.fromEntries(all.map(e => [e.id, e]));
+  const all = allEvents(); EV_INDEX = Object.fromEntries(all.map(e => [e.id, e])); renderSaturday(all);
   const home = all.filter(e => e.show_home);
   const allTile = `<a class="mc mc-all reveal" href="/afisha/"><span class="mc-all-ic">${ic('i-cal')}</span><span class="mc-all-text"><span class="r2">Вся афиша</span><span>${all.length} ${plural(all.length, 'событие', 'события', 'событий')}: встречи, интенсивы, курсы</span></span><span class="round">${ic('i-arrow')}</span></a>`;
   $('[data-feed="home"]').innerHTML = home.length ? photoCard(home[0], true) + `<div class="ev-side">${home.slice(1, 3).map(miniCard).join('')}${allTile}</div>` : '';
@@ -2389,7 +2402,7 @@ function leadInfo(kind){
       interest:'Курс «' + c.title + '»', iid:'course:' + c.id, kids:c.kids, submit:TAKE, msg:`Здравствуйте! Хочу записа${c.kids ? 'ть ребёнка' : 'ться'} на курс «${c.title}».` }; }
   if (type === 'corp') return { kicker:'Для компаний', title:'Обсудить обучение команды', sum:[['Первый шаг', 'Встреча-знакомство'], ['Стоимость и формат', 'После обсуждения']], interest:'Обучение для команды', iid:'corp', kids:false, company:true, submit:'Отправить запрос', msg:'Здравствуйте! Хотим обсудить обучение нейросетям для нашей команды.' };
   if (type === 'kidspick') return { kicker:'Детям 7–14 лет', title:'Подобрать курс для ребёнка', interest:'Подобрать курс для ребёнка', iid:'kidspick', kids:true, submit:'Подобрать курс', msg:'Здравствуйте! Помогите подобрать курс для ребёнка.' };
-  if (type === 'saturday') return { kicker:'Запись на бесплатную встречу', title:'Нейро-суббота', sum:[['Когда', 'Последняя суббота месяца, 15:00–16:30'], ['Стоимость', 'Бесплатно']], interest:'Нейро-суббота', iid:'saturday', kids:false, submit:'Записаться бесплатно', msg:'Здравствуйте! Хочу записаться на Нейро-субботу.' };
+  if (type === 'saturday') return { kicker:'Запись на бесплатную встречу', title:'Нейро-суббота', sum:[['Когда', 'Сообщим ближайшую дату'], ['Стоимость', 'Бесплатно']], interest:'Нейро-суббота', iid:'saturday', kids:false, submit:'Записаться бесплатно', msg:'Здравствуйте! Хочу записаться на Нейро-субботу.' };
   if (type === 'adultpick') return { kicker:'Для взрослых', title:'Подобрать программу', interest:'Подобрать программу для взрослого', iid:'adultpick', kids:false, submit:'Подобрать программу', msg:'Здравствуйте! Помогите подобрать программу по нейросетям.' };
   return { kicker:'Запись в клуб', title:'Записаться или подобрать программу', choose:true, submit:'Отправить заявку', msg:'Здравствуйте! Хочу записаться в клуб ProНейро. Помогите подобрать программу.' };
 }
